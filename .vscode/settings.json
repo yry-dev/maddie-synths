@@ -1,0 +1,22 @@
+{
+  // Associate .ino files with C++ for syntax highlighting and IntelliSense
+  "files.associations": {
+    "*.ino": "cpp"
+  },
+  // Exclude build output directories from the file explorer
+  "files.exclude": {
+    "**/build": true
+  },
+  // C/C++ extension configuration
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/**"
+  ],
+  "C_Cpp.default.defines": [
+    "ARDUINO=10819"
+  ],
+  // Arduino extension configuration
+  "arduino.path": "",
+  "arduino.commandPath": "arduino-cli",
+  "arduino.logLevel": "info",
+  "arduino.enableUSBDetection": true
+}

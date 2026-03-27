@@ -1,0 +1,68 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "arduino-cli: compile",
+      "type": "shell",
+      "command": "arduino-cli",
+      "args": [
+        "compile",
+        "--config-file",
+        "${workspaceFolder}/arduino-cli.yaml",
+        "--fqbn",
+        "${input:fqbn}",
+        "${input:sketchPath}"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "arduino-cli: upload",
+      "type": "shell",
+      "command": "arduino-cli",
+      "args": [
+        "upload",
+        "--config-file",
+        "${workspaceFolder}/arduino-cli.yaml",
+        "--fqbn",
+        "${input:fqbn}",
+        "--port",
+        "${input:port}",
+        "${input:sketchPath}"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "fqbn",
+      "type": "promptString",
+      "description": "Fully Qualified Board Name (e.g. arduino:avr:uno)",
+      "default": "arduino:avr:uno"
+    },
+    {
+      "id": "sketchPath",
+      "type": "promptString",
+      "description": "Path to the sketch folder (e.g. template-module/src/template-module)",
+      "default": "template-module/src/template-module"
+    },
+    {
+      "id": "port",
+      "type": "promptString",
+      "description": "Serial port the board is connected to (e.g. /dev/ttyUSB0)",
+      "default": "/dev/ttyUSB0"
+    }
+  ]
+}

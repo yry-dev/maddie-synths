@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    // C/C++ IntelliSense, debugging, and code browsing
+    "ms-vscode.cpptools",
+    // Arduino support (compile, upload, serial monitor)
+    "vsciot-vscode.vscode-arduino",
+    // KiCad schematic/PCB file syntax highlighting
+    "kenjiuno.kicad-kicad"
+  ]
+}

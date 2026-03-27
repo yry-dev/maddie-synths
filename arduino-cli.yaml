@@ -1,0 +1,37 @@
+# arduino-cli configuration for the eurorack firmware builds
+# See: https://arduino.github.io/arduino-cli/configuration/
+
+board_manager:
+  additional_urls: []
+
+build_cache:
+  path: ""                     # leave empty to use the default temp directory
+
+daemon:
+  port: "50051"
+
+directories:
+  data: .arduino-cli/data
+  downloads: .arduino-cli/staging
+  user: .arduino-cli/user
+
+library:
+  enable_unsafe_install: false
+
+logging:
+  file: ""
+  format: text
+  level: info
+
+metrics:
+  addr: :9090
+  enabled: false
+
+output:
+  no_color: false
+
+sketch:
+  always_export_binaries: false
+
+updater:
+  enable_notification: true

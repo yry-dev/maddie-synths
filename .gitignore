@@ -39,3 +39,26 @@
 
 # debug information files
 *.dwo
+
+# Arduino CLI build output
+**/build/
+.arduino-cli/
+
+# Arduino IDE cache / temp
+*.elf
+*.hex
+*.bin
+*.map
+
+# KiCad autosave and backup files
+*-backups/
+*.kicad_prl
+*_autosave-*
+*.000
+fp-info-cache
+
+# macOS
+.DS_Store
+
+# VS Code local settings (keep .vscode/ tracked, but not personal overrides)
+.vscode/*.log
