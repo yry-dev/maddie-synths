@@ -4,8 +4,13 @@
             "name": "Arduino Nano (AVR)",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/firmwares/shared/**",
+                "/Users/madelyn/Documents/Arduino/libraries/**",
                 "/Users/madelyn/Library/Arduino15/packages/arduino/hardware/avr/1.8.7/cores/arduino",
-                "/Users/madelyn/Library/Arduino15/packages/arduino/hardware/avr/1.8.7/variants/eightanaloginputs"
+                "/Users/madelyn/Library/Arduino15/packages/arduino/hardware/avr/1.8.7/variants/eightanaloginputs",
+                "/Users/madelyn/Library/Arduino15/packages/arduino/hardware/avr/1.8.7/libraries/**",
+                "/Users/madelyn/Library/Arduino15/packages/rp2040/hardware/rp2040/**/cores/**",
+                "/Users/madelyn/Library/Arduino15/packages/rp2040/hardware/rp2040/**/libraries/**"
             ],
             "defines": [
                 "ARDUINO=10819",

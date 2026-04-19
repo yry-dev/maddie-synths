@@ -103,6 +103,27 @@ void loop() {
 }
 ```
 
+### TestbildCommon helpers
+
+`firmwares/shared/TestbildCommon` provides shared constants/utilities used by the Testbild sequencer sketches:
+
+- Board constants:
+  - OLED address and dimensions
+  - encoder/button/clock pins
+  - 6 output channel pins
+  - encoder detent count constants
+- Input utility:
+  - `testbild::DebouncedActiveLowButton` for active-low pushbutton debouncing
+
+Example:
+
+```cpp
+#include <TestbildCommon.h>
+
+Encoder enc(testbild::kEncoderPinA, testbild::kEncoderPinB);
+testbild::DebouncedActiveLowButton button(300, HIGH);
+```
+
 ## Adding many firmwares
 
 Use one folder per firmware under `firmwares/`.
