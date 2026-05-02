@@ -30,7 +30,10 @@ It currently includes RP2040 board index support and works for both:
 - Build:
   - scripts/build-fw.fish firmwares/mod1 arduino:avr:nano
 - Upload:
-  - scripts/upload-fw.fish firmwares/mod1 arduino:avr:nano /dev/cu.usbserial-XXXX
+  - scripts/upload-fw.fish mod1-triple-wave-lfo arduino:avr:nano /dev/cu.usbserial-XXXX
+
+`scripts/upload-fw.fish` uploads prebuilt binaries from `dist/<firmware>/`.
+It accepts either a firmware name (for example `mod1-triple-wave-lfo`) or a sketch path under `firmwares/`.
 
 For Pico, use fqbn `rp2040:rp2040:rpipico`.
 
@@ -103,9 +106,9 @@ void loop() {
 }
 ```
 
-### TestbildCommon helpers
+### Hagiwo30Common helpers
 
-`firmwares/shared/TestbildCommon` provides shared constants/utilities used by the Testbild sequencer sketches:
+`firmwares/shared/Hagiwo30Common` provides shared constants/utilities used by the Hagiwo30 sequencer sketches:
 
 - Board constants:
   - OLED address and dimensions
@@ -113,16 +116,33 @@ void loop() {
   - 6 output channel pins
   - encoder detent count constants
 - Input utility:
-  - `testbild::DebouncedActiveLowButton` for active-low pushbutton debouncing
+  - `hagiwo30::DebouncedActiveLowButton` for active-low pushbutton debouncing
 
 Example:
 
 ```cpp
-#include <TestbildCommon.h>
+#include <Hagiwo30Common.h>
 
-Encoder enc(testbild::kEncoderPinA, testbild::kEncoderPinB);
-testbild::DebouncedActiveLowButton button(300, HIGH);
+Encoder enc(hagiwo30::kEncoderPinA, hagiwo30::kEncoderPinB);
+hagiwo30::DebouncedActiveLowButton button(300, HIGH);
 ```
+
+The Hagiwo30 shared library now also includes a mode abstraction for building a single switchable firmware:
+
+- `hagiwo30::SequencerMode` in `Hagiwo30SequencerMode.h`
+- `hagiwo30::SequencerModeManager` in `Hagiwo30SequencerModeManager.h/.cpp`
+- `firmwares/shared/Hagiwo30Sequencers` as the shared implementation for:
+  - `SixChannelSequencer` (`Hagiwo30SixChannelSequencer.h/.cpp`)
+  - `EuclideanSequencer` (`Hagiwo30EuclideanSequencer.h/.cpp`)
+  - shared pattern banks (`Hagiwo30ProgramBanks.h`, `Hagiwo30PatternBanks.h`)
+
+Current `SixChannelSequencer` and `EuclideanSequencer` classes implement `hagiwo30::SequencerMode`.
+This enables a future sketch to instantiate both sequencers once, route calls through the manager, and switch active mode by changing `SequencerModeKind`.
+
+Unified firmware is now available at `firmwares/hagiwo30-strides`:
+
+- Entry sketch: `firmwares/hagiwo30-strides/hagiwo30-strides.ino`
+- Runtime switch: hold the encoder button for 1.5 seconds to toggle between SixChannel and Euclidean modes
 
 ## Adding many firmwares
 

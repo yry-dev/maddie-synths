@@ -1,3 +1,6 @@
 [submodule "hardware/Hagiwo_009_030_sequencer"]
 	path = hardware/Hagiwo_009_030_sequencer
 	url = git@github.com:yry-dev/Hagiwo_009_030_sequencer.git
+[submodule "hardware/o-c-t41"]
+	path = hardware/o-c-t41
+	url = git@github.com:yry-dev/O_C_T41.git
