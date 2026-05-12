@@ -25,6 +25,14 @@ It currently includes RP2040 board index support and works for both:
 - Raspberry Pi Pico / RP2040:
   - arduino-cli core install rp2040:rp2040 --config-file ./arduino-cli.yaml
 
+## One-time library install
+
+Install external libraries used by the Testbild sketches:
+
+- arduino-cli lib install "Encoder" "FastGPIO" "Adafruit SSD1306" "digitalWriteFast"
+
+`Adafruit SSD1306` pulls `Adafruit GFX Library` and `Adafruit BusIO` automatically.
+
 ## Fish shell scripts
 
 - Build:
