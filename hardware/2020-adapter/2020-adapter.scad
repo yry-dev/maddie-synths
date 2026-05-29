@@ -25,51 +25,53 @@
 //      +-------------+ +---------------+  <-- z = 0   (extrusion outer face)
 //                    | |
 //                    | |     stem            slot_lip_depth
-//                   /   \
-//                  /     \   chamfer         slot_chamfer_depth
-//                 +-------+
-//                 |       |  bottom square   slot_bottom_depth
-//                 +-------+
+//                    | |
+//                  +-+ +-+
+//                   \   /
+//                    \ /    chamfer (tapers  slot_chamfer_depth
+//                    +-+     to a flat tip,    tip = slot_tip_width
+//                            not a point)
 
 // ---- parameters ----------------------------------------------------------
 
-length              = 30;  // rail length. My printer can only print 100mm wide so
+length              = 90;  // rail length. My printer can only print 100mm wide so
                               // 84HP = 128.5; 104HP = 158.75; etc.
 
 // 2020 slot profile (generic Misumi-style tapered T-slot).
 // The slot cross-section from the outer face inward is:
 //   1. straight opening between the lips      (slot_lip_depth deep, slot_opening wide)
-//   2. tapered chamfer flaring outward         (slot_chamfer_depth deep)
-//   3. square cavity at the bottom             (slot_bottom_depth deep, slot_inner_width wide)
+//   2. tapered chamfer (steps out at the top to slot_inner_width, then
+//      tapers down to a flat tip of slot_tip_width)
+//                                              (slot_chamfer_depth deep)
 //
 // Slot cross-section (the tab matches this exactly, minus tab_clearance):
 //
 //   =====+         +=====   <-- outer face of extrusion (z = 0)
-//        | stem    |             |
+//        |  stem   |             |
 //        |         |             | slot_lip_depth     width = slot_opening
 //        |         |             |
-//       /           \            |
-//      /  chamfer    \           | slot_chamfer_depth
-//     /               \          |
-//    +-----------------+         |
-//    |                 |         | slot_bottom_depth  width = slot_inner_width
-//    |  bottom square  |         |
-//    +-----------------+         |
+//      +-+         +-+           |
+//       \           /            |
+//        \ chamfer /             | slot_chamfer_depth
+//         \       /              |   top width = slot_inner_width
+//          \     /               |   tapers to a flat tip
+//           \   /                |   bottom width = slot_tip_width
+//            +---+               |
 //
-slot_opening        = 6.2;    // gap between outer lips (+0.2 clearance)
-slot_lip_depth      = 1.8;    // depth of the straight opening between lips
-slot_chamfer_depth  = 1.5;    // depth of the tapered transition (lips flaring out)
-slot_bottom_depth   = 2.5;    // depth of the square cavity behind the chamfer
-slot_inner_width    = 11.6;   // width of the square cavity (at bottom of chamfer)
+slot_opening        = 5.5;    // gap between outer lips (+0.2 clearance)
+slot_lip_depth      = 1.6;    // depth of the straight opening between lips
+slot_chamfer_depth  = 4.1;    // depth of the tapered transition (lips flaring out)
+slot_inner_width    = 9.7;    // width at the top of the chamfer (just past the lips)
+slot_tip_width      = 5.2;    // width of the flat tip at the bottom of the chamfer
 
 // Tab geometry
 use_t_tab           = true;   // true = full T-profile matching the tapered slot
-                              // (stem + chamfer + bottom square).
+                              // (narrow stem + flared chamfer tapering to a point).
                               // false = simple rectangular stem only.
 tab_clearance       = 0.3;    // shrink applied to head dimensions
 
 // Main body sitting on the extrusion's outer face
-body_width          = 16.0;   // Y extent of the shelf
+body_width          = 23.0;   // Y extent of the shelf
 body_thickness      = 3.0;    // Z thickness below the strip channel
 
 // Eurorack threaded-strip channel (captive C-channel, opens toward +Z).
@@ -92,7 +94,7 @@ strip_height        = 3.0;    // Z height of the strip slot (was 2.6)
 strip_lip           = 0.8;    // Z thickness of the top retaining lip.
                               // The access slot is cut through this lip; the
                               // lip overhang in Y is (strip_width-access_slot_width)/2.
-strip_y_offset      = 3.0;    // Y center of the channel relative to body center
+strip_y_offset      = 7.7;    // Y center of the channel relative to body center
 
 // Screw-access slot cut through the top face above the strip
 access_slot_width   = 3.4;    // clearance for M3 (use 2.9 for M2.5)
@@ -108,8 +110,8 @@ $fn = 64;
 
 tab_stem_w    = slot_opening - 0.2;
 tab_head_w    = slot_inner_width - 2*tab_clearance;
+tab_tip_w     = slot_tip_width - 2*tab_clearance;           // flat tip at bottom of chamfer
 tab_chamfer_h = slot_chamfer_depth;                         // no clearance: chamfer matches slot angle
-tab_bottom_h  = slot_bottom_depth - tab_clearance;          // a hair shy so it bottoms-out cleanly
 total_h       = body_thickness + strip_height + strip_lip;  // shelf top above extrusion face
                                                             // (lip sits above the strip cavity)
 
@@ -132,10 +134,10 @@ module rounded_rect_2d(size, r) {
 
 module tab_profile_2d() {
     if (use_t_tab) {
-        // Tapered T tab matching a Misumi-style 2020 slot:
-        //   stem (between lips) -> chamfer (flares out) -> square bottom.
-        // Z=0 is the top of the tab (flush with the underside of the shelf);
-        // the tab extends in -Z.
+        // T tab: narrow stem between the lips, then a chamfer that steps out
+        // wider at the top (tab_head_w) and tapers down to a flat tip of
+        // tab_tip_w. Z=0 is the top of the tab (flush with the underside of
+        // the shelf); the tab extends in -Z.
         //
         // Polygon vertices (numbered in winding order):
         //
@@ -143,26 +145,21 @@ module tab_profile_2d() {
         //            |       |
         //            |       |              <-- stem (width = tab_stem_w)
         //            |       |
-        //          7 +       + 2            <-- z = z_stem_bot
-        //           /         \
-        //          /           \            <-- chamfer
-        //         /             \
-        //      6 +---------------+ 3        <-- z = z_chamfer_bot
-        //        |               |
-        //        |               |          <-- bottom (width = tab_head_w)
-        //        |               |
-        //      5 +---------------+ 4        <-- z = z_bottom
+        //          7 +-+   +-+ 2            <-- z = z_stem_bot
+        //           6 \     / 3                 (shoulders out to tab_head_w)
+        //              \   /                <-- chamfer
+        //               \ /
+        //              5 +-+ 4              <-- z = z_chamfer_bot  (flat tip, width = tab_tip_w)
         z_stem_bot    = -slot_lip_depth;
         z_chamfer_bot = z_stem_bot - tab_chamfer_h;
-        z_bottom      = z_chamfer_bot - tab_bottom_h;
         polygon(points = [
             [-tab_stem_w/2, 0],            // 0
             [ tab_stem_w/2, 0],            // 1
             [ tab_stem_w/2, z_stem_bot],   // 2
-            [ tab_head_w/2, z_chamfer_bot],// 3
-            [ tab_head_w/2, z_bottom],     // 4
-            [-tab_head_w/2, z_bottom],     // 5
-            [-tab_head_w/2, z_chamfer_bot],// 6
+            [ tab_head_w/2, z_stem_bot],   // 3
+            [ tab_tip_w/2,  z_chamfer_bot],// 4
+            [-tab_tip_w/2,  z_chamfer_bot],// 5
+            [-tab_head_w/2, z_stem_bot],   // 6
             [-tab_stem_w/2, z_stem_bot],   // 7
         ]);
     } else {
