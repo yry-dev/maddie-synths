@@ -1,0 +1,14 @@
+[Unit]
+Description=USB MIDI bridge from MPK mini 3 to CVpal
+After=sound.target
+Wants=sound.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/midi-bridge.sh
+Restart=always
+RestartSec=1
+User=midi
+
+[Install]
+WantedBy=multi-user.target
