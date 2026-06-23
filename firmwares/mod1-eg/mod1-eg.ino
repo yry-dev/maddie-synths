@@ -1,20 +1,52 @@
-/*
-HAGIWO MOD1 EG Ver1.1
-3-output EG. end-of-cycle outputs can be self-patched for use as LFO or clock source.
+/* EG
 
---Pin assign---
-POT1  A0  Attack time
-POT2  A1  Release Time
-POT3  A2  Output Level
-F1    D17 Trigger IN
-F2    D9  End of cycle Pulse output
-F3    D10 Inverted EG output
-F4    D11 EG output
-BUTTON    Trigger
-LED       output
-EEPROM    N/A
+Description:
+3-output Envelope Generator. The end-of-cycle output can be self-patched for use
+as an LFO or clock source. Original firmware by Hagiwo for Mod1.
 
-Ver1.1:fix trig timing
+Key Variables:
+  A0 -> Attack time
+  A1 -> Release time
+  A2 -> Output level
+
+      ╔═══════════╗
+      ║    EG     ║
+      ║ envelope  ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   ATTACK  — attack time
+      ║  ATTACK   ║
+      ║           ║
+      ║   (A1)    ║   RELEASE — release time
+      ║  RELEASE  ║
+      ║           ║
+      ║   (A2)    ║   LEVEL   — output level
+      ║   LEVEL   ║
+      ║           ║
+      ║    [·]    ║   LED (D3) — output level
+      ║   (BTN)   ║   BTN (D4) — trigger
+      ║           ║
+      ╠═══════════╣
+      ║ F1     F2 ║   F1 (D17) IN  — Trigger
+      ║ (o)   (o) ║   F2 (D9)  OUT — End-of-cycle pulse
+      ║           ║
+      ║ F3     F4 ║   F3 (D10) OUT — Inverted EG
+      ║ (o)   (o) ║   F4 (D11) OUT — EG
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 EG firmware by Hagiwo
+  - 1.1 Fix trig timing
+  - 1.2 Forked and refactored from https://note.com/solder_state/n/n7499f01be846
+
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
+
+Hardware:
+HAGIWO MOD1
 */
 #include <Mod1Common.h>
 #define TABLE_SIZE 1024

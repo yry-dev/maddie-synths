@@ -1,0 +1,251 @@
+/* HiHat
+
+Description:
+White/blue-noise hi-hat. LED brightness follows the envelope. The button
+has a dual function: short press = manual trigger, long press (>500 ms) =
+toggle noise type.
+
+Key Variables:
+  A0 -> Decay time
+  A1 -> Decay curve
+  A2 -> BPF frequency (shared with CV)
+
+      ╔═══════════╗
+      ║   HIHAT   ║
+      ║   noise   ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   POT1 (A0) - decay time
+      ║   DECAY   ║
+      ║           ║
+      ║   (A1)    ║   POT2 (A1) - decay curve
+      ║   CURVE   ║
+      ║           ║
+      ║   (A2)    ║   POT3 (A2) - BPF frequency
+      ║   FREQ    ║
+      ║           ║
+      ║    [·]    ║   LED (GPIO5) - envelope (PWM)
+      ║   (BTN)   ║   BTN (GPIO6) - short=trig, long=noise type
+      ║           ║
+      ╠═══════════╣
+      ║ I1     I2 ║   IN1 (GPIO7) - trigger
+      ║ (o)   (o) ║   IN2 (GPIO0) - accent (HIGH lowers volume)
+      ║           ║
+      ║ CV    OUT ║   CV  (A2)    - BPF freq (shared POT3)
+      ║ (o)   (o) ║   OUT (GPIO1) - PWM audio
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 HiHat firmware by Hagiwo
+  - 1.1 LED envelope display
+  - 1.2 Forked and refactored for maddie synths
+
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
+
+Hardware:
+HAGIWO MOD2 (Seeed Xiao RP2350)
+*/
+
+#include <Arduino.h>
+#include "hardware/pwm.h"
+#include "hardware/irq.h"
+#include <math.h>
+#include <Mod2Common.h>  // Shared MOD2 pin map, PWM-audio setup and helpers
+
+/********************  === Core constants ===  *******************************************/
+const float    SYS_CLOCK = 150000000.0f;      // 150 MHz
+const float    AUDIO_FS  = SYS_CLOCK / 4096;  // ≒36.6 kHz
+const uint32_t TABLE_SZ  = 30000;             // Length of noise table
+
+const float    PWM_FS    = 1023.0f;           // 10‑bit full‑scale
+const float    PWM_MID   = PWM_FS / 2.0f;     // 511
+const float    AMP_SCALE = 3.5f;              // Base gain
+const float    MASTER_ATTEN = 0.8f;           // −1.9 dB master attenuation
+
+const uint16_t FADE_IN_SMP  = 73;             // ≒2 ms
+const uint16_t FADE_OUT_SMP = 40;             // ≒1 ms
+
+/********************  === ADC ===  ******************************************************/
+const uint8_t  ADC_RES_BITS = 10;
+const uint16_t ADC_MAX_VAL  = (1 << ADC_RES_BITS) - 1;
+
+/********************  === Buffers ===  **************************************************/
+float   noiseTbl[TABLE_SZ];     // Noise table
+int16_t outHH[TABLE_SZ];        // Output waveform buffer
+uint16_t envTbl[TABLE_SZ];      // Envelope values for LED brightness
+
+/********************  === Playback state / control ===  *********************************/
+volatile bool     playingHH   = false;
+volatile uint32_t idxHH       = 0;
+
+volatile float decayBase  = 5.0f;
+volatile float decayCurve = 1.0f;
+volatile float fc         = 500.0f;
+
+volatile bool  reqTrig         = false;
+volatile float volFactor       = 1.0f;
+
+// --- Noise mode switching ---
+volatile uint8_t noiseMode      = 0;   // 0:Blue / 1:White
+volatile bool    reqNoiseUpdate = false;
+
+// --- Button timing for dual function ---
+volatile uint32_t buttonPressTime = 0;
+volatile bool     buttonPressed = false;
+volatile uint32_t lastButtonChange = 0;
+const uint32_t    LONG_PRESS_MS = 500;  // 500ms for long press
+const uint32_t    DEBOUNCE_MS = 20;     // 20ms debounce time
+
+uint sliceAudio, sliceIRQ, sliceLED;
+
+/********************  === Helpers ===  **************************************************/
+inline uint16_t readADC(uint8_t pin){ return analogRead(pin); }
+
+/********************  === Noise generation ===  ****************************************/
+// Blue noise
+void generateBlueNoise(){
+  float prev = 2.0f*(rand()/(float)RAND_MAX) - 1.0f;
+  noiseTbl[0] = prev * 0.5f;
+  for(uint32_t i=1;i<TABLE_SZ;++i){
+    float w = 2.0f*(rand()/(float)RAND_MAX) - 1.0f;
+    float b = (w - prev) * 0.5f;  prev = w;
+    noiseTbl[i] = constrain(b, -1.0f, 1.0f);
+  }
+}
+// Update table
+void updateNoiseTable(){
+  if(noiseMode==0) generateBlueNoise();
+  else             mod2::fillWhiteNoise(noiseTbl, TABLE_SZ);
+}
+
+/********************  === Voice generation ===  ****************************************/
+void buildVoice(int16_t* dst,float decayB,float curve,float fcC){
+  mod2::Biquad bpf;            // 2‑pole band‑pass, fixed Q = 0.8
+  bpf.setBandpass(fcC, 0.8f, AUDIO_FS);
+
+  float env=1.0f;
+  float expK = expf(-decayB*curve/TABLE_SZ);
+
+  for(uint32_t i=0;i<TABLE_SZ;++i){
+    float x0 = noiseTbl[i]*env;
+    float y0 = bpf.process(x0);
+
+    float fade = 1.2f;
+    if(i<FADE_IN_SMP)                  fade = i/float(FADE_IN_SMP);             // Fade‑in
+    else if(i>TABLE_SZ-FADE_OUT_SMP-1) fade = (TABLE_SZ-i-1)/float(FADE_OUT_SMP); // Fade‑out
+    y0 *= fade;
+
+    // Store envelope value for LED (env * fade gives us the actual envelope shape)
+    float envValue = env * fade;
+    envTbl[i] = uint16_t(envValue * PWM_FS);
+
+    dst[i] = int16_t(constrain(y0,-1.0f,1.0f)*PWM_MID*MASTER_ATTEN);
+    env *= expK;
+  }
+}
+
+/********************  === PWM IRQ ===  **************************************************/
+void on_pwm_wrap(){
+  pwm_clear_irq(sliceIRQ);
+  
+  if(!playingHH){
+    pwm_set_chan_level(sliceAudio,PWM_CHAN_B,uint16_t(PWM_MID));
+    pwm_set_chan_level(sliceLED, PWM_CHAN_B, 0);  // LED off
+    return;
+  }
+  
+  // Audio output
+  int32_t mix = outHH[idxHH];
+  int32_t val = PWM_MID + int32_t(mix*AMP_SCALE*volFactor);
+  if(val<0) val=0; else if(val>1023) val=1023;
+  pwm_set_chan_level(sliceAudio,PWM_CHAN_B,uint16_t(val));
+  
+  // LED brightness based on envelope
+  pwm_set_chan_level(sliceLED, PWM_CHAN_B, envTbl[idxHH]);
+  
+  idxHH++;
+  if(idxHH>=TABLE_SZ){ 
+    playingHH=false; 
+    idxHH=0; 
+    pwm_set_chan_level(sliceLED, PWM_CHAN_B, 0);  // Ensure LED is off
+  }
+}
+
+/********************  === ISRs ===  *****************************************************/
+// Trigger input ISR
+void triggerISR(){
+  volFactor = digitalRead(mod2::IN2_PIN) ? 0.5f : 1.0f; // Volume switch
+  reqTrig = true;
+}
+
+// Button state change ISR (GPIO6)
+void buttonISR(){
+  uint32_t now = millis();
+  if(now - lastButtonChange < DEBOUNCE_MS) return;  // Debounce
+  lastButtonChange = now;
+  
+  if(digitalRead(mod2::BUTTON_PIN) == LOW){
+    // Button pressed (falling edge)
+    buttonPressed = true;
+    buttonPressTime = now;
+  } else {
+    // Button released (rising edge)
+    if(buttonPressed){
+      buttonPressed = false;
+      uint32_t pressDuration = now - buttonPressTime;
+      
+      if(pressDuration < LONG_PRESS_MS){
+        // Short press - trigger sound
+        volFactor = digitalRead(mod2::IN2_PIN) ? 0.5f : 1.0f;
+        reqTrig = true;
+      } else {
+        // Long press - toggle noise mode
+        noiseMode ^= 1;
+        reqNoiseUpdate = true;
+      }
+    }
+  }
+}
+
+/********************  === SETUP ===  ****************************************************/
+void setup(){
+  analogReadResolution(ADC_RES_BITS);
+  randomSeed(analogRead(26));
+  updateNoiseTable();
+
+  // Audio PWM + wrap-IRQ setup (shared)
+  mod2::initAudioPwm(sliceAudio, sliceIRQ, on_pwm_wrap);
+
+  // LED PWM output (GPIO5)
+  sliceLED = mod2::initPwmOutput10bit(mod2::LED_PIN);  // GPIO5 = slice 2, channel B
+
+  pinMode(mod2::IN2_PIN,INPUT);
+  pinMode(mod2::IN1_PIN,INPUT);
+  attachInterrupt(digitalPinToInterrupt(mod2::IN1_PIN),triggerISR,RISING);
+  pinMode(mod2::BUTTON_PIN,INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(mod2::BUTTON_PIN),buttonISR,CHANGE);  // Detect both press and release
+}
+
+/********************  === LOOP ===  *****************************************************/
+void loop(){
+  float norm0 = 1.0f - (readADC(A0)/float(ADC_MAX_VAL));
+  float norm1 = 1.0f - (readADC(A1)/float(ADC_MAX_VAL));
+  float norm2 = 1.0f - (readADC(A2)/float(ADC_MAX_VAL));
+
+  decayBase  = 0.1f +  9.0f * norm0;
+  decayCurve = 0.2f +  5.0f * norm1;
+  fc         = 100.0f + 15900.0f * norm2;
+
+  if(reqNoiseUpdate){ reqNoiseUpdate=false; updateNoiseTable(); }
+
+  if(reqTrig){
+    reqTrig=false;
+    buildVoice(outHH,decayBase,decayCurve,fc);
+    idxHH=0; playingHH=true;
+  }
+  delayMicroseconds(500);   // ≒1 kHz main loop rate
+}

@@ -23,6 +23,14 @@ LED: Brightness adjustable by PWM
 
 ### Pin Assignment
 
-
+POT1     A0
+POT2     A1
+POT3     A2
+IN1      GPIO7
+IN2      GPIO0
+CV       A2 (Shared with POT3)
+BUTTON   GPIO6  
+OUT      GPIO1    10-bit PWM audio output (~36.6 kHz)
+LED      GPIO5
 
 ### AI Generation procedure

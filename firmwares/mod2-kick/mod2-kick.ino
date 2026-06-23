@@ -1,28 +1,55 @@
-/*
-HAGIWO MOD2 Kick Ver1.2 - WITH PICKUP FEATURE
-Sin wave base , 6 parameters kick drum.
-Pressing the button will change the assigned parameter.
-Pickup feature prevents value jumping when switching modes.
+/* Kick
 
---Pin assign---
-POT1  A0  Pitch | Start freq
-POT2  A1  Soft clip rate | End freq
-POT3  A2  Amp envelope | Pitch envelope
-IN1   D7  Clock in
-IN2   D0  Accent (Volume decreases when HIGH)
-CV    A2  Shared with POT3
-OUT   D11 Audio output
-BUTTON    Change assign parameters
-LED       Assign parameters
-EEPROM    Record parameters when a button is pressed
+Description:
+Sine-wave kick drum with six parameters across two button-selected modes.
+Pressing the button changes the assigned parameter set; a pickup feature
+prevents value jumps when switching modes. Parameters are saved to flash
+on button press.
 
+Key Variables:
+  A0 -> Pitch        | Start frequency
+  A1 -> Soft-clip rate | End frequency
+  A2 -> Amp envelope  | Pitch envelope (shared with CV)
+
+      ╔═══════════╗
+      ║   KICK    ║
+      ║   drum    ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   POT1 (A0) - Pitch | Start freq
+      ║   PITCH   ║
+      ║           ║
+      ║   (A1)    ║   POT2 (A1) - Soft clip | End freq
+      ║   CLIP    ║
+      ║           ║
+      ║   (A2)    ║   POT3 (A2) - Amp env | Pitch env
+      ║    ENV    ║
+      ║           ║
+      ║    [·]    ║   LED (GPIO5) - assigned parameter
+      ║   (BTN)   ║   BTN (GPIO6) - change assigned params
+      ║           ║
+      ╠═══════════╣
+      ║ I1     I2 ║   IN1 (GPIO7) - clock in
+      ║ (o)   (o) ║   IN2 (GPIO0) - accent (HIGH lowers volume)
+      ║           ║
+      ║ CV    OUT ║   CV  (A2)    - shared with POT3
+      ║ (o)   (o) ║   OUT (GPIO1) - PWM audio
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 Init: initial release
+  - 1.1 Fix: EEPROM-related malfunction
+  - 1.2 Add: pickup feature for smooth parameter transitions
+  - 1.3 Forked and refactored for maddie synths
+
+License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
-You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission.
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
 
-[History]
-v1.2  - Add: Pickup feature for smooth parameter transitions
-v1.1  - Fix: EEPROM-related malfunction
-v1.0  - Init: Initial release
+Hardware:
+HAGIWO MOD2 (Seeed Xiao RP2350)
 */
 
 #include <Arduino.h>
@@ -30,6 +57,7 @@ v1.0  - Init: Initial release
 #include "hardware/irq.h"
 #include <math.h>
 #include <EEPROM.h>  // RP2350 Arduino core allows using on‑board flash as EEPROM
+#include <Mod2Common.h>  // Shared MOD2 pin map, PWM-audio setup and helpers
 
 /* --------------------------------------------------
    System configuration
@@ -44,7 +72,6 @@ const float FULL_SCALE = 1023.0;                                  // 10‑bit fu
 const float MID_LEVEL = FULL_SCALE / 2.0;                         // Mid‑level (silence)
 
 // Pickup feature constants
-const float PICKUP_THRESHOLD = 0.02f;  // 2% threshold for pot noise
 const int POT_SMOOTH_SAMPLES = 4;      // Number of samples for averaging
 
 /* Flag set by GATE input to reduce level by 50 % */
@@ -96,13 +123,9 @@ float ratioLUT[SEGMENTS + 1];  // Stores ratio at each segment edge (re‑calcul
 
 /* --------------------------------------------------
    Pickup Feature Data Structure
+   (shared implementation lives in Mod2Common)
 -------------------------------------------------- */
-struct ParameterData {
-  float value;           // Current parameter value
-  float targetValue;     // Target value when switching modes
-  bool pickupActive;     // True if waiting for pot to catch up
-  float lastPotValue;    // Last raw pot reading (0-1)
-};
+using ParameterData = mod2::PickupParam;
 
 // Structure to hold all 6 parameters
 struct {
@@ -114,11 +137,10 @@ struct {
   ParameterData curve;          // Mode 1, POT3
 } paramData;
 
-// Pot smoothing buffers
-float pot1Buffer[POT_SMOOTH_SAMPLES] = {0};
-float pot2Buffer[POT_SMOOTH_SAMPLES] = {0};
-float pot3Buffer[POT_SMOOTH_SAMPLES] = {0};
-int potBufferIndex = 0;
+// Pot smoothing (shared circular-buffer averager)
+mod2::PotSmoother<POT_SMOOTH_SAMPLES> pot1Smoother;
+mod2::PotSmoother<POT_SMOOTH_SAMPLES> pot2Smoother;
+mod2::PotSmoother<POT_SMOOTH_SAMPLES> pot3Smoother;
 
 /* --------------------------------------------------
    PWM wrap interrupt: performs linear interpolation and
@@ -195,48 +217,6 @@ void make_wavetable() {
     float sample = sinf(phase) * reduce_level;  // -1.0…+1.0
     kickTable[i] = uint16_t((sample + 1.0f) * (FULL_SCALE / 2.0f));
   }
-}
-
-/* --------------------------------------------------
-   Pot reading with smoothing
--------------------------------------------------- */
-float readPotSmoothed(int pin, float* buffer) {
-  // Read and store in circular buffer
-  buffer[potBufferIndex] = analogRead(pin) / 1023.0f;
-  
-  // Calculate average
-  float sum = 0;
-  for (int i = 0; i < POT_SMOOTH_SAMPLES; i++) {
-    sum += buffer[i];
-  }
-  return sum / POT_SMOOTH_SAMPLES;
-}
-
-/* --------------------------------------------------
-   Pickup feature implementation
--------------------------------------------------- */
-bool checkPickup(ParameterData* param, float currentPotValue) {
-  if (!param->pickupActive) {
-    return true;  // No pickup needed
-  }
-  
-  // Calculate normalized target position (0-1)
-  float normalizedTarget = param->targetValue;
-  
-  // Check if pot has crossed the target value
-  bool crossedFromBelow = (param->lastPotValue < normalizedTarget - PICKUP_THRESHOLD) && 
-                          (currentPotValue >= normalizedTarget - PICKUP_THRESHOLD);
-  bool crossedFromAbove = (param->lastPotValue > normalizedTarget + PICKUP_THRESHOLD) && 
-                          (currentPotValue <= normalizedTarget + PICKUP_THRESHOLD);
-  
-  if (crossedFromBelow || crossedFromAbove || 
-      fabs(currentPotValue - normalizedTarget) < PICKUP_THRESHOLD) {
-    param->pickupActive = false;  // Pickup complete
-    return true;
-  }
-  
-  param->lastPotValue = currentPotValue;
-  return false;  // Still waiting for pickup
 }
 
 /* --------------------------------------------------
@@ -346,53 +326,35 @@ void setup() {
   make_wavetable();
   for (int i = 0; i < 2048; i++) finalTable[i] = kickTable[i];
 
-  /* --- PWM output pin setup ----------------------- */
-  pinMode(1, OUTPUT);  // Audio PWM
-  gpio_set_function(1, GPIO_FUNC_PWM);
-  slice_num1 = pwm_gpio_to_slice_num(1);
-
-  pinMode(2, OUTPUT);  // Timing PWM (wrap IRQ)
-  gpio_set_function(2, GPIO_FUNC_PWM);
-  slice_num2 = pwm_gpio_to_slice_num(2);
-
-  /* --- PWM configuration & IRQ -------------------- */
-  pwm_set_clkdiv(slice_num1, 1);   // Fastest clock (150 MHz / 1)
-  pwm_set_wrap(slice_num1, 1023);  // 10‑bit resolution
-  pwm_set_enabled(slice_num1, true);
-
-  pwm_set_clkdiv(slice_num2, 1);
-  pwm_set_wrap(slice_num2, 4095);  // Generates IRQ at 150 MHz / 4096
-  pwm_set_enabled(slice_num2, true);
-  pwm_clear_irq(slice_num2);
-  pwm_set_irq_enabled(slice_num2, true);
-  irq_set_exclusive_handler(PWM_IRQ_WRAP, on_pwm_wrap);
-  irq_set_enabled(PWM_IRQ_WRAP, true);
+  /* --- PWM audio + wrap-IRQ setup (shared) -------- */
+  mod2::initAudioPwm(slice_num1, slice_num2, on_pwm_wrap);
 
   /* --- Trigger input (rising edge) ---------------- */
-  pinMode(7, INPUT);
-  attachInterrupt(digitalPinToInterrupt(7), onTrigger, RISING);
+  pinMode(mod2::IN1_PIN, INPUT);
+  attachInterrupt(digitalPinToInterrupt(mod2::IN1_PIN), onTrigger, RISING);
 
   /* --- GATE input for level reduction ------------- */
-  pinMode(0, INPUT);
+  pinMode(mod2::IN2_PIN, INPUT);
 
   /* --- Mode switch & status LED ------------------- */
-  pinMode(6, INPUT_PULLUP);  // Tactile switch
-  pinMode(5, OUTPUT);        // LED
-  
-  // Initialize pot buffers with current readings
-  for (int i = 0; i < POT_SMOOTH_SAMPLES; i++) {
-    pot1Buffer[i] = analogRead(A0) / 1023.0f;
-    pot2Buffer[i] = analogRead(A1) / 1023.0f;
-    pot3Buffer[i] = analogRead(A2) / 1023.0f;
-  }
-  
+  pinMode(mod2::BUTTON_PIN, INPUT_PULLUP);  // Tactile switch
+  pinMode(mod2::LED_PIN, OUTPUT);           // LED
+
+  // Initialize pot smoothing windows with current readings
+  pot1Smoother.prime(A0);
+  pot2Smoother.prime(A1);
+  pot3Smoother.prime(A2);
+
   // Set initial pot values to prevent pickup on startup
-  paramData.pitchMult.lastPotValue = pot1Buffer[0];
-  paramData.softClip.lastPotValue = pot2Buffer[0];
-  paramData.decay.lastPotValue = pot3Buffer[0];
-  paramData.startFreq.lastPotValue = pot1Buffer[0];
-  paramData.endFreq.lastPotValue = pot2Buffer[0];
-  paramData.curve.lastPotValue = pot3Buffer[0];
+  float p1 = analogRead(A0) / 1023.0f;
+  float p2 = analogRead(A1) / 1023.0f;
+  float p3 = analogRead(A2) / 1023.0f;
+  paramData.pitchMult.lastPotValue = p1;
+  paramData.softClip.lastPotValue = p2;
+  paramData.decay.lastPotValue = p3;
+  paramData.startFreq.lastPotValue = p1;
+  paramData.endFreq.lastPotValue = p2;
+  paramData.curve.lastPotValue = p3;
 }
 
 /* --------------------------------------------------
@@ -404,7 +366,7 @@ void loop() {
   static bool selectMode = 1;  // 0: pitch/clip/decay, 1: f0/f1/curve
   static bool prevBtn = HIGH;
   static bool firstRun = true;  // Flag to ensure params update on first loop
-  bool currBtn = digitalRead(6);
+  bool currBtn = digitalRead(mod2::BUTTON_PIN);
   
   if (prevBtn == HIGH && currBtn == LOW) {
     // Save current values before switching modes
@@ -421,7 +383,7 @@ void loop() {
     }
     
     selectMode = !selectMode;
-    digitalWrite(5, selectMode ? HIGH : LOW);  // Show current mode on LED
+    digitalWrite(mod2::LED_PIN, selectMode ? HIGH : LOW);  // Show current mode on LED
 
     // Set up pickup targets for the new mode
     if (selectMode == 0) {
@@ -458,31 +420,28 @@ void loop() {
   }
 
   prevBtn = currBtn;
-  
-  // Update buffer index
-  potBufferIndex = (potBufferIndex + 1) % POT_SMOOTH_SAMPLES;
 
   /* --- Read analog controls with pickup feature --- */
   if (selectMode == 0) {
     /* Mode 0: edit pitchMultiplier / softClipRate / decayRate */
-    float pot1Val = readPotSmoothed(A0, pot1Buffer);
-    if (firstRun || checkPickup(&paramData.pitchMult, pot1Val)) {
+    float pot1Val = pot1Smoother.read(A0);
+    if (firstRun || mod2::checkPickup(paramData.pitchMult, pot1Val)) {
       pitchMultiplier = 0.5f + 1.5f * pot1Val;
       paramData.pitchMult.value = pitchMultiplier;
     } else {
       pitchMultiplier = paramData.pitchMult.value;  // Use stored value
     }
 
-    float pot2Val = readPotSmoothed(A1, pot2Buffer);
-    if (firstRun || checkPickup(&paramData.softClip, pot2Val)) {
+    float pot2Val = pot2Smoother.read(A1);
+    if (firstRun || mod2::checkPickup(paramData.softClip, pot2Val)) {
       softClipRate = 0.5f + 9.5f * pot2Val;
       paramData.softClip.value = softClipRate;
     } else {
       softClipRate = paramData.softClip.value;  // Use stored value
     }
 
-    float pot3Val = readPotSmoothed(A2, pot3Buffer);
-    if (firstRun || checkPickup(&paramData.decay, pot3Val)) {
+    float pot3Val = pot3Smoother.read(A2);
+    if (firstRun || mod2::checkPickup(paramData.decay, pot3Val)) {
       decayRate = 1.0f + 9.0f * pot3Val;
       paramData.decay.value = decayRate;
     } else {
@@ -491,24 +450,24 @@ void loop() {
 
   } else {
     /* Mode 1: edit f0 / f1 / envelope curve index */
-    float pot1Val = readPotSmoothed(A0, pot1Buffer);
-    if (firstRun || checkPickup(&paramData.startFreq, pot1Val)) {
+    float pot1Val = pot1Smoother.read(A0);
+    if (firstRun || mod2::checkPickup(paramData.startFreq, pot1Val)) {
       f0 = pot1Val * 1023.0f + 3.0f;
       paramData.startFreq.value = f0;
     } else {
       f0 = paramData.startFreq.value;  // Use stored value
     }
 
-    float pot2Val = readPotSmoothed(A1, pot2Buffer);
-    if (firstRun || checkPickup(&paramData.endFreq, pot2Val)) {
+    float pot2Val = pot2Smoother.read(A1);
+    if (firstRun || mod2::checkPickup(paramData.endFreq, pot2Val)) {
       f1 = pot2Val * 510.5f + 2.0f;
       paramData.endFreq.value = f1;
     } else {
       f1 = paramData.endFreq.value;  // Use stored value
     }
 
-    float pot3Val = readPotSmoothed(A2, pot3Buffer);
-    if (firstRun || checkPickup(&paramData.curve, pot3Val)) {
+    float pot3Val = pot3Smoother.read(A2);
+    if (firstRun || mod2::checkPickup(paramData.curve, pot3Val)) {
       selectedCurve = min(NUM_CURVES - 1, int(pot3Val * NUM_CURVES));
       paramData.curve.value = selectedCurve;
     } else {
@@ -529,7 +488,7 @@ void onTrigger() {
   kickPhase = 0.0f;
 
   /* Read GATE 0 for optional level reduction */
-  reduce_state = digitalRead(0);
+  reduce_state = digitalRead(mod2::IN2_PIN);
 
   /* --- Critical section: rebuild tables ----------- */
   irq_set_enabled(PWM_IRQ_WRAP, false);  // Disable audio IRQ
