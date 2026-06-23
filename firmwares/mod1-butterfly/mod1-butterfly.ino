@@ -1,25 +1,49 @@
-/*
-Lorenz Attractor CV Generator firmware by Rob Heel for Mod1 designed by Hagiwo. 
+/* Butterfly 
 
-Lorenz Attractor is great for organic, non-repeating CV movement, chaotic but not random.  
+Description: 
+Butterfly is a Lorenz Attractor module that is great for organic, non-repeating CV movement, chaotic but not random.  
 This system inspired the popular 'butterfly effect' metaphor, where small changes can lead 
 to dramatically different outcomes.” https://en.wikipedia.org/wiki/Lorenz_system 
 
-Pots:
+Key Variables:
   A0 → Sigma (flow strength / controls how fast x and y try to equalize/ also mapped to stepSize)
   A1 → Rho   (divergence / higher = stronger pull from center -> more chaos, from calm to chaos)
   A2 → Beta  (damping / controls how sharply z grows or decays)
 
-Input:
-F1 (A3 / D17) → Trigger input (resets attractor on rising edge)
-
-Outputs:
-  D9 (F2)  → x axis (PWM CV)
-  D10 (F3) → y axis (PWM CV)
-  D11 (F4) → z axis (PWM CV)
-
-Button (D4) → toggle normal and slow mode
-LED (D3)    → Blinks in stepsize
+      ╔═══════════╗
+      ║ BUTTERFLY ║ 
+      ║  Lorenz   ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   SIGMA — flow strength
+      ║   SIGMA   ║           (x/y equalize + step size)
+      ║           ║
+      ║   (A1)    ║   RHO   — divergence (calm → chaos)
+      ║    RHO    ║
+      ║           ║
+      ║   (A2)    ║   BETA  — damping (z growth/decay)
+      ║   BETA    ║
+      ║           ║
+      ║    [·]    ║   LED (D3) — blinks at step rate
+      ║   (BTN)   ║   BTN (D4) — normal / slow mode
+      ║           ║
+      ╠═══════════╣
+      ║ F1     F2 ║   F1 (A3/D17) IN  — TRIG (reset)
+      ║ (o)   (o) ║   F2 (D9)    OUT  — X axis (PWM CV)
+      ║           ║
+      ║ F3     F4 ║   F3 (D10)   OUT  — Y axis (PWM CV)
+      ║ (o)   (o) ║   F4 (D11)   OUT  — Z axis (PWM CV)
+      ║           ║
+      ╚═══════════╝
+Version History: 
+  - 1.0 Forked from Rob Scape: https://github.com/rob-scape/hgw-mod1-firmwares/
+  - 1.1 Refactored for maddie synths
+  
+  License: 
+  MIT License
+  
+  Hardware: 
+  HAGIWO MOD1 (RP2040)
 */
 
 

@@ -1,18 +1,52 @@
-/*
-HAGIWO MOD1 LFO Ver1.0
-Simple LFO. Various CV inputs allow you to create chaotic CVs.
+/* LFO
 
---Pin assign---
-POT1  A0  frequeny
-POT2  A1  waveform seslect
-POT3  A2  output level
-F1    A3  frequency CV in
-F2    A4  waveform CV in
-F3    A5  output level CV in
-F4    D11 output
-BUTTON    change frequency range
-LED       output
-EEPROM    Saves the frequency range when the button is pressed
+Description:
+Simple LFO. Various CV inputs allow you to create chaotic CVs. The frequency
+range is saved to EEPROM when the button is pressed. Original firmware by Hagiwo
+for Mod1.
+
+Key Variables:
+  A0 -> Frequency
+  A1 -> Waveform select
+  A2 -> Output level
+
+      ╔═══════════╗
+      ║    LFO    ║
+      ║ modulator ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   FREQ    — frequency
+      ║   FREQ    ║
+      ║           ║
+      ║   (A1)    ║   WAVE    — waveform select
+      ║   WAVE    ║
+      ║           ║
+      ║   (A2)    ║   LEVEL   — output level
+      ║   LEVEL   ║
+      ║           ║
+      ║    [·]    ║   LED (D3) — output
+      ║   (BTN)   ║   BTN (D4) — change frequency range (saved to EEPROM)
+      ║           ║
+      ╠═══════════╣
+      ║ F1     F2 ║   F1 (A3)  IN  — Frequency CV
+      ║ (o)   (o) ║   F2 (A4)  IN  — Waveform CV
+      ║           ║
+      ║ F3     F4 ║   F3 (A5)  IN  — Output level CV
+      ║ (o)   (o) ║   F4 (D11) OUT — LFO
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 LFO firmware by Hagiwo
+  - 1.1 Forked and refactored from https://github.com/modulove/MOD1/tree/main/Firmware
+
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
+
+Hardware:
+HAGIWO MOD1
 */
 #include <Arduino.h>
 #include <EEPROM.h>

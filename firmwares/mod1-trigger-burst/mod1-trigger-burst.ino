@@ -1,20 +1,51 @@
-/*
-HAGIWO MOD1 Trigger burst Ver1.0
-Clock-syncable trigger burst.
-When POT3 is turned fully left, it accepts an external clock for F1.
-When POT3 is to the right of 9:00, it switches to the internal clock. The internal clock can be adjusted with POT3.
+/* Trigger Burst
 
---Pin assign---
-POT1  A0  burst number 1,3,4,6,8,16
-POT2  A1  burst frequency (master clock bpm /2,/3,/4,/6,/8,/16)
-POT3  A2  internal clock rate ~bpm280
-F1    D17 external clock in
-F2    D9  trigger in
-F3    D10 burst number CVin
-F4    D11 trigger output
-BUTTON    trigger in
-LED       trigger output
-EEPROM    N/A
+Description:
+Clock-syncable trigger burst. When POT3 is fully left it accepts an external
+clock on F1; to the right of 9:00 it switches to the internal clock, whose rate
+is then set by POT3. Original firmware by Hagiwo for Mod1.
+
+Key Variables:
+  A0 -> Burst number (1, 3, 4, 6, 8, 16)
+  A1 -> Burst frequency (master clock bpm /2, /3, /4, /6, /8, /16)
+  A2 -> Internal clock rate (~bpm 280)
+
+      ╔═══════════╗
+      ║   BURST   ║
+      ║  trigger  ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   NUM     — burst number (1,3,4,6,8,16)
+      ║    NUM    ║
+      ║           ║
+      ║   (A1)    ║   DIV     — burst frequency division
+      ║    DIV    ║
+      ║           ║
+      ║   (A2)    ║   CLOCK   — internal clock rate
+      ║   CLOCK   ║
+      ║           ║
+      ║    [·]    ║   LED (D3) — trigger output
+      ║   (BTN)   ║   BTN (D4) — trigger in
+      ║           ║
+      ╠═══════════╣
+      ║ F1     F2 ║   F1 (D17) IN  — External clock
+      ║ (o)   (o) ║   F2 (D9)  IN  — Trigger
+      ║           ║
+      ║ F3     F4 ║   F3 (D10) IN  — Burst number CV
+      ║ (o)   (o) ║   F4 (D11) OUT — Trigger
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 Trigger Burst firmware by Hagiwo
+
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
+
+Hardware:
+HAGIWO MOD1
 */
 #include <Arduino.h>
 #include <Mod1Common.h>

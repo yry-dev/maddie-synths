@@ -1,32 +1,53 @@
-/*
-Dual AD envelope for Mod1 module designed by HAGIWO, adapted by Rob Heel.
+/* Dual AD
 
-Two independent Attack–Decay envelopes with shared attack and release knobs.
-Per-envelope random timing variation via Pot3 (A2):
- • Fully CCW → no variation
- • Fully CW → max random deviation per trigger
-Variations are stronger at shorter attack/release settings, lighter at longer ones.
+Description:
+Two independent Attack-Decay envelopes with shared attack and release knobs.
+Per-envelope random timing variation via Pot3 (A2): fully CCW = no variation,
+fully CW = max random deviation per trigger. Variations are stronger at shorter
+attack/release settings, lighter at longer ones. Envelope 1 is also manually
+triggerable via the push button. Outputs are fast PWM (16-bit for ENV1/ENV2,
+8-bit LED). Designed for Eurorack/modular trigger input and CV envelope output.
 
-Envelope 1 is also manually triggerable via push button.
-LED indicates envelope 1 level.
+Key Variables:
+  A0 -> Attack time
+  A1 -> Release time
+  A2 -> Variation amount (per-trigger random timing deviation)
 
-Outputs are fast PWM (16-bit for ENV1/ENV2, 8-bit LED).
-Designed for Eurorack/modular trigger input and CV envelope output.
+      ╔═══════════╗
+      ║  DUAL AD  ║
+      ║ envelope  ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   ATTACK  — attack time
+      ║  ATTACK   ║
+      ║           ║
+      ║   (A1)    ║   RELEASE — release time
+      ║  RELEASE  ║
+      ║           ║
+      ║   (A2)    ║   VARY    — random timing variation
+      ║   VARY    ║
+      ║           ║
+      ║    [·]    ║   LED (D3) — envelope 1 level
+      ║   (BTN)   ║   BTN (D4) — trigger envelope 1
+      ║           ║
+      ╠═══════════╣
+      ║ F1     F2 ║   F1 (D17) IN  — Trigger 1
+      ║ (o)   (o) ║   F2 (D9)  OUT — Envelope 1 (PWM CV)
+      ║           ║
+      ║ F3     F4 ║   F3 (D10) IN  — Trigger 2
+      ║ (o)   (o) ║   F4 (D11) OUT — Envelope 2 (PWM CV)
+      ║           ║
+      ╚═══════════╝
 
---Pin assign---
-POT1  A0  Attack time
-POT2  A1  Release Time
-POT3  A2  Variation amount
+Version History:
+  - 1.0 Forked from Rob Scape: https://github.com/rob-scape/hgw-mod1-firmwares/
+  - 1.1 Refactored for Maddie Synths
 
-F1    D17 Trigger1 IN
-F2    D9  envelope1 out
+License: 
+  MIT License
 
-F3    D10 Trigger2 IN
-F4    D11 envelope2 out
-BUTTON    Trigger envelope1
-LED       output envelope1
-EEPROM    N/A
-
+Hardware:
+HAGIWO MOD1
 */
 #include <Arduino.h>
 #include <Mod1Common.h>
