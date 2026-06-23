@@ -42,3 +42,26 @@
 
 # Build output
 dist/
+
+# VCV Rack plugin: vendored SDK and per-plugin build output
+vcvrack/.Rack-SDK/
+vcvrack/build/
+vcvrack/plugin.dylib
+vcvrack/plugin.so
+vcvrack/plugin.dll
+#temp ignore all of this until more testing is done
+vcvrack
+
+# KiCad generated output / backup folders
+*-backups/
+fp-info-cache
+*.kicad_prl
+*-bak
+*.bak
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*.lck
+panels/mod1-mod2/production/
+
+# Claude Code local config
+.claude/

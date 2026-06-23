@@ -1,18 +1,52 @@
-/*
-HAGIWO MOD1 RandomCV Ver1.0
-Periodic random CV sequencer.
+/* Random CV
 
---Pin assign---
-POT1  A0  Step length 3,4,5,8,16,32
-POT2  A1  output level
-POT3  A2  Trigger probability
-F1    D17  Clock in
-F2    D9  Random value update
-F3    D10  CV output
-F4    D11 Trigger output
-BUTTON    Random value update
-LED       CV output
-EEPROM    N/A
+Description:
+Periodic random CV sequencer. A cyclic pattern of random CV and trigger values
+of selectable length, re-randomised on button press or via F2. Original firmware
+by Hagiwo for Mod1.
+
+Key Variables:
+  A0 -> Step length (3, 4, 5, 8, 16, 32)
+  A1 -> Output level
+  A2 -> Trigger probability
+
+      ╔═══════════╗
+      ║ RANDOM CV ║
+      ║ sequencer ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   STEPS   — step length (3,4,5,8,16,32)
+      ║   STEPS   ║
+      ║           ║
+      ║   (A1)    ║   LEVEL   — output level
+      ║   LEVEL   ║
+      ║           ║
+      ║   (A2)    ║   PROB    — trigger probability
+      ║   PROB    ║
+      ║           ║
+      ║    [·]    ║   LED (D3) — CV output
+      ║   (BTN)   ║   BTN (D4) — random value update
+      ║           ║
+      ╠═══════════╣
+      ║ F1     F2 ║   F1 (D17) IN  — Clock
+      ║ (o)   (o) ║   F2 (D9)  IN  — Random value update
+      ║           ║
+      ║ F3     F4 ║   F3 (D10) OUT — CV
+      ║ (o)   (o) ║   F4 (D11) OUT — Trigger
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 RandomCV firmware by Hagiwo
+  - 1.1 Forked and refactored from https://note.com/solder_state/n/nd2af5f03a9c7
+
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
+
+Hardware:
+HAGIWO MOD1
 */
 #include <Arduino.h>
 #include <Mod1Common.h>

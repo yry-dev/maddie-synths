@@ -1,22 +1,52 @@
-/*
-HAGIWO MOD1 Euclidean rhythm sequencer Ver1.1
-8step or 16step sequencer. Adjustable output probability and number of hits.
+/* Euclidean
 
---Pin assign---
-POT1  A0  number of hits
-POT2  A1  output probability
-POT3  A2  step length 8(knob left side) <-> 16(knob right side)
-F1    D17  reset step in
-F2    D9  clock in
-F3    D10  number of hits CV
-F4    D11 Trigger outpu 
-BUTTON    reset step
-LED       Trigger output
-EEPROM    N/A
+Description:
+8-step or 16-step Euclidean rhythm sequencer with adjustable output probability
+and number of hits. Original firmware by Hagiwo for Mod1.
 
-[History]
-v1.1  - Fix: Noise countermeasures to prevent the ADC from being fixed at its maximum value.
-v1.0  - Init: Initial release
+Key Variables:
+  A0 -> Number of hits
+  A1 -> Output probability
+  A2 -> Step length: 8 (knob left) <-> 16 (knob right)
+
+      ╔═══════════╗
+      ║ EUCLIDEAN ║
+      ║ sequencer ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   HITS    — number of hits
+      ║   HITS    ║
+      ║           ║
+      ║   (A1)    ║   PROB    — output probability
+      ║   PROB    ║
+      ║           ║
+      ║   (A2)    ║   STEPS   — step length (8 <-> 16)
+      ║   STEPS   ║
+      ║           ║
+      ║    [·]    ║   LED (D3) — trigger output
+      ║   (BTN)   ║   BTN (D4) — reset step
+      ║           ║
+      ╠═══════════╣
+      ║ F1     F2 ║   F1 (D17) IN  — Reset step
+      ║ (o)   (o) ║   F2 (D9)  IN  — Clock
+      ║           ║
+      ║ F3     F4 ║   F3 (D10) IN  — Number of hits CV
+      ║ (o)   (o) ║   F4 (D11) OUT — Trigger
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 Initial release (Hagiwo)
+  - 1.1 Noise countermeasures: prevent the ADC being fixed at its maximum value
+  - 1.2 Forked and refactored from https://note.com/solder_state/n/n42841e48c0ea
+
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
+
+Hardware:
+HAGIWO MOD1
 */
 #include <Arduino.h>
 #include <Mod1Common.h>
