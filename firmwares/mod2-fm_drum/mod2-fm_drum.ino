@@ -1,34 +1,57 @@
-/*
-HAGIWO MOD2 FM Drum Ver1.2 - WITH PICKUP FEATURE
+/* FM Drum
 
-  Two‑operator FM percussion voice for Eurorack.
-  ‑ 3 potentiometers × 2 modes  →  6 parameters
-  ‑ Accent input (GPIO0) cuts level by −6 dB when HIGH
-  ‑ Wavetable synthesis; 4 096 samples per note
-  ‑ Click‑free edges: 2 % cosine fade‑in / 10 % fade‑out
-  ‑ All parameters stored in on‑board flash (EEPROM emulation)
-  ‑ Pickup feature prevents value jumping when switching modes
+Description:
+Two-operator FM percussion voice. Three pots x two button-selected modes
+give six parameters. The accent input cuts level by 6 dB when HIGH.
+Wavetable synthesis (4096 samples/note) with click-free cosine fades
+(2% in / 10% out). All six parameters are stored in flash (EEPROM
+emulation); a pickup feature prevents value jumps when switching modes.
 
---Pin assign---
-POT1     A0       Mode0: Pitch               | Mode1: Decay Time
-POT2     A1       Mode0: Operator Ratio      | Mode1: Ratio Envelope
-POT3     A2       Mode0: Modulation Index    | Mode1: Modulation Index
-IN1      GPIO7    Trig in
-IN2      GPIO0    Accent  – level × 0.5 when HIGH
-CV       A2       Shared with POT3
-OUT      GPIO1    Audio PWM output (10‑bit)
-BUTTON   GPIO6    Mode toggle & parameter save
-LED      GPIO5    Mode indicator (ON = Mode 1)
-EEPROM   save 6 parameter
+Key Variables:
+  A0 -> Mode 0: Pitch        | Mode 1: Decay time
+  A1 -> Mode 0: Operator ratio | Mode 1: Ratio envelope
+  A2 -> Modulation index (both modes, shared with CV)
 
+      ╔═══════════╗
+      ║  FM DRUM  ║
+      ║  FM perc  ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   POT1 (A0) - Pitch | Decay time
+      ║   PITCH   ║
+      ║           ║
+      ║   (A1)    ║   POT2 (A1) - Op ratio | Ratio env
+      ║   RATIO   ║
+      ║           ║
+      ║   (A2)    ║   POT3 (A2) - Modulation index
+      ║   INDEX   ║
+      ║           ║
+      ║    [·]    ║   LED (GPIO5) - mode (ON = Mode 1)
+      ║   (BTN)   ║   BTN (GPIO6) - mode toggle & save
+      ║           ║
+      ╠═══════════╣
+      ║ I1     I2 ║   IN1 (GPIO7) - trigger
+      ║ (o)   (o) ║   IN2 (GPIO0) - accent (HIGH = -6 dB)
+      ║           ║
+      ║ CV    OUT ║   CV  (A2)    - mod index (shared POT3)
+      ║ (o)   (o) ║   OUT (GPIO1) - PWM audio
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 Init: initial release
+  - 1.1 Fix: EEPROM-related malfunction
+  - 1.2 Add: pickup feature for smooth parameter transitions
+  - 1.3 Fix: validate EEPROM parameter reads
+  - 1.4 Forked and refactored for maddie synths
+
+License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
-You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission.
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
 
-[History]
-v1.3  -  Fix: Validate EEPROM parameter reads
-v1.2  - Add: Pickup feature for smooth parameter transitions
-v1.1  - Fix: EEPROM-related malfunction
-v1.0  - Init: Initial release
+Hardware:
+HAGIWO MOD2 (Seeed Xiao RP2350)
 */
 
 #include <Arduino.h>

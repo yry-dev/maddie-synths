@@ -1,19 +1,54 @@
-/*
-  MOD2 MOD303 - "ACIDWALK303" — 303-ish bass voice + generative sequencer
-  Target: RP2040 / RP2350 (Earle Philhower Arduino-Pico core)
+/* Mod303 / Acidwalk303
 
-  POT1 A0: TURING / RANDOMNESS + LENGTH
-           CCW  -> locked 8-step
-           MID  -> total random (pitch+rhythm evolving)
-           CW   -> locked 16-step
-  POT2 A1: DECAY (amp decay + bite) ; Accent extends decay
-  POT3 A2: TRANSPOSE (quantized semis, shared with CV)
+Description:
+A 303-ish bass voice plus a generative sequencer. POT1 morphs from a
+locked 8-step pattern (CCW) through fully random / evolving pitch+rhythm
+(mid) to a locked 16-step pattern (CW). The clock input advances the
+sequence; the accent input forces accents. Transpose is quantized to
+semitones and shared with CV. Earle Philhower Arduino-Pico core.
 
-  IN1 (D7 / GPIO7) : Clock in (rising edge advances)
-  IN2 (D0 / GPIO0) : Accent hold (HIGH forces accent ON)
-  OUT              : PWM audio out (PIN_AUDIO must match your working GPIO)
-  BUTTON           : short=scale, double=waveform, long=regen pattern
-  LED              : step blink, accent/slide longer blink
+Key Variables:
+  A0 -> Turing: randomness + length (8-step / random / 16-step)
+  A1 -> Decay (amp decay + bite; accent extends decay)
+  A2 -> Transpose (quantized semitones, shared with CV)
+
+      ╔═══════════╗
+      ║  MOD303   ║
+      ║ acid bass ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   POT1 (A0) - randomness + length
+      ║  TURING   ║
+      ║           ║
+      ║   (A1)    ║   POT2 (A1) - decay + bite
+      ║   DECAY   ║
+      ║           ║
+      ║   (A2)    ║   POT3 (A2) - transpose (quantized)
+      ║   TRANS   ║
+      ║           ║
+      ║    [·]    ║   LED (GPIO5) - step / accent-slide blink
+      ║   (BTN)   ║   BTN (GPIO6) - short=scale, double=wave, long=regen
+      ║           ║
+      ╠═══════════╣
+      ║ I1     I2 ║   IN1 (GPIO7) - clock in (rising advances)
+      ║ (o)   (o) ║   IN2 (GPIO0) - accent hold (HIGH = accent)
+      ║           ║
+      ║ CV    OUT ║   CV  (A2)    - transpose (shared POT3)
+      ║ (o)   (o) ║   OUT (GPIO1) - PWM audio
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 ACIDWALK303 generative 303 voice + sequencer
+  - 1.1 Forked and refactored for maddie synths
+
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
+
+Hardware:
+HAGIWO MOD2 (Seeed Xiao RP2350)
 */
 
 #include <Arduino.h>

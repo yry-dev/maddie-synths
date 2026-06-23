@@ -1,28 +1,55 @@
-/*
-HAGIWO MOD2 Kick Ver1.2 - WITH PICKUP FEATURE
-Sin wave base , 6 parameters kick drum.
-Pressing the button will change the assigned parameter.
-Pickup feature prevents value jumping when switching modes.
+/* Kick
 
---Pin assign---
-POT1  A0  Pitch | Start freq
-POT2  A1  Soft clip rate | End freq
-POT3  A2  Amp envelope | Pitch envelope
-IN1   D7  Clock in
-IN2   D0  Accent (Volume decreases when HIGH)
-CV    A2  Shared with POT3
-OUT   D11 Audio output
-BUTTON    Change assign parameters
-LED       Assign parameters
-EEPROM    Record parameters when a button is pressed
+Description:
+Sine-wave kick drum with six parameters across two button-selected modes.
+Pressing the button changes the assigned parameter set; a pickup feature
+prevents value jumps when switching modes. Parameters are saved to flash
+on button press.
 
+Key Variables:
+  A0 -> Pitch        | Start frequency
+  A1 -> Soft-clip rate | End frequency
+  A2 -> Amp envelope  | Pitch envelope (shared with CV)
+
+      ╔═══════════╗
+      ║   KICK    ║
+      ║   drum    ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   POT1 (A0) - Pitch | Start freq
+      ║   PITCH   ║
+      ║           ║
+      ║   (A1)    ║   POT2 (A1) - Soft clip | End freq
+      ║   CLIP    ║
+      ║           ║
+      ║   (A2)    ║   POT3 (A2) - Amp env | Pitch env
+      ║    ENV    ║
+      ║           ║
+      ║    [·]    ║   LED (GPIO5) - assigned parameter
+      ║   (BTN)   ║   BTN (GPIO6) - change assigned params
+      ║           ║
+      ╠═══════════╣
+      ║ I1     I2 ║   IN1 (GPIO7) - clock in
+      ║ (o)   (o) ║   IN2 (GPIO0) - accent (HIGH lowers volume)
+      ║           ║
+      ║ CV    OUT ║   CV  (A2)    - shared with POT3
+      ║ (o)   (o) ║   OUT (GPIO1) - PWM audio
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 Init: initial release
+  - 1.1 Fix: EEPROM-related malfunction
+  - 1.2 Add: pickup feature for smooth parameter transitions
+  - 1.3 Forked and refactored for maddie synths
+
+License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
-You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission.
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
 
-[History]
-v1.2  - Add: Pickup feature for smooth parameter transitions
-v1.1  - Fix: EEPROM-related malfunction
-v1.0  - Init: Initial release
+Hardware:
+HAGIWO MOD2 (Seeed Xiao RP2350)
 */
 
 #include <Arduino.h>

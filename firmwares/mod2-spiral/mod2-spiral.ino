@@ -1,39 +1,55 @@
-/*
-HAGIWO MOD2 – SPIRAL 4EVER  v1.0
-Auditory Illusions & Impossible Sounds
+/* Spiral 4Ever
 
-Named after the SPIRAL 4EVER  stairs – the visual equivalent of Shepard tones.
+Description:
+Auditory illusions & impossible sounds, named after the endless spiral
+staircase - the visual equivalent of Shepard tones. Nine modes:
+  0 Shepard rising   1 Shepard falling   2 Barber pole
+  3 Risset rhythm    4 Tritone paradox   5 Tritone explorer
+  6 Shepard cluster maj   7 Shepard cluster min   8 Euler spiral
+Short button press cycles modes; long press (>500 ms) toggles direction.
 
-═══════════════════════════════════════════════════════════════════════════════
-                              MODES (9 Total)
-═══════════════════════════════════════════════════════════════════════════════
+Key Variables:
+  A0 -> Center frequency (V/oct)
+  A1 -> Sweep speed
+  A2 -> Envelope width / pitch class / spiral spread (shared with CV)
 
-  0 – SHEPARD RISING        Infinitely ascending tone
-  1 – SHEPARD FALLING       Infinitely descending tone
-  2 – BARBER POLE           Enhanced stripe envelope + AM
-  3 – RISSET RHYTHM         Infinitely accelerating beats
-  4 – TRITONE PARADOX       Ambiguous interval
-  5 – TRITONE EXPLORER      Pitch class experiment
-  6 – SHEPARD CLUSTER MAJ   Rising/falling major triad
-  7 – SHEPARD CLUSTER MIN   Rising/falling minor triad
-  8 – EULER SPIRAL          Circular pitch with spectral rotation
+      ╔═══════════╗
+      ║  SPIRAL   ║
+      ║ illusions ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   POT1 (A0) - center freq (V/oct)
+      ║   FREQ    ║
+      ║           ║
+      ║   (A1)    ║   POT2 (A1) - sweep speed
+      ║   SPEED   ║
+      ║           ║
+      ║   (A2)    ║   POT3 (A2) - env width / spread
+      ║   WIDTH   ║
+      ║           ║
+      ║    [·]    ║   LED (GPIO5) - solid = direction up
+      ║   (BTN)   ║   BTN (GPIO6) - short=cycle mode, long=direction
+      ║           ║
+      ╠═══════════╣
+      ║ I1     I2 ║   IN1 (GPIO7) - N/A
+      ║ (o)   (o) ║   IN2 (GPIO0) - N/A
+      ║           ║
+      ║ CV    OUT ║   CV  (A2)    - V/oct (shared POT3)
+      ║ (o)   (o) ║   OUT (GPIO1) - PWM audio
+      ║           ║
+      ╚═══════════╝
 
-═══════════════════════════════════════════════════════════════════════════════
-                              CONTROLS
-═══════════════════════════════════════════════════════════════════════════════
+Version History:
+  - 1.0 Spiral 4Ever firmware by Hagiwo
+  - 1.1 Forked and refactored for maddie synths
 
-  POT1 (A0)    Center frequency / CV input (V/Oct)
-  POT2 (A1)    Sweep speed
-  POT3 (A2)    Envelope width / Pitch class (mode 5) / Spiral spread (mode 8)
-  
-  BUTTON       SHORT: Cycle modes | LONG (>500ms): Toggle direction
-  LED          Solid = direction up
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
 
-═══════════════════════════════════════════════════════════════════════════════
-
-  License: CC0 1.0 Universal – Public Domain
-  Hardware: HAGIWO MOD2 (RP2350)
-
+Hardware:
+HAGIWO MOD2 (Seeed Xiao RP2350)
 */
 
 #include <Arduino.h>
