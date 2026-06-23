@@ -1,33 +1,54 @@
-/*
-  MOD2 Square Wave VCO
-  
-  Square wave oscillator (with V/oct support)
-  LFO for vibrato and octave toggling like chiptune.
-  
-  Features:
-  - V/oct tracking with 1024-entry lookup table
-  - Frequency tuning (1.0-2.0x multiplier)
-  - 6-step octave selection with CV modulation
-  - Sine LFO vibrato (10Hz, up to ±5%)
-  - Chiptune mode: 20Hz octave toggling
-  
-  --Pin assign (MOD2 hardware)---
-  POT1  A0  Frequency tune (1.0-2.0x)
-  POT2  A1  Octave selection (1-6)
-  POT3  A2  Vibrato LFO level
-  CV    A2  V/oct CV in (shared with POT3 - directly controls pitch)
-  IN1   GPIO7  Octave CV in (accent input)
-  IN2   GPIO0  Vibrato level CV in
-  BUTTON GPIO6  Chiptune mode on/off
-  OUT   GPIO1  10-bit PWM audio output (~36.6 kHz)
-  LED   GPIO5  Chiptune mode indicator
-  
-  Note: Since A2 is shared between POT3 and CV, this version uses:
-  - A2 for V/oct CV input (primary pitch control)
-  - GPIO0 (digital read as pseudo-analog) for vibrato CV
-  - GPIO7 for octave CV
-  
-  CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+/* Square VCO
+
+Description:
+Square-wave oscillator with V/oct support, plus a sine LFO for vibrato and
+chiptune-style octave toggling. 1024-entry V/oct lookup, 1.0-2.0x fine
+tune, 6-step octave selection with CV, sine vibrato (~10 Hz, up to +-5%),
+and a 20 Hz octave-toggle chiptune mode. A2 carries the V/oct CV (primary
+pitch), so POT3 sets vibrato level.
+
+Key Variables:
+  A0 -> Fine tune (1.0-2.0x)
+  A1 -> Octave selection (1-6)
+  A2 -> Vibrato level / V/oct CV (shared with CV)
+
+      ╔═══════════╗
+      ║  SQ VCO   ║
+      ║ chiptune  ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   POT1 (A0) - fine tune 1.0-2.0x
+      ║   TUNE    ║
+      ║           ║
+      ║   (A1)    ║   POT2 (A1) - octave 1-6
+      ║  OCTAVE   ║
+      ║           ║
+      ║   (A2)    ║   POT3 (A2) - vibrato level / V/oct
+      ║  VIBRATO  ║
+      ║           ║
+      ║    [·]    ║   LED (GPIO5) - chiptune mode
+      ║   (BTN)   ║   BTN (GPIO6) - chiptune mode on/off
+      ║           ║
+      ╠═══════════╣
+      ║ I1     I2 ║   IN1 (GPIO7) - octave CV in
+      ║ (o)   (o) ║   IN2 (GPIO0) - vibrato level CV in
+      ║           ║
+      ║ CV    OUT ║   CV  (A2)    - V/oct (shared POT3)
+      ║ (o)   (o) ║   OUT (GPIO1) - PWM audio (~36.6 kHz)
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 Square Wave VCO
+  - 1.1 Forked and refactored for maddie synths
+
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
+
+Hardware:
+HAGIWO MOD2 (Seeed Xiao RP2350)
 */
 
 #include <Arduino.h>

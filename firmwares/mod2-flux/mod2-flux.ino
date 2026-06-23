@@ -1,47 +1,56 @@
-/*
-HAGIWO MOD2 – FLUX v1.0
-Physical Modeling, Resonance & Noise
+/* Flux
 
-From ordered resonance to pure chaos.
+Description:
+Physical modelling, resonance & noise - from ordered resonance to pure
+chaos. Seven modes in three groups:
+  RESONANCE: 0 Modal (tuned resonator bank), 1 Karplus (plucked string)
+  NOISE:     2 White, 3 Pink (1/f), 4 S&H (stepped), 5 Quantum (Lorenz)
+  TEXTURE:   6 Drone (evolving harmonic texture)
+Short button press cycles modes; long press (>500 ms) manually
+triggers/plucks. LED blinks on trigger.
 
-═══════════════════════════════════════════════════════════════════════════════
-                              MODES (7 Total)
-═══════════════════════════════════════════════════════════════════════════════
+Key Variables:
+  A0 -> Frequency / pitch (V/oct)
+  A1 -> Rate / trigger speed / chaos rate
+  A2 -> Character / brightness / slew (per mode, shared with CV)
 
-  RESONANCE:
-   0 – MODAL            Tuned resonant filter bank (string/piano/bell)
-   1 – KARPLUS          Plucked string physical model
-  
-  NOISE:
-   2 – WHITE            Full spectrum noise
-   3 – PINK             1/f natural spectrum noise
-   4 – S&H              Sample-and-hold stepped noise
-   5 – QUANTUM          Lorenz attractor chaotic noise
-  
-  TEXTURE:
-   6 – DRONE            Evolving harmonic texture
+      ╔═══════════╗
+      ║   FLUX    ║
+      ║ resonance ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   POT1 (A0) - frequency / pitch (V/oct)
+      ║   FREQ    ║
+      ║           ║
+      ║   (A1)    ║   POT2 (A1) - rate / chaos rate
+      ║   RATE    ║
+      ║           ║
+      ║   (A2)    ║   POT3 (A2) - character / brightness / slew
+      ║   CHAR    ║
+      ║           ║
+      ║    [·]    ║   LED (GPIO5) - blinks on trigger
+      ║   (BTN)   ║   BTN (GPIO6) - short=cycle mode, long=trigger
+      ║           ║
+      ╠═══════════╣
+      ║ I1     I2 ║   IN1 (GPIO7) - N/A
+      ║ (o)   (o) ║   IN2 (GPIO0) - N/A
+      ║           ║
+      ║ CV    OUT ║   CV  (A2)    - character (shared POT3)
+      ║ (o)   (o) ║   OUT (GPIO1) - PWM audio
+      ║           ║
+      ╚═══════════╝
 
-═══════════════════════════════════════════════════════════════════════════════
-                              CONTROLS
-═══════════════════════════════════════════════════════════════════════════════
+Version History:
+  - 1.0 Flux firmware by Hagiwo
+  - 1.1 Forked and refactored for maddie synths
 
-  POT1 (A0)    Frequency / Pitch / CV input (V/Oct)
-  POT2 (A1)    Rate / Trigger speed / Chaos rate
-  POT3 (A2)    Character / Brightness / Slew
-               - Modal: Harmonic→Inharmonic (string→bell)
-               - Karplus: Brightness/Decay
-               - S&H: Slew amount
-               - Quantum: Chaos intensity
-               - Drone: Evolution rate
-  
-  BUTTON       SHORT: Cycle modes | LONG (>500ms): Manual trigger/pluck
-  LED          Blinks on trigger
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
 
-═══════════════════════════════════════════════════════════════════════════════
-
-  License: CC0 1.0 Universal – Public Domain
-  Hardware: HAGIWO MOD2 (RP2350)
-
+Hardware:
+HAGIWO MOD2 (Seeed Xiao RP2350)
 */
 
 #include <Arduino.h>

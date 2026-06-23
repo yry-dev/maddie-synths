@@ -1,20 +1,56 @@
-/*
-  (c) 2025 blueprint@poetaster.de
-  GPLv3 the libraries are MIT as the originals for STM from MI were also MIT.
-*/
+/* Braids
 
-/*
-  --Pin assign---  (Seeeduino XIAO RP2040/RP2350 — same pin map as tides.ino)
-POT1     A0       Timbre — engine timbre param (mapped 0 – 32767)
-POT2     A1       Morph — engine morph/colour param (mapped 0 – 32767)
-POT3     A2       Pitch / V-Oct — inverted, mapped 3072 – 8192; shared with CV3
-IN1      D5       Trigger / gate in (active-high, pull-down) — fires note + lights LED
-IN2      SCL      Second digital in (pull-down) — reserved / unused
-BUTTON   D4       Engine select — short = next, long press (>500 ms) = previous (47 engines)
-OUT      D7       PWM audio output (48 kHz)
-LED      13       Gate LED — follows trigger state
-EEPROM   N/A
-  Note: GPIO23 driven HIGH to force the SMPS into PWM mode (reduces audio ripple).
+Description:
+Mutable Instruments Braids macro-oscillator port for the Seeed XIAO
+RP2350 - 47 synthesis engines selectable via the button. Timbre and Morph
+shape the current engine; pitch tracks V/oct (shared with CV). The trigger
+input fires a note and lights the LED. 48 kHz PWM audio. GPIO23 is driven
+HIGH to force the SMPS into PWM mode (reduces audio ripple).
+NOTE: this port uses its own pin map (OUT=D7, TRIG=D5, BTN=D4, LED=13),
+which differs from the standard MOD2 panel pins.
+
+Key Variables:
+  A0 -> Timbre (engine timbre, mapped 0-32767)
+  A1 -> Morph (engine morph/colour, mapped 0-32767)
+  A2 -> Pitch / V-Oct (inverted, shared with CV)
+
+      ╔═══════════╗
+      ║  BRAIDS   ║
+      ║  MI port  ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   POT1 (A0) - engine timbre
+      ║  TIMBRE   ║
+      ║           ║
+      ║   (A1)    ║   POT2 (A1) - engine morph / colour
+      ║   MORPH   ║
+      ║           ║
+      ║   (A2)    ║   POT3 (A2) - pitch / V-Oct
+      ║   PITCH   ║
+      ║           ║
+      ║    [·]    ║   LED (13) - follows gate / trigger
+      ║   (BTN)   ║   BTN (D4) - engine select (short=next, long=prev)
+      ║           ║
+      ╠═══════════╣
+      ║ I1     I2 ║   IN1 (D5)  - trigger / gate (fires note)
+      ║ (o)   (o) ║   IN2 (SCL) - reserved / unused
+      ║           ║
+      ║ CV    OUT ║   CV  (A2)  - V/oct (shared with POT3)
+      ║ (o)   (o) ║   OUT (D7)  - PWM audio (48 kHz)
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 Mutable Instruments Braids port by blueprint@poetaster.de
+  - 1.1 Forked and refactored for maddie synths
+
+License:
+GPLv3. (c) 2025 blueprint@poetaster.de
+Port of Mutable Instruments Braids; the bundled MI libraries are MIT-licensed,
+as the original STM sources from Mutable Instruments were also MIT.
+
+Hardware:
+HAGIWO MOD2 (Seeed Xiao RP2350)
 */
 
 /* toepler +

@@ -1,31 +1,54 @@
-/*
-  HAGIWO MOD2 Assembly Test Program
-  Target: Seeed XIAO RP2350
-  Purpose: Verify pots, CV, gate inputs, button, LED, and audio output
+/* Assembly Test
 
-  Based on MOD2 schematic:
-    POT1 -> A0
-    POT2 -> A1
-    POT3/CV -> A2
-    IN2  -> GPIO0
-    OUT  -> GPIO1
-    LED  -> GPIO5
-    SW   -> GPIO6
-    IN1  -> GPIO7
+Description:
+Assembly / bring-up test - verifies pots, CV, gate inputs, button, LED and
+audio output. Generates an audible test tone (POT1 pitch, POT2 waveform,
+POT3/CV volume). IN1 adds a pitch jump while HIGH; IN2 forces a short
+repeating beep while HIGH. The button cycles three test modes. Serial
+monitor prints all readings every 200 ms at 115200 baud.
 
-  What it does:
-    - Generates an audible test tone on OUT
-    - POT1 controls pitch
-    - POT2 selects waveform
-    - POT3/CV controls volume
-    - IN1 adds a pitch jump while high
-    - IN2 forces a short repeating beep while high
-    - LED follows output level / state
-    - Button cycles through 3 test modes
-    - Serial monitor prints all readings once every 200 ms
+Key Variables:
+  A0 -> Test-tone pitch
+  A1 -> Waveform select
+  A2 -> Volume (POT3 / CV)
 
-  Serial baud:
-    115200
+      ╔═══════════╗
+      ║   TEST    ║
+      ║ assembly  ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   POT1 (A0) - test-tone pitch
+      ║   PITCH   ║
+      ║           ║
+      ║   (A1)    ║   POT2 (A1) - waveform select
+      ║   WAVE    ║
+      ║           ║
+      ║   (A2)    ║   POT3 (A2) - volume (CV)
+      ║    VOL    ║
+      ║           ║
+      ║    [·]    ║   LED (GPIO5) - follows output / state
+      ║   (BTN)   ║   BTN (GPIO6) - cycle 3 test modes
+      ║           ║
+      ╠═══════════╣
+      ║ I1     I2 ║   IN1 (GPIO7) - pitch jump while HIGH
+      ║ (o)   (o) ║   IN2 (GPIO0) - repeating beep while HIGH
+      ║           ║
+      ║ CV    OUT ║   CV  (A2)    - volume (shared POT3)
+      ║ (o)   (o) ║   OUT (GPIO1) - PWM test tone
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 MOD2 assembly test program
+  - 1.1 Forked and refactored for maddie synths
+
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
+
+Hardware:
+HAGIWO MOD2 (Seeed Xiao RP2350)
 */
 
 #include <Arduino.h>

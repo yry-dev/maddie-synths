@@ -1,30 +1,55 @@
-/*
-  MOD2 Tides Firmware
-  Mutable Instruments Tides port for Seeeduino XIAO RP2350
+/* Tides
 
-  (c) 2025 GPLv3
-  Based on mi_Ugens by Volker Boehm and MI sources (MIT License)
+Description:
+Mutable Instruments Tides port for the Seeed XIAO RP2350: a tidal-wave
+generator / LFO / oscillator. Short button press cycles output modes
+(Amplitudes / Phases / Frequencies / Gates); long press cycles ramp modes
+(Looping / AD / AR). 48 kHz, 16-bit PWM audio.
+NOTE: this port uses its own pin map (OUT=D7, TRIG=D5, MOD=D6, BTN=D4,
+LED=D3), which differs from the standard MOD2 panel pins.
 
-  Hardware:
-    POT1 A0  - Shape (waveform shape 0-1)
-    POT2 A1  - Slope (waveform slope, falling to rising ramp)
-    POT3 A2  - Frequency (20-2000 Hz)
-    IN1  D5  - Trigger/Gate input (active high)
-    IN2  D0  - Smoothness modulation (digital gate)
-    OUT  D7  - PWM audio output (48kHz, 16-bit)
-    LED  13  - Feedback LED
-    BTN  D4  - Mode button (short: output mode, long: ramp mode)
+Key Variables:
+  A0 -> Shape (waveform shape, 0-1)
+  A1 -> Slope (falling -> rising ramp)
+  A2 -> Frequency (20-2000 Hz)
 
-  Output modes (short press cycles):
-    AMPLITUDES - Main waveform output (default, best for audio)
-    PHASES     - Phase-shifted outputs
-    FREQUENCIES - Frequency ratio outputs
-    GATES      - Gate/trigger outputs
+      ╔═══════════╗
+      ║   TIDES   ║
+      ║  MI port  ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   POT1 (A0) - waveform shape
+      ║   SHAPE   ║
+      ║           ║
+      ║   (A1)    ║   POT2 (A1) - slope (fall -> rise)
+      ║   SLOPE   ║
+      ║           ║
+      ║   (A2)    ║   POT3 (A2) - frequency 20-2000 Hz
+      ║   FREQ    ║
+      ║           ║
+      ║    [·]    ║   LED (D3) - feedback / gate
+      ║   (BTN)   ║   BTN (D4) - short=output mode, long=ramp mode
+      ║           ║
+      ╠═══════════╣
+      ║ I1     I2 ║   IN1 (D5)  - trigger / gate (active high)
+      ║ (o)   (o) ║   IN2 (D6)  - smoothness modulation
+      ║           ║
+      ║ CV    OUT ║   CV  (A2)  - (shared with POT3)
+      ║ (o)   (o) ║   OUT (D7)  - PWM audio (48 kHz, 16-bit)
+      ║           ║
+      ╚═══════════╝
 
-  Ramp modes (long press cycles):
-    LOOPING - Free-running LFO/oscillator (default, continuous sound)
-    AD      - Attack-Decay envelope (needs trigger)
-    AR      - Attack-Release envelope (needs gate)
+Version History:
+  - 1.0 Mutable Instruments Tides port (based on mi_Ugens by Volker Boehm)
+  - 1.1 Forked and refactored for maddie synths
+
+License:
+GPLv3. (c) 2025
+Port of Mutable Instruments Tides, based on mi_Ugens by Volker Boehm and the
+original Mutable Instruments sources (MIT License).
+
+Hardware:
+HAGIWO MOD2 (Seeed Xiao RP2350)
 */
 
 bool debug = true;
