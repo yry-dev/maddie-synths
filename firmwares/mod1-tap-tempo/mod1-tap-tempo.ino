@@ -1,19 +1,52 @@
-/*
-HAGIWO MOD1 Tap Tempo Clock Ver1.0
-4-output tap tempo master clock.
-Four outputs: 4x fixed output, 1~16x variable output, and two variable 1~/16 division outputs.
+/* Tap Tempo
 
---Pin assign---
-POT1  A0  F2out  multiple rate
-POT2  A1  F3out  division rate
-POT3  A2  F4out  division rate
-F1    D17   4x clock out
-F2    D9    1~16x variable output
-F3    D10   1~/16 variable output
-F4    D11   1~/16 variable output 
-BUTTON    tap tempo (push 4times)
-LED       1* output
-EEPROM    N/A
+Description:
+4-output tap tempo master clock: a 4x fixed output, a 1~16x variable output, and
+two variable 1~/16 division outputs. Tap the button four times to set the tempo.
+Original firmware by Hagiwo for Mod1.
+
+Key Variables:
+  A0 -> F2 multiple rate
+  A1 -> F3 division rate
+  A2 -> F4 division rate
+
+      ╔═══════════╗
+      ║ TAP TEMPO ║
+      ║   clock   ║
+      ╠═══════════╣
+      ║           ║
+      ║   (A0)    ║   MULT    — F2 multiple rate
+      ║   MULT    ║
+      ║           ║
+      ║   (A1)    ║   DIV     — F3 division rate
+      ║    DIV    ║
+      ║           ║
+      ║   (A2)    ║   DIV     — F4 division rate
+      ║    DIV    ║
+      ║           ║
+      ║    [·]    ║   LED (D3) — 1x output
+      ║   (BTN)   ║   BTN (D4) — tap tempo (push 4x)
+      ║           ║
+      ╠═══════════╣
+      ║ F1     F2 ║   F1 (D17) OUT — 4x clock
+      ║ (o)   (o) ║   F2 (D9)  OUT — 1~16x variable
+      ║           ║
+      ║ F3     F4 ║   F3 (D10) OUT — 1~/16 variable
+      ║ (o)   (o) ║   F4 (D11) OUT — 1~/16 variable
+      ║           ║
+      ╚═══════════╝
+
+Version History:
+  - 1.0 Tap Tempo Clock firmware by Hagiwo
+  - 1.1 Forked and refactored from https://note.com/solder_state/n/nc05d8e8fd311 
+
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
+
+Hardware:
+HAGIWO MOD1
 */
 #include <Arduino.h>
 #include <Mod1Common.h>

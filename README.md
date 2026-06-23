@@ -33,6 +33,42 @@ Install external libraries used by the Testbild sketches:
 
 `Adafruit SSD1306` pulls `Adafruit GFX Library` and `Adafruit BusIO` automatically.
 
+### MOD2 Braids / Tides (Mutable Instruments port)
+
+`mod2-braids` and `mod2-tides` depend on Mutable Instruments DSP code and two
+helper libraries that are **not** vendored in this repo. Install them once into
+your Arduino libraries folder (default `~/Documents/Arduino/libraries`).
+
+1. Library Manager dependencies:
+
+   - arduino-cli lib install "Bounce2" "RPI_PICO_TimerInterrupt"
+
+2. Mutable Instruments libraries from [poetaster/arduinoMI](https://github.com/poetaster/arduinoMI)
+   (the modules live in separate submodule repos — clone the three we need over
+   HTTPS straight into the libraries folder):
+
+   - `git clone https://github.com/poetaster/STMLIB.git ~/Documents/Arduino/libraries/STMLIB`
+   - `git clone https://github.com/poetaster/BRAIDS.git ~/Documents/Arduino/libraries/BRAIDS`
+   - `git clone https://github.com/poetaster/TIDES.git  ~/Documents/Arduino/libraries/TIDES`
+
+3. **TIDES packaging fix.** The `TIDES` library ships its sub-sources as `.cc`
+   files *and* amalgamates them in `src/tides_all.cpp`, so arduino-cli compiles
+   them twice and the link fails with `multiple definition` errors. `BRAIDS`
+   already uses `.inc` for the same trick; make `TIDES` match by renaming its
+   three sub-sources and updating the includes:
+
+   ```sh
+   cd ~/Documents/Arduino/libraries/TIDES/src
+   for f in resources poly_slope_generator ramp_extractor; do
+     mv "tides2/$f.cc" "tides2/$f.inc"
+   done
+   sed -i '' -E 's#(tides2/[a-z_]+)\.cc#\1.inc#' tides_all.cpp
+   ```
+
+`PWMAudio.h` (used by both) ships with the `rp2040:rp2040` core, so no extra
+install is needed for it. After this, `make mod2-braids` and `make mod2-tides`
+build cleanly.
+
 ## Fish shell scripts
 
 - Build:
@@ -113,6 +149,41 @@ void loop() {
   int idx = mod1::select6FromAdc(analogRead(A0));
 }
 ```
+
+### Mod2Common helpers
+
+`firmwares/shared/Mod2Common` provides shared scaffolding used across the MOD2 (Seeed Xiao RP2350) sketches that share the ~36.6 kHz dual-slice PWM audio path:
+
+- Panel pin map (note the `*_PIN` suffix — the RP2350 core already defines a `PIN_LED` macro):
+  - `mod2::POT1_PIN` / `POT2_PIN` / `POT3_PIN`, `mod2::CV_PIN`
+  - `mod2::IN1_PIN`, `mod2::IN2_PIN`, `mod2::OUT_PIN`, `mod2::LED_PIN`, `mod2::BUTTON_PIN`
+- Audio path:
+  - `mod2::initAudioPwm(audioSlice, timerSlice, handler)` — GPIO1 10-bit audio + GPIO2 ~36.6 kHz wrap-IRQ
+  - `mod2::initPwmOutput10bit(pin)` — 10-bit PWM output (e.g. LED brightness)
+  - constants `SYS_CLOCK`, `AUDIO_FS`, `PWM_AUDIO_WRAP`, `PWM_TIMER_WRAP`, `PWM_FS`, `PWM_MID`
+- DSP / control helpers:
+  - envelope/shaping: `expDecayCoef`, `raisedCosine`, `softClipTanh`, `softSat`
+  - filters: `Biquad` (band-pass), `OutputLpBiquad`, `DcBlocker`
+  - sample playback: `readPCM16LE`, `lerpFixed` (Q12 fixed-point)
+  - noise: `fillWhiteNoise`, `xorshift32`
+  - controls: `PotSmoother<N>`, `PickupParam` + `checkPickup`
+
+Example:
+
+```cpp
+#include <Mod2Common.h>
+
+uint sliceAudio, sliceTimer;
+
+void on_pwm_wrap();  // your audio ISR
+
+void setup() {
+  mod2::initAudioPwm(sliceAudio, sliceTimer, on_pwm_wrap);
+  pinMode(mod2::BUTTON_PIN, INPUT_PULLUP);
+}
+```
+
+Sketches using it: `mod2-kick`, `mod2-fm_drum`, `mod2-clap`, `mod2-hihat`, `mod2-claves`, `mod2-breakbeats`, `mod2-sample`, `mod2-radio`, `mod2-vco`, `mod2-square_vco`, `mod2-spiral`, `mod2-flux`. (`mod2-braids`/`mod2-tides` use a different PWMAudio DAC path; `mod2-mod303`/`mod2-test` use other audio backends and are not on Mod2Common.)
 
 ### Hagiwo30Common helpers
 

@@ -14,7 +14,25 @@ FIRMWARES := $(filter-out shared,$(notdir $(FIRMWARE_DIRS)))
 
 all: dist
 
-dist: $(FIRMWARES)
+# Build every firmware, skipping (not aborting on) any that fail to compile.
+# Each firmware is built via its own strict rule, so `make <firmware>` still
+# fails hard; only the batch build tolerates per-firmware failures.
+dist:
+	@failed=""; built=""; \
+	for fw in $(FIRMWARES); do \
+		echo "=== Building $$fw ==="; \
+		if $(MAKE) --no-print-directory $$fw; then \
+			built="$$built $$fw"; \
+		else \
+			echo ">> $$fw FAILED -- skipping"; \
+			failed="$$failed $$fw"; \
+		fi; \
+	done; \
+	echo ""; \
+	echo "Built:$$built"; \
+	if [ -n "$$failed" ]; then \
+		echo "Skipped (failed to compile):$$failed"; \
+	fi
 
 list:
 	@printf '%s\n' $(FIRMWARES)
