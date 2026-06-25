@@ -55,20 +55,18 @@ HAGIWO MOD2 (Seeed Xiao RP2350)
 #include "hardware/irq.h"
 #include <math.h>
 #include <Mod2Common.h>  // Shared MOD2 pin map, PWM-audio setup and helpers
+#include <ClavesVoice.h>  // Shared Claves voice (also used by the VCV Rack port)
 
 /* ============================================================ */
 /* ★ Basic constants                                            */
 /* ============================================================ */
 const float   SYS_CLOCK   = 150000000.0f;   // 150 MHz system clock (fixed on RP2040)
 const uint16_t TABLE_SZ   = 8192;           // Sample table length (generated per trigger)
-const uint8_t  LUT_SZ     = 64;             // Size of mini‑waveform LUT
-#define        LUT_MASK   (LUT_SZ - 1)      // Bit‑mask for fast modulo operation
 
 const float PWM_FS  = 1023.0f;              // 10‑bit PWM resolution (wrap value)
 const float PWM_MID = PWM_FS / 2.0f;        // Mid‑scale for silence (50 % duty)
 
 const float AUDIO_FS = SYS_CLOCK / 4096.0f; // ≈36.6 kHz effective sample rate
-const float PH_INC_K = float(LUT_SZ) / AUDIO_FS;  // Phase‑increment scaling factor
 
 /* ---- CV input on A2 ---------------------------------------- */
 #define  ADC_RES_BITS 10                         // Use 10‑bit resolution (1023 max)
@@ -82,17 +80,14 @@ const float PITCH_MAX_HZ = 1500.0f;         // Absolute frequency limit
 /* ============================================================ */
 /* ★ Global variables                                           */
 /* ============================================================ */
-float sineLUT[LUT_SZ];      // 64‑sample sine table
-float triLUT [LUT_SZ];      // 64‑sample triangle table
-
 uint16_t finalTbl[TABLE_SZ];   // 16‑bit PWM samples generated per strike
 uint16_t envTbl[TABLE_SZ];     // Envelope values for LED brightness
 
 volatile bool  playing  = false;     // Playback state flag
 volatile uint16_t tblIdx = 0;        // Current playback index
 
-volatile float decayRate = 5.0f;     // Envelope decay (CV A0)
-volatile float waveMorph = 0.0f;     // 0 = sine, 1 = triangle (CV A1)
+// Shared synthesis core: renders the sine/triangle morph + decay envelope.
+sc::ClavesVoice clavesVoice;
 
 uint sliceAudio, sliceIRQ, sliceLED;           // PWM slice numbers
 
@@ -143,60 +138,23 @@ void onTrigger() {
   /* ----- Allow CV to settle, then read knobs/CV ------------- */
   delay(5);   // Small wait to avoid ADC glitch (≈5 ms)
 
-  decayRate = 1.0f + 9.0f * (analogRead(A0) / 1023.0f);   // 1‑10 range
-  waveMorph =               analogRead(A1) / 1023.0f;     // 0‑1
+  const float decayRate = 1.0f + 9.0f * (analogRead(A0) / 1023.0f);  // 1‑10 range
+  const float waveMorph =               analogRead(A1) / 1023.0f;    // 0‑1
 
   uint16_t adc   = ADC_MAX_VAL - readAnalogAvg(A2);       // Invert: 0 V → high pitch
   float cvV      = (adc / float(ADC_MAX_VAL)) * CV_FULL_V;
   float baseFreq = PITCH_F0 * powf(2.0f, cvV);            // 1 V/Oct mapping
   if (baseFreq > PITCH_MAX_HZ) baseFreq = PITCH_MAX_HZ;   // Clamp
 
-  /* ----- Generate sample table ----------------------------- */
-  const float expK   = mod2::expDecayCoef(decayRate, TABLE_SZ - 1);  // Per‑sample decay
-  float env          = 1.0f;                              // Envelope start
-
-  const float phInc  = baseFreq * PH_INC_K;               // Phase increment
-  float ph           = 0.0f;
-
-  const uint16_t fadeStart = uint16_t(TABLE_SZ * 0.95f);  // Last 5 % tail fade
-  const uint16_t fadeLen   = TABLE_SZ - 1 - fadeStart;
-  const float    invFadeLen = 1.0f / fadeLen;
-
+  /* ----- Generate sample table via the shared Claves core --- */
+  // The core renders one strike sample per audio-rate tick; over TABLE_SZ ticks
+  // its strike window (kClavesStrikeDuration) spans exactly the table length.
+  clavesVoice.strike(decayRate, waveMorph, baseFreq);
+  const float dt = 1.0f / AUDIO_FS;
   for (uint16_t i = 0; i < TABLE_SZ; ++i) {
-    /* -------------- Linear interpolation in 64‑point LUT -------------- */
-    uint8_t idx  = uint8_t(ph) & LUT_MASK;
-    uint8_t idx2 = (idx + 1) & LUT_MASK;
-    float   frac = ph - uint8_t(ph);
-
-    float s = sineLUT[idx] * (1 - frac) + sineLUT[idx2] * frac;
-    float t =  triLUT[idx] * (1 - frac) +  triLUT[idx2] * frac;
-    float w = s * (1 - waveMorph) + t * waveMorph;        // Morph mix
-
-    /* -------------- Apply exponential decay envelope ------------------ */
-    float y = w * env;
-    
-    /* -------------- Store current envelope value for LED -------------- */
-    float envValue = env;
-    
-    env *= expK;
-
-    /* -------------- Additional cosine fade‑out at very end ------------ */
-    if (i >= fadeStart) {
-      float mu  = (i - fadeStart) * invFadeLen;
-      float mu2 = mod2::raisedCosine(mu);      // Smooth 0→1 curve
-      y *= (1 - mu2);
-      envValue *= (1 - mu2);  // Apply fade to LED envelope too
-    }
-
-    /* -------------- Convert −1..+1 to 0..1023 for PWM ----------------- */
-    finalTbl[i] = uint16_t((y + 1.0f) * (PWM_FS / 2.0f));
-    
-    /* -------------- Convert envelope 0..1 to 0..1023 for LED PWM ------ */
-    envTbl[i] = uint16_t(envValue * PWM_FS);
-
-    /* -------------- Advance phase and wrap ---------------------------- */
-    ph += phInc;
-    if (ph >= LUT_SZ) ph -= LUT_SZ;
+    const sc::ClavesFrame f = clavesVoice.process(dt);
+    finalTbl[i] = uint16_t((f.audio + 1.0f) * (PWM_FS / 2.0f));  // −1..+1 → 0..1023
+    envTbl[i]   = uint16_t(f.env * PWM_FS);                      // 0..1   → 0..1023
   }
 
   /* ----- Restart playback --------------------------------- */
@@ -211,13 +169,6 @@ void onTrigger() {
 /* ============================================================ */
 void setup() {
   analogReadResolution(ADC_RES_BITS);        // 10‑bit ADC resolution
-
-  /* --- Build 64‑point sine & triangle LUTs --------------------------- */
-  for (uint8_t i = 0; i < LUT_SZ; ++i) {
-    float th      = 2.0f * PI * i / LUT_SZ;
-    sineLUT[i]    = sinf(th);
-    triLUT[i]     = (2.0f / PI) * asinf(sineLUT[i]);  // Triangle via inverse‑sine
-  }
 
   /* --- Audio PWM + 36.6 kHz wrap-IRQ setup (shared) ----------------- */
   mod2::initAudioPwm(sliceAudio, sliceIRQ, on_pwm_wrap);

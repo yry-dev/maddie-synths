@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="30.48mm" height="128.5mm" viewBox="0 0 90 379.42">
+  <rect width="90" height="379.42" fill="#221b22"/>
+  <rect x="2" y="2" width="86" height="375.42" fill="none" stroke="#48384a" stroke-width="1"/>
+
+  <g font-family="Helvetica, Arial, sans-serif" fill="#f0e6ee" text-anchor="middle">
+    <!-- Title -->
+    <text x="45" y="26" font-size="11" font-weight="bold" letter-spacing="1">SQ VCO</text>
+    <text x="45" y="38" font-size="6" fill="#a99aaa" letter-spacing="1">CHIPTUNE</text>
+
+    <!-- Pot labels -->
+    <text x="45" y="112" font-size="9">TUNE</text>
+    <text x="45" y="120" font-size="5.5" fill="#a99aaa">1.0–2.0×</text>
+    <text x="45" y="162" font-size="9">OCTAVE</text>
+    <text x="45" y="170" font-size="5.5" fill="#a99aaa">1–32×</text>
+    <text x="45" y="213" font-size="9">VIB</text>
+    <text x="45" y="221" font-size="5.5" fill="#a99aaa">DEPTH</text>
+
+    <!-- Push button -->
+    <text x="45" y="263" font-size="8">CHIP</text>
+
+    <!-- Jack section -->
+    <line x1="10" y1="271" x2="80" y2="271" stroke="#48384a" stroke-width="0.8"/>
+
+    <!-- Jack labels -->
+    <text x="30" y="313" font-size="7.5">IN1</text>
+    <text x="60" y="313" font-size="7.5">V/OCT</text>
+    <text x="30" y="357" font-size="7.5">IN2</text>
+    <text x="60" y="357" font-size="7.5">OUT</text>
+  </g>
+</svg>

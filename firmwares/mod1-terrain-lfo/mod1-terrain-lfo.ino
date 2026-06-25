@@ -11,8 +11,12 @@ x1.1 -> F4). SloMo randomly and independently slows each terrain for a short,
 tempo-scaled "breath". F1 CV (0-5V) adds 0-1 Hz of speed offset.
 Firmware idea by Rob Heel for Mod1 designed by Hagiwo.
 
+The terrain generation, phase reading, detune, SloMo and smoothing all live in
+the shared SynthCore (TerrainLfoCore.h), which the VCV Rack port reuses. This
+sketch keeps only the MOD1 hardware I/O: pots, button, CV in, PWM out and LED.
+
 Key Variables:
-  A0 -> Base speed (0.01-5 Hz)
+  A0 -> Base speed (0.01-3 Hz)
   A1 -> SloMo probability
   A2 -> Knots per waveform (3..12)
 
@@ -21,7 +25,7 @@ Key Variables:
       ║    LFO    ║
       ╠═══════════╣
       ║           ║
-      ║   (A0)    ║   SPEED   — base speed (0.01-5 Hz)
+      ║   (A0)    ║   SPEED   — base speed (0.01-3 Hz)
       ║   SPEED   ║
       ║           ║
       ║   (A1)    ║   SLOMO   — SloMo probability
@@ -44,7 +48,8 @@ Key Variables:
 
 Version History:
   - 1.0 Terrain LFO firmware idea by Rob Heel for HAGIWO MOD1
-  - 1.1 Forked and refactored from https://github.com/rob-scape/hgw-mod1-firmwares  
+  - 1.1 Forked and refactored from https://github.com/rob-scape/hgw-mod1-firmwares
+  - 1.2 Refactored onto the shared SynthCore (TerrainLfoCore.h)
 
 License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
@@ -57,14 +62,10 @@ HAGIWO MOD1
 
 #include <Arduino.h>
 #include <Mod1Common.h>
+#include <TerrainLfoCore.h>  // Shared terrain core (also used by the VCV Rack port)
 
-#define TABLE_SIZE 256
-uint16_t terrain1[TABLE_SIZE];
-uint16_t terrain2[TABLE_SIZE];
-uint16_t terrain3[TABLE_SIZE];
-
-float phase1 = 0.0, phase2 = 0.0, phase3 = 0.0;
-float lastPwm1 = 128.0, lastPwm2 = 128.0, lastPwm3 = 128.0;
+// Terrain state (generation, phases, SloMo, smoothing) lives in the shared core.
+sc::TerrainLfoCore core;
 
 // --- Uncomment to enable serial debug ---
 // #define DEBUG_SERIAL
@@ -102,7 +103,7 @@ void setup() {
   pinMode(output2Pin, OUTPUT);  // F3
   pinMode(output3Pin, OUTPUT);  // F4
 
-  // --- Timer1 (16-bit) PWM Setup for D10 (F3) ---
+  // --- Timer1 (16-bit) PWM Setup for D9 (F2) & D10 (F3) ---
   TCCR1A = _BV(COM1A1) | _BV(COM1B1) | _BV(WGM10);
   TCCR1B = _BV(WGM12) | _BV(CS10);   // ~31.4 kHz PWM, no prescale
 
@@ -114,8 +115,6 @@ void setup() {
   OCR1B = 128;
   OCR2A = 128;
 
-  randomSeed(analogRead(A7));
-
   #ifdef DEBUG_SERIAL
   Serial.begin(115200);
   Serial.println("Dual Terrain LFO Ready");
@@ -125,79 +124,21 @@ void setup() {
 }
 
 // -----------------------------------------------------------------------------
-// generateTerrain() helper for one table
-// -----------------------------------------------------------------------------
-void generateSingleTerrain(uint16_t* table, int knots, float heightScale) {
-  float knotVals[24];
-  for (int k = 0; k < knots; ++k) {
-    float val = (random(0, 1000) / 1000.0f) * heightScale;
-    knotVals[k] = val;
-  }
-  knotVals[random(0, knots)] = 0.0f;
-  knotVals[random(0, knots)] = heightScale;
-
-  float knotPos[24];
-  float total = 0.0f;
-  for (int k = 0; k < knots; ++k) {
-    float step = random(50, 200) / 1000.0f;
-    total += step;
-    knotPos[k] = total;
-  }
-  for (int k = 0; k < knots; ++k) knotPos[k] /= total;
-
-  knotVals[knots - 1] = knotVals[0];
-  knotPos[knots - 1] = 1.0f;
-
-  int curvedSegment = random(0, knots - 1);
-  float curvature = random(-80, 80) / 100.0f;
-
-  for (int i = 0; i < TABLE_SIZE; ++i) {
-    float t = (float)i / (TABLE_SIZE - 1);
-    int k0 = 0;
-    while (k0 < knots - 1 && t > knotPos[k0 + 1]) k0++;
-    int k1 = min(k0 + 1, knots - 1);
-    float frac = (t - knotPos[k0]) / (knotPos[k1] - knotPos[k0]);
-
-    float v;
-    if (k0 == curvedSegment) {
-      float v0 = knotVals[k0];
-      float v1 = knotVals[k1];
-      float vMid = (v0 + v1) / 2.0f + curvature;
-      vMid = constrain(vMid, 0.0f, 1.0f);
-      float oneMinusT = 1.0f - frac;
-      v = oneMinusT * oneMinusT * v0
-        + 2.0f * oneMinusT * frac * vMid
-        + frac * frac * v1;
-    } else {
-      v = knotVals[k0] * (1.0f - frac) + knotVals[k1] * frac;
-    }
-
-    table[i] = (uint16_t)(constrain(v, 0.0f, 1.0f) * 65535.0f);
-  }
-}
-
-// -----------------------------------------------------------------------------
-// generateTerrains() –  at once
+// generateTerrains() — read knots pot, seed from hardware noise, regenerate all.
 // -----------------------------------------------------------------------------
 void generateTerrains() {
   digitalWrite(ledPin, HIGH);
   blinking = true;
   blinkStart = millis();
 
-  int rawC = analogRead(potC);
-  int knots = (int)mod1::mapClamp(rawC, 0, 1023, 3, 12);
-  float heightScale = 1.0;
+  int knots = (int)mod1::mapClamp(analogRead(potC), 0, 1023, 3, 12);
 
-  randomSeed(analogRead(A7));
-  generateSingleTerrain(terrain1, knots, heightScale);
-
-  randomSeed(analogRead(A6));
-  generateSingleTerrain(terrain2, knots, heightScale);
-  
-  randomSeed(micros());
-  generateSingleTerrain(terrain3, knots, heightScale);
-
-  phase1 = phase2 = phase3 = 0.0;
+  // Seed from floating-ADC noise + timer entropy, mirroring the firmware's
+  // per-table randomSeed(analogRead(A7/A6)) / micros() entropy sources.
+  uint32_t seed = ((uint32_t)analogRead(A7) << 20)
+                ^ ((uint32_t)analogRead(A6) << 10)
+                ^ (uint32_t)micros();
+  core.regenerate(knots, seed);
 
   #ifdef DEBUG_SERIAL
   Serial.println("New terrains generated");
@@ -219,116 +160,36 @@ void loop() {
     blinking = false;
   }
 
-  // --- base speed from pot ---
-  float speedCtrl = analogRead(potA) / 1023.0;
-  //float baseHz = 0.01 * pow(500.0, speedCtrl);  // 0.01..5 Hz exponential
-  float baseHz = 0.01 * pow(300.0, speedCtrl);  // 0.01 .. ~3 Hz
+  // --- map pots (normalised 0..1) to engine units via the shared core ---
+  const float pot1 = analogRead(potA) / 1023.0f;
+  const float pot2 = analogRead(potB) / 1023.0f;
+  const float pot3 = analogRead(potC) / 1023.0f;
+  const sc::TerrainParams tp = sc::terrainMapParams(pot1, pot2, pot3);
 
-  // --- CV modulation ---
-  int rawCV = analogRead(cvIn);
-  float cvHz = mod1::mapClamp(rawCV, 0, 1023, 0, 1000) / 1000.0f; // 0–1 Hz
-  float tableHz = baseHz + cvHz;                   // combined
+  // --- CV modulation (0–5V -> 0–1 Hz speed offset) ---
+  float cvHz = mod1::mapClamp(analogRead(cvIn), 0, 1023, 0, 1000) / 1000.0f;
 
-  // --- clamp ---
-  if (tableHz < 0.0) tableHz = 0.0;    // safety cap
-  if (tableHz > 10.0) tableHz = 10.0;  // safety cap
-
-  // --- time step ---
+  // --- real time step ---
   static unsigned long lastTime = 0;
   unsigned long now = micros();
-  float dt = (now - lastTime) / 1e6;
-  if (dt <= 0) dt = 0.001;
+  float dt = (now - lastTime) / 1e6f;
+  if (dt <= 0) dt = 0.001f;
   lastTime = now;
 
+  // Advance the terrain engine one loop iteration.
+  core.step(dt, tp.baseHz, cvHz, tp.intensity);
 
-    // --- PotB controls slowdown probability/intensity ---
-    float intensity = analogRead(potB) / 1023.0;  // 0.0 .. 1.0
-
-    // --- fixed detune between the three outputs ---
-    float speed1 = tableHz * 0.9;   // F2
-    float speed2 = tableHz * 1.0;   // F3
-    float speed3 = tableHz * 1.1;   // F4
-
-    // --- SlowMo struct for independent slowdown events ---
-    struct SlowMo {
-      bool active;
-      float slowFactor;      // e.g., 0.2 = 5× slower
-      float duration;        // milliseconds
-      unsigned long startTime;
-    };
-    static SlowMo slow1, slow2, slow3;
-
-    // Helper lambda to maybe trigger one slowdown
-    auto maybeTriggerSlowmo = [&](SlowMo &s) {
-      // PotB controls probability of triggering
-      if (!s.active && random(10000) < intensity * 5) {
-        s.active = true;                             // intensity * 5 -> 0.05 % chance
-        s.slowFactor = random(10, 50) / 100.0;       // 0.1–0.5x speed
-        float durBase = 800 + random(200, 3000);     // 0.8–3 s // or base 2000 + random(1000, 6000) 
-        s.duration = durBase / (tableHz + 0.1);      // slower base speed → longer event
-        s.startTime = millis();
-      }
-      if (s.active && (millis() - s.startTime > s.duration)) {
-        s.active = false;                             // back to normal speed
-      }
-    };
-
-    // Evaluate possible slowdowns for each waveform
-    maybeTriggerSlowmo(slow1);
-    maybeTriggerSlowmo(slow2);
-    maybeTriggerSlowmo(slow3);
-
-    // --- Apply slowdown factors if active ---
-    float actualSpeed1 = slow1.active ? speed1 * slow1.slowFactor : speed1;
-    float actualSpeed2 = slow2.active ? speed2 * slow2.slowFactor : speed2;
-    float actualSpeed3 = slow3.active ? speed3 * slow3.slowFactor : speed3;
-
-  // --- Advance phases ---
-  phase1 += actualSpeed1 * TABLE_SIZE * dt;
-  phase2 += actualSpeed2 * TABLE_SIZE * dt;
-  phase3 += actualSpeed3 * TABLE_SIZE * dt;
-
-  // Wrap around
-  if (phase1 >= TABLE_SIZE) phase1 -= TABLE_SIZE;
-  if (phase2 >= TABLE_SIZE) phase2 -= TABLE_SIZE;
-  if (phase3 >= TABLE_SIZE) phase3 -= TABLE_SIZE;
-
-  // --- interpolation helper ---
-  auto interpTable = [](uint16_t* tbl, float phase) {
-    int i0 = (int)phase;
-    int i1 = i0 + 1;
-    if (i1 >= TABLE_SIZE) i1 = 0;
-    float frac = phase - (float)i0;
-    int32_t delta = (int32_t)tbl[i1] - (int32_t)tbl[i0];
-    int32_t tmp = (int32_t)tbl[i0] + (int32_t)(delta * frac);
-    tmp = constrain(tmp, 0, 65535);
-    return (uint16_t)tmp;
-  };
-
-    // --- interpolate ---
-    uint16_t interp1 = interpTable(terrain1, phase1);
-    uint16_t interp2 = interpTable(terrain2, phase2);
-    uint16_t interp3 = interpTable(terrain3, phase3);
-
-    int pwm1 = (interp1 + 128) >> 8;
-    int pwm2 = (interp2 + 128) >> 8;
-    int pwm3 = (interp3 + 128) >> 8;
-
-    lastPwm1 = lastPwm1 * 0.9 + pwm1 * 0.1;
-    lastPwm2 = lastPwm2 * 0.9 + pwm2 * 0.1;
-    lastPwm3 = lastPwm3 * 0.9 + pwm3 * 0.1;
-
-    // --- write to PWM registers ---
-    OCR1A = (uint8_t)lastPwm1;    // F2
-    OCR1B = (uint8_t)lastPwm2;    // F3
-    OCR2A = (uint8_t)lastPwm3;    // F4
+  // --- write smoothed 0..1 outputs to the PWM registers (0..255) ---
+  OCR1A = (uint8_t)(core.out[0] * 255.0f + 0.5f);  // F2 - D9
+  OCR1B = (uint8_t)(core.out[1] * 255.0f + 0.5f);  // F3 - D10
+  OCR2A = (uint8_t)(core.out[2] * 255.0f + 0.5f);  // F4 - D11
 
   #ifdef DEBUG_SERIAL
   static unsigned long lastPrint = 0;
   if (millis() - lastPrint > 100) {
-    Serial.print("CVHz="); Serial.print(cvHz, 2);
-    Serial.print(" BaseHz="); Serial.print(baseHz, 2);
-    Serial.print(" TotalHz="); Serial.println(tableHz, 2);
+    Serial.print("BaseHz="); Serial.print(tp.baseHz, 2);
+    Serial.print(" CVHz="); Serial.print(cvHz, 2);
+    Serial.print(" Int="); Serial.println(tp.intensity, 2);
     lastPrint = millis();
   }
   #endif

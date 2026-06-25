@@ -25,14 +25,14 @@ Key Variables:
       ║   (A2)    ║   POT3 (A2) - index within group
       ║   INDEX   ║
       ║           ║
+      ║   (BTN)   ║   BTN (GPIO6) - manual trigger      
       ║    [·]    ║   LED (GPIO5) - trigger (20 ms pulse)
-      ║   (BTN)   ║   BTN (GPIO6) - manual trigger
       ║           ║
       ╠═══════════╣
       ║ I1     I2 ║   IN1 (GPIO7) - external trigger (rising)
       ║ (o)   (o) ║   IN2 (GPIO0) - select +6 sample number
       ║           ║
-      ║ CV    OUT ║   CV  (A2)    - index (shared POT3)
+      ║ OUT    CV ║   CV  (A2)    - index (shared POT3)
       ║ (o)   (o) ║   OUT (GPIO1) - PWM audio (~36.6 kHz)
       ║           ║
       ╚═══════════╝

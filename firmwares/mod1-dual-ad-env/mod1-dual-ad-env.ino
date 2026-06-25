@@ -42,8 +42,9 @@ Key Variables:
 Version History:
   - 1.0 Forked from Rob Scape: https://github.com/rob-scape/hgw-mod1-firmwares/
   - 1.1 Refactored for Maddie Synths
+  - 1.2 Ported to shared DualADEnvCore (closed-form exp curves, dt-driven)
 
-License: 
+License:
   MIT License
 
 Hardware:
@@ -51,91 +52,19 @@ HAGIWO MOD1
 */
 #include <Arduino.h>
 #include <Mod1Common.h>
-#include <Mod1EnvelopeData.h>
+#include <DualADEnvCore.h>
 
 #define Brightness 160 // 0 - 255
-constexpr int kEnvelopeTableSize = mod1::kEnvelopeTableSize;
 
-constexpr int kStateIdle = 0;
-constexpr int kStateAttack = 1;
-constexpr int kStateRelease = 2;
-constexpr float kEnvelopeStepScale = 0.05f / 2.0f;
-constexpr int kVariationRandomScale = 1000;
-constexpr int kEndOfCycleHoldTicks = 10;
-
-// Envelope lookup tables are provided by Mod1EnvelopeData.
-
-struct EnvelopeChannel
-{
-    float waveIndex;
-    int outputValue;
-    int lastOutput;
-    int state;
-    bool endOfCycle;
-    int endOfCycleCount;
-    int attackTime;
-    int releaseTime;
-    uint8_t outputPin;
-};
-
-unsigned long previousMillis = 0;
-unsigned long currentMillis = 0;
-int atkTime = 0;
-int relTime = 0;
-
-EnvelopeChannel env1 = {0.0f, 0, 0, kStateIdle, false, 0, 0, 0, mod1::PIN_F2};
-EnvelopeChannel env2 = {0.0f, 0, 0, kStateIdle, false, 0, 0, 0, mod1::PIN_F4};
+sc::ADEnvVoice env1;
+sc::ADEnvVoice env2;
 
 mod1::DebouncedInput buttonDebounce(50, HIGH);
 mod1::EdgeInput trig1Edge(HIGH);
 mod1::EdgeInput trig2Edge(HIGH);
 
-int varyTime(int baseTime, float variationAmount)
-{
-    return baseTime + random(-kVariationRandomScale, kVariationRandomScale) / 1000.0f * baseTime * variationAmount;
-}
-
-void triggerEnvelope(EnvelopeChannel &env, int baseAttackTime, int baseReleaseTime, float attackVariation, float releaseVariation)
-{
-    env.lastOutput = (env.state == kStateRelease) ? env.outputValue : 0;
-    env.state = kStateAttack;
-    env.waveIndex = 0;
-    env.attackTime = varyTime(baseAttackTime, attackVariation);
-    env.releaseTime = varyTime(baseReleaseTime, releaseVariation);
-}
-
-void updateEnvelope(EnvelopeChannel &env)
-{
-    if (env.state == kStateAttack)
-    {
-        env.outputValue = map(pgm_read_byte(&mod1::kEnvelopeCurve[(int)env.waveIndex]), 0, 255, 255, env.lastOutput);
-        env.waveIndex += kEnvelopeStepScale * env.attackTime;
-    }
-    else if (env.state == kStateRelease)
-    {
-        env.outputValue = map(pgm_read_byte(&mod1::kEnvelopeCurve[(int)env.waveIndex - kEnvelopeTableSize]), 0, 255, 0, 255);
-        env.waveIndex += kEnvelopeStepScale * env.releaseTime;
-    }
-
-    if (env.waveIndex > kEnvelopeTableSize && env.waveIndex < 2 * kEnvelopeTableSize)
-        env.state = kStateRelease;
-
-    if (env.waveIndex >= 2 * kEnvelopeTableSize)
-    {
-        env.waveIndex = 0;
-        env.state = kStateIdle;
-        env.endOfCycle = true;
-    }
-
-    if (env.endOfCycle)
-    {
-        if (++env.endOfCycleCount > kEndOfCycleHoldTicks)
-        {
-            env.endOfCycleCount = 0;
-            env.endOfCycle = false;
-        }
-    }
-}
+unsigned long previousMillis = 0;
+unsigned long currentMillis = 0;
 
 void setup()
 {
@@ -153,49 +82,54 @@ void loop()
 {
     currentMillis = millis();
 
-    // Read pots
-    int pot1 = analogRead(mod1::PIN_POT1);
-    int pot2 = analogRead(mod1::PIN_POT2);
-    int variationPot = analogRead(mod1::PIN_POT3);
+    // Read pots (normalised 0..1)
+    float atkNorm = analogRead(mod1::PIN_POT1) / 1023.0f;
+    float relNorm = analogRead(mod1::PIN_POT2) / 1023.0f;
+    float varNorm = analogRead(mod1::PIN_POT3) / 1023.0f;
 
-    atkTime = mod1::kEnvelopeTableSize - pgm_read_word(&mod1::kEnvelopePotAdjust[pot1]);
-    relTime = mod1::kEnvelopeTableSize - pgm_read_word(&mod1::kEnvelopePotAdjust[pot2]);
+    // Map pots to time (seconds) via shared closed-form mapping.
+    float baseAtk = sc::adEnvMapTime(atkNorm);
+    float baseRel = sc::adEnvMapTime(relNorm);
 
-    // Normalized pot values
-    float atkNorm = pot1 / 1023.0;
-    float relNorm = pot2 / 1023.0;
-    float varNorm = variationPot / 1023.0;
+    // Variation scale: shorter times → wider variation range.
+    float atkVarAmount = varNorm * sc::adEnvVarScale(atkNorm);
+    float relVarAmount = varNorm * sc::adEnvVarScale(relNorm);
 
-    // Scaled variation range (0.2 to 0.8)
-    // To shift the range to 0.1–0.8, replace 0.6 + 0.2 with 0.7 + 0.1
-    float atkVarScale = (1.0 - atkNorm) * 0.6 + 0.2;
-    float relVarScale = (1.0 - relNorm) * 0.6 + 0.2;
-    float atkVarAmount = varNorm * atkVarScale;
-    float relVarAmount = varNorm * relVarScale;
-
-    // Trigger reads with edge detection
+    // Trigger edge detection
     buttonDebounce.update((uint8_t)digitalRead(mod1::PIN_BUTTON), currentMillis);
     trig1Edge.update((uint8_t)digitalRead(mod1::PIN_F1));
     trig2Edge.update((uint8_t)digitalRead(mod1::PIN_F3));
 
-    bool triggerEnvelope1 = buttonDebounce.fell() || trig1Edge.fell();
-    bool triggerEnvelope2 = trig2Edge.fell();
+    bool doTrig1 = buttonDebounce.fell() || trig1Edge.fell();
+    bool doTrig2 = trig2Edge.fell();
 
-    if (triggerEnvelope1)
-        triggerEnvelope(env1, atkTime, relTime, atkVarAmount, relVarAmount);
+    if (doTrig1)
+    {
+        float dev1atk = random(-1000, 1000) / 1000.0f;
+        float dev1rel = random(-1000, 1000) / 1000.0f;
+        env1.trigger(sc::adEnvApplyVariation(baseAtk, dev1atk, atkVarAmount),
+                     sc::adEnvApplyVariation(baseRel, dev1rel, relVarAmount));
+    }
 
-    if (triggerEnvelope2)
-        triggerEnvelope(env2, atkTime, relTime, atkVarAmount, relVarAmount);
+    if (doTrig2)
+    {
+        float dev2atk = random(-1000, 1000) / 1000.0f;
+        float dev2rel = random(-1000, 1000) / 1000.0f;
+        env2.trigger(sc::adEnvApplyVariation(baseAtk, dev2atk, atkVarAmount),
+                     sc::adEnvApplyVariation(baseRel, dev2rel, relVarAmount));
+    }
 
     if (currentMillis - previousMillis >= 1)
     {
         previousMillis = currentMillis;
 
-        updateEnvelope(env1);
-        updateEnvelope(env2);
+        // dt = 1 ms = 0.001 s (fixed tick rate)
+        constexpr float dt = 0.001f;
+        env1.process(dt);
+        env2.process(dt);
 
-        analogWrite(env1.outputPin, env1.outputValue);
-        analogWrite(mod1::PIN_LED, env1.outputValue * Brightness / 255);
-        analogWrite(env2.outputPin, env2.outputValue);
+        analogWrite(mod1::PIN_F2, (int)(env1.output * 255.0f));
+        analogWrite(mod1::PIN_LED, (int)(env1.output * Brightness));
+        analogWrite(mod1::PIN_F4, (int)(env2.output * 255.0f));
     }
 }

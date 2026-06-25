@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="30.48mm" height="128.5mm" viewBox="0 0 90 379.42">
+  <rect width="90" height="379.42" fill="#1b1b22"/>
+  <rect x="2" y="2" width="86" height="375.42" fill="none" stroke="#3a3a48" stroke-width="1"/>
+
+  <g font-family="Helvetica, Arial, sans-serif" fill="#e6e6ee" text-anchor="middle">
+    <!-- Title -->
+    <text x="45" y="26" font-size="11" font-weight="bold" letter-spacing="1">RND WALK</text>
+    <text x="45" y="38" font-size="6" fill="#9a9aaa" letter-spacing="1">RANDOM + LAG</text>
+
+    <!-- Pot labels (knob centers at mm * 2.952 SVG units; labels ~14 units below) -->
+    <text x="45" y="102" font-size="9">RATE</text>
+    <text x="45" y="144" font-size="9">BIAS</text>
+    <text x="45" y="185" font-size="9">CHAOS</text>
+    <text x="45" y="226" font-size="9">LAG</text>
+
+    <!-- Push button -->
+    <text x="45" y="261" font-size="8">GRAV</text>
+
+    <!-- Jack section -->
+    <line x1="10" y1="271" x2="80" y2="271" stroke="#3a3a48" stroke-width="0.8"/>
+    <text x="22" y="281" font-size="6" fill="#9a9aaa">IN</text>
+    <text x="63" y="281" font-size="6" fill="#9a9aaa">OUT</text>
+
+    <!-- Jack labels row 1: F1 in (trigger), F2 out (lagged) -->
+    <text x="30" y="309" font-size="7.5">F1</text>
+    <text x="60" y="309" font-size="7.5">F2</text>
+    <text x="30" y="317" font-size="5.5" fill="#9a9aaa">TRIG</text>
+    <text x="60" y="317" font-size="5.5" fill="#9a9aaa">LAG</text>
+
+    <!-- Jack labels row 2: F3 in (chaos CV), F4 out (main walk) -->
+    <text x="30" y="353" font-size="7.5">F3</text>
+    <text x="60" y="353" font-size="7.5">F4</text>
+    <text x="30" y="361" font-size="5.5" fill="#9a9aaa">CHAOS</text>
+    <text x="60" y="361" font-size="5.5" fill="#9a9aaa">WALK</text>
+  </g>
+</svg>

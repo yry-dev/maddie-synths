@@ -49,8 +49,6 @@ vcvrack/build/
 vcvrack/plugin.dylib
 vcvrack/plugin.so
 vcvrack/plugin.dll
-#temp ignore all of this until more testing is done
-vcvrack
 
 # KiCad generated output / backup folders
 *-backups/
@@ -61,7 +59,9 @@ fp-info-cache
 *.kicad_pcb-bak
 *.kicad_sch-bak
 *.lck
-panels/mod1-mod2/production/
+panels/production/
 
 # Claude Code local config
 .claude/
+.omc/
+_panel-wip/

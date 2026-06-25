@@ -35,7 +35,7 @@ Key Variables:
       ║ I1     I2 ║   IN1 (D5)  - trigger / gate (fires note)
       ║ (o)   (o) ║   IN2 (SCL) - reserved / unused
       ║           ║
-      ║ CV    OUT ║   CV  (A2)  - V/oct (shared with POT3)
+      ║ OUT   CV  ║   CV  (A2)  - V/oct (shared with POT3)
       ║ (o)   (o) ║   OUT (D7)  - PWM audio (48 kHz)
       ║           ║
       ╚═══════════╝
