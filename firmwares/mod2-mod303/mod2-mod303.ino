@@ -26,14 +26,14 @@ Key Variables:
       ║   (A2)    ║   POT3 (A2) - transpose (quantized)
       ║   TRANS   ║
       ║           ║
+      ║   (BTN)   ║   BTN (GPIO6) - short=scale, double=wave, long=regen      
       ║    [·]    ║   LED (GPIO5) - step / accent-slide blink
-      ║   (BTN)   ║   BTN (GPIO6) - short=scale, double=wave, long=regen
       ║           ║
       ╠═══════════╣
       ║ I1     I2 ║   IN1 (GPIO7) - clock in (rising advances)
       ║ (o)   (o) ║   IN2 (GPIO0) - accent hold (HIGH = accent)
       ║           ║
-      ║ CV    OUT ║   CV  (A2)    - transpose (shared POT3)
+      ║ OUT   CV  ║   CV  (A2)    - transpose (shared POT3)
       ║ (o)   (o) ║   OUT (GPIO1) - PWM audio
       ║           ║
       ╚═══════════╝

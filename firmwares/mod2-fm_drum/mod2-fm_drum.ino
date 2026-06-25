@@ -33,7 +33,7 @@ Key Variables:
       ║ I1     I2 ║   IN1 (GPIO7) - trigger
       ║ (o)   (o) ║   IN2 (GPIO0) - accent (HIGH = -6 dB)
       ║           ║
-      ║ CV    OUT ║   CV  (A2)    - mod index (shared POT3)
+      ║  OUT   CV ║   CV  (A2)    - mod index (shared POT3)
       ║ (o)   (o) ║   OUT (GPIO1) - PWM audio
       ║           ║
       ╚═══════════╝
@@ -60,14 +60,14 @@ HAGIWO MOD2 (Seeed Xiao RP2350)
 #include <math.h>
 #include <EEPROM.h>  // on‑flash key/value storage
 #include <Mod2Common.h>  // Shared MOD2 pin map, PWM-audio setup and helpers
+#include <FmDrumCore.h>  // Shared FM-drum voice (also used by the VCV Rack port)
 
 /**********************  Global compile‑time constants  **********************/
 constexpr int TABLE_SIZE = 4096;                      // wavetable length
 constexpr int TABLE_MASK = TABLE_SIZE - 1;            // for cheap modulo
-constexpr float TABLE_INV = 1.0f / (TABLE_SIZE - 1);  // 1/(N‑1) pre‑calc
 
 const float SYS_CLOCK = 150'000'000.0f;                                  // RP2040 core clock (Hz)
-const float NOTE_LEN = 0.3f;                                             // fixed note duration (s)
+const float NOTE_LEN = sc::kFmDrumNoteLen;                               // fixed note duration (s)
 const float BASE_INC = (TABLE_SIZE * 4096.0f) / (NOTE_LEN * SYS_CLOCK);  // phase step per PWM tick
 const float DT = NOTE_LEN / TABLE_SIZE;                                  // time per sample
 const float FULL_SCALE = 1023.0f;                                        // 10‑bit PWM range
@@ -91,11 +91,12 @@ volatile bool accentState = false;  // true = level × 0.5
 /**************************  Playback state variables  **********************/
 volatile bool noteOn = false;     // true while table is streamed
 volatile float phase = 0.0f;      // fractional table index
-volatile float softClipK = 1.0f;  // tanh drive constant (= modIndex)
 
 /****************************  Wavetable buffers  ****************************/
-uint16_t rawTable[TABLE_SIZE];    // pure FM signal (0‑FULL_SCALE)
 uint16_t finalTable[TABLE_SIZE];  // clipped & tapered copy streamed by PWM
+
+// Shared FM synthesis core: fills finalTable on each strike (one sample/tick).
+sc::FmDrumVoice fmVoice;
 
 /**********************  PWM slice numbers (set in setup)  *******************/
 uint sliceAudio;  // GPIO1 – PWM channel B → audio
@@ -148,23 +149,18 @@ void on_pwm_wrap() {
 }
 
 /************************  FM wavetable generation ***************************/
-void make_wavetable() {
-  float phaseC = 0.0f;
-  float phaseM = 0.0f;
-  const float twoPi = 2.0f * PI;
-  const float stepC = twoPi * f0 * DT;  // carrier increment
-
+// Bake one strike into finalTable using the shared FM-drum core. The core
+// renders one sample per audio-rate tick; over TABLE_SIZE ticks its strike
+// window (NOTE_LEN) spans exactly the table length (dt/NOTE_LEN = 1/TABLE_SIZE).
+// The returned audio already includes the FM tone, ratio/index/amplitude
+// envelopes, tanh soft-clip and anti-click fades, with the accent applied.
+void fillFinalTable() {
+  fmVoice.setParams(f0, opRatio, modIndex, decayRate, ratioEnv, indexEnv,
+                    accentState ? 0.5f : 1.0f);  // −6 dB accent when HIGH
+  fmVoice.strike();
   for (int i = 0; i < TABLE_SIZE; ++i) {
-    float x = i * TABLE_INV;           // 0 … 1 across table
-    float envR = 1.0f - ratioEnv * x;  // ratio envelope
-    float envI = 1.0f - indexEnv * x;  // index envelope
-
-    float stepM = twoPi * f0 * (opRatio * envR) * DT;  // modulator inc
-    phaseM += stepM;
-    phaseC += stepC;
-
-    float sample = sinf(phaseC + (modIndex * envI) * sinf(phaseM));
-    rawTable[i] = (uint16_t)((sample + 1.0f) * (FULL_SCALE / 2.0f));
+    const sc::FmDrumFrame f = fmVoice.process(DT, NOTE_LEN);
+    finalTable[i] = (uint16_t)((f.audio + 1.0f) * (FULL_SCALE / 2.0f));  // −1..+1 → 0..1023
   }
 }
 
@@ -213,7 +209,6 @@ void setup() {
   paramData.modIndexM1.value = paramData.modIndexM0.value;
   modIndex  = paramData.modIndexM0.value;
   if (modIndex < 1.0f) modIndex = 1.0f;
-  softClipK = modIndex;
 
   EEPROM.get(12, temp);
   if (!isnan(temp) && temp >= 0.5f && temp <= 10.0f) paramData.decayTime.value = temp;
@@ -223,8 +218,7 @@ void setup() {
   if (!isnan(temp) && temp >= 0.0f && temp <= 1.0f) paramData.ratioEnvelope.value = temp;
   ratioEnv = paramData.ratioEnvelope.value;
 
-  make_wavetable();
-  memcpy(finalTable, rawTable, sizeof(rawTable));
+  fillFinalTable();  // bake the initial (idle) table via the shared core
 
   // --- PWM audio + wrap-IRQ setup (shared) --------------------------------
   mod2::initAudioPwm(sliceAudio, sliceTimer, on_pwm_wrap);
@@ -242,43 +236,10 @@ void setup() {
       phase = 0.0f;
       accentState = digitalRead(mod2::IN2_PIN);  // sample accent pin
 
-      // protect against audio ISR while rebuilding tables
+      // protect against audio ISR while rebuilding the table, then bake the
+      // strike (FM tone + envelopes + soft-clip + fades + accent) via the core.
       irq_set_enabled(PWM_IRQ_WRAP, false);
-      make_wavetable();
-
-      // envelope & final‑table post‑process
-      const int fadeInEnd = (int)(TABLE_SIZE * 0.02f);     // 2 % head ramp
-      const int fadeOutStart = (int)(TABLE_SIZE * 0.90f);  // 10 % tail ramp
-      const int fadeOutDen = TABLE_SIZE - 1 - fadeOutStart;
-      const float invN = 1.0f / (TABLE_SIZE - 1);
-      const float expStep = expf(-decayRate * invN);
-      const float halfScale = FULL_SCALE / 2.0f;
-      const float invHalfScale = 2.0f / FULL_SCALE;
-      const float clipNorm = 1.0f / tanhf(softClipK);
-      const float level = accentState ? 0.5f : 1.0f;  // −6 dB accent
-
-      float env = 1.0f;
-      for (int i = 0; i < TABLE_SIZE; ++i) {
-        float bipolar = (rawTable[i] - MID_LEVEL) * invHalfScale;
-        float clipped = tanhf(softClipK * bipolar * env) * clipNorm;
-        clipped *= level;  // apply accent
-        float y = clipped * halfScale + MID_LEVEL;
-
-        // fade‑in (first 2 %)
-        if (i < fadeInEnd) {
-          float mu = (float)i / fadeInEnd;
-          float mu2 = (1.0f - cosf(mu * PI)) * 0.5f;
-          y = (1.0f - mu2) * MID_LEVEL + mu2 * y;
-        }
-        // fade‑out (last 10 %)
-        else if (i >= fadeOutStart) {
-          float mu = (float)(i - fadeOutStart) / fadeOutDen;
-          float mu2 = (1.0f - cosf(mu * PI)) * 0.5f;
-          y = (1.0f - mu2) * y + mu2 * MID_LEVEL;
-        }
-        finalTable[i] = (uint16_t)y;
-        env *= expStep;
-      }
+      fillFinalTable();
       irq_set_enabled(PWM_IRQ_WRAP, true);  // resume audio ISR
     },
     RISING);
@@ -369,10 +330,8 @@ void loop() {
     if (mod2::checkPickup(paramData.modIndexM0, pot3Val, PICKUP_THRESHOLD)) {
       modIndex = 1.0f + 9.0f * (1.0f - pot3Val);
       paramData.modIndexM0.value = modIndex;
-      softClipK = modIndex;
     } else {
       modIndex = paramData.modIndexM0.value;  // Use stored value
-      softClipK = modIndex;
     }
 
   } else {  //  Mode 1 : Decay / RatioEnv / Index
@@ -396,10 +355,8 @@ void loop() {
     if (mod2::checkPickup(paramData.modIndexM1, pot3Val, PICKUP_THRESHOLD)) {
       modIndex = 1.0f + 9.0f * (1.0f - pot3Val);
       paramData.modIndexM1.value = modIndex;
-      softClipK = modIndex;
     } else {
       modIndex = paramData.modIndexM1.value;  // Use stored value
-      softClipK = modIndex;
     }
   }
 

@@ -38,7 +38,9 @@ Key Variables:
 
 Version History:
   - 1.0 Tap Tempo Clock firmware by Hagiwo
-  - 1.1 Forked and refactored from https://note.com/solder_state/n/nc05d8e8fd311 
+  - 1.1 Forked and refactored from https://note.com/solder_state/n/nc05d8e8fd311
+  - 1.2 Timing algorithm extracted to the shared SynthCore TapTempoCore (seconds,
+        dt-driven); this sketch keeps only the hardware I/O.
 
 License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
@@ -50,241 +52,109 @@ HAGIWO MOD1
 */
 #include <Arduino.h>
 #include <Mod1Common.h>
-const byte buttonPin   = mod1::PIN_BUTTON;  // button input
-const byte ledPin      = mod1::PIN_LED;     // LED output
-const byte trigPinA0   = mod1::PIN_F2;      // trigger for A0 control (frequency division)
-const byte trigPinA1   = mod1::PIN_F3;      // trigger for A1 control (period expansion)
-const byte trigPinA2   = mod1::PIN_F4;      // trigger for A2 control (period expansion)
-const byte trigPinMain = mod1::PIN_F1;      // trigger 4 times in main period
-const byte potPinA0    = mod1::PIN_POT1;    // analog input for A0
-const byte potPinA1    = mod1::PIN_POT2;    // analog input for A1
-const byte potPinA2    = mod1::PIN_POT3;    // analog input for A2
+#include <TapTempoCore.h>  // Shared tap-tempo timing core (also used by vcvrack/src/TapTempo.cpp)
 
-unsigned long pressTimes[4] = {0,0,0,0};  
-byte pressCount = 0;
+const byte buttonPin   = mod1::PIN_BUTTON;  // tap-tempo button input
+const byte ledPin      = mod1::PIN_LED;     // 1x beat LED output
+const byte trigPinMain = mod1::PIN_F1;      // F1 OUT — 4x clock
+const byte trigPinA0   = mod1::PIN_F2;      // F2 OUT — 1~16x multiply
+const byte trigPinA1   = mod1::PIN_F3;      // F3 OUT — 1~/16 divide
+const byte trigPinA2   = mod1::PIN_F4;      // F4 OUT — 1~/16 divide
+const byte potPinA0    = mod1::PIN_POT1;    // analog input for F2 multiply rate
+const byte potPinA1    = mod1::PIN_POT2;    // analog input for F3 divide rate
+const byte potPinA2    = mod1::PIN_POT3;    // analog input for F4 divide rate
 
 mod1::DebouncedInput buttonDebounce(50, HIGH);
+sc::TapTempoCore clockCore;
 
-unsigned long clockInterval = 500;  // basic clock period
-unsigned long ledOnTime = 10;       // LED ON time
-unsigned long lastBlinkTime = 0;    // start time of the basic clock period
+const unsigned long triggerOnTime = 5;   // 5ms HIGH per clock pulse
+const unsigned long ledOnTime     = 10;  // 10ms LED on per beat
 
-// Common settings for trigger output
-unsigned long triggerOnTime = 5;    // 5ms trigger pulse
+unsigned long lastLoopMillis = 0;
 
-// For A0 (D9)
-unsigned int multiplierA0 = 1;
-unsigned long triggerIntervalA0 = 500;
-unsigned long nextTriggerTimeA0 = 0;
-bool triggerStateA0 = false;
-unsigned long triggerStartTimeA0 = 0;
+// Per-output 5ms pulse state (timing edges come from the core; pulse width and
+// the digitalWrite stay here as hardware I/O).
+struct PulseOut {
+  byte pin;
+  bool active;
+  unsigned long startMs;
+};
+PulseOut pulses[4] = {
+  {mod1::PIN_F1, false, 0},  // F1 4x
+  {mod1::PIN_F2, false, 0},  // F2 multiply
+  {mod1::PIN_F3, false, 0},  // F3 divide
+  {mod1::PIN_F4, false, 0},  // F4 divide
+};
 
-// For A1 (D10)
-unsigned int multiplierA1 = 1;
-unsigned long triggerIntervalA1 = 500;
-unsigned long nextTriggerTimeA1 = 0;
-bool triggerStateA1 = false;
-unsigned long triggerStartTimeA1 = 0;
+bool ledActive = false;
+unsigned long ledStartMs = 0;
 
-// For A2 (D11)
-unsigned int multiplierA2 = 1;
-unsigned long triggerIntervalA2 = 500;
-unsigned long nextTriggerTimeA2 = 0;
-bool triggerStateA2 = false;
-unsigned long triggerStartTimeA2 = 0;
+void firePulse(byte idx, unsigned long now) {
+  digitalWrite(pulses[idx].pin, HIGH);
+  pulses[idx].active = true;
+  pulses[idx].startMs = now;
+}
 
-// Trigger 4 times within main period (D17)
-unsigned long mainTriggerInterval = 0; 
-unsigned long nextMainTriggerTime = 0;
-byte mainTriggerCount = 0;
-bool mainTriggerState = false;
-unsigned long mainTriggerStartTime = 0;
+void updatePulse(byte idx, unsigned long now) {
+  if (pulses[idx].active && (now - pulses[idx].startMs) >= triggerOnTime) {
+    digitalWrite(pulses[idx].pin, LOW);
+    pulses[idx].active = false;
+  }
+}
 
 void setup() {
   pinMode(buttonPin, INPUT_PULLUP);
   pinMode(ledPin, OUTPUT);
+  pinMode(trigPinMain, OUTPUT);
   pinMode(trigPinA0, OUTPUT);
   pinMode(trigPinA1, OUTPUT);
   pinMode(trigPinA2, OUTPUT);
-  pinMode(trigPinMain, OUTPUT);
 
   digitalWrite(ledPin, LOW);
+  digitalWrite(trigPinMain, LOW);
   digitalWrite(trigPinA0, LOW);
   digitalWrite(trigPinA1, LOW);
   digitalWrite(trigPinA2, LOW);
-  digitalWrite(trigPinMain, LOW);
+
+  lastLoopMillis = millis();
 }
 
 void loop() {
-  unsigned long currentMillis = millis();
-  
-  // Button input processing
-  buttonDebounce.update((uint8_t)digitalRead(buttonPin), currentMillis);
-  if (buttonDebounce.fell()) {
-    recordPressTime(currentMillis);
-    calculateClockInterval(currentMillis);
-    // Serial.println("Button Pressed");
-  }
+  unsigned long now = millis();
+  float dt = (float)(now - lastLoopMillis) / 1000.0f;  // millis -> seconds
+  lastLoopMillis = now;
 
-  // A0: get frequency multiplier (division within period)
-  int potValA0 = analogRead(potPinA0);
-  multiplierA0 = getMultiplierFromPot(potValA0);
+  // Button input processing (tap on falling edge, like the original sketch).
+  buttonDebounce.update((uint8_t)digitalRead(buttonPin), now);
+  bool tapEdge = buttonDebounce.fell();
 
-  // A1: get period multiplier
-  int potValA1 = analogRead(potPinA1);
-  multiplierA1 = getMultiplierFromPot(potValA1);
+  // Read the three division pots as normalised 0..1 controls.
+  float potF2 = analogRead(potPinA0) / 1023.0f;
+  float potF3 = analogRead(potPinA1) / 1023.0f;
+  float potF4 = analogRead(potPinA2) / 1023.0f;
 
-  // A2: get period multiplier
-  int potValA2 = analogRead(potPinA2);
-  multiplierA2 = getMultiplierFromPot(potValA2);
+  // Advance the shared timing engine and collect this step's trigger edges.
+  sc::TapTempoEdges e = clockCore.process(dt, tapEdge, potF2, potF3, potF4);
 
-  // For D9: period division
-  triggerIntervalA0 = clockInterval / multiplierA0;
-  if (triggerIntervalA0 < 1) triggerIntervalA0 = 1;
+  if (e.f1) firePulse(0, now);
+  if (e.f2) firePulse(1, now);
+  if (e.f3) firePulse(2, now);
+  if (e.f4) firePulse(3, now);
 
-  // For D10: period expansion
-  triggerIntervalA1 = clockInterval * multiplierA1;
-
-  // For D11: period expansion
-  triggerIntervalA2 = clockInterval * multiplierA2;
-
-  // Trigger for 4 times in main period
-  mainTriggerInterval = clockInterval / 4;
-  // 0~3 times, next start is set when the period is reset
-
-  // LED blinking (basic clock)
-  if ((currentMillis - lastBlinkTime) >= clockInterval) {
-    lastBlinkTime = currentMillis;
+  if (e.beat) {
     digitalWrite(ledPin, HIGH);
-
-    // Reset 4 triggers for the main period
-    mainTriggerCount = 0;
-    nextMainTriggerTime = lastBlinkTime;
-
-    // Update trigger timing for A0
-    nextTriggerTimeA0 = lastBlinkTime;
-
-    // When the period changes, resync triggers for A1 and A2
-    static unsigned long lastClockInterval = clockInterval;
-    if (clockInterval != lastClockInterval) {
-      nextTriggerTimeA1 = currentMillis + triggerIntervalA1;
-      nextTriggerTimeA2 = currentMillis + triggerIntervalA2;
-      lastClockInterval = clockInterval;
-    }
+    ledActive = true;
+    ledStartMs = now;
   }
 
-  // Turn LED off after 10ms
-  if ((digitalRead(ledPin) == HIGH) && ((currentMillis - lastBlinkTime) >= ledOnTime)) {
+  // Close each output's pulse after triggerOnTime / the LED after ledOnTime.
+  updatePulse(0, now);
+  updatePulse(1, now);
+  updatePulse(2, now);
+  updatePulse(3, now);
+
+  if (ledActive && (now - ledStartMs) >= ledOnTime) {
     digitalWrite(ledPin, LOW);
-  }
-
-  // Trigger generation
-  handleTrigger(currentMillis, trigPinA0, triggerIntervalA0, nextTriggerTimeA0, triggerStateA0, triggerStartTimeA0);
-  handleTriggerPeriodic(currentMillis, trigPinA1, triggerIntervalA1, nextTriggerTimeA1, triggerStateA1, triggerStartTimeA1);
-  handleTriggerPeriodic(currentMillis, trigPinA2, triggerIntervalA2, nextTriggerTimeA2, triggerStateA2, triggerStartTimeA2);
-
-  // Generate 4 triggers within main period
-  handleMainTriggers(currentMillis);
-}
-
-// Generate 4 triggers within the main period
-void handleMainTriggers(unsigned long currentMillis) {
-  if (mainTriggerCount < 4) {
-    // Check if less than 4 times
-    if (!mainTriggerState) {
-      // Waiting for trigger
-      if ((long)(currentMillis - nextMainTriggerTime) >= 0) {
-        digitalWrite(trigPinMain, HIGH);
-        mainTriggerState = true;
-        mainTriggerStartTime = currentMillis;
-      }
-    } else {
-      // Trigger is ON
-      if ((currentMillis - mainTriggerStartTime) >= triggerOnTime) {
-        digitalWrite(trigPinMain, LOW);
-        mainTriggerState = false;
-        mainTriggerCount++;
-        // Next trigger timing
-        if (mainTriggerCount < 4) {
-          nextMainTriggerTime += mainTriggerInterval;
-        }
-      }
-    }
-  }
-}
-
-// Record button press time
-void recordPressTime(unsigned long t) {
-  for (byte i=0; i<3; i++) {
-    pressTimes[i] = pressTimes[i+1];
-  }
-  pressTimes[3] = t;
-  if (pressCount < 4) pressCount++;
-}
-
-// Calculate average period
-void calculateClockInterval(unsigned long currentMillis) {
-  if (pressCount < 4) return;
-  
-  unsigned long interval1 = pressTimes[1] - pressTimes[0];
-  unsigned long interval2 = pressTimes[2] - pressTimes[1];
-  unsigned long interval3 = pressTimes[3] - pressTimes[2];
-  unsigned long avgInterval = (interval1 + interval2 + interval3) / 3;
-
-  if (avgInterval < (ledOnTime + 1)) {
-    avgInterval = ledOnTime + 10;
-  }
-
-  clockInterval = avgInterval;
-  lastBlinkTime = currentMillis;
-
-  // Since the period has changed, resync triggers for A1 and A2
-  nextTriggerTimeA1 = currentMillis + (clockInterval * multiplierA1);
-  nextTriggerTimeA2 = currentMillis + (clockInterval * multiplierA2);
-}
-
-// Convert analog value to multiplier
-unsigned int getMultiplierFromPot(int potVal) {
-  if      (potVal < 170) return 1;
-  else if (potVal < 340) return 2;
-  else if (potVal < 510) return 3;
-  else if (potVal < 680) return 4;
-  else if (potVal < 850) return 8;
-  else                   return 16;
-}
-
-// Trigger control function (for period division: A0)
-void handleTrigger(unsigned long currentMillis, byte pin, unsigned long &interval, unsigned long &nextTime, 
-                   bool &state, unsigned long &startTime) {
-  if (!state) {
-    if ((long)(currentMillis - nextTime) >= 0) {
-      digitalWrite(pin, HIGH);
-      state = true;
-      startTime = currentMillis;
-      nextTime += interval;
-    }
-  } else {
-    if ((currentMillis - startTime) >= triggerOnTime) {
-      digitalWrite(pin, LOW);
-      state = false;
-    }
-  }
-}
-
-// Trigger control function (for period expansion: A1, A2)
-void handleTriggerPeriodic(unsigned long currentMillis, byte pin, unsigned long &interval, unsigned long &nextTime, 
-                           bool &state, unsigned long &startTime) {
-  if (!state) {
-    if ((long)(currentMillis - nextTime) >= 0) {
-      digitalWrite(pin, HIGH);
-      state = true;
-      startTime = currentMillis;
-      nextTime += interval; // update next trigger time
-    }
-  } else {
-    if ((currentMillis - startTime) >= triggerOnTime) {
-      digitalWrite(pin, LOW);
-      state = false;
-    }
+    ledActive = false;
   }
 }

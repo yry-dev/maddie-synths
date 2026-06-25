@@ -81,7 +81,7 @@ It accepts either a firmware name (for example `mod1-triple-wave-lfo`) or a sket
 
 For Pico, use fqbn `rp2040:rp2040:rpipico`.
 
-## Makefile builds
+## Makefile firmware builds
 
 - Build every firmware into `dist/<firmware>/`:
   - make
@@ -222,17 +222,4 @@ Unified firmware is now available at `firmwares/hagiwo30-strides`:
 
 - Entry sketch: `firmwares/hagiwo30-strides/hagiwo30-strides.ino`
 - Runtime switch: hold the encoder button for 1.5 seconds to toggle between SixChannel and Euclidean modes
-
-## Adding many firmwares
-
-Use one folder per firmware under `firmwares/`.
-
-Important Arduino rule:
-
-- The primary `.ino` file must match the folder name.
-
-Example:
-
-- `firmwares/mod1/mod1.ino` (entry sketch)
-- Additional tabs/files can live beside it (for example `logic.ino`).
 

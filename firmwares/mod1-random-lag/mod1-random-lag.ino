@@ -42,6 +42,7 @@ Key Variables:
 Version History:
   - 1.0 Random Walk + Lag firmware by Rob Heel for HAGIWO MOD1
   - 1.1 Forked and refactored from https://github.com/rob-scape/hgw-mod1-firmwares
+  - 1.2 Algorithm moved to RandomLagCore.h (shared with VCV Rack port)
 
 License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
@@ -54,118 +55,49 @@ HAGIWO MOD1
 
 #include <Arduino.h>
 #include <Mod1Common.h>
+#include <RandomLagCore.h>
 
-// Phase and value tracking
-float walkPhase = 0.0;
-float laggedPhase = 0.0; // Lagged version that slowly follows walkPhase
-
-// Chaos parameters
-float chaosDepth = 0.0;
-float rate = 0.001f; // Default ultra slow rate
-float bias = 0.0f; // Bias offset
-
-// Lag parameters
-float baseLagAmount = 0.9995f; // Base lag amount - almost independent when no CV
-float lagAmount = 0.9995f; // Current lag amount (calculated each loop)
-
-// Mode toggle
-bool gravityMode = false; // Default to classic random walk
+sc::RandomLagVoice voice;
 
 mod1::DebouncedInput buttonDebounce(50, HIGH);
 
 void setup() {
-  // Set up pins
-  pinMode(mod1::PIN_F4, OUTPUT);      // F4 - Random Walk Output (main)
-  pinMode(mod1::PIN_F2, OUTPUT);      // F2 - Lagged Output
-  pinMode(mod1::PIN_LED, OUTPUT);     // LED Indicator
+  pinMode(mod1::PIN_F4, OUTPUT);           // F4 - Random Walk Output (main)
+  pinMode(mod1::PIN_F2, OUTPUT);           // F2 - Lagged Output
+  pinMode(mod1::PIN_LED, OUTPUT);          // LED Indicator
   pinMode(mod1::PIN_BUTTON, INPUT_PULLUP); // Button input
 
   mod1::setupFastPwmEgStyle();
-  
-  // Initialize lagged phase to match walk phase
-  laggedPhase = walkPhase;
+
+  voice.reset();
 }
 
 void loop() {
   unsigned long currentMillis = millis();
 
-  // Read potentiometer values and CV inputs
-  rate = readFrequency(mod1::PIN_POT1); // Rate controlled only by pot now
-  chaosDepth = (analogRead(mod1::PIN_POT3) / 1023.0f) + (analogRead(mod1::PIN_CV3) / 1023.0f); // ChaosDepth modulated by F3 CV input
-  chaosDepth = constrain(chaosDepth, 0.0f, 1.0f); // Ensure chaos stays within 0-1
+  // Read potentiometers and CV inputs, normalised to [0..1].
+  const float pot0 = analogRead(mod1::PIN_POT1) / 1023.0f; // Rate
+  const float pot1 = analogRead(mod1::PIN_POT2) / 1023.0f; // Bias
+  const float pot2 = analogRead(mod1::PIN_POT3) / 1023.0f; // ChaosDepth
+  const float cv1  = analogRead(mod1::PIN_CV1)  / 1023.0f; // F1: Lag amount CV
+  const float cv3  = analogRead(mod1::PIN_CV3)  / 1023.0f; // F3: Chaos depth CV
 
-  bias = (analogRead(mod1::PIN_POT2) / 1023.0f) * 0.8f - 0.4f; // Pot2 as bias control (-0.4 to +0.4 offset)
+  const sc::RandomLagParams p = sc::randomLagMapParams(pot0, pot1, pot2, cv1, cv3);
 
-  // F1 CV input controls lag amount - INVERTED for intuitive behavior
-  float lagCV = analogRead(mod1::PIN_CV1) / 1023.0f; // Read F1 CV input (0.0 to 1.0)
-  lagAmount = baseLagAmount - (lagCV * 0.015f); // Range from 0.9995 (independent) to 0.9845 (tight following)
-  lagAmount = constrain(lagAmount, 0.98f, 0.9995f); // Safety limits
-
-  // Check for button press to toggle mode
+  // Button toggles gravity mode.
   buttonDebounce.update((uint8_t)digitalRead(mod1::PIN_BUTTON), currentMillis);
   if (buttonDebounce.fell()) {
-    gravityMode = !gravityMode;
+    voice.gravityMode = !voice.gravityMode;
   }
 
-  // Random walk update
-  if (gravityMode) {
-    updateGravityWalk(walkPhase, rate, chaosDepth);
-  } else {
-    updateRandomWalk(walkPhase, rate, chaosDepth);
-  }
+  // Advance the walk by one nominal loop period (no external trigger on MOD1).
+  voice.process(1.0f / sc::kRandomLagLoopHz, false, p);
 
-  // Update lagged output - now dynamically controlled by F1 CV!
-  updateLaggedOutput(walkPhase, laggedPhase, lagAmount);
+  // Scale normalised outputs to 8-bit PWM and write to hardware.
+  const int walkVal   = constrain((int)(voice.walkOut(p.bias)   * 255.0f), 0, 255);
+  const int laggedVal = constrain((int)(voice.laggedOut(p.bias) * 255.0f), 0, 255);
 
-  // Apply bias to both outputs
-  int walkStepVal = (int)((walkPhase + bias) * 255.0f);
-  walkStepVal = constrain(walkStepVal, 0, 255);
-  
-  int laggedStepVal = (int)((laggedPhase + bias) * 255.0f);
-  laggedStepVal = constrain(laggedStepVal, 0, 255);
-
-  analogWrite(mod1::PIN_F4, walkStepVal);   // F4 - Main Random Walk output
-  analogWrite(mod1::PIN_F2, laggedStepVal);  // F2 - Lagged output
-  OCR2B = walkStepVal; // LED brightness reflects main output
-}
-
-// Classic random walk behavior for F4 output
-void updateRandomWalk(float &phase, float rate, float depth) {
-  float randomStep = (random(-100, 100) / 100.0f) * depth;
-  phase += randomStep * rate;
-
-  if (phase < 0.0f) phase = 0.0f;
-  if (phase > 1.0f) phase = 1.0f;
-}
-
-// Gravity mode — random walk that slowly falls back to 0
-void updateGravityWalk(float &phase, float rate, float depth) {
-  float randomStep = (random(-100, 100) / 100.0f) * depth;
-  phase += randomStep * rate;
-
-  // Introduce gravity pull towards 0
-  phase *= 0.99f; // 0.995f → Gentle pull (slow decay) 0.98f → Medium pull (faster drift to zero) 0.9f → Strong pull (snaps back quickly)
-
-  if (phase < 0.0f) phase = 0.0f;
-  if (phase > 1.0f) phase = 1.0f;
-}
-
-// Update lagged output - now with dynamic lag control!
-void updateLaggedOutput(float mainPhase, float &laggedPhase, float currentLagAmount) {
-  // Exponential smoothing with CV-controlled lag amount
-  // Higher lag = slower following (F2 drifts independently) - DEFAULT with no CV
-  // Lower lag = faster following (F2 stays close to F4) - when CV is applied
-  
-  laggedPhase = (laggedPhase * currentLagAmount) + (mainPhase * (1.0f - currentLagAmount));
-  
-  // Perfect: Patch nothing = wide independent textures
-  // Patch LFO = dynamic relationship from independent to tight coupling!
-}
-
-// Read frequency from Pot1 (A0)
-float readFrequency(int analogPin) {
-  int rawVal = analogRead(analogPin);
-  float fMin = 0.001f;  // Locked to ultra slow mode
-  float fMax = 0.1f;
-  return fMin * powf(fMax / fMin, rawVal / 1023.0f);  // Exponential scaling
+  analogWrite(mod1::PIN_F4, walkVal);    // F4 - Main Random Walk output
+  analogWrite(mod1::PIN_F2, laggedVal);  // F2 - Lagged output
+  OCR2B = walkVal;                       // LED brightness reflects main output
 }

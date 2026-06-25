@@ -38,6 +38,7 @@ Key Variables:
 
 Version History:
   - 1.0 Trigger Burst firmware by Hagiwo
+  - 1.1 Refactored to use shared TriggerBurstCore
 
 License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
@@ -49,6 +50,8 @@ HAGIWO MOD1
 */
 #include <Arduino.h>
 #include <Mod1Common.h>
+#include <TriggerBurstCore.h>
+
 const int pinTriggerIn       = mod1::PIN_F2;
 const int pinTriggerOut      = mod1::PIN_F4;
 const int pinLed             = mod1::PIN_LED;
@@ -59,75 +62,29 @@ const int pinBpmPot          = mod1::PIN_POT3;
 const int pinButton          = mod1::PIN_BUTTON;
 const int pinExternalClock   = mod1::PIN_F1;
 
-// Number of triggers (6 options)
-int triggerOptions[6]        = {1, 3, 4, 6, 8, 16};
+// Burst voice (shared core)
+sc::TriggerBurstVoice burst;
 
-// Division ratios (6 options)
-float divisionOptions[6]     = {0.5, 0.3333, 0.25, 0.1667, 0.125, 0.0625};
+// Trigger input edge detection
+int lastTriggerInState = LOW;
 
-// Selected settings
-int   selectedTriggers       = 1;   
-float selectedDivision       = 0.5; 
-float currentBpm             = 80;  
-
-// Burst state
-bool  burstActive            = false; 
-int   triggersRemaining      = 0;
-unsigned long triggerOnTime  = 5;    // 5ms
-unsigned long nextActionTime = 0;    
-bool  triggerIsHigh          = false;
-
-// Trigger input state
-int   lastTriggerInState     = LOW;  
-int   currentTriggerInState  = LOW;
-
+// Button debounce
 mod1::DebouncedInput buttonDebounce(20, HIGH);
 
-// External clock usage
-bool  useExternalClock       = false;        
-unsigned long externalClockPeriods[3] = {0, 0, 0}; 
-byte  externalIndex          = 0;            
-unsigned long lastExternalMillis = 0;        
-unsigned long externalPeriodMs   = 0;        
-int   lastExternalState      = LOW;          
+// External clock tracking (hardware I/O — stays in firmware)
+bool          useExternalClock       = false;
+unsigned long externalClockPeriods[3] = {0, 0, 0};
+byte          externalIndex          = 0;
+unsigned long lastExternalMillis     = 0;
+unsigned long externalPeriodMs       = 0;
+int           lastExternalState      = LOW;
 
-//----------------------------------------------------------------------------------
-// readNumberOfTriggersFromSum
-// Reads A0 + A5 -> clamp 0..1023 -> threshold-based index -> pick triggerOptions
-int readNumberOfTriggersFromSum() {
-  int valA0 = analogRead(pinNumPot);   // 0..1023
-  int valA5 = analogRead(pinNumPot2);  // 0..1023
-  int sum   = mod1::addClamp1023(valA0, valA5); // 0..1023
-
-  int index = mod1::select6FromAdc(sum);
-
-  return triggerOptions[index];
-}
-
-//----------------------------------------------------------------------------------
-// readDivisionSelection
-// Reads A1 -> threshold-based index -> pick divisionOptions
-float readDivisionSelection() {
-  int val = analogRead(pinDivPot);
-
-  int index = mod1::select6FromAdc(val);
-
-  return divisionOptions[index];
-}
-
-//----------------------------------------------------------------------------------
-// readBpm
-// Reads A2 -> maps to 80..280 BPM
-float readBpm() {
-  int rawValue = analogRead(pinBpmPot);
-  // Range: 80..280
-  float bpm = 80.0 + ((float)rawValue * (280.0 - 80.0) / 1023.0);
-  return bpm;
-}
+// Loop timing for dt
+unsigned long lastLoopMillis = 0;
 
 //----------------------------------------------------------------------------------
 // checkExternalClock
-// Detect rising edge on D17, average last 3 intervals
+// Detect rising edge on D17, average last 3 intervals (unchanged from original)
 void checkExternalClock() {
   int currentExternalState = digitalRead(pinExternalClock);
   if (currentExternalState == HIGH && lastExternalState == LOW) {
@@ -151,44 +108,7 @@ void checkExternalClock() {
 }
 
 //----------------------------------------------------------------------------------
-// calculateOffDuration
-// Determines interval between triggers (external or internal)
-unsigned long calculateOffDuration() {
-  float oneBeatMs;
-  if (useExternalClock && externalPeriodMs > 0) {
-    oneBeatMs = (float)externalPeriodMs;
-  } else {
-    oneBeatMs = 60000.0 / currentBpm;
-  }
-
-  float periodMs = oneBeatMs * selectedDivision;
-  long offDuration = (long)periodMs - (long)triggerOnTime;
-  if (offDuration < 0) {
-    return 0;
-  }
-  return (unsigned long)offDuration;
-}
-
-//----------------------------------------------------------------------------------
-// startBurst
-// Initiates a new burst
-void startBurst() {
-  if (!burstActive) {
-    burstActive = true;
-    triggersRemaining = selectedTriggers;
-    triggerIsHigh = false;
-
-    unsigned long currentMillis = millis();
-    digitalWrite(pinTriggerOut, HIGH);
-    digitalWrite(pinLed, HIGH);
-    triggerIsHigh = true;
-    nextActionTime = currentMillis + triggerOnTime;
-  }
-}
-
-//----------------------------------------------------------------------------------
 // setup
-// Pin config
 void setup() {
   pinMode(pinTriggerIn, INPUT);
   pinMode(pinTriggerOut, OUTPUT);
@@ -198,65 +118,60 @@ void setup() {
 
   digitalWrite(pinTriggerOut, LOW);
   digitalWrite(pinLed, LOW);
+
+  lastLoopMillis = millis();
 }
 
 //----------------------------------------------------------------------------------
 // loop
-// Main logic
 void loop() {
   unsigned long currentMillis = millis();
+  float dt = (float)(currentMillis - lastLoopMillis) / 1000.0f;
+  if (dt <= 0.0f) dt = 0.001f;
+  lastLoopMillis = currentMillis;
 
-  // 1) Get number of triggers (A0 + A5 -> thresholds)
-  selectedTriggers = readNumberOfTriggersFromSum();
+  // 1) Read burst number: POT1 + CV3 summed and clamped
+  int numRaw = mod1::addClamp1023(analogRead(pinNumPot), analogRead(pinNumPot2));
+  float numNorm = numRaw / 1023.0f;
 
-  // 2) Get division from A1 -> thresholds
-  selectedDivision = readDivisionSelection();
+  // 2) Read division from POT2
+  float divNorm = analogRead(pinDivPot) / 1023.0f;
 
-  // 3) Decide internal or external clock from A2
-  int potValue = analogRead(pinBpmPot);
-  if (potValue < 50) {
-    useExternalClock = true;
-  } else {
-    useExternalClock = false;
-    currentBpm = readBpm();  // 80..280
-  }
+  // 3) Read clock pot; threshold <50 selects external clock
+  int bpmRaw = analogRead(pinBpmPot);
+  useExternalClock = (bpmRaw < 50);
+  float bpmNorm = bpmRaw / 1023.0f;
 
-  // 4) Check external clock
+  // Map normalised controls to burst parameters
+  sc::TriggerBurstParams p = sc::triggerBurstMapParams(numNorm, divNorm, bpmNorm);
+
+  // 4) Measure external clock period
   checkExternalClock();
 
-  // 5) Check D9 rising edge
-  currentTriggerInState = digitalRead(pinTriggerIn);
-  if (currentTriggerInState == HIGH && lastTriggerInState == LOW) {
-    startBurst();
+  // Determine clock period in seconds
+  float clockPeriodSec;
+  if (useExternalClock && externalPeriodMs > 0) {
+    clockPeriodSec = (float)externalPeriodMs / 1000.0f;
+  } else {
+    clockPeriodSec = 60.0f / p.bpm;
   }
-  lastTriggerInState = currentTriggerInState;
 
-  // 6) Check button (D4) with debounce
+  // 5) Detect trigger rising edge on F2
+  int currentTriggerState = digitalRead(pinTriggerIn);
+  bool trigRose = (currentTriggerState == HIGH && lastTriggerInState == LOW);
+  lastTriggerInState = currentTriggerState;
+
+  // 6) Debounce button; treat press as a manual trigger
   buttonDebounce.update((uint8_t)digitalRead(pinButton), currentMillis);
-  if (buttonDebounce.fell()) {
-    startBurst();
-  }
+  bool btnFell = buttonDebounce.fell();
 
-  // 7) Handle burst timing
-  if (burstActive && currentMillis >= nextActionTime) {
-    if (triggerIsHigh) {
-      // Turn OFF
-      digitalWrite(pinTriggerOut, LOW);
-      digitalWrite(pinLed, LOW);
-      triggerIsHigh = false;
-      triggersRemaining--;
+  // 7) Advance burst core
+  sc::TriggerBurstResult r = burst.process(
+    dt, trigRose || btnFell,
+    p.numTriggers, p.divRatio, clockPeriodSec
+  );
 
-      if (triggersRemaining > 0) {
-        nextActionTime = currentMillis + calculateOffDuration();
-      } else {
-        burstActive = false;
-      }
-    } else {
-      // Turn ON
-      digitalWrite(pinTriggerOut, HIGH);
-      digitalWrite(pinLed, HIGH);
-      triggerIsHigh = true;
-      nextActionTime = currentMillis + triggerOnTime;
-    }
-  }
+  // 8) Drive outputs
+  digitalWrite(pinTriggerOut, r.gateOn ? HIGH : LOW);
+  digitalWrite(pinLed,        r.gateOn ? HIGH : LOW);
 }

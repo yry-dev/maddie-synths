@@ -39,6 +39,7 @@ Key Variables:
 Version History:
   - 1.0 Logic firmware by Hagiwo
   - Forked and refactored from https://github.com/modulove/MOD1/tree/main/Firmware
+  - Refactored to use LogicPairCore shared core (also used by the VCV Rack port)
 
 License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
@@ -50,6 +51,7 @@ HAGIWO MOD1
 */
 #include <Arduino.h>
 #include <Mod1Common.h>
+#include <LogicPairCore.h>  // Shared logic core (also used by the VCV Rack port)
 
 // Pin definitions
 #define LOGIC_SELECT_PIN mod1::PIN_POT1 // Pin for selecting logic type
@@ -61,11 +63,8 @@ HAGIWO MOD1
 #define OUT_A_PIN mod1::PIN_F3          // PWM output for result A side (Timer1 OCR1B)
 #define OUT_B_PIN mod1::PIN_F4          // PWM output for result B side (Timer2 OCR2A)
 
-// Global variables for Flip-Flop mode
-bool flipA = false;        // Flip-Flop state for input A
-bool flipB = false;        // Flip-Flop state for input B
-bool lastA = false;        // Previous digital state for input A
-bool lastB = false;        // Previous digital state for input B
+// Logic core holds the T flip-flop state for FLIP-FLOP mode.
+sc::LogicPairVoice logic;
 
 void setup() {
   // Set pin modes
@@ -81,111 +80,31 @@ void setup() {
 }
 
 void loop() {
-  // Read logic selection from A0
+  // Read logic selection from A0 and map to one of 6 modes.
   int selectValue = analogRead(LOGIC_SELECT_PIN); // 0 to 1023
+  uint8_t logicMode = mod1::select6FromAdc(selectValue);
 
-  // Determine logic type based on A0 range
-  byte logicMode = mod1::select6FromAdc(selectValue);
+  // Mix pot + CV and clamp to ADC range.
+  int sumA = mod1::addClamp1023(analogRead(POT_A_PIN), analogRead(IN_A_PIN));
+  int sumB = mod1::addClamp1023(analogRead(POT_B_PIN), analogRead(IN_B_PIN));
 
-  // Read inputs for A and B with additional pots
-  // Ensure the sum does not exceed 1023
-  int rawA1 = analogRead(POT_A_PIN); // 0..1023
-  int rawA3 = analogRead(IN_A_PIN);  // 0..1023
-  int sumA  = mod1::addClamp1023(rawA1, rawA3);
+  // Digital threshold (matches firmware's original 512 boundary).
+  bool digitalA = (sumA > 512);
+  bool digitalB = (sumB > 512);
 
-  int rawB2 = analogRead(POT_B_PIN); // 0..1023
-  int rawB4 = analogRead(IN_B_PIN);  // 0..1023
-  int sumB  = mod1::addClamp1023(rawB2, rawB4);
+  // Normalised analogue levels for COMPARE and MAX/MIN modes.
+  float valA01 = sumA / 1023.0f;
+  float valB01 = sumB / 1023.0f;
 
-  int valA = sumA;
-  int valB = sumB;
+  // Run the shared logic core.
+  sc::LogicPairResult out = logic.step(digitalA, digitalB, valA01, valB01, logicMode);
 
-  // Prepare output variables
-  int outA = 0; // 0..255 for OCR1B
-  int outB = 0; // 0..255 for OCR2A
+  // Scale 0..1 → 0..255 for PWM registers.
+  int outA = (int)(out.outA * 255.0f + 0.5f);
+  int outB = (int)(out.outB * 255.0f + 0.5f);
 
-  // Threshold for digital logic
-  bool digitalA = (valA > 512);
-  bool digitalB = (valB > 512);
-
-  // Logic processing
-  switch (logicMode) {
-    case 0: // AND
-      // outA => AND
-      // outB => NAND
-      outA = (digitalA && digitalB) ? 255 : 0;
-      outB = (!(digitalA && digitalB)) ? 255 : 0;
-      break;
-
-    case 1: // OR
-      // outA => OR
-      // outB => NOR
-      outA = (digitalA || digitalB) ? 255 : 0;
-      outB = (!(digitalA || digitalB)) ? 255 : 0;
-      break;
-
-    case 2: // XOR
-      // outA => XOR
-      // outB => XNOR
-      outA = ((digitalA ^ digitalB)) ? 255 : 0;
-      outB = (! (digitalA ^ digitalB)) ? 255 : 0;
-      break;
-
-    case 3: // COMPARE
-      // If A>B => D10=HIGH, else if B>A => D11=HIGH
-      if (valA > valB) {
-        outA = 255;
-        outB = 0;
-      } else if (valB > valA) {
-        outA = 0;
-        outB = 255;
-      } else {
-        // If equal, both 0
-        outA = 0;
-        outB = 0;
-      }
-      break;
-
-    case 4: // MAX/MIN
-      // D10 => MAX, D11 => MIN, 0~1023 -> 0~255
-      if (valA > valB) {
-        outA = valA >> 2; // MAX => A
-        outB = valB >> 2; // MIN => B
-      } else {
-        outA = valB >> 2; // MAX => B
-        outB = valA >> 2; // MIN => A
-      }
-      break;
-
-    case 5: // FLIP-FLOP
-    {
-      // T-type flip-flop style
-      bool currentA = digitalA;
-      bool currentB = digitalB;
-
-      // Rising edge detection for A
-      if (currentA && !lastA) {
-        flipA = !flipA;
-      }
-      // Rising edge detection for B
-      if (currentB && !lastB) {
-        flipB = !flipB;
-      }
-
-      lastA = currentA;
-      lastB = currentB;
-
-      // Output states
-      outA = flipA ? 255 : 0;
-      outB = flipB ? 255 : 0;
-    }
-    break;
-  }
-
-  // Write results to PWM registers
-  OCR1B = outA; // D10 output
-  OCR2A = outB; // D11 output
-
-  // For LED on D3, same duty cycle as outA
-  OCR2B = outA; // D3 output
+  // Write results to PWM registers.
+  OCR1B = outA; // D10 OUT A
+  OCR2A = outB; // D11 OUT B
+  OCR2B = outA; // D3  LED (tracks outA, same as original firmware)
 }

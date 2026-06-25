@@ -5,7 +5,7 @@ Six-waveform VCO with PolyBLEP anti-aliasing and V/oct tracking. Waveforms:
 0 Sine, 1 Triangle, 2 Square, 3 Saw, 4 FM-4x, 5 FM-2x. A 1-pole RC
 low-pass softens residual PWM/alias noise. Coarse tune on POT2; a
 negative-slope 1 V/oct CV on A2. The octave button cycles 0/+1/+2/+3.
-1024-sample wavetable with linear interpolation; ISR-driven audio.
+Shared VcoCore drives synthesis (sample-rate independent); ISR-driven audio.
 
 Key Variables:
   A0 -> Waveform select (Sin/Tri/Squ/Saw/FM-4x/FM-2x)
@@ -41,6 +41,7 @@ Key Variables:
 Version History:
   - 1.0 VCO firmware by Hagiwo
   - 1.1 Forked and refactored for maddie synths
+  - 1.2 Ported DSP to shared VcoCore (no behaviour change)
 
 License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
@@ -56,177 +57,53 @@ HAGIWO MOD2 (Seeed Xiao RP2350)
 #include "hardware/irq.h"
 #include <math.h>
 #include <Mod2Common.h>  // Shared MOD2 pin map, PWM-audio setup and helpers
+#include <VcoCore.h>     // Shared VCO voice (also used by vcvrack/src/VCO.cpp)
 
 /* ============================== constants ============================== */
-constexpr int   TABLE_SIZE      = 1024;           // must be power of two
-constexpr float FULL_SCALE      = 1023.0f;        // 10-bit PWM top
+constexpr float SYS_CLK         = 150'000'000.0f; // 150 MHz default
+constexpr int   PWM_WRAP_IRQ    = 4095;            // ≈36.6 kHz ISR rate
+constexpr float FULL_SCALE      = 1023.0f;         // 10-bit PWM top
 constexpr float MID_LEVEL       = FULL_SCALE / 2.0f;
 
-constexpr float SYS_CLK         = 150'000'000.0f; // 150 MHz default
-constexpr int   PWM_WRAP_IRQ    = 4095;           // ≈36.6 kHz ISR rate
-
 /* base tuning range (front-panel pot A1) */
-constexpr float TUNE_MIN_HZ     = 320.0f;         // 0 % of the pot
-constexpr float TUNE_RANGE_HZ   =  90.0f;         // span 320 → 410 Hz
+constexpr float TUNE_MIN_HZ     = 320.0f;          // 0 % of the pot
+constexpr float TUNE_RANGE_HZ   =  90.0f;          // span 320 → 410 Hz
 
 /* frequency-calibration factor (edit here after measuring) */
-const float TUNE_CAL            = 0.992f;         // 1.000 = no correction
-
-/* RC low-pass smoothing on the final sample (0 < α < 1) */
-constexpr float LP_ALPHA        = 0.18f;
-
-/* FM modulation depth in radians */
-volatile float fmAmount         = 2.0f;
+const float     TUNE_CAL        = 0.992f;          // 1.000 = no correction
 
 /* ========================== hardware globals =========================== */
-uint sliceAudio;          // PWM slice for audio out
-uint sliceIRQ;            // PWM slice that triggers the ISR
+uint sliceAudio;  // PWM slice for audio out
+uint sliceIRQ;    // PWM slice that triggers the ISR
 
-volatile uint16_t pwmSample     = 0;
-volatile float    phase         = 0.0f;     // 0…TABLE_SIZE
-volatile float    phaseStep     = 0.0f;     // Δphase per ISR
-float             sampleRate    = 0.0f;     // ≈36.6 kHz
+float sampleRate  = 0.0f;  // ≈36.6 kHz, set in setup()
 
-/* ============================ wavetable =============================== */
-float tableSin[TABLE_SIZE];
-float tableTri[TABLE_SIZE];
+/* -------------------- shared DSP core --------------------------------- */
+sc::VcoCore vco;
 
-/* current waveform (0-5) and octave offset (0-3) */
-volatile uint8_t waveSel   = 0;
-volatile uint8_t octShift  = 0;
-
-/* -----------------------------------------------------------------------
- *  PolyBLEP helper  (returns discontinuity correction)
- * -------------------------------------------------------------------- */
-inline float polyBLEP(float t, float dt)
-{
-  if (t < dt)               { float x = t / dt;            return x + x - x*x - 1.0f; }
-  if (t > 1.0f - dt)        { float x = (t - 1.0f) / dt;   return x*x + x + x + 1.0f; }
-  return 0.0f;
-}
-
-/* -----------------------------------------------------------------------
- *  Build sine & triangle tables
- * -------------------------------------------------------------------- */
-void initTables()
-{
-  for (int i = 0; i < TABLE_SIZE; ++i)
-  {
-    /* 0-centered sine, remapped to 0-1023 */
-    tableSin[i] = MID_LEVEL + MID_LEVEL * sinf(2.0f * PI * i / TABLE_SIZE);
-
-    /* triangle 0-to-FULL then back to 0 */
-    if (i < TABLE_SIZE / 2)
-      tableTri[i] = FULL_SCALE * i / ((TABLE_SIZE / 2) - 1);
-    else
-      tableTri[i] = FULL_SCALE * (TABLE_SIZE - 1 - i) / ((TABLE_SIZE / 2) - 1);
-  }
-}
+/* Volatile shadows: loop() writes, ISR reads.  Mirrors the original
+   volatile phaseStep / waveSel pattern used before the shared core. */
+volatile float   g_vcoFreq  = 320.0f;
+volatile uint8_t g_vcoWave  = 0;
 
 /* =======================================================================
  *  PWM interrupt service routine
  * ==================================================================== */
 void __isr onPwmWrap()
 {
-  /* pre-compute helpers shared by most algorithms */
-  const int   idx      = static_cast<int>(phase) & (TABLE_SIZE - 1);
-  const int   idxNext  = (idx + 1) & (TABLE_SIZE - 1);
-  const float frac     = phase - idx;                  // 0…1 fractional
-  const float tNorm    = phase / TABLE_SIZE;           // 0…1 normalised
-  const float dtNorm   = phaseStep / TABLE_SIZE;       // phase increment (0<dt<1)
+  /* Pull the latest freq / wave from the main-loop shadows. */
+  vco.freq      = g_vcoFreq;
+  vco.waveIndex = g_vcoWave;
 
-  float sample = MID_LEVEL;   // fallback value; will be overwritten
+  /* Render one sample (-1..+1) from the shared core. */
+  const float s = vco.process(1.0f / sampleRate);
 
-  switch (waveSel)
-  {
-    /* ---- 0 : Sine (table + linear interpolation) ------------------- */
-    case 0:
-    {
-      sample = tableSin[idx] * (1.0f - frac) + tableSin[idxNext] * frac;
-      break;
-    }
-
-    /* ---- 1 : Triangle --------------------------------------------- */
-    case 1:
-    {
-      sample = tableTri[idx] * (1.0f - frac) + tableTri[idxNext] * frac;
-      break;
-    }
-
-    /* ---- 2 : Square (PolyBLEP on both edges) ---------------------- */
-    case 2:
-    {
-      float s = (tNorm < 0.5f) ? 1.0f : -1.0f;
-      s +=  polyBLEP(tNorm, dtNorm);                          // rising edge
-      s -=  polyBLEP(fmodf(tNorm + 0.5f, 1.0f), dtNorm);      // falling edge
-      sample = MID_LEVEL + MID_LEVEL * s;
-      break;
-    }
-
-    /* ---- 3 : Saw (PolyBLEP) -------------------------------------- */
-    case 3:
-    {
-      float s = 2.0f * tNorm - 1.0f;       // raw saw −1…1
-      s -= polyBLEP(tNorm, dtNorm);        // correct discontinuity
-      sample = MID_LEVEL + MID_LEVEL * s;
-      break;
-    }
-
-    /* ---- 4 : FM (modulator 4× carrier) --------------------------- */
-    case 4:
-    {
-      /* modulator phase (wraps every 0…1) */
-      float tMod = fmodf(tNorm * 4.0f, 1.0f);
-
-      /* fast-table sine for the modulator */
-      float posM   = tMod * TABLE_SIZE;
-      int   idxM   = static_cast<int>(posM) & (TABLE_SIZE - 1);
-      int   idxMN  = (idxM + 1) & (TABLE_SIZE - 1);
-      float fracM  = posM - idxM;
-      float modVal = tableSin[idxM] * (1.0f - fracM) + tableSin[idxMN] * fracM;
-      float modN   = (modVal - MID_LEVEL) / MID_LEVEL;        // normalise –1…1
-
-      /* carrier sine with phase modulation */
-      float phaseRad = 2.0f * PI * tNorm + fmAmount * modN;
-      float s        = sinf(phaseRad);
-      sample = MID_LEVEL + MID_LEVEL * s;
-      break;
-    }
-
-    /* ---- 5 : FM (modulator 2× carrier) --------------------------- */
-    default:   // waveSel == 5
-    {
-      float tMod = fmodf(tNorm * 2.0f, 1.0f);
-
-      float posM   = tMod * TABLE_SIZE;
-      int   idxM   = static_cast<int>(posM) & (TABLE_SIZE - 1);
-      int   idxMN  = (idxM + 1) & (TABLE_SIZE - 1);
-      float fracM  = posM - idxM;
-      float modVal = tableSin[idxM] * (1.0f - fracM) + tableSin[idxMN] * fracM;
-      float modN   = (modVal - MID_LEVEL) / MID_LEVEL;
-
-      float phaseRad = 2.0f * PI * tNorm + fmAmount * modN;
-      float s        = sinf(phaseRad);
-      sample = MID_LEVEL + MID_LEVEL * s;
-      break;
-    }
-  }
-
-  /* ---- simple RC low-pass (softens remaining alias / PWM texture) */
-  static float lpState = MID_LEVEL;
-  lpState += (sample - lpState) * LP_ALPHA;
-  sample = lpState;
-
-  /* ---- write to PWM duty cycle (10-bit) */
-  pwmSample = static_cast<uint16_t>(sample + 0.5f);
+  /* Map -1..+1 → 0..1023 and write to PWM duty cycle (10-bit). */
+  const uint16_t pwmSample =
+      static_cast<uint16_t>((s + 1.0f) * MID_LEVEL + 0.5f);
   pwm_set_chan_level(sliceAudio, PWM_CHAN_B, pwmSample);
 
-  /* advance and wrap phase accumulator */
-  phase += phaseStep;
-  if (phase >= TABLE_SIZE)
-    phase -= TABLE_SIZE;
-
-  /* clear IRQ flag */
+  /* Clear IRQ flag. */
   pwm_clear_irq(sliceIRQ);
 }
 
@@ -236,52 +113,42 @@ void __isr onPwmWrap()
 void setup()
 {
   /* --- user inputs --------------------------------------------------- */
-  pinMode(A0, INPUT);          // wave select
-  pinMode(A1, INPUT);          // coarse tune
-  pinMode(A2, INPUT);          // 1 V/Oct CV
-  pinMode(mod2::BUTTON_PIN, INPUT_PULLUP);   // octave shift button
+  pinMode(A0, INPUT);                             // wave select
+  pinMode(A1, INPUT);                             // coarse tune
+  pinMode(A2, INPUT);                             // 1 V/Oct CV
+  pinMode(mod2::BUTTON_PIN, INPUT_PULLUP);        // octave shift button
 
   /* --- audio PWM + ~36.6 kHz wrap-IRQ setup (shared) ---------------- */
   mod2::initAudioPwm(sliceAudio, sliceIRQ, onPwmWrap);
 
-  /* --- precompute tables and sample rate ---------------------------- */
+  /* --- compute sample rate from hardware constants ------------------- */
   sampleRate = SYS_CLK / (PWM_WRAP_IRQ + 1);
-  initTables();
 }
 
 /* =======================================================================
- *  Main loop – handle UI and update frequency
+ *  Main loop — handle UI and update frequency
  * ==================================================================== */
 void loop()
 {
-  /* --- A0 : wave select thresholds ---------------------------------- */
-  const int a0 = analogRead(A0);
-  if      (a0 <  32) waveSel = 0;
-  else if (a0 < 248) waveSel = 1;
-  else if (a0 < 514) waveSel = 2;
-  else if (a0 < 720) waveSel = 3;
-  else if (a0 < 926) waveSel = 4;   // FM 4×
-  else                waveSel = 5;   // FM 2×
+  /* --- A0 : wave select (thresholds match VcoCore::vcoWaveSelect) ---- */
+  g_vcoWave = sc::vcoWaveSelect(analogRead(A0) / 1023.0f);
 
-  /* --- A1 : base frequency 320-410 Hz ------------------------------- */
+  /* --- A1 : base frequency 320–410 Hz -------------------------------- */
   const float baseFreq =
       TUNE_MIN_HZ + TUNE_RANGE_HZ * analogRead(A1) / 1023.0f;
 
-  /* --- A2 : external CV in octaves (negative slope) ----------------- */
+  /* --- A2 : external CV in octaves (negative slope, hardware wiring) - */
   const float cvOct =
-      -(analogRead(A2) / 1023.0f) * 8.3f * (33.0f / 55.0f) * TUNE_CAL;     ;
+      -(analogRead(A2) / 1023.0f) * 8.3f * (33.0f / 55.0f) * TUNE_CAL;
 
   /* --- push-button : 0 / +1 / +2 / +3 octave steps ------------------ */
-  static int lastBtn = HIGH;
-  int btn = digitalRead(mod2::BUTTON_PIN);
+  static int    lastBtn  = HIGH;
+  static uint8_t octShift = 0;
+  const int btn = digitalRead(mod2::BUTTON_PIN);
   if (lastBtn == HIGH && btn == LOW)
-      octShift = (octShift + 1) & 3;   // modulo-4
+    octShift = (octShift + 1) & 3;
   lastBtn = btn;
 
-  /* --- final frequency calculation ---------------------------------- */
-  float freq = baseFreq * powf(2.0f, octShift + cvOct);
-                // <<< calibration factor >>>
-
-  /* --- update phase increment (table-index space per ISR) ----------- */
-  phaseStep = freq * TABLE_SIZE / sampleRate;
+  /* --- final frequency → volatile shadow for the ISR ----------------- */
+  g_vcoFreq = baseFreq * powf(2.0f, octShift + cvOct);
 }
