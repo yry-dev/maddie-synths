@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod1-tap-tempo/mod1-tap-tempo.ino  (millis() taps -> digitalWrite outs)
-//   - vcvrack/src/TapTempo.cpp                      (button/clock taps -> PulseGenerators)
+//   - rack-plugins/src/TapTempo.cpp                      (button/clock taps -> PulseGenerators)
 //
 // Pure C++: depends only on sc_math.h. No Arduino / Rack / Pico SDK. float only,
 // header-only, no heap, AVR-friendly (~tiny RAM footprint).

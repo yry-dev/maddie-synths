@@ -69,18 +69,6 @@ your Arduino libraries folder (default `~/Documents/Arduino/libraries`).
 install is needed for it. After this, `make mod2-braids` and `make mod2-tides`
 build cleanly.
 
-## Fish shell scripts
-
-- Build:
-  - scripts/build-fw.fish firmwares/mod1 arduino:avr:nano
-- Upload:
-  - scripts/upload-fw.fish mod1-triple-wave-lfo arduino:avr:nano /dev/cu.usbserial-XXXX
-
-`scripts/upload-fw.fish` uploads prebuilt binaries from `dist/<firmware>/`.
-It accepts either a firmware name (for example `mod1-triple-wave-lfo`) or a sketch path under `firmwares/`.
-
-For Pico, use fqbn `rp2040:rp2040:rpipico`.
-
 ## Makefile firmware builds
 
 - Build every firmware into `dist/<firmware>/`:
@@ -96,6 +84,45 @@ For Pico, use fqbn `rp2040:rp2040:rpipico`.
 
 The Makefile discovers every sketch folder under `firmwares/` that contains a same-named `.ino` entry file and excludes `firmwares/shared/`.
 
+## VCV Rack plugin builds
+
+The same root Makefile also drives the VCV Rack plugin in [`rack-plugins/`](rack-plugins/)
+(which shares the platform-agnostic voice cores in `firmwares/shared/SynthCore`):
+
+- Build the plugin:
+  - make rack
+- Build + install into Rack's user plugins folder:
+  - make rack-install
+- Package a distributable `.vcvplugin`:
+  - make rack-dist
+- Remove the plugin build output:
+  - make rack-clean
+- Build everything (all firmwares + the plugin):
+  - make everything
+- Build against a non-vendored Rack SDK:
+  - make rack RACK_DIR=~/Rack-SDK
+
+The plugin manifest is the canonical `plugin.json` at the repo root; the
+`rack-plugins/` Makefile syncs a build-time copy into its own folder (which the
+Rack SDK requires) so the manifest lives in exactly one place. See
+[`rack-plugins/README.md`](rack-plugins/README.md) and
+[`rack-plugins/PORTING.md`](rack-plugins/PORTING.md) for details.
+
+### Releasing the plugin (CI)
+
+[`.github/workflows/rack-plugin.yml`](.github/workflows/rack-plugin.yml) builds the
+plugin for macOS (x64 + arm64), Linux, and Windows and publishes a GitHub release
+with the `.vcvplugin` packages. It runs `make rack-dist` against a freshly
+downloaded Rack SDK on each platform, so it exercises the same build path as a
+local build. Push a tag to trigger it:
+
+- `vX.Y.Z-msrack` → versioned release (e.g. `v0.0.1-msrack`)
+- `vX.Y.Z-next-msrack` → pre-release / nightly (version stamped with the commit)
+
+The workflow derives the plugin version from the tag, so the tag is the single
+source of truth for a release's version. A manual `workflow_dispatch` run builds
+all platforms without publishing, for testing.
+
 ## Shared library code
 
 Use `firmwares/shared/` as the repo-local Arduino library root. Each library should use the standard Arduino layout:
@@ -106,120 +133,37 @@ Use `firmwares/shared/` as the repo-local Arduino library root. Each library sho
 
 This repo includes a starter library at `firmwares/shared/Mod1Common`.
 
-Example use from a firmware sketch:
+## Hardware
 
-```cpp
-#include <Mod1Common.h>
+### 2020 rail adapter (`hardware/2020-adapter`)
 
-long cv = mod1::mapClamp(analogRead(A0), 0, 1023, 0, 255);
-```
+A 3D-printable slide-in adapter that turns standard **2020 aluminum extrusion**
+into a Eurorack mounting rail. It end-loads into the extrusion's T-slot and
+exposes a captive C-channel along its length that holds a Eurorack threaded
+strip (or a row of M3/M2.5 T-nuts), so you can build a Eurorack case out of
+2020 rails instead of buying dedicated vertical rails.
 
-Both `make` and `scripts/build-fw.fish` automatically pass `firmwares/shared` as an Arduino CLI library search path.
+- One T-profile tab slides into the 2020 slot; the tab matches the generic
+  Misumi-style tapered T-slot (narrow stem flaring to a chamfered head) so it
+  seats without rocking.
+- The top face has a screw-access slot cut through a retaining lip, so the
+  threaded strip stays captive but module screws can still reach it from the
+  front.
 
-### Mod1Common helpers
+Files:
 
-`firmwares/shared/Mod1Common` currently provides shared helpers used across the MOD1 sketches:
+- `2020-adapter.scad` — parametric OpenSCAD source. All slot, tab, body, and
+  strip-channel dimensions are editable parameters at the top of the file.
+- `2020-adapter.stl`, `2020-adapter-40mm.stl`, `2020-adapter-50mm.stl`,
+  `2020-adapter-90.stl`, `2020-adapter-100mm.stl` — pre-exported STLs at a few
+  rail lengths.
 
-- Math and scaling:
-  - `mod1::mapClamp(...)`
-  - `mod1::addClamp1023(...)`
-  - `mod1::select2FromAdc(...)`
-  - `mod1::select3FromAdc(...)`
-  - `mod1::select4FromAdc(...)`
-  - `mod1::select6FromAdc(...)`
-- Input utilities:
-  - `mod1::DebouncedInput` for debounced button state and edge detection
-  - `mod1::EdgeInput` for raw rising/falling edge detection
-- AVR PWM setup (Arduino Nano / ATmega328P):
-  - `mod1::setupFastPwmEgStyle()` for EG/LFO/Random-CV style outputs
-  - `mod1::setupFastPwmLogicStyle()` for Logic module output mapping
+Printing / sizing notes:
 
-PWM helpers are compile-guarded for AVR timer registers. On non-AVR targets they become no-ops.
-
-Example:
-
-```cpp
-#include <Mod1Common.h>
-
-void setup() {
-  mod1::setupFastPwmEgStyle();
-}
-
-void loop() {
-  int idx = mod1::select6FromAdc(analogRead(A0));
-}
-```
-
-### Mod2Common helpers
-
-`firmwares/shared/Mod2Common` provides shared scaffolding used across the MOD2 (Seeed Xiao RP2350) sketches that share the ~36.6 kHz dual-slice PWM audio path:
-
-- Panel pin map (note the `*_PIN` suffix — the RP2350 core already defines a `PIN_LED` macro):
-  - `mod2::POT1_PIN` / `POT2_PIN` / `POT3_PIN`, `mod2::CV_PIN`
-  - `mod2::IN1_PIN`, `mod2::IN2_PIN`, `mod2::OUT_PIN`, `mod2::LED_PIN`, `mod2::BUTTON_PIN`
-- Audio path:
-  - `mod2::initAudioPwm(audioSlice, timerSlice, handler)` — GPIO1 10-bit audio + GPIO2 ~36.6 kHz wrap-IRQ
-  - `mod2::initPwmOutput10bit(pin)` — 10-bit PWM output (e.g. LED brightness)
-  - constants `SYS_CLOCK`, `AUDIO_FS`, `PWM_AUDIO_WRAP`, `PWM_TIMER_WRAP`, `PWM_FS`, `PWM_MID`
-- DSP / control helpers:
-  - envelope/shaping: `expDecayCoef`, `raisedCosine`, `softClipTanh`, `softSat`
-  - filters: `Biquad` (band-pass), `OutputLpBiquad`, `DcBlocker`
-  - sample playback: `readPCM16LE`, `lerpFixed` (Q12 fixed-point)
-  - noise: `fillWhiteNoise`, `xorshift32`
-  - controls: `PotSmoother<N>`, `PickupParam` + `checkPickup`
-
-Example:
-
-```cpp
-#include <Mod2Common.h>
-
-uint sliceAudio, sliceTimer;
-
-void on_pwm_wrap();  // your audio ISR
-
-void setup() {
-  mod2::initAudioPwm(sliceAudio, sliceTimer, on_pwm_wrap);
-  pinMode(mod2::BUTTON_PIN, INPUT_PULLUP);
-}
-```
-
-Sketches using it: `mod2-kick`, `mod2-fm_drum`, `mod2-clap`, `mod2-hihat`, `mod2-claves`, `mod2-breakbeats`, `mod2-sample`, `mod2-radio`, `mod2-vco`, `mod2-square_vco`, `mod2-spiral`, `mod2-flux`. (`mod2-braids`/`mod2-tides` use a different PWMAudio DAC path; `mod2-mod303`/`mod2-test` use other audio backends and are not on Mod2Common.)
-
-### Hagiwo30Common helpers
-
-`firmwares/shared/Hagiwo30Common` provides shared constants/utilities used by the Hagiwo30 sequencer sketches:
-
-- Board constants:
-  - OLED address and dimensions
-  - encoder/button/clock pins
-  - 6 output channel pins
-  - encoder detent count constants
-- Input utility:
-  - `hagiwo30::DebouncedActiveLowButton` for active-low pushbutton debouncing
-
-Example:
-
-```cpp
-#include <Hagiwo30Common.h>
-
-Encoder enc(hagiwo30::kEncoderPinA, hagiwo30::kEncoderPinB);
-hagiwo30::DebouncedActiveLowButton button(300, HIGH);
-```
-
-The Hagiwo30 shared library now also includes a mode abstraction for building a single switchable firmware:
-
-- `hagiwo30::SequencerMode` in `Hagiwo30SequencerMode.h`
-- `hagiwo30::SequencerModeManager` in `Hagiwo30SequencerModeManager.h/.cpp`
-- `firmwares/shared/Hagiwo30Sequencers` as the shared implementation for:
-  - `SixChannelSequencer` (`Hagiwo30SixChannelSequencer.h/.cpp`)
-  - `EuclideanSequencer` (`Hagiwo30EuclideanSequencer.h/.cpp`)
-  - shared pattern banks (`Hagiwo30ProgramBanks.h`, `Hagiwo30PatternBanks.h`)
-
-Current `SixChannelSequencer` and `EuclideanSequencer` classes implement `hagiwo30::SequencerMode`.
-This enables a future sketch to instantiate both sequencers once, route calls through the manager, and switch active mode by changing `SequencerModeKind`.
-
-Unified firmware is now available at `firmwares/hagiwo30-strides`:
-
-- Entry sketch: `firmwares/hagiwo30-strides/hagiwo30-strides.ino`
-- Runtime switch: hold the encoder button for 1.5 seconds to toggle between SixChannel and Euclidean modes
-
+- The `length` parameter is the rail length in mm. Most printers cap out around
+  100 mm wide; print multiple segments end to end for wider cases (84HP ≈
+  128.5 mm, 104HP ≈ 158.75 mm).
+- Default screw access is sized for M3; set `access_slot_width = 2.9` for M2.5.
+- For best dimensional accuracy on the slot and tab, stand the part on one end
+  (cross-section facing up); laying it on its back face also works since the
+  channel lips bridge as a ~1 mm overhang.

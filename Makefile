@@ -2,6 +2,7 @@ CONFIG_FILE := arduino-cli.yaml
 MOD1_FQBN ?= arduino:avr:nano
 MOD2_FQBN ?= rp2040:rp2040:seeed_xiao_rp2350
 SHARED_LIB_DIR := firmwares/shared
+RACK_PLUGIN_DIR := rack-plugins
 PORT ?=
 FW ?=
 
@@ -10,9 +11,13 @@ fqbn_for = $(if $(filter mod2%,$1),$(MOD2_FQBN),$(if $(filter mod1% hagiwo30%,$1
 FIRMWARE_DIRS := $(sort $(patsubst %/,%,$(dir $(wildcard firmwares/*/*.ino))))
 FIRMWARES := $(filter-out shared,$(notdir $(FIRMWARE_DIRS)))
 
-.PHONY: all dist clean list board-list upload upload-help $(FIRMWARES)
+.PHONY: all everything dist clean clean-all list board-list upload upload-help \
+        rack rack-dist rack-install rack-clean $(FIRMWARES)
 
 all: dist
+
+# Build everything this repo produces: all firmwares + the VCV Rack plugin.
+everything: dist rack
 
 # Build every firmware, skipping (not aborting on) any that fail to compile.
 # Each firmware is built via its own strict rule, so `make <firmware>` still
@@ -94,3 +99,22 @@ upload-%: %
 
 clean:
 	rm -rf dist
+
+# ---- VCV Rack plugin (rack-plugins/) ------------------------------------
+# Delegates to the Rack plugin Makefile, which reads the root plugin.json.
+# Override the SDK location with `make rack RACK_DIR=~/Rack-SDK`.
+
+rack:
+	$(MAKE) -C $(RACK_PLUGIN_DIR) $(if $(RACK_DIR),RACK_DIR=$(RACK_DIR))
+
+rack-dist:
+	$(MAKE) -C $(RACK_PLUGIN_DIR) dist $(if $(RACK_DIR),RACK_DIR=$(RACK_DIR))
+
+rack-install:
+	$(MAKE) -C $(RACK_PLUGIN_DIR) install $(if $(RACK_DIR),RACK_DIR=$(RACK_DIR))
+
+rack-clean:
+	$(MAKE) -C $(RACK_PLUGIN_DIR) clean $(if $(RACK_DIR),RACK_DIR=$(RACK_DIR))
+
+# Remove all build output (firmware + Rack plugin).
+clean-all: clean rack-clean

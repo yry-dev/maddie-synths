@@ -44,11 +44,14 @@
 dist/
 
 # VCV Rack plugin: vendored SDK and per-plugin build output
-vcvrack/.Rack-SDK/
-vcvrack/build/
-vcvrack/plugin.dylib
-vcvrack/plugin.so
-vcvrack/plugin.dll
+rack-plugins/.Rack-SDK/
+rack-plugins/build/
+rack-plugins/plugin.dylib
+rack-plugins/plugin.so
+rack-plugins/plugin.dll
+# plugin.json is canonical at the repo root; rack-plugins/plugin.json is a
+# build-time copy synced in by rack-plugins/Makefile.
+rack-plugins/plugin.json
 
 # KiCad generated output / backup folders
 *-backups/

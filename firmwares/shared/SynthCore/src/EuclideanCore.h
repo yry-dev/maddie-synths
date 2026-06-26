@@ -5,7 +5,7 @@
 //
 // Used by:
 //   - firmwares/mod1-euclidean/mod1-euclidean.ino  (one step per clock edge)
-//   - vcvrack/src/Euclidean.cpp                     (audio-rate process loop)
+//   - rack-plugins/src/Euclidean.cpp                     (audio-rate process loop)
 //
 // Algorithm: on-the-fly Bjorklund/Bresenham. No lookup tables, no heap,
 // O(1) per step query. Verified to match the PROGMEM tables

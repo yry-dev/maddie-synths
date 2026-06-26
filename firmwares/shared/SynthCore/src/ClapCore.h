@@ -4,7 +4,7 @@
 //
 // Used by:
 //   firmwares/mod2-clap/mod2-clap.ino  (fills TABLE_SZ-sample buffer per strike)
-//   vcvrack/src/Clap.cpp               (renders live, one sample per process call)
+//   rack-plugins/src/Clap.cpp               (renders live, one sample per process call)
 //
 // Three noise bursts (0 ms, 15 ms, 30 ms from trigger): the first two are
 // 4 ms gates; the third launches an exponential tail whose length is set by

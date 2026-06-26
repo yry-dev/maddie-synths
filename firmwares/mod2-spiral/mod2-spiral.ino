@@ -9,7 +9,7 @@ staircase - the visual equivalent of Shepard tones. Nine modes:
 Short button press cycles modes; long press (>500 ms) toggles direction.
 
 The synthesis lives in the shared core (firmwares/shared/SynthCore/src/
-SpiralCore.h), so this sketch and the VCV Rack port (vcvrack/src/Spiral.cpp)
+SpiralCore.h), so this sketch and the VCV Rack port (rack-plugins/src/Spiral.cpp)
 run the exact same DSP. This file keeps only the MOD2 hardware I/O: ADC reads,
 the button/LED logic, and the PWM-audio ISR that drives the core one sample at
 a time.

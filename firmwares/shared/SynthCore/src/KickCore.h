@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod2-kick/mod2-kick.ino  (renders a table per trigger)
-//   - vcvrack/src/Kick.cpp               (renders live, one sample per process)
+//   - rack-plugins/src/Kick.cpp               (renders live, one sample per process)
 //
 // A strike is a sine oscillator whose frequency sweeps exponentially from f0 to
 // f1 (shaped by a curve exponent), multiplied by an exponential-decay amplitude

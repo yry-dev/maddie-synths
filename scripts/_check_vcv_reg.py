@@ -2,7 +2,7 @@
 """Check that every plugin.json module has a panel SVG, an extern declaration,
 and an addModel() call. Helper for scripts/check-vcv.fish.
 
-Usage: _check_vcv_reg.py <vcvrack_dir>
+Usage: _check_vcv_reg.py <rack_plugins_dir>
 Exit non-zero on any mismatch.
 """
 import json
@@ -13,7 +13,11 @@ import sys
 
 def main() -> int:
     vcv = sys.argv[1]
-    plugin_json = os.path.join(vcv, "plugin.json")
+    # plugin.json is canonical at the repo root (parent of rack-plugins/);
+    # fall back to the build-time copy inside rack-plugins/ if needed.
+    plugin_json = os.path.join(os.path.dirname(os.path.abspath(vcv)), "plugin.json")
+    if not os.path.exists(plugin_json):
+        plugin_json = os.path.join(vcv, "plugin.json")
     hpp = open(os.path.join(vcv, "src", "plugin.hpp")).read()
     cpp = open(os.path.join(vcv, "src", "plugin.cpp")).read()
     extern = set(re.findall(r"extern\s+Model\*\s+(\w+)", hpp))

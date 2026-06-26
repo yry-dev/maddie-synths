@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod2-hihat/mod2-hihat.ino  (fills TABLE_SZ-sample table per strike)
-//   - vcvrack/src/Hihat.cpp                (renders live, one sample per process)
+//   - rack-plugins/src/Hihat.cpp                (renders live, one sample per process)
 //
 // A strike is a fixed-length noise burst (kHihatStrikeDuration seconds) of
 // band-pass filtered noise (sc::Biquad, Q=0.8) shaped by an exponential decay

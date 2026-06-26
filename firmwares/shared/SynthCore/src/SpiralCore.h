@@ -4,7 +4,7 @@
 //
 // Shared core of the Spiral module. Used by:
 //   - firmwares/mod2-spiral/mod2-spiral.ino  (audio ISR calls process(1/AUDIO_FS))
-//   - vcvrack/src/Spiral.cpp                  (process(args.sampleTime))
+//   - rack-plugins/src/Spiral.cpp                  (process(args.sampleTime))
 //
 // Original "Spiral 4Ever" firmware by HAGIWO (MOD2, RP2350), refactored here so
 // the firmware and the VCV Rack port run the exact same synthesis. Nine modes:

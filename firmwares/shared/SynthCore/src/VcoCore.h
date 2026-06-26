@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod2-vco/mod2-vco.ino  (ISR-driven, ~36.6 kHz, RP2350 FPU)
-//   - vcvrack/src/VCO.cpp               (live synthesis at host sample rate)
+//   - rack-plugins/src/VCO.cpp               (live synthesis at host sample rate)
 //
 // Waveforms: 0 Sine | 1 Triangle | 2 Square | 3 Saw | 4 FM-4x | 5 FM-2x.
 // PolyBLEP corrects the Square and Saw discontinuities. FM uses sinf for

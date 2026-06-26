@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod1-logic-pair/mod1-logic-pair.ino  (one step per loop)
-//   - vcvrack/src/LogicPair.cpp                       (per-sample at audio rate)
+//   - rack-plugins/src/LogicPair.cpp                       (per-sample at audio rate)
 //
 // Pure C++: depends only on sc_math.h. No Arduino / Rack / Pico SDK.
 

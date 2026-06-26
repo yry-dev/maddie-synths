@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod1-dual-ad-env/mod1-dual-ad-env.ino
-//   - vcvrack/src/DualADEnv.cpp
+//   - rack-plugins/src/DualADEnv.cpp
 //
 // The original firmware used two 1024-entry PROGMEM tables (kEnvelopeCurve and
 // kEnvelopePotAdjust from Mod1EnvelopeData). These are replaced here with

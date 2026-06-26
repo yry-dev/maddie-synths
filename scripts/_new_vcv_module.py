@@ -2,13 +2,13 @@
 """Scaffold a new VCV Rack module that shares a core with a firmware.
 
 Generates (and registers) the four files a port needs, following the pattern in
-vcvrack/PORTING.md and the Claves/Butterfly references:
+rack-plugins/PORTING.md and the Claves/Butterfly references:
 
-  firmwares/shared/SynthCore/src/<Slug>Core.h   pure sc:: voice-core stub
-  vcvrack/src/<Slug>.cpp                          Module + Widget + model line
-  vcvrack/res/<Slug>.svg                          placeholder panel
-  + registration in vcvrack/src/plugin.{hpp,cpp} (at SCAFFOLD: sentinels)
-  + a module entry in vcvrack/plugin.json
+  firmwares/shared/SynthCore/src/<Slug>Core.h    pure sc:: voice-core stub
+  rack-plugins/src/<Slug>.cpp                     Module + Widget + model line
+  rack-plugins/res/<Slug>.svg                     placeholder panel
+  + registration in rack-plugins/src/plugin.{hpp,cpp} (at SCAFFOLD: sentinels)
+  + a module entry in plugin.json (repo root)
 
 The generated DSP/widget is a STUB (3 knobs, trigger in, CV in, audio out, LED)
 clearly marked TODO — fill in the real algorithm from the firmware, then run
@@ -29,7 +29,7 @@ CORE_TMPL = '''#pragma once
 //
 // Used by:
 //   - firmwares/<firmware>/<firmware>.ino   (TODO: wire this core in)
-//   - vcvrack/src/{slug}.cpp
+//   - rack-plugins/src/{slug}.cpp
 //
 // Pure C++: include only sc_math.h / sc_dsp.h. NO Arduino.h, rack.hpp, Pico SDK.
 // float only, no heap, no STL — must compile on AVR, RP2350 and desktop.
@@ -166,8 +166,8 @@ def main():
     if not re.fullmatch(r"[A-Za-z][A-Za-z0-9]*", slug):
         sys.exit(f"ERROR: slug {slug!r} must be alphanumeric, starting with a letter")
     core = os.path.join(root, "firmwares/shared/SynthCore/src", slug + "Core.h")
-    cpp = os.path.join(root, "vcvrack/src", slug + ".cpp")
-    svg = os.path.join(root, "vcvrack/res", slug + ".svg")
+    cpp = os.path.join(root, "rack-plugins/src", slug + ".cpp")
+    svg = os.path.join(root, "rack-plugins/res", slug + ".svg")
     for p in (core, cpp, svg):
         if os.path.exists(p):
             sys.exit(f"ERROR: {p} already exists — refusing to overwrite")
@@ -177,13 +177,13 @@ def main():
     open(svg, "w").write(SVG_TMPL.format(disp_upper=disp.upper()))
 
     insert_before_sentinel(
-        os.path.join(root, "vcvrack/src/plugin.hpp"),
+        os.path.join(root, "rack-plugins/src/plugin.hpp"),
         "// SCAFFOLD:extern", f"extern Model* model{slug};")
     insert_before_sentinel(
-        os.path.join(root, "vcvrack/src/plugin.cpp"),
+        os.path.join(root, "rack-plugins/src/plugin.cpp"),
         "\t// SCAFFOLD:addModel", f"\tp->addModel(model{slug});")
 
-    pj_path = os.path.join(root, "vcvrack/plugin.json")
+    pj_path = os.path.join(root, "plugin.json")
     pj = json.load(open(pj_path))
     if any(m["slug"] == slug for m in pj["modules"]):
         print(f"  (plugin.json already has {slug})")

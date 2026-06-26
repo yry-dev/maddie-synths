@@ -78,7 +78,7 @@ uint16_t envTbl[TABLE_SZ];           // Envelope values for LED brightness
 volatile bool     playingClap = false; // Playback state flag
 volatile uint32_t idxClap     = 0;     // Current playback index
 
-// Shared synthesis core (also used by vcvrack/src/Clap.cpp)
+// Shared synthesis core (also used by rack-plugins/src/Clap.cpp)
 sc::ClapCore clapCore;
 
 volatile float    decayMs     = 110.0f; // 20-200 ms decay time (pot A1)

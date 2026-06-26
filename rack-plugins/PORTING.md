@@ -18,7 +18,7 @@ re-implementing each module's DSP twice (once in the `.ino`, once in the Rack
             #include <LorenzVoice.h>     #include <LorenzVoice.h>
                                 │               │
         ┌───────────────────────▼──┐   ┌────────▼───────────────────────┐
-        │ firmwares/mod1-butterfly │   │ vcvrack/src/Butterfly.cpp       │
+        │ firmwares/mod1-butterfly │   │ rack-plugins/src/Butterfly.cpp       │
         │ analogRead → core → OCRx │   │ params → core → setVoltage      │
         └──────────────────────────┘   └─────────────────────────────────┘
 ```
@@ -39,7 +39,7 @@ it at `args.sampleTime`. Same math, same sound.
 - **Firmware:** `SynthCore` is a normal Arduino library under
   `firmwares/shared/` (which `make` and `scripts/build-fw.fish` already pass to
   `arduino-cli --libraries`). Sketches just `#include <LorenzVoice.h>`.
-- **VCV Rack:** `vcvrack/Makefile` adds `-I../firmwares/shared/SynthCore/src` to
+- **VCV Rack:** `rack-plugins/Makefile` adds `-I../firmwares/shared/SynthCore/src` to
   `CXXFLAGS`, so the plugin sees the same headers.
 
 ## The Voice pattern
@@ -70,10 +70,10 @@ Platform code stays thin and owns only I/O:
    a `process(dt,…)`/`step(…)`. Reuse helpers from `sc_math.h`.
 3. **Thin the firmware:** replace the inline math with the core; keep all I/O.
    Verify `make <firmware>` still builds.
-4. **Write the Rack module** `vcvrack/src/<Name>.cpp`: `config()` the same
+4. **Write the Rack module** `rack-plugins/src/<Name>.cpp`: `config()` the same
    pots/jacks/LED, feed normalised controls into the core, scale core output to
    Rack voltages. Register it in `plugin.cpp`, `plugin.hpp`, `plugin.json`.
-5. **Build both** (`make <firmware>` and `cd vcvrack && make`).
+5. **Build both** (`make <firmware>` and `cd rack-plugins && make`).
 
 See `LorenzVoice.h` + `mod1-butterfly` + `Butterfly.cpp` (CV/control example) and
 `ClavesVoice.h` + `mod2-claves` + `Claves.cpp` (audio example) as references.

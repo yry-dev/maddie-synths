@@ -10,7 +10,7 @@ Short button press cycles modes; long press (>500 ms) manually
 triggers/plucks. LED blinks on trigger.
 
 The synthesis lives in the shared core (firmwares/shared/SynthCore/src/
-FluxCore.h), which is also used by the VCV Rack port (vcvrack/src/Flux.cpp).
+FluxCore.h), which is also used by the VCV Rack port (rack-plugins/src/Flux.cpp).
 This sketch only owns the MOD2 hardware I/O: pots, button, LED and the
 ~36.6 kHz dual-slice PWM audio path.
 

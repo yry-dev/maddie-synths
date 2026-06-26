@@ -57,7 +57,7 @@ HAGIWO MOD2 (Seeed Xiao RP2350)
 #include "hardware/irq.h"
 #include <math.h>
 #include <Mod2Common.h>  // Shared MOD2 pin map, PWM-audio setup and helpers
-#include <VcoCore.h>     // Shared VCO voice (also used by vcvrack/src/VCO.cpp)
+#include <VcoCore.h>     // Shared VCO voice (also used by rack-plugins/src/VCO.cpp)
 
 /* ============================== constants ============================== */
 constexpr float SYS_CLK         = 150'000'000.0f; // 150 MHz default

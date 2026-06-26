@@ -1,8 +1,8 @@
 #!/usr/bin/env fish
-# check-vcv.fish — verify harness for the vcvrack/ plugin and its shared cores.
+# check-vcv.fish — verify harness for the rack-plugins/ plugin and its shared cores.
 #
 # Runs the structural checks that are easy to get wrong when porting firmwares to
-# VCV Rack modules (see vcvrack/PORTING.md):
+# VCV Rack modules (see rack-plugins/PORTING.md):
 #   1. the plugin builds
 #   2. every res/*.svg is well-formed XML
 #   3. no shared core (*Core.h) leaks a platform include (Arduino/rack/pico/Mod*Common)
@@ -13,7 +13,7 @@
 # Exit status is non-zero if any check fails.
 
 set -l repo_root (cd (dirname (status -f)); pwd)/..
-set -l vcv "$repo_root/vcvrack"
+set -l vcv "$repo_root/rack-plugins"
 set -l core_dir "$repo_root/firmwares/shared/SynthCore/src"
 set -l fw_dir "$repo_root/firmwares"
 set -l fails 0
@@ -23,9 +23,9 @@ function _bad;  set_color red;   echo "FAIL $argv"; set_color normal; end
 
 echo "== 1. build plugin =="
 if make -C "$vcv" >/tmp/check-vcv-build.log 2>&1
-    _ok "vcvrack plugin builds"
+    _ok "rack-plugins plugin builds"
 else
-    _bad "vcvrack plugin build — see /tmp/check-vcv-build.log"
+    _bad "rack-plugins plugin build — see /tmp/check-vcv-build.log"
     tail -15 /tmp/check-vcv-build.log
     set fails (math $fails + 1)
 end

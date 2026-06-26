@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod1-trigger-burst/mod1-trigger-burst.ino  (one step per loop, dt from millis)
-//   - vcvrack/src/TriggerBurst.cpp                          (driven at audio rate, dt = args.sampleTime)
+//   - rack-plugins/src/TriggerBurst.cpp                          (driven at audio rate, dt = args.sampleTime)
 //
 // Pure C++: depends only on sc_math.h. No Arduino / Rack / Pico SDK.
 // All timing is dt-driven (seconds) so it is sample-rate independent.

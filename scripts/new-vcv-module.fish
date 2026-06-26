@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 # new-vcv-module.fish — scaffold a new VCV Rack module that shares a core with a
-# firmware (see vcvrack/PORTING.md). Creates a stub core header, a Rack module
+# firmware (see rack-plugins/PORTING.md). Creates a stub core header, a Rack module
 # .cpp, a placeholder panel SVG, and registers all three in plugin.{hpp,cpp,json}.
 #
 # Usage:
