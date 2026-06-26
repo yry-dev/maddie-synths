@@ -5,7 +5,7 @@
 //
 // Used by:
 //   - firmwares/mod2-flux/mod2-flux.ino  (one sample per PWM-wrap ISR)
-//   - vcvrack/src/Flux.cpp               (one sample per process())
+//   - rack-plugins/src/Flux.cpp               (one sample per process())
 //
 // Seven modes in three groups (selected by setMode, 0..6):
 //   RESONANCE: 0 Modal (tuned resonator bank), 1 Karplus (plucked string)

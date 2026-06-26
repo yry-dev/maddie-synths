@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod1-random-cv/mod1-random-cv.ino  (advances on digital clock edge)
-//   - vcvrack/src/RandomCV.cpp                       (clock from SchmittTrigger)
+//   - rack-plugins/src/RandomCV.cpp                       (clock from SchmittTrigger)
 //
 // Pure C++: depends only on sc_math.h. No Arduino / Rack / Pico SDK.
 

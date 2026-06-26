@@ -18,6 +18,9 @@ jacks. Panels are drawn at 6 HP for legibility; the real hardware is 4 HP.
 
 ## Build
 
+The plugin manifest is the canonical `plugin.json` at the **repo root**; the
+Makefile here syncs a copy into this folder at build time (gitignored).
+
 The Rack SDK is vendored (gitignored) at `.Rack-SDK/`. From this folder:
 
 ```bash
@@ -26,7 +29,17 @@ make install    # build + copy into Rack's user plugins folder, then restart Rac
 make clean      # remove build output
 ```
 
-To build against a different SDK: `make RACK_DIR=/path/to/Rack-SDK`.
+Or from the repo root (builds firmware and the plugin from one Makefile):
+
+```bash
+make rack          # build the plugin
+make rack-install  # build + install into Rack
+make rack-clean    # remove build output
+make everything    # build all firmwares + the plugin
+```
+
+To build against a different SDK: `make RACK_DIR=/path/to/Rack-SDK` (the
+`rack*` targets forward `RACK_DIR` too).
 
 If the vendored SDK is missing (fresh clone), re-download it:
 
@@ -46,7 +59,7 @@ unzip -q sdk.zip && rm sdk.zip && mv Rack-SDK .Rack-SDK
    `p->addModel(model<Name>);` in `src/plugin.cpp`.
 3. Add a `res/<Name>.svg` panel sized to the module's HP (8 HP = 40.64 mm wide,
    128.5 mm tall; SVG units are px at 75 DPI, so 1 mm = 2.952756 px).
-4. Add a `modules` entry to `plugin.json`.
+4. Add a `modules` entry to the root `plugin.json`.
 5. `make install` and restart Rack.
 
 ### Porting notes

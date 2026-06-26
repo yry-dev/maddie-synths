@@ -24,8 +24,8 @@ Key Variables:
       ║   (A2)    ║   DIV     — F4 division rate
       ║    DIV    ║
       ║           ║
+      ║   (BTN)   ║   BTN (D4) — tap tempo (push 4x)      
       ║    [·]    ║   LED (D3) — 1x output
-      ║   (BTN)   ║   BTN (D4) — tap tempo (push 4x)
       ║           ║
       ╠═══════════╣
       ║ F1     F2 ║   F1 (D17) OUT — 4x clock
@@ -52,7 +52,7 @@ HAGIWO MOD1
 */
 #include <Arduino.h>
 #include <Mod1Common.h>
-#include <TapTempoCore.h>  // Shared tap-tempo timing core (also used by vcvrack/src/TapTempo.cpp)
+#include <TapTempoCore.h>  // Shared tap-tempo timing core (also used by rack-plugins/src/TapTempo.cpp)
 
 const byte buttonPin   = mod1::PIN_BUTTON;  // tap-tempo button input
 const byte ledPin      = mod1::PIN_LED;     // 1x beat LED output

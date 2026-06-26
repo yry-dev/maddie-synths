@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod2-claves/mod2-claves.ino  (renders TABLE_SZ samples per strike)
-//   - vcvrack/src/Claves.cpp                  (renders live, one sample per process)
+//   - rack-plugins/src/Claves.cpp                  (renders live, one sample per process)
 //
 // A strike is a fixed-length window (kStrikeDuration seconds) of a sine<->triangle
 // morph multiplied by an exponential-decay envelope, with a raised-cosine fade

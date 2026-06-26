@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod1-butterfly/mod1-butterfly.ino  (one Euler step per loop)
-//   - vcvrack/src/Butterfly.cpp                     (sub-stepped at audio rate)
+//   - rack-plugins/src/Butterfly.cpp                     (sub-stepped at audio rate)
 //
 // Pure C++: depends only on sc_math.h. No Arduino / Rack / Pico SDK.
 

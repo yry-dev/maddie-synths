@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod1-lfo/mod1-lfo.ino  (stepped every 1 ms)
-//   - vcvrack/src/LFO.cpp               (stepped at audio rate via args.sampleTime)
+//   - rack-plugins/src/LFO.cpp               (stepped at audio rate via args.sampleTime)
 //
 // Pure C++: depends only on sc_math.h. No Arduino / Rack / Pico SDK.
 //

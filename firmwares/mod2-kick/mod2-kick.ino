@@ -8,7 +8,7 @@ on button press.
 
 The synthesis (sine + exponential pitch sweep + decay + soft-clip + tail fade)
 lives in the shared core firmwares/shared/SynthCore/src/KickCore.h, which the
-VCV Rack port (vcvrack/src/Kick.cpp) also uses. This sketch keeps all hardware
+VCV Rack port (rack-plugins/src/Kick.cpp) also uses. This sketch keeps all hardware
 I/O: the dual-mode pot multiplexing, EEPROM persistence, the PickupParam smooth
 transitions, the PWM audio path and the trigger ISR. On each trigger it renders
 the kick into a table at the audio rate (the Claves pattern) and the PWM-wrap
@@ -309,6 +309,12 @@ void loop() {
   static bool prevBtn = HIGH;
   static bool firstRun = true;  // Flag to ensure params update on first loop
   bool currBtn = digitalRead(mod2::BUTTON_PIN);
+
+  // Reflect the initial mode on the LED at boot (before any button press),
+  // otherwise it would show setup()'s power-on LOW regardless of selectMode.
+  if (firstRun) {
+    digitalWrite(mod2::LED_PIN, selectMode ? HIGH : LOW);
+  }
 
   if (prevBtn == HIGH && currBtn == LOW) {
     // Save current values before switching modes

@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod1-eg/mod1-eg.ino   (1 ms loop tick, analogRead/PWM)
-//   - vcvrack/src/Eg.cpp               (audio rate, Rack params/outputs)
+//   - rack-plugins/src/Eg.cpp               (audio rate, Rack params/outputs)
 //
 // 3-output AR envelope with an end-of-cycle (EoC) gate pulse.
 //

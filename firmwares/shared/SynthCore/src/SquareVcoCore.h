@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod2-square_vco/mod2-square_vco.ino  (RP2350 @ ~36621 Hz)
-//   - vcvrack/src/SquareVCO.cpp                       (host sample rate)
+//   - rack-plugins/src/SquareVCO.cpp                       (host sample rate)
 //
 // A phase-accumulator square oscillator (±1) whose pitch is modulated by a
 // 10 Hz sine LFO (vibrato). An optional chiptune mode imposes a 20 Hz square

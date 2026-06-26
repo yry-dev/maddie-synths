@@ -33,7 +33,7 @@ Key Variables:
       ║ I1     I2 ║   IN1 (GPIO7) - octave CV in (reserved)
       ║ (o)   (o) ║   IN2 (GPIO0) - reserved
       ║           ║
-      ║ CV    OUT ║   CV  (A2)    - V/oct
+      ║ OUT    CV ║   CV  (A2)    - V/oct
       ║ (o)   (o) ║   OUT (GPIO1) - PWM audio (~36.6 kHz)
       ║           ║
       ╚═══════════╝

@@ -3,6 +3,13 @@
 # a different Rack SDK, e.g. `make RACK_DIR=~/Rack-SDK`.
 RACK_DIR ?= ./.Rack-SDK
 
+# The canonical plugin manifest lives at the repo root (../plugin.json) so it
+# sits alongside the firmware build config. Rack's plugin.mk both reads
+# ./plugin.json at parse time AND packages it via rsync/cp at `make dist` --
+# and neither dereferences a symlink (rsync skips it, cp embeds a broken one),
+# so a symlink would yield a broken .vcvplugin. Sync a real copy in instead.
+_SYNC_MANIFEST := $(shell cp -f ../plugin.json plugin.json 2>/dev/null && echo synced)
+
 # FLAGS will be passed to both the C and C++ compiler
 FLAGS +=
 CFLAGS +=

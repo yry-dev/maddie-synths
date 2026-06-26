@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod1-random-lag/mod1-random-lag.ino  (one update per loop)
-//   - vcvrack/src/RandomLag.cpp                       (at audio sample rate)
+//   - rack-plugins/src/RandomLag.cpp                       (at audio sample rate)
 //
 // Pure C++: depends only on sc_math.h. No Arduino / Rack / Pico SDK.
 

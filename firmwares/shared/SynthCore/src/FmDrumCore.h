@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod2-fm_drum/mod2-fm_drum.ino  (renders TABLE_SIZE samples/strike)
-//   - vcvrack/src/FMDrum.cpp                    (renders live, one sample/process)
+//   - rack-plugins/src/FMDrum.cpp                    (renders live, one sample/process)
 //
 // A strike is a fixed-length window (kFmDrumNoteLen seconds) of a two-operator
 // FM tone (carrier + modulator phase accumulators), with a per-strike ratio

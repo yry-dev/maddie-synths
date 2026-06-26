@@ -4,7 +4,7 @@
 //
 // Used by:
 //   - firmwares/mod1-terrain-lfo/mod1-terrain-lfo.ino  (one loop iteration / step)
-//   - vcvrack/src/TerrainLFO.cpp                       (LOOP_HZ-emulated steps)
+//   - rack-plugins/src/TerrainLFO.cpp                       (LOOP_HZ-emulated steps)
 //
 // Procedurally generated triple-wavetable LFO. On regenerate(), three independent
 // "terrain" wavetables are built from a handful of random knots (seamless loop,
