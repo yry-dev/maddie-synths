@@ -19,6 +19,9 @@ CXXFLAGS +=
 # (firmwares/shared/SynthCore/src) hold the DSP that both the Arduino sketches
 # and these Rack modules call, so the algorithms live in exactly one place.
 FLAGS += -I../firmwares/shared/SynthCore/src
+# Desktop-only compat shim (e.g. pgmspace.h/PROGMEM) for firmware-generated
+# headers such as mod2-sample's sample.h. Not on the firmware build's path.
+FLAGS += -Isrc/compat
 
 # Careful about linking to shared libraries, since you can't assume much about
 # the user's environment and library search path. Static libraries are fine.

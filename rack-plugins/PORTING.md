@@ -18,7 +18,7 @@ re-implementing each module's DSP twice (once in the `.ino`, once in the Rack
             #include <LorenzVoice.h>     #include <LorenzVoice.h>
                                 │               │
         ┌───────────────────────▼──┐   ┌────────▼───────────────────────┐
-        │ firmwares/mod1-butterfly │   │ rack-plugins/src/Butterfly.cpp       │
+        │ firmwares/mod1-butterfly │   │ rack-plugins/src/mod1-butterfly.cpp       │
         │ analogRead → core → OCRx │   │ params → core → setVoltage      │
         └──────────────────────────┘   └─────────────────────────────────┘
 ```
@@ -75,8 +75,8 @@ Platform code stays thin and owns only I/O:
    Rack voltages. Register it in `plugin.cpp`, `plugin.hpp`, `plugin.json`.
 5. **Build both** (`make <firmware>` and `cd rack-plugins && make`).
 
-See `LorenzVoice.h` + `mod1-butterfly` + `Butterfly.cpp` (CV/control example) and
-`ClavesVoice.h` + `mod2-claves` + `Claves.cpp` (audio example) as references.
+See `LorenzVoice.h` + `mod1-butterfly` + `mod1-butterfly.cpp` (CV/control example) and
+`ClavesVoice.h` + `mod2-claves` + `mod2-claves.cpp` (audio example) as references.
 
 ## Behavior notes (intended convergences)
 

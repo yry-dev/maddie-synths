@@ -39,7 +39,7 @@ python3 make_panels.py --force   # also overwrite panels that already exist (def
 ```
 
 Clones the cleanest same-form-factor template (`mod2-clap` for mod2,
-`mod1-dual-ad` for mod1 — both expose every slot: title, 3 pots, button, LED, 4
+`mod1-dual-ad-env` for mod1 — both expose every slot: title, 3 pots, button, LED, 4
 jacks) and relabels each text slot by nearest position, stripping the stale font
 `render_cache` so KiCad regenerates it. Labels come from each firmware's ASCII
 panel diagram (in the `.ino` header — `awk '/╔|║|╚/' firmwares/<m>/*.ino`).

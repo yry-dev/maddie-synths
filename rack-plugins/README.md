@@ -53,7 +53,7 @@ unzip -q sdk.zip && rm sdk.zip && mv Rack-SDK .Rack-SDK
 ## Adding a module (porting another firmware)
 
 1. Add `src/<Name>.cpp` defining a `Module`, a `ModuleWidget`, and
-   `Model* model<Name> = createModel<...>("<Name>");`. Copy `Butterfly.cpp` as a
+   `Model* model<Name> = createModel<...>("<Name>");`. Copy `mod1-butterfly.cpp` as a
    starting point.
 2. Declare `extern Model* model<Name>;` in `src/plugin.hpp` and
    `p->addModel(model<Name>);` in `src/plugin.cpp`.

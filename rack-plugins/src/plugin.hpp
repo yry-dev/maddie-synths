@@ -29,4 +29,7 @@ extern Model* modelKick;
 extern Model* modelFMDrum;
 extern Model* modelFlux;
 extern Model* modelSpiral;
+extern Model* modelAcid303;
+extern Model* modelBreakbeats;
+extern Model* modelSample;
 // SCAFFOLD:extern (new module extern declarations inserted above this line)
