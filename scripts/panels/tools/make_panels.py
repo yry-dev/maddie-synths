@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate KiCad panel projects for mod1/mod2 firmwares that lack one.
 
-Clones the cleanest same-form-factor template (mod2-clap for mod2, mod1-dual-ad
+Clones the cleanest same-form-factor template (mod2-clap for mod2, mod1-dual-ad-env
 for mod1 -- both expose every slot we need: title, 3 pots, button, LED, 4 jacks)
 and relabels each text slot by nearest position, stripping the stale font
 render_cache so KiCad/kicad-cli regenerate it from the string. Labels come from
@@ -107,13 +107,13 @@ MOD2 = {
  "mod2-kick":      M2("KICK","Pitch","Clip","Env","param","env","Clock","Accent","CV","Out"),
  "mod2-breakbeats":M2("BREAKBEAT","Speed","Length","Slice","trig/loop","loop","Trig","EOP","CV","Out"),
  "mod2-flux":      M2("FLUX","Freq","Rate","Char","mode",B,B,B,"CV","Out"),
- "mod2-fm_drum":   M2("FM DRUM","Pitch","Ratio","Index","mode","mode","Trig","Accent","CV","Out"),
+ "mod2-fm-drum":   M2("FM DRUM","Pitch","Ratio","Index","mode","mode","Trig","Accent","CV","Out"),
  "mod2-hihat":     M2("HIHAT","Decay","Curve","Freq","type","env","Trig","Accent","CV","Out"),
- "mod2-mod303":    M2("MOD303","Turing","Decay","Trans","scale","step","Clock","Accent","CV","Out"),
+ "mod2-acid303":   M2("ACID303","Turing","Decay","Trans","scale","step","Clock","Accent","CV","Out"),
  "mod2-radio":     M2("RADIO","Speed","Dir","Start","trig","trig","Trig","Loop","CV","Out"),
  "mod2-sample":    M2("SAMPLE","Speed","Group","Index","trig","trig","Trig","Sel","CV","Out"),
  "mod2-spiral":    M2("SPIRAL","Freq","Speed","Width","mode","dir",B,B,"CV","Out"),
- "mod2-square_vco":M2("SQ VCO","Tune","Octave","V/Oct","chip","mode",B,B,"CV","Out"),
+ "mod2-square-vco":M2("SQ VCO","Tune","Octave","V/Oct","chip","mode",B,B,"CV","Out"),
 }
 MOD1 = {
  "mod1-butterfly":    M1("BUTTERFLY","Sigma","Rho","Beta","slow","step","Reset","X","Y","Z"),
@@ -131,4 +131,4 @@ if __name__ == "__main__":
         relabel("mod2-clap", name, slots, force)
     print("mod1 (dual-ad base):")
     for name, slots in MOD1.items():
-        relabel("mod1-dual-ad", name, slots, force)
+        relabel("mod1-dual-ad-env", name, slots, force)

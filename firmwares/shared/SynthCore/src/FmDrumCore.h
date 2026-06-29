@@ -3,7 +3,7 @@
 // FM Drum percussion voice — the shared core of the FMDrum module.
 //
 // Used by:
-//   - firmwares/mod2-fm_drum/mod2-fm_drum.ino  (renders TABLE_SIZE samples/strike)
+//   - firmwares/mod2-fm-drum/mod2-fm-drum.ino  (renders TABLE_SIZE samples/strike)
 //   - rack-plugins/src/FMDrum.cpp                    (renders live, one sample/process)
 //
 // A strike is a fixed-length window (kFmDrumNoteLen seconds) of a two-operator

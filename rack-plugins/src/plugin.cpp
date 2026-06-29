@@ -28,6 +28,9 @@ void init(Plugin* p) {
 	p->addModel(modelFMDrum);
 	p->addModel(modelFlux);
 	p->addModel(modelSpiral);
+	p->addModel(modelAcid303);
+	p->addModel(modelBreakbeats);
+	p->addModel(modelSample);
 	// SCAFFOLD:addModel (new addModel calls inserted above this line)
 
 	// Any other plugin initialization may go here.

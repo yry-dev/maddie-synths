@@ -68,3 +68,6 @@ panels/production/
 .claude/
 .omc/
 _panel-wip/
+
+# licensing restrictions
+sample.h

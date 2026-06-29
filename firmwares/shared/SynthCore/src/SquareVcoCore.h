@@ -3,7 +3,7 @@
 // SquareVcoCore — square-wave VCO with sine LFO vibrato and chiptune mode.
 //
 // Used by:
-//   - firmwares/mod2-square_vco/mod2-square_vco.ino  (RP2350 @ ~36621 Hz)
+//   - firmwares/mod2-square-vco/mod2-square-vco.ino  (RP2350 @ ~36621 Hz)
 //   - rack-plugins/src/SquareVCO.cpp                       (host sample rate)
 //
 // A phase-accumulator square oscillator (±1) whose pitch is modulated by a
