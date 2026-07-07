@@ -45,6 +45,15 @@ MAP = {
     "mod2-acid303": "mod2-acid303",
     "mod2-breakbeats": "mod2-breakbeats",
     "mod2-sample": "mod2-sample",
+    "mod2-bitcrusher": "mod2-bitcrusher",
+    "mod2-delay": "mod2-delay",
+    "mod2-tape-echo": "mod2-tape-echo",
+    "mod2-distortion": "mod2-distortion",
+    "mod2-chorus": "mod2-chorus",
+    "mod2-resonator": "mod2-resonator",
+    "mod2-flanger": "mod2-flanger",
+    "mod2-phaser": "mod2-phaser",
+    "mod2-ringmod": "mod2-ringmod",
 }
 
 

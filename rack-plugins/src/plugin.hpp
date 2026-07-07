@@ -32,4 +32,13 @@ extern Model* modelSpiral;
 extern Model* modelAcid303;
 extern Model* modelBreakbeats;
 extern Model* modelSample;
+extern Model* modelBitcrusher;
+extern Model* modelDelay;
+extern Model* modelTapeEcho;
+extern Model* modelDistortion;
+extern Model* modelChorus;
+extern Model* modelResonator;
+extern Model* modelFlanger;
+extern Model* modelPhaser;
+extern Model* modelRingMod;
 // SCAFFOLD:extern (new module extern declarations inserted above this line)

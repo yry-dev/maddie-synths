@@ -1,7 +1,7 @@
 {
   "slug": "maddie-synths",
   "name": "maddie synths",
-  "version": "2.0.1",
+  "version": "2.4.0",
   "license": "MIT",
   "brand": "Maddie Synths",
   "author": "Madelyn Yeary",
@@ -240,6 +240,99 @@
       "manualUrl": "",
       "tags": [
         "Sampler"
+      ]
+    },
+    {
+      "slug": "mod2-bitcrusher",
+      "name": "Bitcrusher",
+      "description": "Bit-depth & sample-rate reduction: unfiltered sample-and-hold downsampling (full rate to ~200 Hz, external-clockable) with continuous 16-to-1-bit quantization in truncate, TPDF-dither or AND-mask styles. Port of the mod2-bitcrusher firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Distortion",
+        "Digital"
+      ]
+    },
+    {
+      "slug": "mod2-delay",
+      "name": "Delay",
+      "description": "Clean/dirty mono digital delay: 10 ms to 5 s with crossfading read heads, feedback to ~110% soft-limited into self-oscillation, clock-syncable to musical divisions, and an infinite-repeat hold gate. Port of the mod2-delay firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Delay"
+      ]
+    },
+    {
+      "slug": "mod2-tape-echo",
+      "name": "Tape Echo",
+      "description": "Worn-tape delay: time changes glide with tape-speed pitch bends, a single tape-age macro drives wow/flutter, saturation, HF loss and dropouts, and a splice gate performs tape-stop lurches. Port of the mod2-tape-echo firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Delay",
+        "Tape"
+      ]
+    },
+    {
+      "slug": "mod2-distortion",
+      "name": "Distortion",
+      "description": "Multi-algorithm drive: Soft / Hard / Tube / Foldback / Fuzz waveshapers with 2x-oversampled shaping, auto level compensation, tilt tone and wet/dry parallel drive. Port of the mod2-distortion firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Distortion"
+      ]
+    },
+    {
+      "slug": "mod2-chorus",
+      "name": "Chorus",
+      "description": "Juno-style chorus + string-machine ensemble: anti-phase modulated dual taps (Chorus I/II) or triple taps on slow+fast phase-offset LFOs (Ensemble), mono-in mono-out. Port of the mod2-chorus firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Chorus"
+      ]
+    },
+    {
+      "slug": "mod2-resonator",
+      "name": "Resonator",
+      "description": "Rings-like tuned resonator bank: modal band-pass partials, chord-tuned comb clusters or sympathetic Karplus strings, excited by external audio or a strike-triggered noise burst, with a damp gate. Port of the mod2-resonator firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Physical modeling",
+        "Filter"
+      ]
+    },
+    {
+      "slug": "mod2-flanger",
+      "name": "Flanger",
+      "description": "Swept-comb flanger: a fractional tap sweeps 0.2-12 ms with bipolar screaming feedback, triangle/sine/envelope-follow sweep sources and a manual hand-sweep mode. Port of the mod2-flanger firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Flanger"
+      ]
+    },
+    {
+      "slug": "mod2-phaser",
+      "name": "Phaser",
+      "description": "4/6/8-stage allpass phaser: exponential 100 Hz - 4 kHz sweep with per-stage corner detune, DC-blocked resonance and a manual hand-sweep mode. Port of the mod2-phaser firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Phaser"
+      ]
+    },
+    {
+      "slug": "mod2-ringmod",
+      "name": "Ring Mod",
+      "description": "Carrier-oscillator ring modulator: sine-to-square morphing phase-continuous carrier, AM blend, and Fixed / pitch-Track / S&H carrier modes with hard sync and an octave-drop gate. Port of the mod2-ringmod firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Ring modulator"
       ]
     }
   ]
