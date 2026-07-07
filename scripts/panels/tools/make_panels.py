@@ -114,6 +114,15 @@ MOD2 = {
  "mod2-sample":    M2("SAMPLE","Speed","Group","Index","trig","trig","Trig","Sel","CV","Out"),
  "mod2-spiral":    M2("SPIRAL","Freq","Speed","Width","mode","dir",B,B,"CV","Out"),
  "mod2-square-vco":M2("SQ VCO","Tune","Octave","V/Oct","chip","mode",B,B,"CV","Out"),
+ "mod2-bitcrusher":M2("BITCRUSH","Rate","Bits",B,"style","out","Clock","Byp","In","Out"),
+ "mod2-delay":     M2("DELAY","Time","Fdbk",B,"mode","time","Clock","Hold","In","Out"),
+ "mod2-tape-echo": M2("TAPE ECHO","Time","Age",B,"tap","tape","Tap","Splice","In","Out"),
+ "mod2-distortion":M2("DISTORT","Drive","Tone",B,"algo","out",B,"Byp","In","Out"),
+ "mod2-chorus":    M2("CHORUS","Rate","Depth",B,"mode","lfo",B,"Byp","In","Out"),
+ "mod2-resonator": M2("RESONATOR","Pitch","Struct",B,"mode","ring","Strike","Damp","In","Out"),
+ "mod2-flanger":   M2("FLANGER","Rate","Fdbk",B,"shape","lfo","Sync","Byp","In","Out"),
+ "mod2-phaser":    M2("PHASER","Rate","Res",B,"stages","lfo","Sync","Byp","In","Out"),
+ "mod2-ringmod":   M2("RING MOD","Freq","Shape",B,"mode","carr","Sync","Oct","In","Out"),
 }
 MOD1 = {
  "mod1-butterfly":    M1("BUTTERFLY","Sigma","Rho","Beta","slow","step","Reset","X","Y","Z"),

@@ -116,6 +116,60 @@ struct OutputLpBiquad {
 };
 
 // --------------------------------------------------
+// Mono delay line over a caller-provided int16 buffer (no heap, per the
+// SynthCore rules): the firmware hands it a static SRAM arena, the Rack ports
+// hand it a vector sized for the engine sample rate. int16 storage keeps the
+// memory budget identical on both platforms (and matches the PWM path's
+// resolution). Fractional read with linear interpolation. Shared by
+// DelayFxCore and TapeEchoCore.
+// --------------------------------------------------
+struct DelayLine {
+  int16_t* buf = nullptr;
+  uint32_t len = 0;       // capacity in samples
+  uint32_t writeIdx = 0;  // next slot to be written
+
+  void init(int16_t* b, uint32_t n) {
+    buf = b;
+    len = n;
+    writeIdx = 0;
+    clear();
+  }
+
+  void clear() {
+    for (uint32_t i = 0; i < len; i++) buf[i] = 0;
+  }
+
+  // Push one sample (clamped to -1..+1).
+  inline void write(float x) {
+    x = clampf(x, -1.0f, 1.0f);
+    buf[writeIdx] = (int16_t)(x * 32767.0f);
+    if (++writeIdx >= len) writeIdx = 0;
+  }
+
+  // Read `delaySamples` behind the most recent write() (1 = last sample
+  // written), fractional, linear interp. Valid range 1 .. len-2.
+  inline float read(float delaySamples) const {
+    delaySamples = clampf(delaySamples, 1.0f, (float)(len - 2));
+    const uint32_t d0 = (uint32_t)delaySamples;
+    const float fr = delaySamples - (float)d0;
+    // writeIdx points at the NEXT slot, so "delay d0" lives at writeIdx - d0.
+    uint32_t i0 = writeIdx + len - d0;
+    if (i0 >= len) i0 -= len;
+    uint32_t i1 = (i0 == 0) ? len - 1 : i0 - 1;  // one sample older
+    const float s0 = (float)buf[i0] * (1.0f / 32768.0f);
+    const float s1 = (float)buf[i1] * (1.0f / 32768.0f);
+    return s0 + (s1 - s0) * fr;
+  }
+};
+
+// One-pole low-pass coefficient for cutoff `fc` (Hz) at timestep `dt`:
+// y += (x - y) * onePoleCoef(fc, dt). Cheap and stable for fc*dt << 1.
+inline float onePoleCoef(float fc, float dt) {
+  const float a = kTwoPi * fc * dt;
+  return a > 0.99f ? 0.99f : a;
+}
+
+// --------------------------------------------------
 // Q12 fixed-point sample-playback helpers (for the sample-based voices).
 // Match mod2:: equivalents.
 // --------------------------------------------------
