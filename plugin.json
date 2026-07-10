@@ -1,0 +1,339 @@
+{
+  "slug": "maddie-synths",
+  "name": "maddie synths",
+  "version": "2.4.0",
+  "license": "MIT",
+  "brand": "Maddie Synths",
+  "author": "Madelyn Yeary",
+  "authorEmail": "vcv-rack.earphone459@passmail.net",
+  "authorUrl": "https://madelyn.sh",
+  "pluginUrl": "",
+  "manualUrl": "https://madelyn.sh/synths/",
+  "sourceUrl": "https://github.com/yry-dev/maddie-synths",
+  "donateUrl": "https://madelyn.sh",
+  "description": "VCV Rack ports of the maddie-synths eurorack firmwares.",
+  "modules": [
+    {
+      "slug": "mod1-butterfly",
+      "name": "Butterfly",
+      "description": "Lorenz attractor chaotic CV generator. Port of the mod1-butterfly firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Random",
+        "Low-frequency oscillator",
+        "Function generator"
+      ]
+    },
+    {
+      "slug": "mod2-claves",
+      "name": "Claves",
+      "description": "Tunable claves / woodblock percussion voice with sine-triangle morph and 1V/Oct pitch. Port of the mod2-claves firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Drum",
+        "Oscillator"
+      ]
+    },
+    {
+      "slug": "mod1-eg",
+      "name": "Envelope",
+      "description": "3-output AR envelope generator with end-of-cycle gate. Port of the mod1-eg firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Envelope generator",
+        "Function generator"
+      ]
+    },
+    {
+      "slug": "mod1-dual-ad-env",
+      "name": "Dual ENV",
+      "description": "Dual attack-decay envelope generator with shared time controls and per-trigger random variation. Port of the mod1-dual-ad-env firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Envelope generator"
+      ]
+    },
+    {
+      "slug": "mod1-lfo",
+      "name": "LFO",
+      "description": "Multi-waveform LFO (sine, triangle, square, saw, reverse-saw, DC) with CV over rate, wave and level. Port of the mod1-lfo firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Low-frequency oscillator",
+        "Oscillator"
+      ]
+    },
+    {
+      "slug": "mod1-euclidean",
+      "name": "Euclidean",
+      "description": "8/16-step Euclidean rhythm sequencer with probability gating. Port of the mod1-euclidean firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Sequencer",
+        "Clock modulator"
+      ]
+    },
+    {
+      "slug": "mod1-logic-pair",
+      "name": "Logic Pair",
+      "description": "Dual boolean-logic gate processor (AND/OR/XOR/compare/max-min/flip-flop) on two gate/CV inputs. Port of the mod1-logic-pair firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Logic",
+        "Utility"
+      ]
+    },
+    {
+      "slug": "mod1-random-cv",
+      "name": "Random CV",
+      "description": "Periodic random CV sequencer with selectable step length and gate probability. Port of the mod1-random-cv firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Sequencer",
+        "Random",
+        "Sample and hold"
+      ]
+    },
+    {
+      "slug": "mod1-random-lag",
+      "name": "Rnd + Lag",
+      "description": "Random walk CV generator with exponentially-lagged follower output and gravity mode. Port of the mod1-random-lag firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Random",
+        "Low-frequency oscillator"
+      ]
+    },
+    {
+      "slug": "mod1-trigger-burst",
+      "name": "Trig Burst",
+      "description": "Clock-syncable trigger burst generator: fires N triggers at a clock-divided interval on each input trigger. Port of the mod1-trigger-burst firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Sequencer",
+        "Clock modulator"
+      ]
+    },
+    {
+      "slug": "mod1-tap-tempo",
+      "name": "Tap Tempo",
+      "description": "4-output tap-tempo master clock with fixed and variable multiply and two divide outputs. Port of the mod1-tap-tempo firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Clock generator",
+        "Clock modulator",
+        "Utility"
+      ]
+    },
+    {
+      "slug": "mod1-terrain-lfo",
+      "name": "Terrain LFO",
+      "description": "Procedurally generated triple-wavetable chaotic LFO with detuned outputs and probabilistic slow-mo. Port of the mod1-terrain-lfo firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Low-frequency oscillator",
+        "Random",
+        "Function generator"
+      ]
+    },
+    {
+      "slug": "mod2-vco",
+      "name": "VCO",
+      "description": "Six-waveform PolyBLEP oscillator (sine/tri/square/saw/FM) with 1V/Oct and octave shift. Port of the mod2-vco firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Oscillator"
+      ]
+    },
+    {
+      "slug": "mod2-square-vco",
+      "name": "Square VCO",
+      "description": "Square-wave VCO with sine-LFO vibrato and chiptune octave-toggle mode. Port of the mod2-square-vco firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Oscillator",
+        "Low-frequency oscillator"
+      ]
+    },
+    {
+      "slug": "mod2-clap",
+      "name": "Clap",
+      "description": "TR-808-style hand-clap: band-pass filtered noise bursts with an exponential reverb tail. Port of the mod2-clap firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Drum",
+        "Noise"
+      ]
+    },
+    {
+      "slug": "mod2-hihat",
+      "name": "Hihat",
+      "description": "White/blue-noise hi-hat: band-pass filtered noise with adjustable decay shape. Port of the mod2-hihat firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Drum",
+        "Noise"
+      ]
+    },
+    {
+      "slug": "mod2-kick",
+      "name": "Kick",
+      "description": "Sine-wave kick drum with exponential pitch sweep, soft-clip and decay. Port of the mod2-kick firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Drum"
+      ]
+    },
+    {
+      "slug": "mod2-fm-drum",
+      "name": "FM Drum",
+      "description": "Two-operator FM percussion voice (carrier+modulator FM, ratio/index/amp envelopes, tanh soft-clip). Port of the mod2-fm-drum firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Drum"
+      ]
+    },
+    {
+      "slug": "mod2-flux",
+      "name": "Flux",
+      "description": "Physical-modeling / resonance multi-mode voice (modal, Karplus-Strong, noise, Lorenz, drone). Port of the mod2-flux firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Physical modeling",
+        "Oscillator"
+      ]
+    },
+    {
+      "slug": "mod2-spiral",
+      "name": "Spiral",
+      "description": "Shepard-tone / auditory-illusion multi-mode generator (rising, falling, barber-pole, Risset, tritone, cluster, Euler). Port of the mod2-spiral firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Oscillator"
+      ]
+    },
+    {
+      "slug": "mod2-acid303",
+      "name": "Acid 303",
+      "description": "Generative 303-style acid bass voice with a Turing-machine sequencer: slides, accents, selectable scales and waveforms, clock/accent inputs and transpose CV. Port of the mod2-acid303 firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Oscillator",
+        "Sequencer",
+        "Drum"
+      ]
+    },
+    {
+      "slug": "mod2-breakbeats",
+      "name": "Breakbeats",
+      "description": "PCM break-beat slicer: triggers playback of two baked drum loops from six slice points, with variable speed, length and loop mode. Port of the mod2-breakbeats firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Sampler",
+        "Drum"
+      ]
+    },
+    {
+      "slug": "mod2-sample",
+      "name": "Sample",
+      "description": "One-shot 16-bit PCM sample player: up to 18 baked samples selected by group + index (with a +6 gate), variable-speed interpolated playback. Port of the mod2-sample firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Sampler"
+      ]
+    },
+    {
+      "slug": "mod2-bitcrusher",
+      "name": "Bitcrusher",
+      "description": "Bit-depth & sample-rate reduction: unfiltered sample-and-hold downsampling (full rate to ~200 Hz, external-clockable) with continuous 16-to-1-bit quantization in truncate, TPDF-dither or AND-mask styles. Port of the mod2-bitcrusher firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Distortion",
+        "Digital"
+      ]
+    },
+    {
+      "slug": "mod2-delay",
+      "name": "Delay",
+      "description": "Clean/dirty mono digital delay: 10 ms to 5 s with crossfading read heads, feedback to ~110% soft-limited into self-oscillation, clock-syncable to musical divisions, and an infinite-repeat hold gate. Port of the mod2-delay firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Delay"
+      ]
+    },
+    {
+      "slug": "mod2-tape-echo",
+      "name": "Tape Echo",
+      "description": "Worn-tape delay: time changes glide with tape-speed pitch bends, a single tape-age macro drives wow/flutter, saturation, HF loss and dropouts, and a splice gate performs tape-stop lurches. Port of the mod2-tape-echo firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Delay",
+        "Tape"
+      ]
+    },
+    {
+      "slug": "mod2-distortion",
+      "name": "Distortion",
+      "description": "Multi-algorithm drive: Soft / Hard / Tube / Foldback / Fuzz waveshapers with 2x-oversampled shaping, auto level compensation, tilt tone and wet/dry parallel drive. Port of the mod2-distortion firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Distortion"
+      ]
+    },
+    {
+      "slug": "mod2-chorus",
+      "name": "Chorus",
+      "description": "Juno-style chorus + string-machine ensemble: anti-phase modulated dual taps (Chorus I/II) or triple taps on slow+fast phase-offset LFOs (Ensemble), mono-in mono-out. Port of the mod2-chorus firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Chorus"
+      ]
+    },
+    {
+      "slug": "mod2-resonator",
+      "name": "Resonator",
+      "description": "Rings-like tuned resonator bank: modal band-pass partials, chord-tuned comb clusters or sympathetic Karplus strings, excited by external audio or a strike-triggered noise burst, with a damp gate. Port of the mod2-resonator firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Physical modeling",
+        "Filter"
+      ]
+    },
+    {
+      "slug": "mod2-flanger",
+      "name": "Flanger",
+      "description": "Swept-comb flanger: a fractional tap sweeps 0.2-12 ms with bipolar screaming feedback, triangle/sine/envelope-follow sweep sources and a manual hand-sweep mode. Port of the mod2-flanger firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Flanger"
+      ]
+    },
+    {
+      "slug": "mod2-phaser",
+      "name": "Phaser",
+      "description": "4/6/8-stage allpass phaser: exponential 100 Hz - 4 kHz sweep with per-stage corner detune, DC-blocked resonance and a manual hand-sweep mode. Port of the mod2-phaser firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Phaser"
+      ]
+    },
+    {
+      "slug": "mod2-ringmod",
+      "name": "Ring Mod",
+      "description": "Carrier-oscillator ring modulator: sine-to-square morphing phase-continuous carrier, AM blend, and Fixed / pitch-Track / S&H carrier modes with hard sync and an octave-drop gate. Port of the mod2-ringmod firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Ring modulator"
+      ]
+    }
+  ]
+}

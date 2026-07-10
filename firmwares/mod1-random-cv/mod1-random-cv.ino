@@ -39,6 +39,7 @@ Key Variables:
 Version History:
   - 1.0 RandomCV firmware by Hagiwo
   - 1.1 Forked and refactored from https://note.com/solder_state/n/nd2af5f03a9c7
+  - 1.2 Algorithm extracted to RandomCvCore.h (shared with VCV Rack port)
 
 License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
@@ -50,94 +51,85 @@ HAGIWO MOD1
 */
 #include <Arduino.h>
 #include <Mod1Common.h>
-unsigned long previousMillis = 0;
+#include <RandomCvCore.h>
+
 unsigned long currentMillis = 0;
 
 mod1::DebouncedInput buttonDebounce(50, HIGH);
 
-const int triggerPin = mod1::PIN_F1;  // stepping trigger
-const int reRandomPin = mod1::PIN_F2; // re-randomize trigger input
-const int cvOutPin = mod1::PIN_F3;
-const int trigOutPin = mod1::PIN_F4;
-const int ledPin = mod1::PIN_LED;
-const int buttonPin = mod1::PIN_BUTTON;  // momentary switch (INPUT_PULLUP)
-const int potPin = mod1::PIN_POT2;       // For CV scaling (A1)
-const int stepSelectPin = mod1::PIN_POT1;  // Variable number of steps (A0)
-const int trigProbPin = mod1::PIN_POT3;    // For trigger probability (A2)
-
-int stepModes[] = { 3, 4, 5, 8, 16, 32 };
-int currentStep = 0;
-int currentTotalSteps = 8;
-int cvValues[32];    // 0 to 255
-int trigValues[32];  // 0 to 255, random values for trigger detection (cyclic pattern)
-int selectedMode = 0;
+const int triggerPin    = mod1::PIN_F1;   // stepping trigger
+const int reRandomPin   = mod1::PIN_F2;   // re-randomize trigger input
+const int cvOutPin      = mod1::PIN_F3;
+const int trigOutPin    = mod1::PIN_F4;
+const int ledPin        = mod1::PIN_LED;
+const int buttonPin     = mod1::PIN_BUTTON;  // momentary switch (INPUT_PULLUP)
+const int potPin        = mod1::PIN_POT2;    // CV scaling (A1)
+const int stepSelectPin = mod1::PIN_POT1;    // variable number of steps (A0)
+const int trigProbPin   = mod1::PIN_POT3;    // trigger probability (A2)
 
 bool lastTriggerState = HIGH;
-bool lastReRandState = HIGH;
+bool lastReRandState  = HIGH;
 
-unsigned long trigOutTime = 0;
+unsigned long trigOutTime  = 0;
 unsigned long trigOutStart = 0;
 byte trigOutState = 2;
 
-void setup() {
-  pinMode(buttonPin, INPUT_PULLUP);
-  pinMode(ledPin, OUTPUT);
-  pinMode(trigOutPin, OUTPUT);
+sc::RandomCvVoice core;
 
-  pinMode(triggerPin, INPUT_PULLUP);
-  pinMode(cvOutPin, OUTPUT);
+void setup() {
+  pinMode(buttonPin,   INPUT_PULLUP);
+  pinMode(ledPin,      OUTPUT);
+  pinMode(trigOutPin,  OUTPUT);
+  pinMode(triggerPin,  INPUT_PULLUP);
+  pinMode(cvOutPin,    OUTPUT);
   pinMode(reRandomPin, INPUT_PULLUP);
 
   mod1::setupFastPwmEgStyle();
-
   digitalWrite(trigOutPin, LOW);
 
-  randomSeed(analogRead(mod1::PIN_POT1));
-  reRandomizeCV();
+  // Seed the PRNG from analog noise (mirrors original randomSeed(analogRead(...))).
+  uint32_t analogSeed = (uint32_t)analogRead(mod1::PIN_POT1);
+  core.seed(analogSeed != 0 ? analogSeed : 1u);
 
-  updateStepCount();
+  // Initialise step count from pot (mirrors original updateStepCount() in setup()).
+  core.currentTotalSteps =
+      sc::kRandomCvStepModes[mod1::select6FromAdc(analogRead(stepSelectPin))];
 }
 
 void loop() {
   currentMillis = millis();
 
-  // Step progress on trigger input
+  // Step forward on rising edge of clock input.
   int trigReading = digitalRead(triggerPin);
   if (trigReading == HIGH && lastTriggerState == LOW) {
-    updateStepCount();
+    sc::RandomCvParams p = sc::randomCvMapParams(
+        analogRead(stepSelectPin) / 1023.0f,
+        analogRead(potPin)        / 1023.0f,
+        analogRead(trigProbPin)   / 1023.0f);
 
-    currentStep = (currentStep + 1) % currentTotalSteps;
+    sc::RandomCvFrame frame = core.step(true, p);
 
-    // CV scaling
-    int potValue = analogRead(potPin);
-    int cvMax = map(potValue, 0, 1023, 0, 255);
-    uint16_t temp = (uint16_t)cvValues[currentStep] * (uint16_t)cvMax;
-    int outputCV = temp / 255;  // 0～255
+    int outputCV = (int)(frame.cv * 255.0f);
     analogWrite(cvOutPin, outputCV);
-    analogWrite(ledPin, outputCV);
+    analogWrite(ledPin,   outputCV);
 
-    // Apply trigger probability in real time
-    int trigVal = analogRead(trigProbPin);
-    int trigThreshold = map(trigVal, 0, 1023, 0, 255);
-    // Fire if trigValues[currentStep] < trigThreshold
-    if (trigValues[currentStep] < trigThreshold) {
-      // Trigger out after 10ms
-      trigOutTime = currentMillis + 10;
+    if (frame.gate) {
+      trigOutTime  = currentMillis + 10;
       trigOutState = 0;
     } else {
-      trigOutState = 2;  // No trigger
+      trigOutState = 2;
     }
   }
   lastTriggerState = trigReading;
 
-  // Re-randomize upon rising edge of D9 trigger
+  // Re-randomize on rising edge of F2.
   int reRandReading = digitalRead(reRandomPin);
   if (reRandReading == HIGH && lastReRandState == LOW) {
-    reRandomizeCV();
+    core.randomize();
   }
   lastReRandState = reRandReading;
 
-  // Trigger output process
+  // Trigger output pulse: 10 ms delay then 2 ms width (unchanged from original).
   if (trigOutState == 0 && (long)(currentMillis - trigOutTime) >= 0) {
     digitalWrite(trigOutPin, HIGH);
     trigOutStart = currentMillis;
@@ -147,29 +139,9 @@ void loop() {
     trigOutState = 2;
   }
 
-  // Re-randomize on D4 button press (debounce)
+  // Re-randomize on button press (debounced).
   buttonDebounce.update((uint8_t)digitalRead(buttonPin), currentMillis);
   if (buttonDebounce.fell()) {
-    reRandomizeCV();
-  }
-}
-
-void reRandomizeCV() {
-  // Randomly regenerate values for CV and trigger (0 to 255)
-  for (int i = 0; i < 32; i++) {
-    cvValues[i] = random(256);
-    trigValues[i] = random(256);
-  }
-}
-
-void updateStepCount() {
-  int val = analogRead(stepSelectPin);
-  selectedMode = mod1::select6FromAdc(val);
-
-  int newTotalSteps = stepModes[selectedMode];
-
-  if (newTotalSteps != currentTotalSteps) {
-    currentStep = currentStep % newTotalSteps;
-    currentTotalSteps = newTotalSteps;
+    core.randomize();
   }
 }

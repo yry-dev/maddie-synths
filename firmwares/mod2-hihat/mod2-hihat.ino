@@ -24,14 +24,14 @@ Key Variables:
       ║   (A2)    ║   POT3 (A2) - BPF frequency
       ║   FREQ    ║
       ║           ║
-      ║    [·]    ║   LED (GPIO5) - envelope (PWM)
       ║   (BTN)   ║   BTN (GPIO6) - short=trig, long=noise type
+      ║    [·]    ║   LED (GPIO5) - envelope (PWM)
       ║           ║
       ╠═══════════╣
       ║ I1     I2 ║   IN1 (GPIO7) - trigger
       ║ (o)   (o) ║   IN2 (GPIO0) - accent (HIGH lowers volume)
       ║           ║
-      ║ CV    OUT ║   CV  (A2)    - BPF freq (shared POT3)
+      ║ OUT    CV ║   CV  (A2)    - BPF freq (shared POT3)
       ║ (o)   (o) ║   OUT (GPIO1) - PWM audio
       ║           ║
       ╚═══════════╝
@@ -40,6 +40,7 @@ Version History:
   - 1.0 HiHat firmware by Hagiwo
   - 1.1 LED envelope display
   - 1.2 Forked and refactored for maddie synths
+  - 1.3 Synthesis moved to the shared sc::HihatVoice core (also used by VCV Rack)
 
 License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
@@ -55,6 +56,7 @@ HAGIWO MOD2 (Seeed Xiao RP2350)
 #include "hardware/irq.h"
 #include <math.h>
 #include <Mod2Common.h>  // Shared MOD2 pin map, PWM-audio setup and helpers
+#include <HihatCore.h>   // Shared Hi-hat voice (also used by the VCV Rack port)
 
 /********************  === Core constants ===  *******************************************/
 const float    SYS_CLOCK = 150000000.0f;      // 150 MHz
@@ -63,20 +65,20 @@ const uint32_t TABLE_SZ  = 30000;             // Length of noise table
 
 const float    PWM_FS    = 1023.0f;           // 10‑bit full‑scale
 const float    PWM_MID   = PWM_FS / 2.0f;     // 511
-const float    AMP_SCALE = 3.5f;              // Base gain
-const float    MASTER_ATTEN = 0.8f;           // −1.9 dB master attenuation
-
-const uint16_t FADE_IN_SMP  = 73;             // ≒2 ms
-const uint16_t FADE_OUT_SMP = 40;             // ≒1 ms
 
 /********************  === ADC ===  ******************************************************/
 const uint8_t  ADC_RES_BITS = 10;
 const uint16_t ADC_MAX_VAL  = (1 << ADC_RES_BITS) - 1;
 
 /********************  === Buffers ===  **************************************************/
-float   noiseTbl[TABLE_SZ];     // Noise table
-int16_t outHH[TABLE_SZ];        // Output waveform buffer
-uint16_t envTbl[TABLE_SZ];      // Envelope values for LED brightness
+// The synthesis (noise, band-pass, envelope, fades, amplitude) now lives in the
+// shared core. The firmware still bakes a strike into a table once per trigger
+// (the core renders one sample per audio-rate tick, Claves pattern) and the ISR
+// plays it back at the fixed ~36.6 kHz rate.
+int16_t  outHH[TABLE_SZ];        // Output waveform buffer (already amplitude-scaled, ±PWM_MID)
+uint16_t envTbl[TABLE_SZ];       // Envelope values for LED brightness
+
+sc::HihatVoice hh;               // Shared Hi-hat synthesis core
 
 /********************  === Playback state / control ===  *********************************/
 volatile bool     playingHH   = false;
@@ -91,7 +93,6 @@ volatile float volFactor       = 1.0f;
 
 // --- Noise mode switching ---
 volatile uint8_t noiseMode      = 0;   // 0:Blue / 1:White
-volatile bool    reqNoiseUpdate = false;
 
 // --- Button timing for dual function ---
 volatile uint32_t buttonPressTime = 0;
@@ -105,72 +106,31 @@ uint sliceAudio, sliceIRQ, sliceLED;
 /********************  === Helpers ===  **************************************************/
 inline uint16_t readADC(uint8_t pin){ return analogRead(pin); }
 
-/********************  === Noise generation ===  ****************************************/
-// Blue noise
-void generateBlueNoise(){
-  float prev = 2.0f*(rand()/(float)RAND_MAX) - 1.0f;
-  noiseTbl[0] = prev * 0.5f;
-  for(uint32_t i=1;i<TABLE_SZ;++i){
-    float w = 2.0f*(rand()/(float)RAND_MAX) - 1.0f;
-    float b = (w - prev) * 0.5f;  prev = w;
-    noiseTbl[i] = constrain(b, -1.0f, 1.0f);
-  }
-}
-// Update table
-void updateNoiseTable(){
-  if(noiseMode==0) generateBlueNoise();
-  else             mod2::fillWhiteNoise(noiseTbl, TABLE_SZ);
-}
-
-/********************  === Voice generation ===  ****************************************/
-void buildVoice(int16_t* dst,float decayB,float curve,float fcC){
-  mod2::Biquad bpf;            // 2‑pole band‑pass, fixed Q = 0.8
-  bpf.setBandpass(fcC, 0.8f, AUDIO_FS);
-
-  float env=1.0f;
-  float expK = expf(-decayB*curve/TABLE_SZ);
-
-  for(uint32_t i=0;i<TABLE_SZ;++i){
-    float x0 = noiseTbl[i]*env;
-    float y0 = bpf.process(x0);
-
-    float fade = 1.2f;
-    if(i<FADE_IN_SMP)                  fade = i/float(FADE_IN_SMP);             // Fade‑in
-    else if(i>TABLE_SZ-FADE_OUT_SMP-1) fade = (TABLE_SZ-i-1)/float(FADE_OUT_SMP); // Fade‑out
-    y0 *= fade;
-
-    // Store envelope value for LED (env * fade gives us the actual envelope shape)
-    float envValue = env * fade;
-    envTbl[i] = uint16_t(envValue * PWM_FS);
-
-    dst[i] = int16_t(constrain(y0,-1.0f,1.0f)*PWM_MID*MASTER_ATTEN);
-    env *= expK;
-  }
-}
-
 /********************  === PWM IRQ ===  **************************************************/
 void on_pwm_wrap(){
   pwm_clear_irq(sliceIRQ);
-  
+
   if(!playingHH){
     pwm_set_chan_level(sliceAudio,PWM_CHAN_B,uint16_t(PWM_MID));
     pwm_set_chan_level(sliceLED, PWM_CHAN_B, 0);  // LED off
     return;
   }
-  
-  // Audio output
+
+  // Audio output. outHH already carries the full amplitude chain from the core
+  // (band-pass * env * body-fade * master/amp scale, clamped); only the accent
+  // attenuation (volFactor) stays at playback time.
   int32_t mix = outHH[idxHH];
-  int32_t val = PWM_MID + int32_t(mix*AMP_SCALE*volFactor);
+  int32_t val = PWM_MID + int32_t(mix * volFactor);
   if(val<0) val=0; else if(val>1023) val=1023;
   pwm_set_chan_level(sliceAudio,PWM_CHAN_B,uint16_t(val));
-  
+
   // LED brightness based on envelope
   pwm_set_chan_level(sliceLED, PWM_CHAN_B, envTbl[idxHH]);
-  
+
   idxHH++;
-  if(idxHH>=TABLE_SZ){ 
-    playingHH=false; 
-    idxHH=0; 
+  if(idxHH>=TABLE_SZ){
+    playingHH=false;
+    idxHH=0;
     pwm_set_chan_level(sliceLED, PWM_CHAN_B, 0);  // Ensure LED is off
   }
 }
@@ -187,7 +147,7 @@ void buttonISR(){
   uint32_t now = millis();
   if(now - lastButtonChange < DEBOUNCE_MS) return;  // Debounce
   lastButtonChange = now;
-  
+
   if(digitalRead(mod2::BUTTON_PIN) == LOW){
     // Button pressed (falling edge)
     buttonPressed = true;
@@ -197,7 +157,7 @@ void buttonISR(){
     if(buttonPressed){
       buttonPressed = false;
       uint32_t pressDuration = now - buttonPressTime;
-      
+
       if(pressDuration < LONG_PRESS_MS){
         // Short press - trigger sound
         volFactor = digitalRead(mod2::IN2_PIN) ? 0.5f : 1.0f;
@@ -205,7 +165,6 @@ void buttonISR(){
       } else {
         // Long press - toggle noise mode
         noiseMode ^= 1;
-        reqNoiseUpdate = true;
       }
     }
   }
@@ -214,8 +173,6 @@ void buttonISR(){
 /********************  === SETUP ===  ****************************************************/
 void setup(){
   analogReadResolution(ADC_RES_BITS);
-  randomSeed(analogRead(26));
-  updateNoiseTable();
 
   // Audio PWM + wrap-IRQ setup (shared)
   mod2::initAudioPwm(sliceAudio, sliceIRQ, on_pwm_wrap);
@@ -240,11 +197,16 @@ void loop(){
   decayCurve = 0.2f +  5.0f * norm1;
   fc         = 100.0f + 15900.0f * norm2;
 
-  if(reqNoiseUpdate){ reqNoiseUpdate=false; updateNoiseTable(); }
-
   if(reqTrig){
     reqTrig=false;
-    buildVoice(outHH,decayBase,decayCurve,fc);
+    // Bake one strike into the table via the shared core (one sample per
+    // audio-rate tick); the ISR then plays it back at the fixed rate.
+    hh.strike(decayBase, decayCurve, fc, (sc::HihatNoiseMode)noiseMode, AUDIO_FS);
+    for(uint32_t i=0;i<TABLE_SZ;++i){
+      sc::HihatFrame f = hh.process(1.0f/AUDIO_FS);
+      outHH[i]  = int16_t(f.audio * PWM_MID);
+      envTbl[i] = uint16_t(f.env * PWM_FS);
+    }
     idxHH=0; playingHH=true;
   }
   delayMicroseconds(500);   // ≒1 kHz main loop rate

@@ -50,6 +50,7 @@ Version History:
 #include <Arduino.h>
 #include <EEPROM.h>
 #include <Mod1Common.h>
+#include <LorenzVoice.h>  // Shared Lorenz core (also used by the VCV Rack port)
 
 #define EEPROM_ADDR 0  // Address to store slowMode
 
@@ -70,8 +71,8 @@ bool slowMode = false;
 mod1::DebouncedInput buttonDebounce(50, HIGH);
 mod1::EdgeInput triggerEdge(LOW);
 
-// Lorenz variables
-float x = 0.1, y = 0.0, z = 0.0;
+// Lorenz state lives in the shared core; dt is kept for the LED blink timing.
+sc::LorenzVoice lorenz;
 float dt = 0.01;
 
 void setup() {
@@ -123,38 +124,22 @@ void loop() {
   triggerEdge.update((uint8_t)digitalRead(triggerPin));
   if (triggerEdge.rose()) {
     // Rising edge detected — reset attractor
-    x = 0.1;
-    y = 0.0;
-    z = 0.0;
+    lorenz.reset();
   }
 
-  // Read pots and map to Lorenz parameters
-  float sigma = map(analogRead(potSigmaPin), 0, 1023, slowMode ? 1 : 5, slowMode ? 10 : 20);
-  float rho   = map(analogRead(potRhoPin), 0, 1023, 20, 50);
-  float beta  = map(analogRead(potBetaPin), 0, 1023, 1, 4);
-
-  // Map Sigma pin to one of three discrete step sizes.
-  const uint8_t stepMode = mod1::select3FromAdc(analogRead(potSigmaPin));
-  if (slowMode) {
-    dt = (stepMode == 0) ? 0.0001 : (stepMode == 1) ? 0.0005 : 0.001;
-  } else {
-    dt = (stepMode == 0) ? 0.001 : (stepMode == 1) ? 0.005 : 0.01;
-  }
-
-  // Lorenz attractor differential equations
-  float dx = sigma * (y - x);
-  float dy = x * (rho - z) - y;
-  float dz = x * y - beta * z;
-
-  // Euler integration
-  x += dx * dt;
-  y += dy * dt;
-  z += dz * dt;
+  // Read pots (normalised 0..1) and map to Lorenz parameters via the shared
+  // core, then take one Euler step. dt is kept for the LED blink timing below.
+  const float pot1 = analogRead(potSigmaPin) / 1023.0f;
+  const float pot2 = analogRead(potRhoPin) / 1023.0f;
+  const float pot3 = analogRead(potBetaPin) / 1023.0f;
+  const sc::LorenzParams lp = sc::lorenzMapParams(pot1, pot2, pot3, slowMode);
+  dt = lp.dt;
+  lorenz.step(lp.sigma, lp.rho, lp.beta, lp.dt);
 
   // Map Lorenz outputs to PWM range
-  int pwmX = constrain(mapFloat(x, -30, 30, 0, 255), 0, 255);
-  int pwmY = constrain(mapFloat(y, -30, 30, 0, 255), 0, 255);
-  int pwmZ = constrain(mapFloat(z, 0, 50, 0, 255), 0, 255);
+  int pwmX = constrain(mapFloat(lorenz.x, -30, 30, 0, 255), 0, 255);
+  int pwmY = constrain(mapFloat(lorenz.y, -30, 30, 0, 255), 0, 255);
+  int pwmZ = constrain(mapFloat(lorenz.z, 0, 50, 0, 255), 0, 255);
 
   // Output PWM signals
   OCR1A = pwmX; // F2 - D9
