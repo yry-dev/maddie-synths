@@ -27,8 +27,39 @@ FLAGS += -Isrc/compat
 # the user's environment and library search path. Static libraries are fine.
 LDFLAGS +=
 
-# Add .cpp files to the build
-SOURCES += $(wildcard src/*.cpp)
+# WIP: Claude-generated maddie synths originals (no upstream Hagiwo/Rob Scape
+# firmware) are excluded from the build until they've been reviewed/verified.
+# To re-enable one, remove its .cpp from WIP_SOURCES and uncomment it in
+# plugin.cpp/plugin.hpp + move its entry back to "modules" in ../plugin.json.
+WIP_SOURCES := \
+	src/mod2-bitcrusher.cpp \
+	src/mod2-chorus.cpp \
+	src/mod2-comb.cpp \
+	src/mod2-delay.cpp \
+	src/mod2-distortion.cpp \
+	src/mod2-dynamics.cpp \
+	src/mod2-filter.cpp \
+	src/mod2-flanger.cpp \
+	src/mod2-freeze.cpp \
+	src/mod2-freq-shifter.cpp \
+	src/mod2-fx.cpp \
+	src/mod2-glitch-delay.cpp \
+	src/mod2-granular.cpp \
+	src/mod2-karplus.cpp \
+	src/mod2-phaser.cpp \
+	src/mod2-pitch-shifter.cpp \
+	src/mod2-resonator.cpp \
+	src/mod2-reverb.cpp \
+	src/mod2-reverse-delay.cpp \
+	src/mod2-ringmod.cpp \
+	src/mod2-spectral-freeze.cpp \
+	src/mod2-stutter.cpp \
+	src/mod2-tape-echo.cpp \
+	src/mod2-tremolo.cpp \
+	src/mod2-wavefolder.cpp
+
+# Add .cpp files to the build (minus the WIP modules above)
+SOURCES += $(filter-out $(WIP_SOURCES),$(wildcard src/*.cpp))
 
 # Add files to the ZIP package when running `make dist`
 # The compiled plugin and "plugin.json" are automatically added.

@@ -1,6 +1,7 @@
 # MOD2 Karplus — dedicated Karplus-Strong voice/processor
 
-> **Status: planned — no code yet.** Tier 3, roadmap v2, CPU: medium.
+> **Status: implemented** (firmware `mod2-karplus.ino`, shared `sc::KarplusCore`,
+> VCV Rack port `rack-plugins/src/mod2-karplus.cpp`). Tier 3, roadmap v2, CPU: medium.
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 
 Karplus-Strong already exists as one Flux mode; this promotes it to a dedicated
@@ -12,7 +13,7 @@ audio** through the CV jack instead of internal noise.
 
 | Control | Function |
 |---|---|
-| POT1 (A0) | Pitch (semitone-quantized; hold-button layer for free tune) |
+| POT1 (A0) | Pitch (semitone-quantized) |
 | POT2 (A1) | Damping / brightness (loop filter cutoff + decay) |
 | BUTTON + POT1 | Wet/dry (dry = excitation signal) |
 | BUTTON + POT2 | Excitation colour (noise burst dark↔bright / pick position) |

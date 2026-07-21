@@ -1,6 +1,8 @@
 # MOD2 Comb — tuned comb filter
 
-> **Status: planned — no code yet.** Tier 3, roadmap v2, CPU: easy.
+> **Status: implemented.** Firmware (`mod2-comb.ino`), shared core
+> (`shared/SynthCore/src/CombCore.h`) and VCV Rack port
+> (`rack-plugins/src/mod2-comb.cpp`) are in place. Tier 3, roadmap v2, CPU: easy.
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 
 A dedicated, playable comb filter: feedforward + feedback comb with tuned delay.

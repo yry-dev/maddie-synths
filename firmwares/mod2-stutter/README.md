@@ -1,6 +1,8 @@
 # MOD2 Stutter — beat repeat
 
-> **Status: planned — no code yet.** Tier 4 (experimental), roadmap v3/v4, CPU: easy-medium.
+> **Status: implemented.** Firmware (`mod2-stutter.ino`), shared core
+> (`StutterCore.h`) and VCV Rack port (`rack-plugins/src/mod2-stutter.cpp`) all
+> build. Tier 4 (experimental), roadmap v3/v4, CPU: easy-medium.
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 
 Clock-aware beat repeats: grab the last slice of audio and machine-gun it in
@@ -28,8 +30,9 @@ with a clock into IN1 and it becomes a performance instrument.
    circular buffer (~90 KB ≈ 1.2 s covers a bar at 60 BPM in 4/4). On stutter
    start, lock the slice = last N samples; loop it with seam crossfades.
 2. Clock follower (shared `ClockFollower` helper with delay/tremolo) keeps the
-   grid; stutter onset quantizes to the next division boundary so button mashing
-   still lands on time.
+   grid; stutter onset engages immediately (lowest latency for gate mashing) and
+   restarts the division clock at that instant, so repeats stay internally
+   on-grid from the engage point.
 3. Pitch-ramp flavours: multiply read rate by k each repeat (k ≈ 1.06 / 0.94) —
    the classic riser/faller. Decaying: gain × 0.8 per repeat.
 4. Probability mode: roll at each division while enabled — instant IDM.

@@ -1,3 +1,6 @@
+// WIP: Claude-generated maddie synths original (no upstream Hagiwo/Rob
+// Scape firmware). Excluded from the VCV Rack build -- see WIP_SOURCES in
+// the Makefile and the WIP block in plugin.cpp for how to re-enable it.
 #include "plugin.hpp"
 #include <DistortionCore.h>  // Shared drive DSP (also used by mod2-distortion firmware)
 

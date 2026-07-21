@@ -54,6 +54,22 @@ MAP = {
     "mod2-flanger": "mod2-flanger",
     "mod2-phaser": "mod2-phaser",
     "mod2-ringmod": "mod2-ringmod",
+    "mod2-tremolo": "mod2-tremolo",
+    "mod2-wavefolder": "mod2-wavefolder",
+    "mod2-filter": "mod2-filter",
+    "mod2-dynamics": "mod2-dynamics",
+    "mod2-comb": "mod2-comb",
+    "mod2-karplus": "mod2-karplus",
+    "mod2-freeze": "mod2-freeze",
+    "mod2-stutter": "mod2-stutter",
+    "mod2-reverse-delay": "mod2-reverse-delay",
+    "mod2-glitch-delay": "mod2-glitch-delay",
+    "mod2-freq-shifter": "mod2-freq-shifter",
+    "mod2-reverb": "mod2-reverb",
+    "mod2-granular": "mod2-granular",
+    "mod2-pitch-shifter": "mod2-pitch-shifter",
+    "mod2-spectral-freeze": "mod2-spectral-freeze",
+    "mod2-fx": "mod2-fx",
 }
 
 

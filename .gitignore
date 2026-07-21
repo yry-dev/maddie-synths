@@ -62,12 +62,18 @@ fp-info-cache
 *.kicad_pcb-bak
 *.kicad_sch-bak
 *.lck
+*-drc.rpt
 panels/production/
+
+# Python bytecode cache (panel tool scripts)
+__pycache__/
+*.py[co]
 
 # Claude Code local config
 .claude/
 .omc/
 _panel-wip/
+.playwright-mcp/
 
 # licensing restrictions
 sample.h

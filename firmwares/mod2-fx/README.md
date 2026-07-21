@@ -1,8 +1,9 @@
 # MOD2 FX — multi-algorithm effects platform
 
-> **Status: planned — no code yet.** This folder holds the description / implementation
-> plan for the combined "MOD2 FX" firmware, and the shared hardware notes that all the
-> individual `mod2-*` FX plans reference.
+> **Status: implemented (v1.0).** `mod2-fx.ino` hosts all 16 algorithms behind
+> `sc::FxPlatformCore` (`firmwares/shared/SynthCore/src/FxPlatformCore.h`), shared
+> with the VCV Rack port `rack-plugins/src/mod2-fx.cpp`. This folder also holds the
+> shared hardware notes that all the individual `mod2-*` FX plans reference.
 
 One firmware, many effects: the MOD2 answer to an FX Aid / Pico DSP. The button cycles
 algorithms, the LED identifies the current one by blink pattern, and every algorithm

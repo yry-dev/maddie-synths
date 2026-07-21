@@ -1,6 +1,7 @@
 # MOD2 Dynamics — one-knob compressor + limiter
 
-> **Status: planned — no code yet.** Tier 5 (utility), CPU: easy.
+> **Status: implemented** (firmware `mod2-dynamics.ino` + shared `sc::DynamicsCore`
+> + VCV Rack port `rack-plugins/src/mod2-dynamics.cpp`). Tier 5 (utility), CPU: easy.
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 > Covers both the "Compressor" and "Limiter" brainstorm items as modes.
 
