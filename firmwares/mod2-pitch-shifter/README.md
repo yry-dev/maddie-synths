@@ -1,6 +1,7 @@
 # MOD2 Pitch Shifter — octave & granular shift
 
-> **Status: planned — no code yet.** Tier 3, roadmap v4, CPU: **hard**.
+> **Status: implemented** (`sc::PitchShifterCore` + firmware + VCV Rack port).
+> Tier 3, roadmap v4, CPU: **hard**.
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 
 Real-time pitch shift of the input: simple ±1 octave for instant sub/sparkle,

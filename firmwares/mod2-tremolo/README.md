@@ -1,7 +1,10 @@
 # MOD2 Tremolo — amplitude modulation, clock-syncable
 
-> **Status: planned — no code yet.** Tier 2, roadmap v2 (or earlier — easiest FX
-> of all), CPU: easy. Hardware/audio-in caveats: see `../mod2-fx/README.md`.
+> **Status: implemented.** Firmware (`mod2-tremolo.ino`), shared core
+> (`../shared/SynthCore/src/TremoloCore.h`) and VCV Rack port
+> (`../../rack-plugins/src/mod2-tremolo.cpp`) are all in place. Tier 2, roadmap
+> v2 (or earlier — easiest FX of all), CPU: easy. Hardware/audio-in caveats: see
+> `../mod2-fx/README.md`.
 > The "Auto Pan" brainstorm item folds in here: with one mono output, auto-pan
 > degenerates to tremolo; revisit as true pan if stereo hardware ever exists.
 

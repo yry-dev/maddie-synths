@@ -1,6 +1,8 @@
 # MOD2 Frequency Shifter — Bode-style spectral shift
 
-> **Status: planned — no code yet.** Tier 3, roadmap v2/v3, CPU: medium.
+> **Status: implemented.** Tier 3, roadmap v2/v3, CPU: medium.
+> Firmware (`mod2-freq-shifter.ino`) + shared `sc::FreqShifterCore` +
+> VCV Rack port (`rack-plugins/src/mod2-freq-shifter.cpp`) are all in place.
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 
 Very Buchla: shifts every partial by a fixed Hz amount (not a ratio), turning

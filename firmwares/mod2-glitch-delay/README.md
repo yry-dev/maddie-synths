@@ -1,6 +1,7 @@
 # MOD2 Glitch Delay — random skips, reverse chunks, tape cuts
 
-> **Status: planned — no code yet.** Tier 4 (experimental), roadmap v3, CPU: medium.
+> **Status: implemented.** Core `sc::GlitchDelayCore` + `mod2-glitch-delay.ino` +
+> `rack-plugins/src/mod2-glitch-delay.cpp`. Tier 4 (experimental), roadmap v3, CPU: medium.
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 
 A delay whose read head misbehaves on purpose: random skips, reversed chunks,

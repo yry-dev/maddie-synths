@@ -1,6 +1,8 @@
 # MOD2 Freeze — buffer capture & loop
 
-> **Status: planned — no code yet.** Tier 4 (experimental), roadmap v3, CPU: easy-medium.
+> **Status: implemented** — firmware (`mod2-freeze.ino`), shared core
+> (`SynthCore/src/FreezeCore.h`) and VCV Rack port (`rack-plugins/src/mod2-freeze.cpp`).
+> Tier 4 (experimental), roadmap v3, CPU: easy-medium.
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 
 Capture a slice of the incoming audio and loop it seamlessly: instant drones,

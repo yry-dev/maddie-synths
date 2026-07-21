@@ -1,6 +1,8 @@
 # MOD2 Granular — granular delay / cloud textures
 
-> **Status: planned — no code yet.** Tier 4 (experimental), roadmap v4, CPU: **hard**.
+> **Status: implemented** (firmware `mod2-granular.ino` + shared `sc::GranularCore`
+> + VCV Rack port `rack-plugins/src/mod2-granular.cpp`).
+> Tier 4 (experimental), roadmap v4, CPU: **hard**.
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 
 Tiny grains scattered from a live-recorded buffer: Clouds-adjacent smears,

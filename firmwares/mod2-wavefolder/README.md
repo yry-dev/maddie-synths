@@ -1,6 +1,7 @@
 # MOD2 Wavefolder — digital West-Coast folder
 
-> **Status: planned — no code yet.** Tier 3, roadmap v2, CPU: easy.
+> **Status: implemented** — `sc::WavefolderCore` + `mod2-wavefolder.ino` +
+> `rack-plugins/src/mod2-wavefolder.cpp`. Tier 3, roadmap v2, CPU: easy.
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 
 Digital approximation of a serge/Buchla-style folder. Great after Plaits or any

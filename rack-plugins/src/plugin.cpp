@@ -31,15 +31,37 @@ void init(Plugin* p) {
 	p->addModel(modelAcid303);
 	p->addModel(modelBreakbeats);
 	p->addModel(modelSample);
-	p->addModel(modelBitcrusher);
-	p->addModel(modelDelay);
-	p->addModel(modelTapeEcho);
-	p->addModel(modelDistortion);
-	p->addModel(modelChorus);
-	p->addModel(modelResonator);
-	p->addModel(modelFlanger);
-	p->addModel(modelPhaser);
-	p->addModel(modelRingMod);
+	// WIP: the modules below are Claude-generated maddie synths originals (no
+	// upstream Hagiwo/Rob Scape firmware) and are excluded from the build for
+	// now. To re-enable one: uncomment it here and in plugin.hpp, remove its
+	// .cpp from WIP_SOURCES in the Makefile, and move its entry from
+	// "wipModules" back to "modules" in the root plugin.json.
+	// p->addModel(modelBitcrusher);
+	// p->addModel(modelDelay);
+	// p->addModel(modelTapeEcho);
+	// p->addModel(modelDistortion);
+	// p->addModel(modelChorus);
+	// p->addModel(modelResonator);
+	// p->addModel(modelFlanger);
+	// p->addModel(modelPhaser);
+	// p->addModel(modelRingMod);
+	// mod2 FX batch (WIP: all Claude-generated originals, see note above)
+	// p->addModel(modelTremolo);
+	// p->addModel(modelWavefolder);
+	// p->addModel(modelFilter);
+	// p->addModel(modelDynamics);
+	// p->addModel(modelComb);
+	// p->addModel(modelKarplus);
+	// p->addModel(modelFreeze);
+	// p->addModel(modelStutter);
+	// p->addModel(modelReverseDelay);
+	// p->addModel(modelGlitchDelay);
+	// p->addModel(modelFreqShifter);
+	// p->addModel(modelReverb);
+	// p->addModel(modelGranular);
+	// p->addModel(modelPitchShifter);
+	// p->addModel(modelSpectralFreeze);
+	// p->addModel(modelFx);
 	// SCAFFOLD:addModel (new addModel calls inserted above this line)
 
 	// Any other plugin initialization may go here.

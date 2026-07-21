@@ -1,6 +1,10 @@
 # MOD2 Reverse Delay — classic ambient reverse echo
 
-> **Status: planned — no code yet.** Tier 4 (roadmap v3 "Ambient"), CPU: medium.
+> **Status: implemented.** Firmware (`mod2-reverse-delay.ino`), shared core
+> (`shared/SynthCore/src/ReverseDelayCore.h`) and VCV Rack port
+> (`rack-plugins/src/mod2-reverse-delay.cpp`) are in place; central plugin
+> registration + panel SVG happen in the later shared passes.
+> Tier 4 (roadmap v3 "Ambient"), CPU: medium (~2 grains + overlap-add, light).
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 
 Repeats play backwards: swelling, pre-echo ambient trails. Kept separate from

@@ -241,7 +241,10 @@
       "tags": [
         "Sampler"
       ]
-    },
+    }
+  ],
+  "wipNote": "wipModules are Claude-generated maddie synths originals excluded from the build; move an entry back to modules to re-enable it (see rack-plugins/Makefile WIP_SOURCES and plugin.cpp).",
+  "wipModules": [
     {
       "slug": "mod2-bitcrusher",
       "name": "Bitcrusher",
@@ -333,6 +336,181 @@
       "tags": [
         "Effect",
         "Ring modulator"
+      ]
+    },
+    {
+      "slug": "mod2-tremolo",
+      "name": "Tremolo",
+      "description": "LFO-driven VCA amplitude modulation with sine/triangle/square/ramp shapes, clock sync and phase reset. Port of the mod2-tremolo firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Voltage-controlled amplifier"
+      ]
+    },
+    {
+      "slug": "mod2-wavefolder",
+      "name": "Wavefolder",
+      "description": "Digital West-Coast Serge/Buchla-style wavefolder with reflect, sine and cascade curves. Port of the mod2-wavefolder firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Waveshaper",
+        "Distortion",
+        "Effect"
+      ]
+    },
+    {
+      "slug": "mod2-filter",
+      "name": "Filter",
+      "description": "Tilt EQ and resonant low-pass / high-pass / band-pass cleanup filter. Port of the mod2-filter firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Filter",
+        "Equalizer",
+        "Effect"
+      ]
+    },
+    {
+      "slug": "mod2-dynamics",
+      "name": "Dynamics",
+      "description": "One-knob compressor, brickwall limiter, and trigger ducker. Port of the mod2-dynamics firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Compressor",
+        "Limiter",
+        "Dynamics",
+        "Effect",
+        "Utility"
+      ]
+    },
+    {
+      "slug": "mod2-comb",
+      "name": "Comb",
+      "description": "Tuned comb filter: a single precise, playable feedforward/feedback comb with bipolar feedback (positive = full harmonic series, negative = hollow odd-only) that rings and self-oscillates into a soft-limited drone, plus a nested all-pass mode and feedback-path damping. Port of the mod2-comb firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Filter",
+        "Physical modeling"
+      ]
+    },
+    {
+      "slug": "mod2-karplus",
+      "name": "Karplus",
+      "description": "Dedicated Karplus-Strong plucked string: a tuned feedback delay line excited by an internal colourable noise burst or by external audio, with pluck / bow (continuous-drive) / drone modes, in-loop damping and a palm-mute gate. Port of the mod2-karplus firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Physical modeling",
+        "Effect",
+        "Oscillator"
+      ]
+    },
+    {
+      "slug": "mod2-freeze",
+      "name": "Freeze",
+      "description": "Buffer capture & seamless loop: freeze a slice of incoming audio into an always-recording ~5.5 s buffer and loop it click-free for instant drones and held chords, with loop length, window scan, Forward/Ping-pong/Half-speed playback, and re-capture. Port of the mod2-freeze firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Granular",
+        "Sampler"
+      ]
+    },
+    {
+      "slug": "mod2-stutter",
+      "name": "Stutter",
+      "description": "Clock-aware beat repeat / glitch stutter. Port of the mod2-stutter firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Delay",
+        "Clock modulator"
+      ]
+    },
+    {
+      "slug": "mod2-reverse-delay",
+      "name": "Reverse Delay",
+      "description": "Classic ambient reverse echo \u2014 chunked reverse playback with swelling pre-echo trails, re-reversing feedback, and Reverse/Alternating/Octave-up modes. Port of the mod2-reverse-delay firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Delay",
+        "Effect",
+        "Granular"
+      ]
+    },
+    {
+      "slug": "mod2-glitch-delay",
+      "name": "Glitch Delay",
+      "description": "Delay with random skips, reverse chunks, stutters and tape-cut splices. Port of the mod2-glitch-delay firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Delay",
+        "Effect",
+        "Granular"
+      ]
+    },
+    {
+      "slug": "mod2-freq-shifter",
+      "name": "Freq Shifter",
+      "description": "Bode-style single-sideband frequency shifter \u2014 shifts every partial by a fixed Hz amount, from slow barberpole to inharmonic clangor, with feedback spirals. Port of the mod2-freq-shifter firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Ring modulator"
+      ]
+    },
+    {
+      "slug": "mod2-reverb",
+      "name": "Reverb",
+      "description": "Hall & plate algorithmic reverb. Port of the mod2-reverb firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Reverb",
+        "Effect"
+      ]
+    },
+    {
+      "slug": "mod2-granular",
+      "name": "Granular",
+      "description": "Live-buffer granular delay / cloud textures. Port of the mod2-granular firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Granular",
+        "Effect",
+        "Delay"
+      ]
+    },
+    {
+      "slug": "mod2-pitch-shifter",
+      "name": "Pitch Shifter",
+      "description": "Octave & granular pitch shifter \u2014 two-tap delay-line harmonizer with octave, free (semitone-detented) and detune modes. Port of the mod2-pitch-shifter firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Granular"
+      ]
+    },
+    {
+      "slug": "mod2-spectral-freeze",
+      "name": "Spectral Freeze",
+      "description": "FFT-domain infinite sustain \u2014 freeze the spectrum for an endless, motionless-yet-alive pad from any instant of sound. Port of the mod2-spectral-freeze firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Granular"
+      ]
+    },
+    {
+      "slug": "mod2-fx",
+      "name": "FX",
+      "description": "Multi-algorithm effects platform: sixteen effects (delay, tape echo, reverb, chorus, flanger, phaser, bitcrusher, distortion, wavefolder, resonator, karplus, comb, ring mod, pitch shifter, freeze, glitch delay) behind one identical control surface, switched click-free. Port of the mod2-fx firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Effect",
+        "Delay",
+        "Reverb",
+        "Distortion",
+        "Utility"
       ]
     }
   ]

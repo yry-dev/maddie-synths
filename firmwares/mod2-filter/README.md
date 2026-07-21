@@ -1,6 +1,7 @@
 # MOD2 Filter — tilt EQ & cleanup filters
 
-> **Status: planned — no code yet.** Tier 5 (utility), CPU: easy.
+> **Status: implemented** (firmware + shared `sc::FilterCore` + VCV Rack port).
+> Tier 5 (utility), CPU: easy.
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 > Covers the "EQ (tilt)" and "High-pass / Low-pass" brainstorm items as modes.
 

@@ -1,6 +1,7 @@
 # MOD2 Reverb — hall & plate
 
-> **Status: planned — no code yet.** Tier 1 (must-have), roadmap v3, CPU: **hard**.
+> **Status: implemented** — `sc::ReverbCore` + firmware + VCV Rack port.
+> Tier 1 (must-have), roadmap v3, CPU: **hard**.
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 > Covers both the "Hall Reverb" and "Plate Reverb" brainstorm items as two modes.
 

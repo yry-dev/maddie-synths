@@ -1,6 +1,8 @@
 # MOD2 Spectral Freeze — FFT-domain infinite sustain
 
-> **Status: planned — no code yet.** Tier 4 (experimental), roadmap v4,
+> **Status: implemented.** Core (`shared/SynthCore/src/SpectralFreezeCore.h`),
+> firmware sketch, and VCV Rack port done; prototyped/verified on the Rack side
+> first (README point 5). Tier 4 (experimental), roadmap v4,
 > CPU: **hard — ambitious but fun**, the moonshot of the FX set.
 > Hardware/audio-in caveats: see `../mod2-fx/README.md`.
 
