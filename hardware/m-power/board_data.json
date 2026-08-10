@@ -1,0 +1,236 @@
+{
+ "components": [
+  {
+   "ref": "J1",
+   "fp": "maddie:BarrelJack_Switchcraft_PC722A_Vertical",
+   "value": "12V wart A",
+   "nets": {
+    "1": "VIN_A",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "F1",
+   "fp": "maddie:Fuse_Bourns_MF-R300",
+   "value": "MF-R300 3A",
+   "nets": {
+    "1": "VIN_A",
+    "2": "N_FA"
+   }
+  },
+  {
+   "ref": "SW1",
+   "fp": "maddie:SW_Toggle_DPDT_SubMini_PCMount",
+   "value": "DPDT toggle (wired DPST)",
+   "nets": {
+    "2": "N_FA",
+    "3": "N_SA",
+    "1": null,
+    "5": "N_FB",
+    "6": "N_SB",
+    "4": null
+   }
+  },
+  {
+   "ref": "D1",
+   "fp": "Diode_THT:D_DO-201AD_P5.08mm_Vertical_AnodeUp",
+   "value": "SBR1045",
+   "nets": {
+    "2": "N_SA",
+    "1": "+12V"
+   }
+  },
+  {
+   "ref": "C1",
+   "fp": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+   "value": "100uF 50V",
+   "nets": {
+    "1": "+12V",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C2",
+   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm",
+   "value": "100nF 50V",
+   "nets": {
+    "1": "+12V",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R1",
+   "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
+   "value": "2.2k",
+   "nets": {
+    "1": "+12V",
+    "2": "N_L1"
+   }
+  },
+  {
+   "ref": "D3",
+   "fp": "LED_THT:LED_D3.0mm",
+   "value": "LED white +12V",
+   "nets": {
+    "2": "N_L1",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "J2",
+   "fp": "maddie:BarrelJack_Switchcraft_PC722A_Vertical",
+   "value": "12V wart B",
+   "nets": {
+    "1": "VIN_B",
+    "2": "-12V"
+   }
+  },
+  {
+   "ref": "F2",
+   "fp": "maddie:Fuse_Bourns_MF-R300",
+   "value": "MF-R300 3A",
+   "nets": {
+    "1": "VIN_B",
+    "2": "N_FB"
+   }
+  },
+  {
+   "ref": "D2",
+   "fp": "Diode_THT:D_DO-201AD_P5.08mm_Vertical_AnodeUp",
+   "value": "SBR1045",
+   "nets": {
+    "2": "N_SB",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "C3",
+   "fp": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+   "value": "100uF 50V (+ to GND)",
+   "nets": {
+    "1": "GND",
+    "2": "-12V"
+   }
+  },
+  {
+   "ref": "C4",
+   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm",
+   "value": "100nF 50V",
+   "nets": {
+    "1": "GND",
+    "2": "-12V"
+   }
+  },
+  {
+   "ref": "R2",
+   "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
+   "value": "2.2k",
+   "nets": {
+    "1": "GND",
+    "2": "N_L2"
+   }
+  },
+  {
+   "ref": "D4",
+   "fp": "LED_THT:LED_D3.0mm",
+   "value": "LED pink -12V",
+   "nets": {
+    "2": "N_L2",
+    "1": "-12V"
+   }
+  },
+  {
+   "ref": "VR1",
+   "fp": "Converter_DCDC:Converter_DCDC_Murata_OKI-78SR_Vertical",
+   "value": "OKI-78SR-5/1.5-W36-C",
+   "nets": {
+    "1": "+12V",
+    "2": "GND",
+    "3": "+5V"
+   }
+  },
+  {
+   "ref": "C5",
+   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm",
+   "value": "100nF 50V",
+   "nets": {
+    "1": "+12V",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C6",
+   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm",
+   "value": "470nF 50V",
+   "nets": {
+    "1": "+5V",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "C7",
+   "fp": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+   "value": "47uF 100V",
+   "nets": {
+    "1": "+5V",
+    "2": "GND"
+   }
+  },
+  {
+   "ref": "R3",
+   "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
+   "value": "680",
+   "nets": {
+    "1": "+5V",
+    "2": "N_L3"
+   }
+  },
+  {
+   "ref": "D5",
+   "fp": "LED_THT:LED_D3.0mm",
+   "value": "LED blue +5V",
+   "nets": {
+    "2": "N_L3",
+    "1": "GND"
+   }
+  },
+  {
+   "ref": "J3",
+   "fp": "Connector_USB:USB_A_Molex_105057_Vertical",
+   "value": "USB-A 5V out",
+   "nets": {
+    "1": "+5V",
+    "2": "USB_DP",
+    "3": "USB_DP",
+    "4": "GND",
+    "5": "GND"
+   }
+  },
+  {
+   "ref": "J5",
+   "fp": "Connector_Molex:Molex_Mini-Fit_Jr_5566-06A2_2x03_P4.20mm_Vertical",
+   "value": "Mini-Fit out",
+   "nets": {
+    "1": "-12V",
+    "2": "GND",
+    "3": "+5V",
+    "4": "GND",
+    "5": "GND",
+    "6": "+12V"
+   }
+  },
+  {
+   "ref": "J6",
+   "fp": "Connector_Molex:Molex_Mini-Fit_Jr_5566-06A2_2x03_P4.20mm_Vertical",
+   "value": "Mini-Fit out",
+   "nets": {
+    "1": "-12V",
+    "2": "GND",
+    "3": "+5V",
+    "4": "GND",
+    "5": "GND",
+    "6": "+12V"
+   }
+  }
+ ]
+}

@@ -64,10 +64,14 @@ fp-info-cache
 *.lck
 *-drc.rpt
 panels/production/
+panels/*/production/
 
 # Python bytecode cache (panel tool scripts)
 __pycache__/
 *.py[co]
+
+# VS Code Local History extension (each folder is its own git repo)
+.history/
 
 # Claude Code local config
 .claude/
