@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "maddie")(type "KiCad")(uri "${KIPRJMOD}/../lib/maddie.pretty")(options "")(descr "Shared maddie-synths custom footprints"))
+)

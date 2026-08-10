@@ -1,0 +1,18 @@
+Ref,Qty,Value,Package,Part pick,LCSC C#,Notes
+D1 D2,2,SBR1045 10A 45V Schottky,DO-201AD axial THT,SBR1045SD1-T (Mouser 621-SBR1045SD1-T),,package verified DO-201AD (datasheet DS31351); mounted VERTICAL (fp Diode_THT:D_DO-201AD_P5.08mm_Vertical_AnodeUp) to save board area in the 6HP strip. Any 10A/45V Schottky works.
+D3,1,LED white 3mm,THT,generic,,+12V rail indicator; panel-mount on a spacer
+D4,1,LED pink 3mm,THT,generic,,-12V rail indicator; panel-mount on a spacer
+D5,1,LED blue 3mm,THT,generic,,+5V rail indicator; panel-mount on a spacer
+-,3,LED spacer 9mm,3mm LED,generic nylon LED standoff,,lifts D3/D4/D5 off the PCB to the front panel - measure against the final panel-to-PCB gap before ordering
+R1 R2,2,2.2k 1/4W,axial,generic,,+/-12V rail LED resistors
+R3,1,680R 1/4W,axial,generic,,+5V LED resistor
+C1 C3,2,100uF 50V low-ESR,radial D8-D10,Panasonic EEU-FR1H101B (Mouser),,50V derating for margin; C3 positive leg to GND - mind orientation
+C7,1,47uF 50-100V,radial,"Panasonic EEU-FS2A470L (100V, Mouser)",,+5V bulk; overrated per margin philosophy
+C2 C4 C5,3,100nF 50V X7R,disc/MLCC,generic,,
+C6,1,470nF 50V,disc/MLCC,generic,,OKI output ceramic
+VR1,1,OKI-78SR-5/1.5-W36-C,SIP-3 vertical,Murata OKI-78SR-5,,search LCSC/Mouser by MPN
+F1 F2,2,PTC resettable 3A hold,radial disc 12mm 5.1mm-pitch,Bourns MF-R300,C208487,one per brick input; fp maddie:Fuse_Bourns_MF-R300 (custom, from datasheet mf-r.pdf)
+SW1,1,DPDT sub-mini toggle ON-ON,PCB-mount 1/4-40 bushing,C&K 7201SYCQE,,"Order this EXACT part number. 7201=DPDT ON-NONE-ON / S=.410in actuator / Y=.350in threaded keyway bushing / C=PC thru-hole terminals / Q=silver contacts / E=epoxy seal. The Q is safety-critical: silver is 5A @ 120VAC / 28VDC, while the B (gold) option is rated 0.4VA max and will be destroyed by rail current - one letter apart in the part number. C termination is what makes it PCB-solderable; the Z (solder lug) variant cannot mount to the board. Wired DPST - each pole uses its common (pins 2/5) and ONE throw (pins 3/6); the other throw floats with an explicit no-connect. Bushing + nut is the panel's 4th mechanical anchor. fp maddie:SW_Toggle_DPDT_SubMini_PCMount - grid verified against datasheet p.A-10: 4.70mm along each column, 4.83mm between rows, 1.85mm round holes."
+J1 J2,2,DC barrel jack 2.1mm center-pos,vertical panel-mount PC,Switchcraft PC722A (Mouser 502-PC722A),,center positive both; fp maddie:BarrelJack_Switchcraft_PC722A_Vertical (vendor footprint + STEP); threaded bushings help hold the panel
+J3,1,USB-A receptacle,PCB,generic vertical USB-A,,D+ tied to D-; soldered to the panel - part of the panel-to-PCB mechanical support
+J5 J6,2,Mini-Fit Jr 2x3 header,4.2mm vertical,Molex 5566-06A2,,plus 5557-06R plugs + 5556 crimps for cables
