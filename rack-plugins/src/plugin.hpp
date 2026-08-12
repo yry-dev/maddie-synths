@@ -118,8 +118,14 @@ extern Model* modelFMDrum;
 extern Model* modelFlux;
 extern Model* modelSpiral;
 extern Model* modelAcid303;
-extern Model* modelBreakbeats;
-extern Model* modelSample;
+// mod2-breakbeats and mod2-sample are excluded from the build: they depend on a
+// generated sample.h (PCM data) that is Patreon-gated / license-restricted and
+// deliberately kept out of this public repo (see .gitignore and the firmware
+// READMEs). To re-enable, restore their sample.h locally, uncomment here and in
+// plugin.cpp, drop them from WIP_SOURCES in the Makefile, and move their entries
+// from "wipModules" back to "modules" in the root plugin.json.
+// extern Model* modelBreakbeats;
+// extern Model* modelSample;
 // WIP: Claude-generated maddie synths originals, excluded from the build.
 // See the matching WIP block in plugin.cpp for how to re-enable one.
 // extern Model* modelBitcrusher;

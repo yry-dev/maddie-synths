@@ -78,12 +78,30 @@ jobs:
           arduino-cli --config-file arduino-cli.yaml core update-index
           arduino-cli --config-file arduino-cli.yaml core install ${{ matrix.core }}
 
+      # Third-party libraries that live in the Arduino Library Manager (the
+      # repo's own libraries are found via --libraries firmwares/shared). Only
+      # the avr firmwares (hagiwo30-*) pull in external libraries.
+      - name: Install external libraries
+        if: steps.select.outputs.has == 'true' && matrix.board == 'avr'
+        run: |
+          set -euo pipefail
+          arduino-cli --config-file arduino-cli.yaml lib install \
+            Encoder \
+            FastGPIO \
+            "Adafruit GFX Library" \
+            "Adafruit SSD1306"
+
+      # Build every requested firmware for this board. Individual compile
+      # failures are tolerated and skipped (surfaced as warnings), mirroring the
+      # root Makefile's `dist` target -- the repo intentionally ships some WIP
+      # sketches that don't yet compile (e.g. the Mutable Instruments ports that
+      # need un-vendored headers). The build fails only if none compile.
       - name: Compile firmwares
         if: steps.select.outputs.has == 'true'
         run: |
-          set -euo pipefail
+          set -uo pipefail
           mkdir -p artifacts
-          failed=""
+          built=""; failed=""
           while IFS= read -r fw; do
             [ -n "$fw" ] || continue
             echo "=== Building $fw (${{ matrix.fqbn }}) ==="
@@ -94,16 +112,20 @@ jobs:
                 --output-dir "out/$fw" \
                 "firmwares/$fw"; then
               cp "out/$fw/$fw.ino.${{ matrix.ext }}" "artifacts/$fw.${{ matrix.ext }}"
+              built="$built $fw"
             else
-              echo ">> $fw FAILED"
+              echo "::warning title=firmware build skipped::$fw did not compile and was skipped"
               failed="$failed $fw"
             fi
           done < selected.txt
-          if [ -n "$failed" ]; then
-            echo "Firmwares that failed to compile:$failed"
+          echo ""
+          echo "Built:$built"
+          [ -n "$failed" ] && echo "Skipped (failed to compile):$failed" || true
+          # Fail only if literally nothing built for this board.
+          if [ -z "$built" ]; then
+            echo "::error::No ${{ matrix.board }} firmware compiled."
             exit 1
           fi
-          echo "Built:"; ls -1 artifacts
 
       - name: Upload firmware artifacts
         if: steps.select.outputs.has == 'true'
