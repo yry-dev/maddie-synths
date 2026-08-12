@@ -1,0 +1,171 @@
+name: Build Rack plugin
+
+# Reusable workflow: builds the VCV Rack plugin (rack-plugins/) for every
+# supported platform and uploads one artifact per platform:
+#
+#   maddie-synths-lin-x64  maddie-synths-mac-x64
+#   maddie-synths-mac-arm64  maddie-synths-win-x64
+#
+# Called by ci.yml (validation) and release.yml (publish). The version is
+# derived from the triggering ref: a tag stamps the release version, any other
+# ref stamps a `-dev.<sha>` version so manual/CI artifacts stay identifiable.
+#
+# Windows lives in its own job so its `shell: msys2 {0}` is a static value --
+# GitHub's workflow parser rejects `${{ matrix.shell }}` in the `shell:` key,
+# which is what previously made this workflow fail to parse (0 jobs ran).
+on:
+  workflow_call:
+    outputs:
+      version:
+        description: Resolved plugin version stamped into every artifact.
+        value: ${{ jobs.meta.outputs.version }}
+      prerelease:
+        description: "true when the version is a pre-release (nightly/dev)."
+        value: ${{ jobs.meta.outputs.prerelease }}
+
+permissions:
+  contents: read
+
+env:
+  # Rack SDK to build against. Bump together with rack-plugins/README.md.
+  RACK_SDK_VERSION: "2.6.4"
+
+jobs:
+  # Derive the plugin version and pre-release flag from the ref so every build
+  # job stamps an identical version.
+  meta:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.derive.outputs.version }}
+      prerelease: ${{ steps.derive.outputs.prerelease }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: derive
+        run: |
+          set -euo pipefail
+          short="${GITHUB_SHA::7}"
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            tag="${GITHUB_REF_NAME}"
+            base="${tag#v}"
+            if [[ "${tag}" == *-next-msrack ]]; then
+              version="${base%-next-msrack}-next.${short}"
+              prerelease="true"
+            else
+              version="${base%-msrack}"
+              prerelease="false"
+            fi
+          else
+            # Non-tag run: stamp the working version with the commit so artifacts
+            # are identifiable. Never published (publishing runs on tags only).
+            base="$(jq -r .version plugin.json)"
+            version="${base}-dev.${short}"
+            prerelease="true"
+          fi
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          echo "prerelease=${prerelease}" >> "$GITHUB_OUTPUT"
+          echo "Resolved version=${version} prerelease=${prerelease}"
+
+  # macOS + Linux runners: their default shell is bash, so no `shell:` key is
+  # needed anywhere in this job.
+  build-unix:
+    needs: meta
+    name: build (${{ matrix.platform }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, platform: lin-x64 }
+          - { os: macos-15-intel, platform: mac-x64 }
+          - { os: macos-14, platform: mac-arm64 }
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build tools (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y build-essential libgl-dev libglu1-mesa-dev zstd jq unzip curl
+
+      - name: Install build tools (macOS)
+        if: runner.os == 'macOS'
+        run: brew install zstd jq || true
+
+      - name: Stamp plugin version
+        run: |
+          set -euo pipefail
+          v="${{ needs.meta.outputs.version }}"
+          jq --arg v "$v" '.version = $v' plugin.json > plugin.json.tmp
+          mv plugin.json.tmp plugin.json
+          echo "plugin.json version -> $(jq -r .version plugin.json)"
+
+      - name: Download Rack SDK
+        run: |
+          set -euo pipefail
+          url="https://vcvrack.com/downloads/Rack-SDK-${RACK_SDK_VERSION}-${{ matrix.platform }}.zip"
+          echo "Fetching $url"
+          curl -fsSL -o rack-sdk.zip "$url"
+          unzip -q rack-sdk.zip
+          test -d Rack-SDK
+
+      - name: Build plugin
+        run: make rack-dist RACK_DIR="$PWD/Rack-SDK"
+
+      - name: Upload plugin artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: maddie-synths-${{ matrix.platform }}
+          path: rack-plugins/dist/*.vcvplugin
+          if-no-files-found: error
+
+  # Windows builds under MSYS2/MINGW64. A job-level default gives every `run`
+  # step the msys2 shell as a static value (no matrix expression).
+  build-windows:
+    needs: meta
+    name: build (win-x64)
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build tools (MSYS2)
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            base-devel
+            make
+            unzip
+            curl
+            tar
+            zstd
+            jq
+            mingw-w64-x86_64-gcc
+
+      - name: Stamp plugin version
+        run: |
+          set -euo pipefail
+          v="${{ needs.meta.outputs.version }}"
+          jq --arg v "$v" '.version = $v' plugin.json > plugin.json.tmp
+          mv plugin.json.tmp plugin.json
+          echo "plugin.json version -> $(jq -r .version plugin.json)"
+
+      - name: Download Rack SDK
+        run: |
+          set -euo pipefail
+          url="https://vcvrack.com/downloads/Rack-SDK-${RACK_SDK_VERSION}-win-x64.zip"
+          echo "Fetching $url"
+          curl -fsSL -o rack-sdk.zip "$url"
+          unzip -q rack-sdk.zip
+          test -d Rack-SDK
+
+      - name: Build plugin
+        run: make rack-dist RACK_DIR="$PWD/Rack-SDK"
+
+      - name: Upload plugin artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: maddie-synths-win-x64
+          path: rack-plugins/dist/*.vcvplugin
+          if-no-files-found: error
