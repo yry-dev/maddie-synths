@@ -51,7 +51,7 @@ struct DualKnob {
 	}
 };
 
-struct FMDrum : Module {
+struct FMDrum : Mod2Module {
 	enum ParamId {
 		KNOB1_PARAM,  // Pitch (Mode 0) / Decay (Mode 1)
 		KNOB2_PARAM,  // Op ratio (Mode 0) / Ratio env (Mode 1)
@@ -151,6 +151,7 @@ struct FMDrum : Module {
 		json_object_set_new(root, "decay", json_real(knob1.b));
 		json_object_set_new(root, "opRatio", json_real(knob2.a));
 		json_object_set_new(root, "ratioEnv", json_real(knob2.b));
+		mod2WritePanelStyle(root, panelStyle);
 		return root;
 	}
 
@@ -160,6 +161,7 @@ struct FMDrum : Module {
 		if (json_t* j = json_object_get(root, "decay")) knob1.b = json_number_value(j);
 		if (json_t* j = json_object_get(root, "opRatio")) knob2.a = json_number_value(j);
 		if (json_t* j = json_object_get(root, "ratioEnv")) knob2.b = json_number_value(j);
+		mod2ReadPanelStyle(root, panelStyle);
 		// Knob positions reflect the active mode; pickup is satisfied on load.
 		knob1.picked = knob2.picked = true;
 	}
@@ -168,16 +170,16 @@ struct FMDrum : Module {
 struct FMDrumWidget : ModuleWidget {
 	FMDrumWidget(FMDrum* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-fm-drum.svg")));
+		setMod2Panel(this, module, "res/mod2-fm-drum.svg");
 
 		// 4 HP panel (19.8 mm): hole centres from the mod2-fm-drum KiCad faceplate
 		// (panel-local mm, scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.70f)), module, FMDrum::KNOB1_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, FMDrum::KNOB2_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, FMDrum::KNOB3_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.70f)), module, FMDrum::KNOB1_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, FMDrum::KNOB2_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, FMDrum::KNOB3_PARAM));
 
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, FMDrum::MODE_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, FMDrum::MODE_LIGHT));
@@ -197,6 +199,7 @@ struct FMDrumWidget : ModuleWidget {
 			{"0: Pitch / Ratio / Index", "1: Decay / RatioEnv / Index"},
 			[=]() { return m->mode1 ? 1 : 0; },
 			[=](int i) { m->setMode(i == 1); }));
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

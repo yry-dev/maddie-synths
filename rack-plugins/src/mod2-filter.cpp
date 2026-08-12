@@ -29,7 +29,7 @@
 	persists in the patch (firmware: flash).
 */
 
-struct Filter : Module {
+struct Filter : Mod2Module {
 	enum ParamId {
 		FREQ_PARAM,
 		SHAPE_PARAM,  // resonance (LP/HP/BP) or tilt amount (EQ)
@@ -80,6 +80,7 @@ struct Filter : Module {
 	json_t* dataToJson() override {
 		json_t* rootJ = json_object();
 		json_object_set_new(rootJ, "filterMode", json_integer(core.mode));
+		mod2WritePanelStyle(rootJ, panelStyle);
 		return rootJ;
 	}
 
@@ -88,6 +89,7 @@ struct Filter : Module {
 		if (modeJ)
 			core.mode = (uint8_t)clamp((int)json_integer_value(modeJ), 0,
 			                           sc::FILTER_MODE_COUNT - 1);
+		mod2ReadPanelStyle(rootJ, panelStyle);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -118,14 +120,14 @@ struct Filter : Module {
 struct FilterWidget : ModuleWidget {
 	FilterWidget(Filter* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-filter.svg")));
+		setMod2Panel(this, module, "res/mod2-filter.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, Filter::FREQ_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, Filter::SHAPE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, Filter::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, Filter::FREQ_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, Filter::SHAPE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, Filter::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, Filter::MODE_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, Filter::LEVEL_LIGHT));
 
@@ -133,6 +135,10 @@ struct FilterWidget : ModuleWidget {
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 99.3f)), module, Filter::BYPASS_INPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(5.31f, 112.28f)), module, Filter::AUDIO_OUTPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 112.28f)), module, Filter::AUDIO_INPUT));
+	}
+
+	void appendContextMenu(Menu* menu) override {
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

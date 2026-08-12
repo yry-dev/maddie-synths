@@ -27,7 +27,7 @@
 	algorithm persists in the patch (firmware: flash).
 */
 
-struct Distortion : Module {
+struct Distortion : Mod2Module {
 	enum ParamId {
 		DRIVE_PARAM,
 		TONE_PARAM,
@@ -77,6 +77,7 @@ struct Distortion : Module {
 	json_t* dataToJson() override {
 		json_t* rootJ = json_object();
 		json_object_set_new(rootJ, "driveMode", json_integer(core.mode));
+		mod2WritePanelStyle(rootJ, panelStyle);
 		return rootJ;
 	}
 
@@ -85,6 +86,7 @@ struct Distortion : Module {
 		if (modeJ)
 			core.mode = (uint8_t)clamp((int)json_integer_value(modeJ), 0,
 			                           sc::DISTORTION_MODE_COUNT - 1);
+		mod2ReadPanelStyle(rootJ, panelStyle);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -114,14 +116,14 @@ struct Distortion : Module {
 struct DistortionWidget : ModuleWidget {
 	DistortionWidget(Distortion* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-distortion.svg")));
+		setMod2Panel(this, module, "res/mod2-distortion.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, Distortion::DRIVE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, Distortion::TONE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, Distortion::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, Distortion::DRIVE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, Distortion::TONE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, Distortion::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, Distortion::MODE_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, Distortion::OUT_LIGHT));
 
@@ -129,6 +131,10 @@ struct DistortionWidget : ModuleWidget {
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 99.3f)), module, Distortion::BYPASS_INPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(5.31f, 112.28f)), module, Distortion::AUDIO_OUTPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 112.28f)), module, Distortion::AUDIO_INPUT));
+	}
+
+	void appendContextMenu(Menu* menu) override {
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

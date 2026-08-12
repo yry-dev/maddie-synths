@@ -117,9 +117,9 @@ struct LogicPairWidget : ModuleWidget {
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, LogicPair::MODE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, LogicPair::OFFSET_A_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, LogicPair::OFFSET_B_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, LogicPair::MODE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, LogicPair::OFFSET_A_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, LogicPair::OFFSET_B_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, LogicPair::OUT_A_LIGHT));
 
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(5.31f, 99.32f)), module, LogicPair::F1_INPUT));

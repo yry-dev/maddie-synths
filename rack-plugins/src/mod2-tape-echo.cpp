@@ -31,7 +31,7 @@
 	available at any sample rate.
 */
 
-struct TapeEcho : Module {
+struct TapeEcho : Mod2Module {
 	enum ParamId {
 		TIME_PARAM,
 		AGE_PARAM,
@@ -164,24 +164,28 @@ struct TapeEcho : Module {
 struct TapeEchoWidget : ModuleWidget {
 	TapeEchoWidget(TapeEcho* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-tape-echo.svg")));
+		setMod2Panel(this, module, "res/mod2-tape-echo.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, TapeEcho::TIME_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, TapeEcho::AGE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, TapeEcho::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, TapeEcho::TIME_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, TapeEcho::AGE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, TapeEcho::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, TapeEcho::TAP_PARAM));
 		// Feedback trimmer sits beside the tap button (empty on the real panel,
 		// where feedback is BUTTON+POT2).
-		addParam(createParamCentered<Trimpot>(mm2px(Vec(14.71f, 78.57f)), module, TapeEcho::FEEDBACK_PARAM));
+		addParam(createParamCentered<Reversed<Trimpot>>(mm2px(Vec(14.71f, 78.57f)), module, TapeEcho::FEEDBACK_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, TapeEcho::TAPE_LIGHT));
 
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(5.31f, 99.32f)), module, TapeEcho::TAP_INPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 99.3f)), module, TapeEcho::SPLICE_INPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(5.31f, 112.28f)), module, TapeEcho::AUDIO_OUTPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 112.28f)), module, TapeEcho::AUDIO_INPUT));
+	}
+
+	void appendContextMenu(Menu* menu) override {
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

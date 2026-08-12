@@ -32,7 +32,7 @@
 	flash).
 */
 
-struct GlitchDelay : Module {
+struct GlitchDelay : Mod2Module {
 	enum ParamId {
 		TIME_PARAM,
 		CHAOS_PARAM,
@@ -111,6 +111,7 @@ struct GlitchDelay : Module {
 		json_t* rootJ = json_object();
 		json_object_set_new(rootJ, "palette", json_integer(core.palette));
 		json_object_set_new(rootJ, "deterministic", json_boolean(core.deterministic));
+		mod2WritePanelStyle(rootJ, panelStyle);
 		return rootJ;
 	}
 
@@ -122,6 +123,7 @@ struct GlitchDelay : Module {
 		json_t* detJ = json_object_get(rootJ, "deterministic");
 		if (detJ)
 			core.deterministic = json_boolean_value(detJ);
+		mod2ReadPanelStyle(rootJ, panelStyle);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -168,14 +170,14 @@ struct GlitchDelay : Module {
 struct GlitchDelayWidget : ModuleWidget {
 	GlitchDelayWidget(GlitchDelay* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-glitch-delay.svg")));
+		setMod2Panel(this, module, "res/mod2-glitch-delay.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, GlitchDelay::TIME_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, GlitchDelay::CHAOS_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, GlitchDelay::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, GlitchDelay::TIME_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, GlitchDelay::CHAOS_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, GlitchDelay::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, GlitchDelay::PALETTE_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, GlitchDelay::GLITCH_LIGHT));
 
@@ -201,6 +203,7 @@ struct GlitchDelayWidget : ModuleWidget {
 
 		menu->addChild(createBoolPtrMenuItem("Deterministic loop (repeatable glitches)", "",
 		                                     &module->core.deterministic));
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

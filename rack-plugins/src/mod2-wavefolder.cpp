@@ -30,7 +30,7 @@
 	patch (firmware: flash).
 */
 
-struct Wavefolder : Module {
+struct Wavefolder : Mod2Module {
 	enum ParamId {
 		FOLD_PARAM,
 		SYMM_PARAM,
@@ -84,6 +84,7 @@ struct Wavefolder : Module {
 	json_t* dataToJson() override {
 		json_t* rootJ = json_object();
 		json_object_set_new(rootJ, "foldMode", json_integer(core.mode));
+		mod2WritePanelStyle(rootJ, panelStyle);
 		return rootJ;
 	}
 
@@ -92,6 +93,7 @@ struct Wavefolder : Module {
 		if (modeJ)
 			core.mode = (uint8_t)clamp((int)json_integer_value(modeJ), 0,
 			                           sc::WAVEFOLDER_MODE_COUNT - 1);
+		mod2ReadPanelStyle(rootJ, panelStyle);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -121,14 +123,14 @@ struct Wavefolder : Module {
 struct WavefolderWidget : ModuleWidget {
 	WavefolderWidget(Wavefolder* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-wavefolder.svg")));
+		setMod2Panel(this, module, "res/mod2-wavefolder.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, Wavefolder::FOLD_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, Wavefolder::SYMM_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, Wavefolder::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, Wavefolder::FOLD_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, Wavefolder::SYMM_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, Wavefolder::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, Wavefolder::MODE_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, Wavefolder::FOLD_LIGHT));
 
@@ -136,6 +138,10 @@ struct WavefolderWidget : ModuleWidget {
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 99.3f)), module, Wavefolder::BYPASS_INPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(5.31f, 112.28f)), module, Wavefolder::AUDIO_OUTPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 112.28f)), module, Wavefolder::AUDIO_INPUT));
+	}
+
+	void appendContextMenu(Menu* menu) override {
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

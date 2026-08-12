@@ -29,7 +29,7 @@
 	engine rate. The grain character persists in the patch (firmware: flash).
 */
 
-struct Granular : Module {
+struct Granular : Mod2Module {
 	enum ParamId {
 		SIZE_PARAM,
 		DENSITY_PARAM,
@@ -101,6 +101,7 @@ struct Granular : Module {
 	json_t* dataToJson() override {
 		json_t* rootJ = json_object();
 		json_object_set_new(rootJ, "granMode", json_integer(core.mode));
+		mod2WritePanelStyle(rootJ, panelStyle);
 		return rootJ;
 	}
 
@@ -109,6 +110,7 @@ struct Granular : Module {
 		if (modeJ)
 			core.mode = (uint8_t)clamp((int)json_integer_value(modeJ), 0,
 			                           sc::GRAN_MODE_COUNT - 1);
+		mod2ReadPanelStyle(rootJ, panelStyle);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -141,14 +143,14 @@ struct Granular : Module {
 struct GranularWidget : ModuleWidget {
 	GranularWidget(Granular* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-granular.svg")));
+		setMod2Panel(this, module, "res/mod2-granular.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, Granular::SIZE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, Granular::DENSITY_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, Granular::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, Granular::SIZE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, Granular::DENSITY_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, Granular::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, Granular::MODE_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, Granular::GRAIN_LIGHT));
 
@@ -167,6 +169,7 @@ struct GranularWidget : ModuleWidget {
 		slider->quantity = module->paramQuantities[Granular::PITCH_PARAM];
 		slider->box.size.x = 200.f;
 		menu->addChild(slider);
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

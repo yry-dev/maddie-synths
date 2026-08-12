@@ -30,7 +30,7 @@
 	synthesis itself is the shared core, identical to the firmware.
 */
 
-struct Spiral : Module {
+struct Spiral : Mod2Module {
 	enum ParamId {
 		FREQ_PARAM,
 		SPEED_PARAM,
@@ -126,16 +126,16 @@ struct Spiral : Module {
 struct SpiralWidget : ModuleWidget {
 	SpiralWidget(Spiral* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-spiral.svg")));
+		setMod2Panel(this, module, "res/mod2-spiral.svg");
 
 		// 4 HP panel (19.8 mm): hole centres from the mod2-spiral KiCad faceplate
 		// (panel-local mm, scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.70f)), module, Spiral::FREQ_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, Spiral::SPEED_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, Spiral::WIDTH_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.70f)), module, Spiral::FREQ_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, Spiral::SPEED_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, Spiral::WIDTH_PARAM));
 
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, Spiral::BTN_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, Spiral::DIR_LIGHT));
@@ -161,6 +161,7 @@ struct SpiralWidget : ModuleWidget {
 		menu->addChild(createIndexSubmenuItem("Direction", {"Down", "Up"},
 			[=]() { return (int) std::round(m->params[Spiral::DIR_PARAM].getValue()); },
 			[=](int i) { m->params[Spiral::DIR_PARAM].setValue((float) i); }));
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

@@ -73,6 +73,13 @@ struct Acid303Voice {
   bool freeRun = false;        // host: true when the clock input is unpatched
   float internalInterval = 0.125f;  // host: seconds per internal step
 
+  // Oscillator oversampling factor (decimated by boxcar averaging in
+  // oscSampleAvg). 1 = legacy naive oscillator; 2–4 trades a little CPU for
+  // markedly less aliasing on the harmonically-rich saw/square/supersaw waves.
+  // Lives in the shared core so the firmware and the Rack port band-limit
+  // identically and stay bit-for-bit in step.
+  int oscOversample = 2;
+
   // ── voice state ───────────────────────────────────────────────────────────
   uint32_t phase = 0, phaseInc = 0;
   float currentFreq = 110.0f, targetFreq = 110.0f;
@@ -260,6 +267,33 @@ struct Acid303Voice {
     return 0.0f;
   }
 
+  // Advance the phase accumulator by one output sample (phaseInc) and return the
+  // oscillator value, oversampled: the step is walked in `oscOversample` equal
+  // sub-steps and the samples are box-averaged (a cheap decimation FIR). This
+  // band-limits the naive oscillator's discontinuities before they alias, at the
+  // cost of (N-1) extra oscSample() calls per output sample. Phase advance sums
+  // to exactly phaseInc so pitch is unaffected; the SUPERSAW detune spacing keys
+  // off phaseInc (unchanged in the loop), so it stays consistent.
+  inline float oscSampleAvg() {
+    const int n = oscOversample;
+    if (n <= 1) {
+      phase += phaseInc;
+      return oscSample(phase);
+    }
+    const uint32_t sub = phaseInc / (uint32_t)n;
+    float acc = 0.0f;
+    uint32_t advanced = 0;
+    for (int i = 0; i < n; i++) {
+      // Fold the integer-division remainder into the final sub-step so the total
+      // advance is exactly phaseInc (bit-exact pitch, no drift).
+      const uint32_t step = (i == n - 1) ? (phaseInc - advanced) : sub;
+      phase += step;
+      advanced += step;
+      acc += oscSample(phase);
+    }
+    return acc * (1.0f / (float)n);
+  }
+
   // ── step trigger ────────────────────────────────────────────────────────────
   void triggerStep(int idx) {
     Step& s = pattern[idx];
@@ -366,9 +400,8 @@ struct Acid303Voice {
     currentFreq += (targetFreq - currentFreq) * slideEff;
     setOscFreq(currentFreq, dt);
 
-    // oscillator
-    phase += phaseInc;
-    float osc = oscSample(phase);
+    // oscillator (oversampled + boxcar-decimated to curb aliasing)
+    float osc = oscSampleAvg();
 
     // envelopes
     ampVal *= ampDecayEff;

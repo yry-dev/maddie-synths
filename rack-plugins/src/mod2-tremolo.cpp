@@ -28,7 +28,7 @@
 	instead). The LFO shape persists in the patch (firmware: flash).
 */
 
-struct Tremolo : Module {
+struct Tremolo : Mod2Module {
 	enum ParamId {
 		RATE_PARAM,
 		DEPTH_PARAM,
@@ -88,6 +88,7 @@ struct Tremolo : Module {
 	json_t* dataToJson() override {
 		json_t* rootJ = json_object();
 		json_object_set_new(rootJ, "shape", json_integer(core.shape));
+		mod2WritePanelStyle(rootJ, panelStyle);
 		return rootJ;
 	}
 
@@ -96,6 +97,7 @@ struct Tremolo : Module {
 		if (shapeJ)
 			core.shape = (uint8_t)clamp((int)json_integer_value(shapeJ), 0,
 			                            sc::TREMOLO_SHAPE_COUNT - 1);
+		mod2ReadPanelStyle(rootJ, panelStyle);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -144,14 +146,14 @@ struct Tremolo : Module {
 struct TremoloWidget : ModuleWidget {
 	TremoloWidget(Tremolo* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-tremolo.svg")));
+		setMod2Panel(this, module, "res/mod2-tremolo.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, Tremolo::RATE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, Tremolo::DEPTH_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, Tremolo::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, Tremolo::RATE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, Tremolo::DEPTH_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, Tremolo::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, Tremolo::SHAPE_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, Tremolo::LFO_LIGHT));
 
@@ -159,6 +161,10 @@ struct TremoloWidget : ModuleWidget {
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 99.3f)), module, Tremolo::RESET_INPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(5.31f, 112.28f)), module, Tremolo::AUDIO_OUTPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 112.28f)), module, Tremolo::AUDIO_INPUT));
+	}
+
+	void appendContextMenu(Menu* menu) override {
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

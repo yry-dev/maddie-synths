@@ -29,7 +29,7 @@
 	sized for Rack's engine rate. Mode persists in the patch (firmware: flash).
 */
 
-struct PitchShifter : Module {
+struct PitchShifter : Mod2Module {
 	enum ParamId {
 		PITCH_PARAM,
 		GRAIN_PARAM,
@@ -98,6 +98,7 @@ struct PitchShifter : Module {
 	json_t* dataToJson() override {
 		json_t* rootJ = json_object();
 		json_object_set_new(rootJ, "pitchMode", json_integer(core.mode));
+		mod2WritePanelStyle(rootJ, panelStyle);
 		return rootJ;
 	}
 
@@ -106,6 +107,7 @@ struct PitchShifter : Module {
 		if (modeJ)
 			core.mode = (uint8_t)clamp((int)json_integer_value(modeJ), 0,
 			                           sc::PITCH_MODE_COUNT - 1);
+		mod2ReadPanelStyle(rootJ, panelStyle);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -141,14 +143,14 @@ struct PitchShifter : Module {
 struct PitchShifterWidget : ModuleWidget {
 	PitchShifterWidget(PitchShifter* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-pitch-shifter.svg")));
+		setMod2Panel(this, module, "res/mod2-pitch-shifter.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, PitchShifter::PITCH_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, PitchShifter::GRAIN_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, PitchShifter::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, PitchShifter::PITCH_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, PitchShifter::GRAIN_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, PitchShifter::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, PitchShifter::MODE_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, PitchShifter::SHIFT_LIGHT));
 
@@ -167,6 +169,7 @@ struct PitchShifterWidget : ModuleWidget {
 		slider->quantity = module->paramQuantities[PitchShifter::FEEDBACK_PARAM];
 		slider->box.size.x = 200.f;
 		menu->addChild(slider);
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

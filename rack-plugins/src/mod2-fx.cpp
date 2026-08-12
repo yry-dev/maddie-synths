@@ -32,7 +32,7 @@
 	persist in the patch (firmware: flash).
 */
 
-struct Fx : Module {
+struct Fx : Mod2Module {
 	enum ParamId {
 		MAIN_PARAM,
 		CHAR_PARAM,
@@ -105,6 +105,7 @@ struct Fx : Module {
 		for (uint8_t i = 0; i < sc::FX_ALGO_COUNT; i++)
 			json_array_append_new(modesJ, json_integer(core.modeOf[i]));
 		json_object_set_new(rootJ, "modes", modesJ);
+		mod2WritePanelStyle(rootJ, panelStyle);
 		return rootJ;
 	}
 
@@ -128,6 +129,7 @@ struct Fx : Module {
 			core.fadeGain = 1.f;
 			core.initActive();
 		}
+		mod2ReadPanelStyle(rootJ, panelStyle);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -163,14 +165,14 @@ struct Fx : Module {
 struct FxWidget : ModuleWidget {
 	FxWidget(Fx* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-fx.svg")));
+		setMod2Panel(this, module, "res/mod2-fx.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, Fx::MAIN_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, Fx::CHAR_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, Fx::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, Fx::MAIN_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, Fx::CHAR_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, Fx::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, Fx::ALGO_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, Fx::ACTIVITY_LIGHT));
 
@@ -199,6 +201,7 @@ struct FxWidget : ModuleWidget {
 		// Per-algorithm long-press action = cycle this effect's sub-mode.
 		menu->addChild(createMenuItem("Next sub-mode (long-press action)", "",
 			[=]() { module->core.action(); }));
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

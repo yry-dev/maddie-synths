@@ -70,6 +70,10 @@ MAP = {
     "mod2-pitch-shifter": "mod2-pitch-shifter",
     "mod2-spectral-freeze": "mod2-spectral-freeze",
     "mod2-fx": "mod2-fx",
+    # Generic Mod2 hardware faceplate (HAGIWO's general-purpose drum module),
+    # shared as an alternate panel by every Mod2 module. Source PCB vendored from
+    # the eurorack FrontPanel project; see scripts/panels/tools/README.md.
+    "mod2-generic": "mod2-generic",
 }
 
 

@@ -30,7 +30,7 @@
 	patch (firmware: flash).
 */
 
-struct Comb : Module {
+struct Comb : Mod2Module {
 	enum ParamId {
 		TUNE_PARAM,
 		FEEDBACK_PARAM,
@@ -102,6 +102,7 @@ struct Comb : Module {
 		json_t* rootJ = json_object();
 		json_object_set_new(rootJ, "combMode", json_integer(core.mode));
 		json_object_set_new(rootJ, "quantize", json_boolean(quantize));
+		mod2WritePanelStyle(rootJ, panelStyle);
 		return rootJ;
 	}
 
@@ -113,6 +114,7 @@ struct Comb : Module {
 		json_t* quantJ = json_object_get(rootJ, "quantize");
 		if (quantJ)
 			quantize = json_boolean_value(quantJ);
+		mod2ReadPanelStyle(rootJ, panelStyle);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -139,14 +141,14 @@ struct Comb : Module {
 struct CombWidget : ModuleWidget {
 	CombWidget(Comb* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-comb.svg")));
+		setMod2Panel(this, module, "res/mod2-comb.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, Comb::TUNE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, Comb::FEEDBACK_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, Comb::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, Comb::TUNE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, Comb::FEEDBACK_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, Comb::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, Comb::MODE_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, Comb::ENERGY_LIGHT));
 
@@ -167,6 +169,7 @@ struct CombWidget : ModuleWidget {
 		slider->box.size.x = 200.f;
 		menu->addChild(slider);
 		menu->addChild(createBoolPtrMenuItem("Quantize tune to semitones", "", &module->quantize));
+		appendMod2PanelMenu(menu, module);
 	}
 };
 
