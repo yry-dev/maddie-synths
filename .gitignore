@@ -62,7 +62,7 @@ fp-info-cache
 *.kicad_pcb-bak
 *.kicad_sch-bak
 *.lck
-*-drc.rpt
+*.rpt
 panels/production/
 panels/*/production/
 
