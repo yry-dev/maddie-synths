@@ -31,7 +31,14 @@ LDFLAGS +=
 # firmware) are excluded from the build until they've been reviewed/verified.
 # To re-enable one, remove its .cpp from WIP_SOURCES and uncomment it in
 # plugin.cpp/plugin.hpp + move its entry back to "modules" in ../plugin.json.
+#
+# mod2-breakbeats and mod2-sample are also excluded, but for a different reason:
+# each #includes a generated sample.h (PCM data) that is Patreon-gated /
+# license-restricted and kept out of this public repo (see .gitignore and the
+# firmware READMEs). Restore their sample.h locally to build them.
 WIP_SOURCES := \
+	src/mod2-breakbeats.cpp \
+	src/mod2-sample.cpp \
 	src/mod2-bitcrusher.cpp \
 	src/mod2-chorus.cpp \
 	src/mod2-comb.cpp \

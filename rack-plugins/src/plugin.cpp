@@ -29,8 +29,11 @@ void init(Plugin* p) {
 	p->addModel(modelFlux);
 	p->addModel(modelSpiral);
 	p->addModel(modelAcid303);
-	p->addModel(modelBreakbeats);
-	p->addModel(modelSample);
+	// mod2-breakbeats and mod2-sample need a generated sample.h (Patreon-gated,
+	// license-restricted PCM data) that is kept out of this public repo, so they
+	// are excluded from the build. See plugin.hpp for how to re-enable them.
+	// p->addModel(modelBreakbeats);
+	// p->addModel(modelSample);
 	// WIP: the modules below are Claude-generated maddie synths originals (no
 	// upstream Hagiwo/Rob Scape firmware) and are excluded from the build for
 	// now. To re-enable one: uncomment it here and in plugin.hpp, remove its

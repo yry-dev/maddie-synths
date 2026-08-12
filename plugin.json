@@ -222,25 +222,6 @@
         "Sequencer",
         "Drum"
       ]
-    },
-    {
-      "slug": "mod2-breakbeats",
-      "name": "Breakbeats",
-      "description": "PCM break-beat slicer: triggers playback of two baked drum loops from six slice points, with variable speed, length and loop mode. Port of the mod2-breakbeats firmware.",
-      "manualUrl": "",
-      "tags": [
-        "Sampler",
-        "Drum"
-      ]
-    },
-    {
-      "slug": "mod2-sample",
-      "name": "Sample",
-      "description": "One-shot 16-bit PCM sample player: up to 18 baked samples selected by group + index (with a +6 gate), variable-speed interpolated playback. Port of the mod2-sample firmware.",
-      "manualUrl": "",
-      "tags": [
-        "Sampler"
-      ]
     }
   ],
   "wipNote": "wipModules are Claude-generated maddie synths originals excluded from the build; move an entry back to modules to re-enable it (see rack-plugins/Makefile WIP_SOURCES and plugin.cpp).",
@@ -430,7 +411,7 @@
     {
       "slug": "mod2-reverse-delay",
       "name": "Reverse Delay",
-      "description": "Classic ambient reverse echo \u2014 chunked reverse playback with swelling pre-echo trails, re-reversing feedback, and Reverse/Alternating/Octave-up modes. Port of the mod2-reverse-delay firmware.",
+      "description": "Classic ambient reverse echo — chunked reverse playback with swelling pre-echo trails, re-reversing feedback, and Reverse/Alternating/Octave-up modes. Port of the mod2-reverse-delay firmware.",
       "manualUrl": "",
       "tags": [
         "Delay",
@@ -452,7 +433,7 @@
     {
       "slug": "mod2-freq-shifter",
       "name": "Freq Shifter",
-      "description": "Bode-style single-sideband frequency shifter \u2014 shifts every partial by a fixed Hz amount, from slow barberpole to inharmonic clangor, with feedback spirals. Port of the mod2-freq-shifter firmware.",
+      "description": "Bode-style single-sideband frequency shifter — shifts every partial by a fixed Hz amount, from slow barberpole to inharmonic clangor, with feedback spirals. Port of the mod2-freq-shifter firmware.",
       "manualUrl": "",
       "tags": [
         "Effect",
@@ -483,7 +464,7 @@
     {
       "slug": "mod2-pitch-shifter",
       "name": "Pitch Shifter",
-      "description": "Octave & granular pitch shifter \u2014 two-tap delay-line harmonizer with octave, free (semitone-detented) and detune modes. Port of the mod2-pitch-shifter firmware.",
+      "description": "Octave & granular pitch shifter — two-tap delay-line harmonizer with octave, free (semitone-detented) and detune modes. Port of the mod2-pitch-shifter firmware.",
       "manualUrl": "",
       "tags": [
         "Effect",
@@ -493,7 +474,7 @@
     {
       "slug": "mod2-spectral-freeze",
       "name": "Spectral Freeze",
-      "description": "FFT-domain infinite sustain \u2014 freeze the spectrum for an endless, motionless-yet-alive pad from any instant of sound. Port of the mod2-spectral-freeze firmware.",
+      "description": "FFT-domain infinite sustain — freeze the spectrum for an endless, motionless-yet-alive pad from any instant of sound. Port of the mod2-spectral-freeze firmware.",
       "manualUrl": "",
       "tags": [
         "Effect",
@@ -511,6 +492,25 @@
         "Reverb",
         "Distortion",
         "Utility"
+      ]
+    },
+    {
+      "slug": "mod2-breakbeats",
+      "name": "Breakbeats",
+      "description": "PCM break-beat slicer: triggers playback of two baked drum loops from six slice points, with variable speed, length and loop mode. Port of the mod2-breakbeats firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Sampler",
+        "Drum"
+      ]
+    },
+    {
+      "slug": "mod2-sample",
+      "name": "Sample",
+      "description": "One-shot 16-bit PCM sample player: up to 18 baked samples selected by group + index (with a +6 gate), variable-speed interpolated playback. Port of the mod2-sample firmware.",
+      "manualUrl": "",
+      "tags": [
+        "Sampler"
       ]
     }
   ]
