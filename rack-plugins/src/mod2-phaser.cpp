@@ -31,7 +31,7 @@
 	stage count persists in the patch (firmware: flash).
 */
 
-struct Phaser : Module {
+struct Phaser : Mod2Module {
 	enum ParamId {
 		RATE_PARAM,
 		FEEDBACK_PARAM,
@@ -86,6 +86,7 @@ struct Phaser : Module {
 	json_t* dataToJson() override {
 		json_t* rootJ = json_object();
 		json_object_set_new(rootJ, "phaserStages", json_integer(core.stageSel));
+		mod2WritePanelStyle(rootJ, panelStyle);
 		return rootJ;
 	}
 
@@ -94,6 +95,7 @@ struct Phaser : Module {
 		if (stagesJ)
 			core.stageSel = (uint8_t)clamp((int)json_integer_value(stagesJ), 0,
 			                               sc::PHASER_STAGES_COUNT - 1);
+		mod2ReadPanelStyle(rootJ, panelStyle);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -136,14 +138,14 @@ struct Phaser : Module {
 struct PhaserWidget : ModuleWidget {
 	PhaserWidget(Phaser* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-phaser.svg")));
+		setMod2Panel(this, module, "res/mod2-phaser.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, Phaser::RATE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, Phaser::FEEDBACK_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, Phaser::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, Phaser::RATE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, Phaser::FEEDBACK_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, Phaser::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, Phaser::STAGES_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, Phaser::LFO_LIGHT));
 
@@ -162,6 +164,7 @@ struct PhaserWidget : ModuleWidget {
 		slider->quantity = module->paramQuantities[Phaser::DEPTH_PARAM];
 		slider->box.size.x = 200.f;
 		menu->addChild(slider);
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

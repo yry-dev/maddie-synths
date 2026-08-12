@@ -29,7 +29,7 @@
 
 static const float BB_SRC_RATE = 44100.0f;  // sample.h PCM rate
 
-struct Breakbeats : Module {
+struct Breakbeats : Mod2Module {
 	enum ParamId { SPEED_PARAM, LENGTH_PARAM, SLICE_PARAM, TRIG_PARAM, PARAMS_LEN };
 	enum InputId { TRIG_INPUT, SLICE_CV_INPUT, INPUTS_LEN };
 	enum OutputId { AUDIO_OUTPUT, EOC_OUTPUT, OUTPUTS_LEN };
@@ -59,11 +59,13 @@ struct Breakbeats : Module {
 		json_t* root = json_object();
 		json_object_set_new(root, "loop", json_boolean(loop));
 		json_object_set_new(root, "sampleSel", json_integer(sampleSel));
+		mod2WritePanelStyle(root, panelStyle);
 		return root;
 	}
 	void dataFromJson(json_t* root) override {
 		if (json_t* j = json_object_get(root, "loop")) loop = json_boolean_value(j);
 		if (json_t* j = json_object_get(root, "sampleSel")) sampleSel = json_integer_value(j);
+		mod2ReadPanelStyle(root, panelStyle);
 	}
 
 	void onReset() override { player.stop(); loop = false; sampleSel = 0; }
@@ -114,15 +116,15 @@ struct Breakbeats : Module {
 struct BreakbeatsWidget : ModuleWidget {
 	BreakbeatsWidget(Breakbeats* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-breakbeats.svg")));
+		setMod2Panel(this, module, "res/mod2-breakbeats.svg");
 
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
 		// 4 HP Mod2 panel — real hole centres (shared with the other mod2 ports).
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.70f)), module, Breakbeats::SPEED_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, Breakbeats::LENGTH_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, Breakbeats::SLICE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.70f)), module, Breakbeats::SPEED_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, Breakbeats::LENGTH_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, Breakbeats::SLICE_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, Breakbeats::TRIG_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, Breakbeats::LOOP_LIGHT));
 
@@ -137,6 +139,7 @@ struct BreakbeatsWidget : ModuleWidget {
 		menu->addChild(new MenuSeparator);
 		menu->addChild(createBoolPtrMenuItem("Loop", "", &m->loop));
 		menu->addChild(createIndexPtrSubmenuItem("Sample", {"Sample 1", "Sample 2"}, &m->sampleSel));
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

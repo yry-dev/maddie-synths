@@ -31,6 +31,28 @@ the real board from the gray Edge.Cuts geometry *inside* the plot
 trims silk at the board edge). Scale just works: Rack's nanosvg reads the mm
 units at 75 DPI.
 
+### The shared generic Mod2 faceplate (`res/mod2-generic.svg`)
+
+Every Mod2 module is the same physical hardware (HAGIWO's *general-purpose drum
+module*) running different firmware, so any of them can display the real generic
+hardware faceplate instead of its per-module labeled panel. In VCV Rack this is
+offered per-module via right-click → **Panel → Labeled / Generic hardware**
+(persisted with the patch); see the `Mod2Module` / `setMod2Panel` /
+`appendMod2PanelMenu` helpers in `rack-plugins/src/plugin.hpp`.
+
+The source PCB (HAGIWO's `FrontPanel/mod2.kicad_pcb`) is vendored into the repo
+at `panels/mod2-generic/mod2-generic.kicad_pcb` and registered in
+`regen_res.py`, so it regenerates like any other panel:
+
+```bash
+python3 kicad_to_panel.py ../../../panels/mod2-generic/mod2-generic.kicad_pcb mod2-generic ../../../rack-plugins/res
+# or, with the PNG preview step: python3 regen_res.py mod2-generic
+```
+
+It has the same B.Silkscreen / B.Mask / Edge.Cuts layers the converter expects
+and renders to the same 19.8 × 128.5 mm (≈4 HP) board as the labeled panels, so
+every module's hole coordinates line up under either faceplate.
+
 ## `make_panels.py` — generate new panel projects from firmware specs
 
 ```bash

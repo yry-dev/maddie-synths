@@ -30,7 +30,7 @@
 	flavour persists in the patch (firmware: flash).
 */
 
-struct Stutter : Module {
+struct Stutter : Mod2Module {
 	enum ParamId {
 		LENGTH_PARAM,
 		BEHAV_PARAM,
@@ -105,6 +105,7 @@ struct Stutter : Module {
 		json_t* rootJ = json_object();
 		json_object_set_new(rootJ, "stutterMode", json_integer(core.mode));
 		json_object_set_new(rootJ, "probability", json_real(core.probability));
+		mod2WritePanelStyle(rootJ, panelStyle);
 		return rootJ;
 	}
 
@@ -116,6 +117,7 @@ struct Stutter : Module {
 		json_t* probJ = json_object_get(rootJ, "probability");
 		if (probJ)
 			core.probability = clamp((float)json_number_value(probJ), 0.f, 1.f);
+		mod2ReadPanelStyle(rootJ, panelStyle);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -163,14 +165,14 @@ struct Stutter : Module {
 struct StutterWidget : ModuleWidget {
 	StutterWidget(Stutter* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-stutter.svg")));
+		setMod2Panel(this, module, "res/mod2-stutter.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, Stutter::LENGTH_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, Stutter::BEHAV_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, Stutter::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, Stutter::LENGTH_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, Stutter::BEHAV_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, Stutter::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, Stutter::MODE_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, Stutter::REPEAT_LIGHT));
 
@@ -193,6 +195,7 @@ struct StutterWidget : ModuleWidget {
 						[=]() { return module->core.probability == v; },
 						[=]() { module->core.probability = v; }));
 			}));
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

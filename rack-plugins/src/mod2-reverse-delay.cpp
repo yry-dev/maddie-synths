@@ -32,7 +32,7 @@
 	persists in the patch (firmware: flash).
 */
 
-struct ReverseDelay : Module {
+struct ReverseDelay : Mod2Module {
 	enum ParamId {
 		TIME_PARAM,
 		FEEDBACK_PARAM,
@@ -107,6 +107,7 @@ struct ReverseDelay : Module {
 		json_t* rootJ = json_object();
 		json_object_set_new(rootJ, "reverseMode", json_integer(core.mode));
 		json_object_set_new(rootJ, "swell", json_real(swell));
+		mod2WritePanelStyle(rootJ, panelStyle);
 		return rootJ;
 	}
 
@@ -118,6 +119,7 @@ struct ReverseDelay : Module {
 		json_t* swellJ = json_object_get(rootJ, "swell");
 		if (swellJ)
 			swell = clamp((float)json_real_value(swellJ), 0.f, 1.f);
+		mod2ReadPanelStyle(rootJ, panelStyle);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -164,14 +166,14 @@ struct ReverseDelay : Module {
 struct ReverseDelayWidget : ModuleWidget {
 	ReverseDelayWidget(ReverseDelay* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-reverse-delay.svg")));
+		setMod2Panel(this, module, "res/mod2-reverse-delay.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, ReverseDelay::TIME_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, ReverseDelay::FEEDBACK_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, ReverseDelay::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, ReverseDelay::TIME_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, ReverseDelay::FEEDBACK_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, ReverseDelay::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, ReverseDelay::MODE_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, ReverseDelay::SWEEP_LIGHT));
 
@@ -186,6 +188,7 @@ struct ReverseDelayWidget : ModuleWidget {
 		menu->addChild(new MenuSeparator);
 		menu->addChild(createMenuLabel("Swell (grain fade-in)"));
 		menu->addChild(new SwellSlider(module));
+		appendMod2PanelMenu(menu, module);
 	}
 
 	// Firmware's BUTTON + POT2 "swell" shift layer, exposed as a menu slider.

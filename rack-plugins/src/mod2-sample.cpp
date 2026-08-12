@@ -28,7 +28,7 @@
 static const float SP_SRC_RATE = 44100.0f;  // sample.h PCM rate
 static const int SP_NUM_SAMPLES = 18;
 
-struct SamplePlayerModule : Module {
+struct SamplePlayerModule : Mod2Module {
 	enum ParamId { SPEED_PARAM, GROUP_PARAM, INDEX_PARAM, TRIG_PARAM, PARAMS_LEN };
 	enum InputId { TRIG_INPUT, PLUS6_INPUT, INDEX_CV_INPUT, INPUTS_LEN };
 	enum OutputId { AUDIO_OUTPUT, OUTPUTS_LEN };
@@ -92,14 +92,14 @@ struct SamplePlayerModule : Module {
 struct SamplePlayerWidget : ModuleWidget {
 	SamplePlayerWidget(SamplePlayerModule* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-sample.svg")));
+		setMod2Panel(this, module, "res/mod2-sample.svg");
 
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.70f)), module, SamplePlayerModule::SPEED_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, SamplePlayerModule::GROUP_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, SamplePlayerModule::INDEX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.70f)), module, SamplePlayerModule::SPEED_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, SamplePlayerModule::GROUP_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, SamplePlayerModule::INDEX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, SamplePlayerModule::TRIG_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, SamplePlayerModule::TRIG_LIGHT));
 
@@ -107,6 +107,10 @@ struct SamplePlayerWidget : ModuleWidget {
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 99.30f)), module, SamplePlayerModule::PLUS6_INPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(5.31f, 112.28f)), module, SamplePlayerModule::AUDIO_OUTPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 112.28f)), module, SamplePlayerModule::INDEX_CV_INPUT));
+	}
+
+	void appendContextMenu(Menu* menu) override {
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

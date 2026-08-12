@@ -26,7 +26,7 @@
 	1V/Oct (cvMult = 2^volts) so it tracks sequencers as expected.
 */
 
-struct SquareVCO : Module {
+struct SquareVCO : Mod2Module {
 	enum ParamId {
 		TUNE_PARAM,
 		OCTAVE_PARAM,
@@ -100,16 +100,16 @@ struct SquareVCO : Module {
 struct SquareVCOWidget : ModuleWidget {
 	SquareVCOWidget(SquareVCO* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-square-vco.svg")));
+		setMod2Panel(this, module, "res/mod2-square-vco.svg");
 
 		// 4 HP panel (19.8 mm): hole centres from the mod2-square-vco KiCad faceplate
 		// (panel-local mm, scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.70f)), module, SquareVCO::TUNE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, SquareVCO::OCTAVE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, SquareVCO::VIB_DEPTH_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.70f)), module, SquareVCO::TUNE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, SquareVCO::OCTAVE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, SquareVCO::VIB_DEPTH_PARAM));
 
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, SquareVCO::CHIPTUNE_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, SquareVCO::CHIPTUNE_LIGHT));
@@ -119,6 +119,10 @@ struct SquareVCOWidget : ModuleWidget {
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 99.30f)), module, SquareVCO::IN2_INPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(5.31f, 112.28f)), module, SquareVCO::AUDIO_OUTPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 112.28f)), module, SquareVCO::CV_INPUT));
+	}
+
+	void appendContextMenu(Menu* menu) override {
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

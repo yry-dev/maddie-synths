@@ -1,5 +1,5 @@
 #include "plugin.hpp"
-#include <Acid303Voice.h>  // Shared Acid303 voice + sequencer (also used by mod2-acid303 firmware)
+#include <Acid303Voice.h>  // Shared Acid303 voice + sequencer (also compiled into firmwares/mod2-acid303/mod2-acid303.ino)
 
 /*
 	Acid303 — generative 303-style acid bass voice + Turing-machine sequencer.
@@ -33,7 +33,7 @@
 	summed as 1V/Oct semitones.
 */
 
-struct Acid303 : Module {
+struct Acid303 : Mod2Module {
 	enum ParamId {
 		TURING_PARAM,
 		DECAY_PARAM,
@@ -83,6 +83,7 @@ struct Acid303 : Module {
 		json_t* root = json_object();
 		json_object_set_new(root, "scaleMode", json_integer(voice.scaleMode));
 		json_object_set_new(root, "waveMode", json_integer(voice.waveMode));
+		mod2WritePanelStyle(root, panelStyle);
 		return root;
 	}
 	void dataFromJson(json_t* root) override {
@@ -90,6 +91,7 @@ struct Acid303 : Module {
 			voice.scaleMode = json_integer_value(s);
 		if (json_t* w = json_object_get(root, "waveMode"))
 			voice.waveMode = json_integer_value(w);
+		mod2ReadPanelStyle(root, panelStyle);
 	}
 
 	void onReset() override {
@@ -161,16 +163,16 @@ struct Acid303 : Module {
 struct Acid303Widget : ModuleWidget {
 	Acid303Widget(Acid303* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-acid303.svg")));
+		setMod2Panel(this, module, "res/mod2-acid303.svg");
 
 		// 4 HP panel (19.8 mm): hole centres from the mod2-acid303 KiCad faceplate
 		// (panel-local mm, scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.70f)), module, Acid303::TURING_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, Acid303::DECAY_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, Acid303::TRANSPOSE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.70f)), module, Acid303::TURING_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, Acid303::DECAY_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, Acid303::TRANSPOSE_PARAM));
 
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, Acid303::BUTTON_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, Acid303::STEP_LIGHT));
@@ -181,6 +183,10 @@ struct Acid303Widget : ModuleWidget {
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 99.30f)), module, Acid303::ACCENT_INPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(5.31f, 112.28f)), module, Acid303::AUDIO_OUTPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 112.28f)), module, Acid303::CV_INPUT));
+	}
+
+	void appendContextMenu(Menu* menu) override {
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

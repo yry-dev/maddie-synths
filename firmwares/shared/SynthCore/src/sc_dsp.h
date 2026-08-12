@@ -32,6 +32,18 @@ inline float noise1f(uint32_t& state) {
   return (float)(xorshift32(state) >> 8) * (2.0f / 16777216.0f) - 1.0f;
 }
 
+// Triangular-PDF (TPDF) dither in the open interval (-1, +1), from two
+// independent uniforms subtracted. Add one *LSB-scaled* sample to a signal just
+// before quantising it (e.g. the 10-bit PWM DAC): it decorrelates the
+// quantisation error from the signal, trading gritty, program-dependent
+// quantisation distortion for a benign, constant low-level hiss. TPDF (2 LSB
+// p-p) also flattens noise modulation, which RPDF (1 LSB) does not.
+inline float tpdfDither(uint32_t& state) {
+  const float a = (float)(xorshift32(state) >> 8) * (1.0f / 16777216.0f);  // [0,1)
+  const float b = (float)(xorshift32(state) >> 8) * (1.0f / 16777216.0f);  // [0,1)
+  return a - b;
+}
+
 // --------------------------------------------------
 // 2-pole biquad band-pass (RBJ cookbook, constant skirt, peak gain = Q).
 // Identical maths to mod2::Biquad.

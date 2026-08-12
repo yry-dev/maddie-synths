@@ -111,9 +111,9 @@ struct RandomLagWidget : ModuleWidget {
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
 		// Three pots.
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.70f)), module, RandomLag::RATE_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, RandomLag::BIAS_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, RandomLag::CHAOS_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.70f)), module, RandomLag::RATE_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, RandomLag::BIAS_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, RandomLag::CHAOS_PARAM));
 
 		// Latching button (gravity mode) + walk-value LED.
 		addParam(createParamCentered<VCVLatch>(mm2px(Vec(5.19f, 78.57f)), module, RandomLag::GRAV_PARAM));

@@ -30,7 +30,7 @@
 	(firmware: flash).
 */
 
-struct FreqShifter : Module {
+struct FreqShifter : Mod2Module {
 	enum ParamId {
 		SHIFT_PARAM,
 		FEEDBACK_PARAM,
@@ -88,6 +88,7 @@ struct FreqShifter : Module {
 	json_t* dataToJson() override {
 		json_t* rootJ = json_object();
 		json_object_set_new(rootJ, "range", json_integer(core.range));
+		mod2WritePanelStyle(rootJ, panelStyle);
 		return rootJ;
 	}
 
@@ -96,6 +97,7 @@ struct FreqShifter : Module {
 		if (rangeJ)
 			core.range = (uint8_t)clamp((int)json_integer_value(rangeJ), 0,
 			                            sc::FREQSHIFT_RANGE_COUNT - 1);
+		mod2ReadPanelStyle(rootJ, panelStyle);
 	}
 
 	void process(const ProcessArgs& args) override {
@@ -128,14 +130,14 @@ struct FreqShifter : Module {
 struct FreqShifterWidget : ModuleWidget {
 	FreqShifterWidget(FreqShifter* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-freq-shifter.svg")));
+		setMod2Panel(this, module, "res/mod2-freq-shifter.svg");
 		// 4 HP Mod1/Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.7f)), module, FreqShifter::SHIFT_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, FreqShifter::FEEDBACK_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, FreqShifter::MIX_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.7f)), module, FreqShifter::SHIFT_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, FreqShifter::FEEDBACK_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, FreqShifter::MIX_PARAM));
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, FreqShifter::MODE_PARAM));
 		addChild(createLightCentered<MediumLight<GreenLight>>(mm2px(Vec(5.34f, 87.92f)), module, FreqShifter::ROTATE_LIGHT));
 
@@ -154,6 +156,7 @@ struct FreqShifterWidget : ModuleWidget {
 		slider->quantity = module->paramQuantities[FreqShifter::SIDEBAND_PARAM];
 		slider->box.size.x = 200.f;
 		menu->addChild(slider);
+		appendMod2PanelMenu(menu, module);
 	}
 };
 

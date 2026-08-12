@@ -122,9 +122,9 @@ struct TapTempoWidget : ModuleWidget {
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
 		// Three division pots.
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.03f, 21.70f)), module, TapTempo::MULT_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 40.06f)), module, TapTempo::DIV1_PARAM));
-		addParam(createParamCentered<RoundBlackKnob>(mm2px(Vec(10.04f, 58.42f)), module, TapTempo::DIV2_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.03f, 21.70f)), module, TapTempo::MULT_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 40.06f)), module, TapTempo::DIV1_PARAM));
+		addParam(createParamCentered<Reversed<RoundBlackKnob>>(mm2px(Vec(10.04f, 58.42f)), module, TapTempo::DIV2_PARAM));
 
 		// Tap button (momentary) + 1x beat LED.
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, TapTempo::TAP_PARAM));

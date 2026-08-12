@@ -27,7 +27,7 @@
 		OUT    -> audio output
 */
 
-struct Kick : Module {
+struct Kick : Mod2Module {
 	enum ParamId {
 		PITCHMULT_PARAM,  // Mode 0 POT1
 		SOFTCLIP_PARAM,   // Mode 0 POT2
@@ -79,11 +79,13 @@ struct Kick : Module {
 	json_t* dataToJson() override {
 		json_t* root = json_object();
 		json_object_set_new(root, "mode", json_integer(mode));
+		mod2WritePanelStyle(root, panelStyle);
 		return root;
 	}
 	void dataFromJson(json_t* root) override {
 		if (json_t* m = json_object_get(root, "mode"))
 			mode = json_integer_value(m);
+		mod2ReadPanelStyle(root, panelStyle);
 	}
 
 	// Sample knobs/accent and start a new strike (firmware onTrigger()).
@@ -130,7 +132,7 @@ struct KickWidget : ModuleWidget {
 
 	KickWidget(Kick* module) {
 		setModule(module);
-		setPanel(createPanel(asset::plugin(pluginInstance, "res/mod2-kick.svg")));
+		setMod2Panel(this, module, "res/mod2-kick.svg");
 
 		// 4 HP Mod2 panel — real hole centres (scripts/panels/tools/panel_map.py).
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x / 2 - RACK_GRID_WIDTH / 2, 0)));
@@ -138,7 +140,7 @@ struct KickWidget : ModuleWidget {
 
 		const Vec pot[3] = {mm2px(Vec(10.03f, 21.70f)), mm2px(Vec(10.04f, 40.06f)), mm2px(Vec(10.04f, 58.42f))};
 		for (int i = 0; i < 3; i++) {
-			knobs[i] = createParamCentered<RoundBlackKnob>(pot[i], module, bank0[i]);
+			knobs[i] = createParamCentered<Reversed<RoundBlackKnob>>(pot[i], module, bank0[i]);
 			addParam(knobs[i]);
 		}
 		addParam(createParamCentered<VCVButton>(mm2px(Vec(5.19f, 78.57f)), module, Kick::MODE_PARAM));
@@ -148,6 +150,10 @@ struct KickWidget : ModuleWidget {
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(5.31f, 99.32f)), module, Kick::TRIG_INPUT));
 		addInput(createInputCentered<PJ301MPort>(mm2px(Vec(14.71f, 99.30f)), module, Kick::ACCENT_INPUT));
 		addOutput(createOutputCentered<PJ301MPort>(mm2px(Vec(5.31f, 112.28f)), module, Kick::AUDIO_OUTPUT));
+	}
+
+	void appendContextMenu(Menu* menu) override {
+		appendMod2PanelMenu(menu, module);
 	}
 
 	// Page the three knobs to the active bank when the mode changes.
