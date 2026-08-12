@@ -1,0 +1,97 @@
+name: CI
+
+# Validation build on every push and pull request. Only the things that
+# actually changed are built:
+#
+#   * The VCV Rack plugin builds only when rack-plugins/**, plugin.json, or the
+#     shared class folder the plugin includes (firmwares/shared/SynthCore/**)
+#     is touched.
+#   * Firmwares build only for the sketches that changed. If any shared firmware
+#     library (firmwares/shared/**) changes, every firmware is rebuilt.
+#
+# Tag pushes are handled by release.yml, not here.
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Work out what changed and turn it into build inputs for the jobs below.
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      rack: ${{ steps.detect.outputs.rack }}
+      firmwares: ${{ steps.detect.outputs.firmwares }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - id: detect
+        run: |
+          set -euo pipefail
+
+          # Resolve the diff range for both push and pull_request events.
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch --no-tags --depth=200 origin "${{ github.base_ref }}"
+            base="$(git merge-base "origin/${{ github.base_ref }}" HEAD)"
+          else
+            before="${{ github.event.before }}"
+            if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ] \
+               || ! git cat-file -e "$before^{commit}" 2>/dev/null; then
+              # New branch / force-push / unknown base: fall back to last commit.
+              base="$(git rev-parse HEAD~1 2>/dev/null || git rev-parse HEAD)"
+            else
+              base="$before"
+            fi
+          fi
+          echo "Diffing $base...HEAD"
+          changed="$(git diff --name-only "$base" HEAD)"
+          echo "--- changed files ---"; echo "$changed"; echo "---------------------"
+
+          # Rack plugin: rack sources, the manifest, the shared class folder the
+          # plugin includes, or the rack build workflows.
+          rack=false
+          if echo "$changed" | grep -qE '^(rack-plugins/|plugin\.json$|firmwares/shared/SynthCore/|\.github/workflows/(_rack|ci)\.yml$)'; then
+            rack=true
+          fi
+          echo "rack=$rack" >> "$GITHUB_OUTPUT"
+
+          # All buildable firmwares, per the Makefile (authoritative list).
+          all="$(make list | jq -R . | jq -cs .)"
+
+          if echo "$changed" | grep -qE '^firmwares/shared/' \
+             || echo "$changed" | grep -qE '^\.github/workflows/(_firmware|ci)\.yml$'; then
+            # A shared library (or the firmware build itself) changed: rebuild all.
+            firmwares="$all"
+          else
+            # Only the firmware directories that changed.
+            firmwares="$(echo "$changed" \
+              | sed -n 's#^firmwares/\([^/]*\)/.*#\1#p' \
+              | sort -u \
+              | jq -R . | jq -cs 'map(select(length > 0))')"
+            # Keep only names that are real, buildable firmwares.
+            firmwares="$(jq -cn --argjson a "$all" --argjson b "$firmwares" '$b - ($b - $a)')"
+          fi
+          echo "firmwares=$firmwares" >> "$GITHUB_OUTPUT"
+          echo "rack=$rack firmwares=$firmwares"
+
+  rack:
+    needs: changes
+    if: needs.changes.outputs.rack == 'true'
+    uses: ./.github/workflows/_rack.yml
+
+  firmwares:
+    needs: changes
+    if: needs.changes.outputs.firmwares != '[]'
+    uses: ./.github/workflows/_firmware.yml
+    with:
+      firmwares: ${{ needs.changes.outputs.firmwares }}

@@ -1,0 +1,114 @@
+name: Build firmware
+
+# Reusable workflow: compiles a given set of Arduino firmwares and uploads the
+# flashable binary for each one.
+#
+# Firmwares are grouped by board so each toolchain core is installed exactly
+# once (avr for mod1-*/hagiwo30-*, rp2040 for mod2-*). The `firmwares` input is
+# a JSON array of firmware directory names, e.g. ["mod1-lfo","mod2-vco"]; each
+# board job builds only the members that belong to it and no-ops otherwise.
+#
+# Flashable outputs, one per firmware:
+#   mod1-*/hagiwo30-*  ->  <name>.hex   (arduino:avr:nano)
+#   mod2-*             ->  <name>.uf2   (rp2040 seeed_xiao_rp2350)
+on:
+  workflow_call:
+    inputs:
+      firmwares:
+        description: JSON array of firmware directory names to build.
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build (${{ matrix.board }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - board: avr
+            regex: '^(mod1|hagiwo30)-'
+            fqbn: arduino:avr:nano
+            core: arduino:avr
+            ext: hex
+          - board: rp2040
+            regex: '^mod2-'
+            fqbn: rp2040:rp2040:seeed_xiao_rp2350
+            core: rp2040:rp2040
+            ext: uf2
+    steps:
+      - uses: actions/checkout@v4
+
+      # Which of the requested firmwares belong to this board?
+      - id: select
+        run: |
+          set -euo pipefail
+          selected="$(printf '%s' '${{ inputs.firmwares }}' \
+            | jq -r --arg re '${{ matrix.regex }}' '.[] | select(test($re))')"
+          if [ -z "$selected" ]; then
+            echo "No ${{ matrix.board }} firmwares in this build; skipping."
+            echo "has=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has=true" >> "$GITHUB_OUTPUT"
+            printf '%s\n' "$selected"
+          fi
+          printf '%s\n' "$selected" > selected.txt
+
+      - name: Set up arduino-cli
+        if: steps.select.outputs.has == 'true'
+        uses: arduino/setup-arduino-cli@v2
+
+      # Cache the arduino data dir (installed cores/tools) across runs. The
+      # rp2040 core in particular is large, so this saves several minutes.
+      - name: Cache Arduino cores
+        if: steps.select.outputs.has == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.arduino15
+          key: arduino15-${{ matrix.board }}-${{ hashFiles('arduino-cli.yaml') }}-v1
+
+      - name: Install ${{ matrix.core }} core
+        if: steps.select.outputs.has == 'true'
+        run: |
+          set -euo pipefail
+          arduino-cli --config-file arduino-cli.yaml core update-index
+          arduino-cli --config-file arduino-cli.yaml core install ${{ matrix.core }}
+
+      - name: Compile firmwares
+        if: steps.select.outputs.has == 'true'
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          failed=""
+          while IFS= read -r fw; do
+            [ -n "$fw" ] || continue
+            echo "=== Building $fw (${{ matrix.fqbn }}) ==="
+            if arduino-cli compile \
+                --config-file arduino-cli.yaml \
+                --fqbn "${{ matrix.fqbn }}" \
+                --libraries firmwares/shared \
+                --output-dir "out/$fw" \
+                "firmwares/$fw"; then
+              cp "out/$fw/$fw.ino.${{ matrix.ext }}" "artifacts/$fw.${{ matrix.ext }}"
+            else
+              echo ">> $fw FAILED"
+              failed="$failed $fw"
+            fi
+          done < selected.txt
+          if [ -n "$failed" ]; then
+            echo "Firmwares that failed to compile:$failed"
+            exit 1
+          fi
+          echo "Built:"; ls -1 artifacts
+
+      - name: Upload firmware artifacts
+        if: steps.select.outputs.has == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-${{ matrix.board }}
+          path: artifacts/*
+          if-no-files-found: error

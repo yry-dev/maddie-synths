@@ -1,0 +1,99 @@
+name: Release
+
+# Runs on release tags. Builds every rack platform and every firmware, then
+# publishes a GitHub release whose assets are:
+#
+#   * one .vcvplugin per platform (lin-x64, mac-x64, mac-arm64, win-x64)
+#   * one flashable binary per firmware (.hex for avr, .uf2 for rp2040)
+#
+# Tag conventions:
+#   vX.Y.Z-msrack        -> versioned release      (e.g. v2.4.0-msrack)
+#   vX.Y.Z-next-msrack   -> pre-release / nightly  (e.g. v2.4.0-next-msrack)
+#
+# Every stable (non pre-release) tag also force-moves a `latest` tag/release to
+# the same commit with the same assets, so download links like
+#   .../releases/download/latest/maddie-synths-mac-arm64.vcvplugin
+#   .../releases/download/latest/mod2-vco.uf2
+# always resolve to the newest stable build.
+#
+# `workflow_dispatch` builds everything without publishing, for testing.
+on:
+  push:
+    tags:
+      - "v*-msrack"
+      - "v*-next-msrack"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  rack:
+    uses: ./.github/workflows/_rack.yml
+
+  # Enumerate every buildable firmware so the release covers them all.
+  list-firmwares:
+    runs-on: ubuntu-latest
+    outputs:
+      firmwares: ${{ steps.list.outputs.firmwares }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          set -euo pipefail
+          firmwares="$(make list | jq -R . | jq -cs .)"
+          echo "firmwares=$firmwares" >> "$GITHUB_OUTPUT"
+          echo "$firmwares"
+
+  firmwares:
+    needs: list-firmwares
+    uses: ./.github/workflows/_firmware.yml
+    with:
+      firmwares: ${{ needs.list-firmwares.outputs.firmwares }}
+
+  publish:
+    needs: [rack, firmwares]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          pattern: "*"
+          merge-multiple: true
+
+      - name: List assets
+        run: ls -l release-assets
+
+      - name: Publish versioned release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Maddie Synths ${{ github.ref_name }}
+          prerelease: ${{ needs.rack.outputs.prerelease }}
+          generate_release_notes: true
+          files: release-assets/*
+
+      # Move the rolling `latest` tag/release to this commit with the same
+      # assets. Only stable releases update it, so `latest` never points at a
+      # nightly. `--latest=false` keeps the versioned tag as the repo's headline
+      # release while still giving `latest` stable download URLs.
+      - name: Mirror to latest
+        if: startsWith(github.ref, 'refs/tags/') && needs.rack.outputs.prerelease == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release delete latest --yes --cleanup-tag 2>/dev/null || true
+          gh release create latest \
+            --title "Latest (${{ github.ref_name }})" \
+            --notes "Rolling pointer to the latest stable release (${{ github.ref_name }}). Download URLs under this tag stay stable across releases." \
+            --prerelease \
+            --latest=false \
+            --target "${{ github.sha }}" \
+            release-assets/*
