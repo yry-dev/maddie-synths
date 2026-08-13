@@ -27,9 +27,10 @@ It currently includes RP2040 board index support and works for both:
 
 ## One-time library install
 
-Install external libraries used by the Testbild sketches:
+Install external libraries used by the `hagiwo30-*` sketches (the same set CI
+installs in [`.github/workflows/_firmware.yml`](.github/workflows/_firmware.yml)):
 
-- arduino-cli lib install "Encoder" "FastGPIO" "Adafruit SSD1306" "digitalWriteFast"
+- arduino-cli lib install "Encoder" "FastGPIO" "Adafruit GFX Library" "Adafruit SSD1306"
 
 `Adafruit SSD1306` pulls `Adafruit GFX Library` and `Adafruit BusIO` automatically.
 
@@ -73,12 +74,15 @@ build cleanly.
 
 - Build every firmware into `dist/<firmware>/`:
   - make
-- Build every firmware for a different board target:
-  - make FQBN=rp2040:rp2040:rpipico
+- Build for a different board target (`MOD1_FQBN` covers `mod1-*`/`hagiwo30-*`,
+  `MOD2_FQBN` covers `mod2-*`):
+  - make MOD2_FQBN=rp2040:rp2040:rpipico
 - Build a single firmware target:
   - make mod1-trigger-burst
 - List discovered firmware targets:
   - make list
+- Flash a firmware (discover ports with `make board-list`):
+  - make upload FW=mod1-euclidean PORT=/dev/ttyACM0
 - Remove build output:
   - make clean
 
@@ -108,20 +112,36 @@ Rack SDK requires) so the manifest lives in exactly one place. See
 [`rack-plugins/README.md`](rack-plugins/README.md) and
 [`rack-plugins/PORTING.md`](rack-plugins/PORTING.md) for details.
 
-### Releasing the plugin (CI)
+## CI and releases
 
-[`.github/workflows/rack-plugin.yml`](.github/workflows/rack-plugin.yml) builds the
-plugin for macOS (x64 + arm64), Linux, and Windows and publishes a GitHub release
-with the `.vcvplugin` packages. It runs `make rack-dist` against a freshly
-downloaded Rack SDK on each platform, so it exercises the same build path as a
-local build. Push a tag to trigger it:
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on every push and
+pull request and builds only what changed: the Rack plugin when
+`rack-plugins/**`, `plugin.json`, or `firmwares/shared/SynthCore/**` is touched,
+and each firmware whose sketch changed (all of them when anything under
+`firmwares/shared/` changes). The actual builds live in two reusable workflows:
 
-- `vX.Y.Z-msrack` → versioned release (e.g. `v0.0.1-msrack`)
+- [`_rack.yml`](.github/workflows/_rack.yml) — `make rack-dist` against a
+  freshly downloaded Rack SDK for Linux, macOS (x64 + arm64), and Windows.
+- [`_firmware.yml`](.github/workflows/_firmware.yml) — `arduino-cli` builds
+  grouped by board (`.hex` for AVR, `.uf2` for RP2040). Individual compile
+  failures are tolerated and skipped, mirroring `make dist` — the repo
+  intentionally carries some WIP sketches that don't compile in a clean
+  checkout (license-gated `sample.h`, un-vendored Mutable libraries).
+
+[`release.yml`](.github/workflows/release.yml) runs on release tags, builds
+every Rack platform and every firmware, and publishes a GitHub release whose
+assets are one `.vcvplugin` per platform plus one flashable binary per
+firmware. Push a tag to trigger it:
+
+- `vX.Y.Z-msrack` → versioned release (e.g. `v2.4.0-msrack`)
 - `vX.Y.Z-next-msrack` → pre-release / nightly (version stamped with the commit)
 
 The workflow derives the plugin version from the tag, so the tag is the single
-source of truth for a release's version. A manual `workflow_dispatch` run builds
-all platforms without publishing, for testing.
+source of truth for a release's version. Stable (non pre-release) tags also
+force-move a rolling `latest` tag to the same commit with the same assets, so
+download URLs like `.../releases/download/latest/mod2-vco.uf2` always resolve
+to the newest stable build. A manual `workflow_dispatch` run builds everything
+without publishing, for testing.
 
 ## Shared library code
 
