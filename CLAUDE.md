@@ -11,6 +11,52 @@ build/release tooling that ties them together. There is no application server,
 no package manager, and no test framework — builds are driven by `make` +
 `arduino-cli` + the vendored VCV Rack SDK.
 
+## Repo layout
+
+```text
+.
+├── firmwares/                  Arduino sketches — one folder per module
+│   ├── mod1-*/                 Arduino Nano modules  (mod1-euclidean.ino, …)
+│   ├── mod2-*/                 XIAO RP2350 modules   (mod2-vco.ino, …)
+│   ├── hagiwo30-*/             HAGIWO #30 sequencer variants (Nano)
+│   └── shared/                 repo-local Arduino library root
+│       ├── SynthCore/src/      platform-pure DSP cores (*Core.h) shared with VCV
+│       ├── Mod1Common/         Nano board helpers (pins, ADC, PWM)
+│       ├── Mod2Common/         RP2350 board helpers (audio I/O, panel modes)
+│       ├── Hagiwo30Common/     OLED + encoder UI for the #30 platform
+│       └── Hagiwo30Sequencers/ sequencer engines for the #30 platform
+│
+├── rack-plugins/               VCV Rack 2 plugin (slug: maddie-synths)
+│   ├── src/<firmware-name>.cpp one Rack module per firmware, same kebab name
+│   ├── src/plugin.{hpp,cpp}    model declarations + registration (SCAFFOLD: markers)
+│   ├── src/compat/             desktop shims (pgmspace.h, …)
+│   ├── res/                    panel SVGs (one per module)
+│   ├── .Rack-SDK/              vendored Rack SDK 2.6.4
+│   ├── Makefile                syncs root plugin.json; WIP_SOURCES exclusions
+│   └── PORTING.md              firmware → Rack architecture doc  ← read first
+│
+├── panels/<module>/            KiCad faceplate projects (+ blank-NHP/ blanks)
+├── hardware/                   KiCad PCBs and mechanical parts
+│   ├── lib/                    shared KiCad symbol + footprint libraries
+│   ├── m-power/                eurorack PSU (has its own CLAUDE.md — read it)
+│   ├── eurorack-busboard/      bus board
+│   ├── sequencerv2/            sequencer PCB
+│   └── 2020-adapter/           OpenSCAD 2020-extrusion rail adapter
+│
+├── scripts/                    fish wrappers around Python helpers
+│   ├── check-vcv.fish          verify harness (build + purity + registration)
+│   ├── new-vcv-module.fish     scaffold a core header + Rack module + panel
+│   ├── build-fw.fish / upload-fw.fish / setup-arduino.fish
+│   └── panels/tools/           KiCad → SVG panel generation
+│
+├── assets/                     shared icons/art used by panels and docs
+├── dist/                       build output (gitignored)
+├── .github/workflows/          ci.yml, _rack.yml, _firmware.yml, release.yml
+├── Makefile                    firmware + Rack plugin build entry point
+├── arduino-cli.yaml            repo-local arduino-cli config (board indexes)
+└── plugin.json                 canonical Rack manifest (rack-plugins/ copy is generated)
+```
+
 ## Priority guidelines
 
 1. **Shared-core architecture is load-bearing** — DSP lives once in
