@@ -74,7 +74,11 @@ for scope in local remote
 end
 
 # Advisory checks -- none of these are fatal, but all of them change what ships.
-if test -n (git -C $repo_root status --porcelain | string collect)
+# Count elements rather than `test -n (...)`: an empty command substitution
+# expands to zero arguments, leaving `test -n`, which fish reads as the
+# non-empty string "-n" and reports every clean tree as dirty.
+set -l dirty (git -C $repo_root status --porcelain)
+if test (count $dirty) -gt 0
     echo "release-tag: warning -- working tree is dirty; uncommitted changes will NOT be in the release."
 end
 if test "$branch" != main
