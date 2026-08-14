@@ -34,7 +34,7 @@
 
 // ---- parameters ----------------------------------------------------------
 
-length              = 90;  // rail length. My printer can only print 100mm wide so
+length              = 15;  // rail length. My printer can only print 100mm wide so
                               // 84HP = 128.5; 104HP = 158.75; etc.
 
 // 2020 slot profile (generic Misumi-style tapered T-slot).
@@ -58,11 +58,11 @@ length              = 90;  // rail length. My printer can only print 100mm wide 
 //           \   /                |   bottom width = slot_tip_width
 //            +---+               |
 //
-slot_opening        = 5.5;    // gap between outer lips (+0.2 clearance)
-slot_lip_depth      = 1.6;    // depth of the straight opening between lips
-slot_chamfer_depth  = 4.1;    // depth of the tapered transition (lips flaring out)
-slot_inner_width    = 9.7;    // width at the top of the chamfer (just past the lips)
-slot_tip_width      = 5.2;    // width of the flat tip at the bottom of the chamfer
+slot_opening        = 5.3;    // gap between outer lips (+0.2 clearance)
+slot_lip_depth      = 3;    // depth of the straight opening between lips
+slot_chamfer_depth  = 2.5;    // depth of the tapered transition (lips flaring out)
+slot_inner_width    = 9.1;    // width at the top of the chamfer (just past the lips)
+slot_tip_width      = 5.8;    // width of the flat tip at the bottom of the chamfer
 
 // Tab geometry
 use_t_tab           = true;   // true = full T-profile matching the tapered slot
@@ -71,7 +71,7 @@ use_t_tab           = true;   // true = full T-profile matching the tapered slot
 tab_clearance       = 0.3;    // shrink applied to head dimensions
 
 // Main body sitting on the extrusion's outer face
-body_width          = 23.0;   // Y extent of the shelf
+body_width          = 33.0;   // Y extent of the shelf
 body_thickness      = 3.0;    // Z thickness below the strip channel
 
 // Eurorack threaded-strip channel (captive C-channel, opens toward +Z).
@@ -90,11 +90,11 @@ body_thickness      = 3.0;    // Z thickness below the strip channel
 //
 // The retaining shoulder in Y on each side is (strip_width - access_slot_width)/2.
 strip_width         = 5.6;    // Y width of the strip slot
-strip_height        = 3.0;    // Z height of the strip slot (was 2.6)
+strip_height        = 3.6;    // Z height of the strip slot (was 2.6)
 strip_lip           = 0.8;    // Z thickness of the top retaining lip.
                               // The access slot is cut through this lip; the
                               // lip overhang in Y is (strip_width-access_slot_width)/2.
-strip_y_offset      = 7.7;    // Y center of the channel relative to body center
+strip_y_offset      = 12;    // Y center of the channel relative to body center
 
 // Screw-access slot cut through the top face above the strip
 access_slot_width   = 3.4;    // clearance for M3 (use 2.9 for M2.5)
