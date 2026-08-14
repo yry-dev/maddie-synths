@@ -182,11 +182,17 @@ every Rack platform and every firmware, and publishes a GitHub release whose
 assets are one `.vcvplugin` per platform plus one flashable binary per
 firmware. Push a tag to trigger it:
 
-- `vX.Y.Z-msrack` → versioned release (e.g. `v2.4.0-msrack`)
-- `vX.Y.Z-next-msrack` → pre-release / nightly (version stamped with the commit)
+- `vYYMM.DD` → dated release (e.g. `v2608.15`)
+- `vYYMM.DD-next` → pre-release / nightly (version stamped with the commit)
+
+Use `scripts/release-tag.fish` to cut one from today's date rather than typing
+the tag by hand.
 
 The workflow derives the plugin version from the tag, so the tag is the single
-source of truth for a release's version. Stable (non pre-release) tags also
+source of truth for a release's version. The date lands in the
+`MINOR.REVISION` half only — the `MAJOR` stays `2` because VCV reads it as the
+Rack generation the plugin was built for, not as our release number, so
+`v2608.15` publishes plugin version `2.2608.15`. Stable (non pre-release) tags also
 force-move a rolling `latest` tag to the same commit with the same assets, so
 download URLs like `.../releases/download/latest/mod2-vco.uf2` always resolve
 to the newest stable build. A manual `workflow_dispatch` run builds everything
