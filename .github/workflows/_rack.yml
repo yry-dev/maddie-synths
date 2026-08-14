@@ -7,7 +7,7 @@ name: Build Rack plugin
 #   maddie-synths-mac-arm64  maddie-synths-win-x64
 #
 # Called by ci.yml (validation) and release.yml (publish). The version is
-# derived from the triggering ref: a tag stamps the release version, any other
+# derived from the triggering ref: a date tag stamps `2.<YYMM.DD>`, any other
 # ref stamps a `-dev.<sha>` version so manual/CI artifacts stay identifiable.
 #
 # Windows lives in its own job so its `shell: msys2 {0}` is a static value --
@@ -29,6 +29,10 @@ permissions:
 env:
   # Rack SDK to build against. Bump together with rack-plugins/README.md.
   RACK_SDK_VERSION: "2.6.4"
+  # MAJOR component of the plugin version. VCV treats this as the Rack
+  # generation the plugin targets, so it tracks RACK_SDK_VERSION's major and is
+  # NOT part of our date-based release numbering.
+  RACK_MAJOR: "2"
 
 jobs:
   # Derive the plugin version and pre-release flag from the ref so every build
@@ -45,13 +49,19 @@ jobs:
           set -euo pipefail
           short="${GITHUB_SHA::7}"
           if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            # Date tags carry only the MINOR.REVISION half of the version. The
+            # MAJOR is hard-pinned to 2 because VCV reads it as "which Rack
+            # generation was this built for", not as our release number:
+            #   v2608.15        -> 2.2608.15
+            #   v2608.15-next   -> 2.2608.15-next.<sha7>
+            # Bump RACK_MAJOR only when porting to a new Rack generation.
             tag="${GITHUB_REF_NAME}"
             base="${tag#v}"
-            if [[ "${tag}" == *-next-msrack ]]; then
-              version="${base%-next-msrack}-next.${short}"
+            if [[ "${tag}" == *-next ]]; then
+              version="${RACK_MAJOR}.${base%-next}-next.${short}"
               prerelease="true"
             else
-              version="${base%-msrack}"
+              version="${RACK_MAJOR}.${base}"
               prerelease="false"
             fi
           else

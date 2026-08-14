@@ -6,9 +6,13 @@ name: Release
 #   * one .vcvplugin per platform (lin-x64, mac-x64, mac-arm64, win-x64)
 #   * one flashable binary per firmware (.hex for avr, .uf2 for rp2040)
 #
-# Tag conventions:
-#   vX.Y.Z-msrack        -> versioned release      (e.g. v2.4.0-msrack)
-#   vX.Y.Z-next-msrack   -> pre-release / nightly  (e.g. v2.4.0-next-msrack)
+# Tag conventions -- date-based, vYYMM.DD:
+#   vYYMM.DD        -> versioned release      (e.g. v2608.15)
+#   vYYMM.DD-next   -> pre-release / nightly  (e.g. v2608.15-next)
+#
+# The tag feeds the MINOR.REVISION half of the Rack plugin version; the MAJOR
+# stays pinned at 2 because VCV uses it to signal which Rack generation the
+# plugin was built for (v2608.15 -> plugin version 2.2608.15). See _rack.yml.
 #
 # Every stable (non pre-release) tag also force-moves a `latest` tag/release to
 # the same commit with the same assets, so download links like
@@ -20,8 +24,11 @@ name: Release
 on:
   push:
     tags:
-      - "v*-msrack"
-      - "v*-next-msrack"
+      # vYYMM.DD, with an optional -next suffix: matches v2608.15 and
+      # v2608.15-next. Shaped strictly enough to ignore both the generated
+      # rolling `latest` tag and stray semver tags left over from the old
+      # -msrack scheme (e.g. v0.0.1), which would stamp a malformed version.
+      - "v[0-9][0-9][0-9][0-9].[0-9][0-9]*"
   workflow_dispatch: {}
 
 permissions:

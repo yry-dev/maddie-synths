@@ -180,10 +180,16 @@ There are no unit tests. The verify harness is:
 
 ## Versioning / releases
 
-Tag-driven (`release.yml`): `vX.Y.Z-msrack` = stable release,
-`vX.Y.Z-next-msrack` = pre-release. CI derives the plugin version from the tag
-and stamps `plugin.json` at build time; stable releases also move the rolling
-`latest` tag. Don't hand-edit the version for a release — push a tag.
+Tag-driven (`release.yml`), date-based: `vYYMM.DD` = stable release (e.g.
+`v2608.15`), `vYYMM.DD-next` = pre-release. Cut tags with
+`scripts/release-tag.fish`, not by hand. CI derives the plugin version from the
+tag and stamps `plugin.json` at build time; stable releases also move the
+rolling `latest` tag. Don't hand-edit the version for a release — push a tag.
+
+The tag supplies only `MINOR.REVISION`. The `MAJOR` is pinned to `2` via
+`RACK_MAJOR` in `_rack.yml` because VCV reads it as the Rack generation the
+plugin targets, so `v2608.15` ships as plugin version `2.2608.15`. Bump
+`RACK_MAJOR` only when porting to a new Rack generation.
 
 ## What not to do
 
