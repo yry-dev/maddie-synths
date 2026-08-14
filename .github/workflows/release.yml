@@ -94,6 +94,10 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/') && needs.rack.outputs.prerelease == 'false'
         env:
           GH_TOKEN: ${{ github.token }}
+          # This job deliberately has no checkout -- it only needs the built
+          # artifacts. `gh` normally infers the repo from the local git remote,
+          # so without this it dies with "not a git repository".
+          GH_REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
           gh release delete latest --yes --cleanup-tag 2>/dev/null || true
