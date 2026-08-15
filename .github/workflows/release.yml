@@ -76,6 +76,30 @@ jobs:
       - name: List assets
         run: ls -l release-assets
 
+      # Stamp the tag into each flashable firmware binary's filename for the
+      # versioned release, e.g. mod1-vco.hex -> mod1-vco-v2608.15.hex, so a
+      # downloaded .hex/.uf2 self-identifies which release it came from. The
+      # Rack .vcvplugin files already carry the version in their names, so they
+      # pass through unchanged. Only the versioned tag release gets renamed
+      # assets; the `latest` mirror below keeps the original unversioned
+      # firmware names to preserve its stable download URLs (see header).
+      - name: Stamp firmware filenames with the tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          set -euo pipefail
+          tag="${{ github.ref_name }}"
+          mkdir -p versioned-assets
+          for f in release-assets/*; do
+            base="$(basename "$f")"
+            case "$base" in
+              *.hex|*.uf2)
+                cp "$f" "versioned-assets/${base%.*}-${tag}.${base##*.}" ;;
+              *)
+                cp "$f" "versioned-assets/$base" ;;
+            esac
+          done
+          ls -l versioned-assets
+
       - name: Publish versioned release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
@@ -84,7 +108,7 @@ jobs:
           name: Maddie Synths ${{ github.ref_name }}
           prerelease: ${{ needs.rack.outputs.prerelease }}
           generate_release_notes: true
-          files: release-assets/*
+          files: versioned-assets/*
 
       # Move the rolling `latest` tag/release to this commit with the same
       # assets. Only stable releases update it, so `latest` never points at a
