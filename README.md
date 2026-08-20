@@ -140,6 +140,41 @@ build cleanly.
 
 The Makefile discovers every sketch folder under `firmwares/` that contains a same-named `.ino` entry file and excludes `firmwares/shared/`.
 
+### Flashing a bare ATmega328P over ISP
+
+`make upload` drives a serial bootloader, so it needs a board with a USB-serial
+bridge. The `rabid-audio-*` ports run on a bare ATmega328P, which has no
+bootloader to talk to — and on the CLK board no serial either, since its
+7-segment lines occupy the whole of PORTD, D0/D1 (RX/TX) included. Those chips
+are programmed in-circuit through the ICSP header with an ISP programmer:
+
+```
+make fuses-rabid-audio-clk     # ONCE per chip — sets the 16 MHz clock fuses
+make isp-rabid-audio-clk       # build + flash, as often as you like
+```
+
+Do not skip the `fuses-` step on a new chip. A factory ATmega328P runs its
+internal 8 MHz RC divided by 8, so 1 MHz, while the firmware hard-assumes
+16 MHz (`sc::kClkTimerHz` is 16 MHz / 1024). Flash a virgin part and it runs —
+just 16x slow, with nothing else to point at the cause. `fuses-` burns
+`low_fuses=0xFF` (full-swing external crystal, no CKDIV8) to match the board's
+16 MHz crystal.
+
+The programmer defaults to `ISP=usbasp`. Override it for other hardware; run
+`arduino-cli board details --fqbn arduino:avr:nano --list-programmers` for the
+valid ids, and note that `arduinoasisp` also wants a `PORT=`:
+
+```
+make isp-rabid-audio-clk ISP=usbtinyisp
+make isp-rabid-audio-clk ISP=arduinoasisp PORT=/dev/cu.usbmodemXXXX
+```
+
+If the programmer can't see the chip, its SCK is probably too fast for a virgin
+1 MHz part — the ISP clock has to stay under a quarter of the target's. On a
+USBasp, close the slow-SCK jumper (JP3) and run `fuses-` again; once the crystal
+fuses are set the part is at 16 MHz and the jumper can come off. `make isp-help`
+repeats all of this at the terminal.
+
 ## VCV Rack plugin builds
 
 The same root Makefile also drives the VCV Rack plugin in [`rack-plugins/`](rack-plugins/)

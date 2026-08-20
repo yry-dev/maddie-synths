@@ -5,10 +5,11 @@ Description:
 outputs at a settable ratio, swing, tap tempo, CV tempo modulation, pause /
 single-step, and save / load / reset of the current settings to EEPROM.
 
-Original firmware by rabid.audio (yry-dev/rabid-audio, `clock/`). Ported here
-from PlatformIO to the arduino-cli build, with the tempo/subdivision/swing state
-machine lifted into the shared SynthCore engine so the VCV Rack module runs the
-same code.
+Original firmware by Julian Knight / rabid.audio (rabidaudio/synthesizer,
+`clock/`), used here under the MIT License — see the License section below.
+Ported from PlatformIO to the arduino-cli build, with the tempo/subdivision/swing
+state machine lifted into the shared SynthCore engine so the VCV Rack module runs
+the same code.
 
 Key Variables:
   A0/A2 -> rotary encoder (quadrature, pin-change interrupt on PORTC)
@@ -51,7 +52,7 @@ Key Variables:
 
 Version History:
   - 1.0 "The Count" clock firmware by rabid.audio
-  - 1.1 Forked from https://github.com/yry-dev/rabid-audio (clock/src)
+  - 1.1 Forked from https://github.com/rabidaudio/synthesizer (clock/src)
   - 1.2 Tempo/subdivision/swing engine extracted to the shared SynthCore
         ClkCore (seconds, platform-neutral); this sketch keeps only hardware I/O
 
@@ -70,9 +71,16 @@ Deliberate changes from the original, all documented in rack-plugins/PORTING.md:
     keeps the range the encoder can actually reach.
 
 License:
-CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
-You can copy, modify, distribute and perform the work, even for commercial
-purposes, all without asking permission.
+MIT License. Unlike the CC0 HAGIWO modules in this repo, this one is a port of
+third-party code, and MIT requires the copyright and permission notice to travel
+with it:
+
+  Copyright 2015-2020 Charles Julian Knight
+
+The full notice is kept verbatim beside this sketch as SOFTWARE_LICENSE, copied
+from the upstream repository. Keep it there — MIT permits modification and
+redistribution (including commercially) only so long as that notice ships with
+every copy or substantial portion of the software.
 
 Hardware:
 rabid.audio CLK ("The Count"), bare ATmega328P @ 16 MHz.
@@ -81,6 +89,17 @@ unchanged. NOTE: the segment lines occupy the whole of PORTD, which includes
 D0/D1 (RX/TX). On a real Nano board those are wired to the USB-serial bridge, so
 this firmware is meant for the bare-chip CLK PCB; a Nano can compile and flash it
 but the two lowest segments will fight the USB bridge.
+
+That same PORTD conflict rules out serial uploads on the real board, so the CLK
+is flashed in-circuit through its ICSP header:
+
+  make fuses-rabid-audio-clk   # ONCE per chip — 16 MHz crystal fuses
+  make isp-rabid-audio-clk     # build + flash over ISP
+
+The fuse step is not optional on a fresh chip. A factory ATmega328P runs its
+internal 8 MHz RC divided by 8, and this firmware assumes 16 MHz throughout
+(sc::kClkTimerHz is 16 MHz / 1024), so an unfused part keeps perfect time 16x
+too slow. See `make isp-help` or the README.
 */
 #include <Arduino.h>
 #include <EEPROM.h>

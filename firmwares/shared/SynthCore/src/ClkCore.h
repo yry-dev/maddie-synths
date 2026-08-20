@@ -2,6 +2,12 @@
 
 // "The Count" clock engine — the shared brain of the rabid.audio CLK module.
 //
+// Derived from rabid.audio's `clock` firmware (github.com/rabidaudio/synthesizer)
+// under the MIT License, Copyright 2015-2020 Julian Knight. The upstream
+// notice lives at firmwares/rabid-audio-clk/SOFTWARE_LICENSE and MIT requires it
+// to ship with any copy of this header — the CC0 cores next to it have no such
+// condition, so don't fold this one into them.
+//
 // Used by:
 //   - firmwares/rabid-audio-clk/rabid-audio-clk.ino  (AVR Timer1 ISRs -> digitalWrite)
 //   - rack-plugins/src/rabid-audio-clk.cpp           (dt-driven -> setVoltage)
