@@ -19,6 +19,7 @@ no package manager, and no test framework — builds are driven by `make` +
 │   ├── mod1-*/                 Arduino Nano modules  (mod1-euclidean.ino, …)
 │   ├── mod2-*/                 XIAO RP2350 modules   (mod2-vco.ino, …)
 │   ├── hagiwo30-*/             HAGIWO #30 sequencer variants (Nano)
+│   ├── rabid-audio-*/          rabid.audio ports, bare ATmega328P (Nano FQBN)
 │   └── shared/                 repo-local Arduino library root
 │       ├── SynthCore/src/      platform-pure DSP cores (*Core.h) shared with VCV
 │       ├── Mod1Common/         Nano board helpers (pins, ADC, PWM)
@@ -97,8 +98,9 @@ no package manager, and no test framework — builds are driven by `make` +
 
 - `firmwares/<name>/<name>.ino` — one sketch per module. The root `Makefile`
   discovers any `firmwares/*/` containing a same-named `.ino`; the folder name
-  IS the build target and its prefix picks the board (`mod1-`/`hagiwo30-` →
-  AVR Nano, `mod2-` → RP2350).
+  IS the build target and its prefix picks the board (`mod2-` → RP2350,
+  everything else → AVR Nano, which is also what the ATmega328P `rabid-audio-*`
+  ports build against).
 - `firmwares/shared/` — repo-local Arduino library root (`--libraries` path):
   `SynthCore` (platform-pure voice cores), `Mod1Common`, `Mod2Common`,
   `Hagiwo30Common`, `Hagiwo30Sequencers`. Standard Arduino library layout
