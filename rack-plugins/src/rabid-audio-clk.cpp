@@ -6,7 +6,11 @@
 	CLK — "The Count", a 3 HP master clock with a 3-digit 7-segment readout.
 
 	Port of firmwares/rabid-audio-clk/rabid-audio-clk.ino, itself a port of
-	rabid.audio's `clock` module (github.com/yry-dev/rabid-audio).
+	rabid.audio's `clock` module (github.com/rabidaudio/synthesizer), used under
+	the MIT License, Copyright 2015-2020 Charles Julian Knight. The upstream
+	notice ships beside the firmware as firmwares/rabid-audio-clk/SOFTWARE_LICENSE
+	and MIT requires it to travel with every copy — unlike the CC0 HAGIWO modules
+	in this plugin, which carry no such condition.
 
 	The panel is theirs, mechanics AND artwork: every cutout comes out of their
 	`clock.kicad_pcb` at their diameters, and the plate wears their design
