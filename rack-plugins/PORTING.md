@@ -126,6 +126,71 @@ port historically differed. These choices are deliberate:
   `random()`), so firmware and Rack produce bit-identical sequences from the
   same seed.
 
+### `rabid-audio-clk` — a clock, not a voice
+
+`ClkCore.h` is the first core that is a *scheduler* rather than a per-sample
+engine, so the split falls in a different place: the core owns the tempo,
+subdivision, swing and pulse state machine and answers one question — *how long
+until the next tick* — while each platform supplies the time source. The
+firmware's Timer1 COMPA interrupt writes that interval into `OCR1A`; Rack's
+`ClkEngine::step(dt)` counts it down per sample. Same ticks, same swing, same
+`beatOut()`/`divOut()` levels.
+
+- **The 1586-entry PROGMEM `CLOCK_LOOKUP` table is gone.** Every entry equalled
+  `trunc(937500 / clock)` — i.e. `trunc(period_seconds × 15625)` for Timer1's
+  64 µs tick — so the engine works in seconds and the sketch scales on the way
+  out. Verified against all 1586 entries: bit-identical, and ~3.2 KB of AVR flash
+  returned (the sketch builds at 24 % of an ATmega328P).
+- **Swing is applied to seconds, not to a truncated timer count.** The original
+  rounded the base count first and then scaled it by `swing/198`, amplifying its
+  own rounding error; the shared core scales the period and truncates once. Over
+  194 544 compared ticks (every BPM × 7 subdivisions × 6 swing settings) the two
+  differ by at most **2 timer counts** (≤ 5e-5 of the interval), always in the
+  core's favour. At swing 0 they are bit-identical.
+- **`OCR1A` is clamped instead of wrapping.** At the slowest tempo with deep
+  negative swing the interval reaches 5.52 s, past what a 16-bit compare can
+  hold; the original wrote it anyway and the register wrapped, turning that into
+  1.32 s. The firmware now clamps at 65535 counts (4.19 s), so the swing simply
+  stops deepening. Rack has no such register and keeps the full 5.52 s, so this
+  is the one corner where the two targets diverge — 456 of those 194 544 ticks.
+- **Subdivision range is unified at `-8..4`.** The original's two setters
+  disagreed: `setSubdivisions` clamped to `[-4, 8]` while `incrementSubdivisions`
+  clamped to `[-8, 4]`. The core keeps the range the encoder can actually reach.
+- **EEPROM validation widened.** The original rejected any stored tempo above
+  300 BPM although the engine goes to 400, silently discarding a saved fast
+  tempo; the sketch now range-checks against the engine's real limits, and checks
+  the subdivision and swing fields too.
+- **One 7-segment font, two consumers.** `sc::clkSegments()` returns a standard
+  a–g mask; the sketch permutes it into its two PCB bit orders (the CLK's centre
+  digit is wired differently to fit 3 HP) and the Rack widget draws it. Verified
+  to reproduce both of the original's hard-coded tables exactly.
+
+Divergences that are Rack-side product decisions rather than numeric ones:
+
+- **The modal encoder is kept; the buttons latch instead of holding.** On the
+  hardware you HOLD DIV or SWING and turn the encoder, and DIV+SWING together
+  toggles pause. A mouse cannot hold a button and turn a knob at once, so in Rack
+  the two buttons *latch* — which also makes the pause chord reachable. The
+  encoder is a relative widget with no value of its own: it adds detents to
+  whichever of the three real parameters is selected, and a click (a press that
+  never moved) is the EC11's push-switch, i.e. tap tempo. `BPM_PARAM`,
+  `DIV_PARAM` and `SWING_PARAM` remain ordinary `configParam()`s, so presets,
+  patch save/load and the right-click menu keep working even though only one
+  knob is drawn.
+- **No save / load / factory-reset gestures.** They exist because the hardware
+  has EEPROM and no other way to keep a tempo; Rack persists parameters with the
+  patch, and "Initialize" is the factory reset. The hold-to-confirm gestures were
+  layered on the encoder push, which is a click here and cannot express a hold.
+- **The panel is theirs, not ours — mechanics and artwork both.** Every cutout is
+  read out of their `clock.kicad_pcb`, so the Rack widget's coordinates are the
+  real module's: jacks at the top, a display that reads vertically, an encoder and
+  two buttons. The plate also wears their design language rather than the house
+  style — black ink on bare aluminium, a halftone field, tilted slab-typewriter
+  labels — because a port should be recognisable as the module it ports. This is
+  the only panel in the repo that opts out; see `panels/DESIGN-RULES.md` §11.
+- **It powers on at 120 BPM showing tempo**, neither latch down, matching the
+  hardware's own power-on state.
+
 Known minor deviations (documented, not fixed — low impact):
 
 - **RandomCV** fires its gate immediately on the clock edge; the firmware

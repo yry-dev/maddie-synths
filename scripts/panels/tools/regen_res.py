@@ -74,6 +74,9 @@ MAP = {
     # shared as an alternate panel by every Mod2 module. Source PCB vendored from
     # the eurorack FrontPanel project; see scripts/panels/tools/README.md.
     "mod2-generic": "mod2-generic",
+    # rabid.audio CLK ("The Count"). Its faceplate is generated rather than
+    # hand-drawn -- see scripts/panels/tools/make_clk_panel.py.
+    "rabid-audio-clk": "rabid-audio-clk",
 }
 
 

@@ -10,6 +10,7 @@ My open source eurorack experiments.
 │   ├── mod1-*/                 Arduino Nano modules  (mod1-euclidean.ino, …)
 │   ├── mod2-*/                 XIAO RP2350 modules   (mod2-vco.ino, …)
 │   ├── hagiwo30-*/             HAGIWO #30 sequencer variants (Nano)
+│   ├── rabid-audio-*/          rabid.audio ports, bare ATmega328P (Nano FQBN)
 │   └── shared/                 repo-local Arduino library root
 │       ├── SynthCore/src/      platform-pure DSP cores (*Core.h) shared with VCV
 │       ├── Mod1Common/         Nano board helpers (pins, ADC, PWM)
@@ -25,7 +26,8 @@ My open source eurorack experiments.
 │   ├── .Rack-SDK/              vendored Rack SDK 2.6.4
 │   └── PORTING.md              firmware → Rack architecture doc  ← read first
 │
-├── panels/<module>/            KiCad faceplate projects (+ blank-NHP/ blanks)
+├── panels/<module>/            KiCad faceplate projects (+ blank-NHP/ blanks,
+│                               + fm-*/ house-style plates for free-modular kits)
 ├── hardware/                   KiCad PCBs and mechanical parts
 │   ├── lib/                    shared KiCad symbol + footprint libraries
 │   ├── m-power/                eurorack PSU (has its own CLAUDE.md)
@@ -123,8 +125,9 @@ build cleanly.
 
 - Build every firmware into `dist/<firmware>/`:
   - make
-- Build for a different board target (`MOD1_FQBN` covers `mod1-*`/`hagiwo30-*`,
-  `MOD2_FQBN` covers `mod2-*`):
+- Build for a different board target (`MOD1_FQBN` covers `mod1-*`/`hagiwo30-*`
+  and any other ATmega328P sketch such as `rabid-audio-*`, `MOD2_FQBN` covers
+  `mod2-*`):
   - make MOD2_FQBN=rp2040:rp2040:rpipico
 - Build a single firmware target:
   - make mod1-trigger-burst
