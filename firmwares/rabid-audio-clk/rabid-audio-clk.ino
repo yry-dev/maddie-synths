@@ -5,11 +5,7 @@ Description:
 outputs at a settable ratio, swing, tap tempo, CV tempo modulation, pause /
 single-step, and save / load / reset of the current settings to EEPROM.
 
-Original firmware by Julian Knight / rabid.audio (rabidaudio/synthesizer,
-`clock/`), used here under the MIT License — see the License section below.
-Ported from PlatformIO to the arduino-cli build, with the tempo/subdivision/swing
-state machine lifted into the shared SynthCore engine so the VCV Rack module runs
-the same code.
+Original firmware by Julian Knight
 
 Key Variables:
   A0/A2 -> rotary encoder (quadrature, pin-change interrupt on PORTC)
@@ -75,7 +71,7 @@ MIT License. Unlike the CC0 HAGIWO modules in this repo, this one is a port of
 third-party code, and MIT requires the copyright and permission notice to travel
 with it:
 
-  Copyright 2015-2020 Charles Julian Knight
+  Copyright 2015-2020 Julian Knight
 
 The full notice is kept verbatim beside this sketch as SOFTWARE_LICENSE, copied
 from the upstream repository. Keep it there — MIT permits modification and
