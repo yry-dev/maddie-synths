@@ -29,6 +29,8 @@ void init(Plugin* p) {
 	p->addModel(modelFlux);
 	p->addModel(modelSpiral);
 	p->addModel(modelAcid303);
+	// rabid.audio ports
+	p->addModel(modelRabidClk);
 	// mod2-breakbeats and mod2-sample need a generated sample.h (Patreon-gated,
 	// license-restricted PCM data) that is kept out of this public repo, so they
 	// are excluded from the build. See plugin.hpp for how to re-enable them.
