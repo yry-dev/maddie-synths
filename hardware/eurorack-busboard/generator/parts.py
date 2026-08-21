@@ -3,6 +3,7 @@
 Fill in the `lcsc` entries and re-run jlc.py. Anything left blank comes out as
 TBD in the assembly BOM so it is impossible to miss.
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
 
 PARTS = {
     # value          lcsc      spec to search LCSC for

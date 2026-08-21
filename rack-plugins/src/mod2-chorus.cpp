@@ -26,6 +26,12 @@
 	physically-present-but-dead third knob becomes a proper Mix control. The
 	delay arena is sized for Rack's engine rate. The mode persists in the
 	patch (firmware: flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-chorus/mod2-chorus.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct Chorus : Mod2Module {

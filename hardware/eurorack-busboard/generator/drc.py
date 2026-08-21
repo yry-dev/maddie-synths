@@ -6,6 +6,8 @@ the same engine the GUI runs.
 
 Usage: drc.py board.kicad_pcb [report.txt]
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import sys, os, re
 import pcbnew
 

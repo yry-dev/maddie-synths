@@ -30,6 +30,12 @@
 	never clicks. The per-algorithm long-press "action" (cycle that effect's
 	sub-mode) is on the context menu here. The algorithm and every sub-mode
 	persist in the patch (firmware: flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-fx/mod2-fx.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct Fx : Mod2Module {

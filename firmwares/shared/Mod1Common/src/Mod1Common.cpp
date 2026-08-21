@@ -1,3 +1,12 @@
+// Implementation of the MOD1 shared helpers — clamped mapping, smoothed
+// analog reads and the fast-PWM timer setup.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Board support for HAGIWO MOD1 hardware; the pin map and table
+// shapes follow HAGIWO's CC0 1.0 MOD1 firmware, which places no conditions on
+// derivative works.
+
 #include "Mod1Common.h"
 
 namespace mod1 {

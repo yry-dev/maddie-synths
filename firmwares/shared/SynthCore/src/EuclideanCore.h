@@ -14,6 +14,11 @@
 // the two const arrays cost.
 //
 // Pure C++: depends only on sc_math.h. No Arduino / Rack / Pico SDK.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod1-euclidean/mod1-euclidean.ino, HAGIWO's
+// CC0 1.0 firmware; CC0 places no conditions on derivative works.
 
 #include "sc_math.h"
 

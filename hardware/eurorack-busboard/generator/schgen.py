@@ -1,4 +1,6 @@
 """Generates eurorack-busboard.kicad_sch (single sheet, A1)."""
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import uuid, re
 import libgen, pcbgen
 

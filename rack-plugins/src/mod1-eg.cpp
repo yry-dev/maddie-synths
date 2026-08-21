@@ -22,6 +22,11 @@
 		F2     -> End-of-cycle gate (10 ms pulse, 0 / 10 V)
 		F3     -> Inverted EG (10 V − EG)
 		F4     -> EG output (0..10 V)
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod1-eg/mod1-eg.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works.
 */
 
 struct Eg : Module {

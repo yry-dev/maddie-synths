@@ -22,6 +22,11 @@
 	The firmware uses a negative-slope CV (hardware inversion on A2). This
 	port uses standard non-inverted 1V/Oct so it tracks sequencers as expected.
 	Base tune range (320–410 Hz) and octave-shift behaviour match exactly.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-vco/mod2-vco.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works.
 */
 
 struct VCO : Mod2Module {

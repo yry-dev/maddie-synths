@@ -45,6 +45,11 @@ Coordinates below are FRONT-VIEW millimetres (x from the left edge as you look a
 the module, y = dy from the top). Emission mirrors them into KiCad space
 (`x_kicad = W - x_front`), because these plates are mounted back-side-out.
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+# The panel artwork this emits is licensed separately: see panels/LICENSE.md (CC BY-NC-SA 4.0).
+# The cutout geometry cached below is read out of rabid.audio's own clock.kicad_pcb
+# and stays theirs — the mechanics are theirs, the artwork is ours (see the note above).
+
 import argparse
 import json
 import math

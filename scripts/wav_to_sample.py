@@ -25,6 +25,7 @@ Maximum Length:
     - At 36.6kHz, 16-bit: ~73KB per second
     - Maximum: ~130 seconds of audio
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
 
 import wave
 import numpy as np

@@ -4,7 +4,7 @@
 //
 // Derived from rabid.audio's `clock` firmware (github.com/rabidaudio/synthesizer)
 // under the MIT License, Copyright 2015-2020 Julian Knight. The upstream
-// notice lives at firmwares/rabid-audio-clk/SOFTWARE_LICENSE and MIT requires it
+// notice lives at firmwares/rabid-audio-clk/LICENSE.md and MIT requires it
 // to ship with any copy of this header — the CC0 cores next to it have no such
 // condition, so don't fold this one into them.
 //
@@ -35,6 +35,13 @@
 // Verified against the table's endpoints and midpoint: 15 BPM -> 62500,
 // 120 BPM -> 7812, 1600 BPM -> 585. Bit-identical output, 3.2 KB of flash back,
 // and the tempo math becomes platform-neutral.
+//
+// License:
+// MIT License, Copyright 2015-2020 Julian Knight (rabid.audio). Unlike the
+// CC0 cores beside it this one carries conditions: MIT requires the copyright
+// and permission notice to travel with every copy or substantial portion, so
+// the full text ships with this header at
+// firmwares/rabid-audio-clk/LICENSE.md. Keep it there.
 
 #include "sc_math.h"
 

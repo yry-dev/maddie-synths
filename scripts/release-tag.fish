@@ -11,6 +11,8 @@
 # The tag carries only the MINOR.REVISION half of the Rack plugin version; CI
 # prepends RACK_MAJOR ("2"), so v2608.15 publishes as plugin version 2.2608.15.
 # See "Versioning / releases" in CLAUDE.md.
+#
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
 
 set -l repo_root (cd (dirname (status -f)); pwd)/..
 set -l remote origin

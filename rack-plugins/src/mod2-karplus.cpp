@@ -28,6 +28,12 @@
 	spare knob, so Colour lives in the context menu. The button's long-press
 	pluck is dropped — trigger IN1 instead. The mode persists in the patch
 	(firmware: flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-karplus/mod2-karplus.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct Karplus : Mod2Module {

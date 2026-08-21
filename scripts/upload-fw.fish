@@ -1,4 +1,11 @@
 #!/usr/bin/env fish
+#
+# upload-fw.fish — flash an already-built firmware to a board. Takes a firmware
+# name (or a firmwares/<name> path) and uploads the artifacts arduino-cli left in
+# dist/<name>/, so `make <name>` has to have run first.
+#
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 set -l repo_root (cd (dirname (status -f)); pwd)/..
 set -l config_file "$repo_root/arduino-cli.yaml"
 

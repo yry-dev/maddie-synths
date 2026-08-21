@@ -1,3 +1,9 @@
+// License:
+// GPLv3, (c) 2025 — see LICENSE.md in this directory. Part of the Mutable
+// Instruments Tides port (based on mi_Ugens by Volker Boehm); the upstream MI
+// sources are MIT. GPLv3 carries conditions the CC0 modules in this repo do
+// not: the notice and source-availability terms travel with every copy.
+
 // tides.h - Tides DSP engine for MOD2
 // Based on Mutable Instruments Tides2 PolySlopeGenerator
 

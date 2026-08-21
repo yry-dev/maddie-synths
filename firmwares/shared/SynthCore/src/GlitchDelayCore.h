@@ -36,6 +36,11 @@
 // Arduino.h, rack.hpp or Pico SDK; float only, no heap, no STL — compiles on
 // AVR, RP2350 and the desktop. Delay memory is a caller-provided int16 arena
 // (platform owns it): ~300 KB = ~4 s at 36.6 kHz, within the mod2-fx budget.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod2-glitch-delay/mod2-glitch-delay.ino,
+// HAGIWO's CC0 1.0 firmware; CC0 places no conditions on derivative works.
 
 #include "sc_dsp.h"
 #include "sc_math.h"

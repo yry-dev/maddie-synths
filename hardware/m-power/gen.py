@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """KiCad 8 project: two-brick Eurorack PSU, 6HP module, 2x Mini-Fit Jr outputs."""
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import uuid, os, json
 
 def uid():

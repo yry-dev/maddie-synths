@@ -1,4 +1,6 @@
 """Generates eurorack-busboard.kicad_pcb: staggered two-row 4-layer Eurorack bus board."""
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import uuid, math, os, re as _re
 import libgen
 

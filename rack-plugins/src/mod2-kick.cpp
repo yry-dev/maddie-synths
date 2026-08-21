@@ -25,6 +25,12 @@
 		IN1    -> trigger input (rising edge)
 		IN2    -> accent (high lowers the level by 50%, like the hardware)
 		OUT    -> audio output
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-kick/mod2-kick.ino, a CC0 1.0 firmware for the HAGIWO Mod2
+	whose sketch names no upstream author; CC0 places no conditions on
+	derivative works.
 */
 
 struct Kick : Mod2Module {

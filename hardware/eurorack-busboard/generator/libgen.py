@@ -1,4 +1,6 @@
 """Generates the project-local KiCad footprint (.pretty) and symbol (.kicad_sym) libraries."""
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import os, uuid, math
 
 def U():

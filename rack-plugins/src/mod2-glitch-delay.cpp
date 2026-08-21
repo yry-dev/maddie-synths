@@ -30,6 +30,12 @@
 	Rack's engine rate, so 4 s is available at any sample rate. The palette,
 	feedback and the deterministic-loop toggle persist in the patch (firmware:
 	flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-glitch-delay/mod2-glitch-delay.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct GlitchDelay : Mod2Module {

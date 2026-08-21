@@ -27,6 +27,12 @@
 	Deviation: knob directions are non-inverted (CW = more); the firmware inverts
 	some pots purely as a hardware-pickup choice. The FM synthesis is the shared
 	sc::FmDrumVoice core, identical to the firmware.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-fm-drum/mod2-fm-drum.ino, a CC0 1.0 firmware for the HAGIWO Mod2
+	whose sketch names no upstream author; CC0 places no conditions on
+	derivative works.
 */
 
 // One physical knob that stores two values (Mode 0 = a, Mode 1 = b) and uses

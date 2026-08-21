@@ -32,6 +32,11 @@ back where their PCB expects it. Artwork is authored directly in KiCad space,
 which is why an input arrow sits at (-3.7, +2.2) from its jack here but reads as
 lower-right on the finished panel.
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+# The panel artwork this emits is licensed separately: see panels/LICENSE.md (CC BY-NC-SA 4.0).
+# The cutout geometry cached in fm-modules.json is extracted from free-modular
+# (QuinnFreedman/modular) and stays theirs — only the artwork here is ours.
+
 import argparse, json, math, pathlib, re, sys, uuid
 
 HERE = pathlib.Path(__file__).resolve().parent

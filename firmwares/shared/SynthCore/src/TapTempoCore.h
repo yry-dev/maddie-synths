@@ -24,6 +24,11 @@
 //     (the firmware re-synced them to the downbeat every period),
 //   - the two divide ("period expansion") outputs are free-running clocks of
 //     period * factor that only re-sync when the tempo changes.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod1-tap-tempo/mod1-tap-tempo.ino, HAGIWO's
+// CC0 1.0 firmware; CC0 places no conditions on derivative works.
 
 #include "sc_math.h"
 

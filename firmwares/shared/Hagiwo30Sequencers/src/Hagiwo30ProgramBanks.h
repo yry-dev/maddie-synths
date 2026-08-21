@@ -1,5 +1,13 @@
 #pragma once
 
+// PROGMEM drum-pattern banks for the six-channel sequencer — per-genre 16-bit
+// step patterns, each with a normal and a fill-in variant.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Refactored out of HAGIWO's #30 sequencer firmware, released under
+// CC0 1.0; CC0 places no conditions on derivative works.
+
 #include <Arduino.h>
 
 // [Number of patterns][CH count * 2. First 6 are normal, last 6 are fill-in]

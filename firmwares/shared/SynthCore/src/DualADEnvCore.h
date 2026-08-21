@@ -29,6 +29,13 @@
 // passes the elapsed milliseconds converted to seconds.
 //
 // Pure C++: depends only on sc_math.h. No Arduino / Rack / Pico SDK.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod1-dual-ad-env/mod1-dual-ad-env.ino,
+// itself forked from Rob Scape's MIT-licensed hgw-mod1-firmwares
+// (github.com/rob-scape/hgw-mod1-firmwares) — MIT to MIT, so the notice above
+// is the one that travels with this header.
 
 #include "sc_math.h"
 

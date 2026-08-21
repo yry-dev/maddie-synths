@@ -1,3 +1,11 @@
+// Implementation of the Euclidean sequencer engine — encoder menu, gate
+// output and the random-variation pass.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Refactored out of HAGIWO's #30 sequencer firmware, released under
+// CC0 1.0; CC0 places no conditions on derivative works.
+
 #include "Hagiwo30EuclideanSequencer.h"
 
 #include <FastGPIO.h>

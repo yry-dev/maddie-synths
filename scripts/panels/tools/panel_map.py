@@ -10,6 +10,9 @@ mapped to the front/panel-local frame the converter SVG uses:
 
 Usage: panel_map.py <name|path-to.kicad_pcb>
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+# The panel artwork these tools handle is licensed separately: see panels/LICENSE.md (CC BY-NC-SA 4.0).
+
 import re, sys, pathlib
 
 # Each panel lives in its own folder at repo-root panels/<name>/<name>.kicad_pcb.

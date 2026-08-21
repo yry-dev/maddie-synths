@@ -1,5 +1,15 @@
 #pragma once
 
+// Shared hardware definitions for the HAGIWO #30 sequencer platform: OLED
+// geometry and I2C address, the encoder / clock / gate pin map, the one
+// shared SSD1306 instance every mode draws into, and a debounced active-low
+// button helper.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Refactored out of HAGIWO's #30 sequencer firmware, released under
+// CC0 1.0; CC0 places no conditions on derivative works.
+
 #include <Arduino.h>
 #include <Adafruit_SSD1306.h>
 

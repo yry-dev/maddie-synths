@@ -33,6 +33,12 @@
 // Arduino.h, rack.hpp or Pico SDK; float only, no heap, no STL. (This is a
 // MOD2/desktop-only engine — far too heavy for the AVR MOD1 target — but it
 // still follows the SynthCore portability rules.)
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from
+// firmwares/mod2-spectral-freeze/mod2-spectral-freeze.ino, HAGIWO's CC0 1.0
+// firmware; CC0 places no conditions on derivative works.
 
 #include <math.h>
 #include <stdint.h>

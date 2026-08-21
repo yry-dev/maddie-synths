@@ -7,6 +7,13 @@
 //   - rack-plugins/src/RandomLag.cpp                       (at audio sample rate)
 //
 // Pure C++: depends only on sc_math.h. No Arduino / Rack / Pico SDK.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod1-random-lag/mod1-random-lag.ino, which
+// the sketch releases under CC0 1.0 and which was forked from Rob Scape's
+// hgw-mod1-firmwares (github.com/rob-scape/hgw-mod1-firmwares); CC0 places no
+// conditions on derivative works.
 
 #include "sc_math.h"
 

@@ -29,6 +29,12 @@
 	Rack the phase-vocoder burst runs inline at each 256-sample hop boundary. The
 	freeze mode persists in the patch (firmware: flash). Reconstruction latency
 	is ~one FFT window (768 samples), irrelevant for a freeze effect.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-spectral-freeze/mod2-spectral-freeze.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct SpectralFreeze : Mod2Module {
