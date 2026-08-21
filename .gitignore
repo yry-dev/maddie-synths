@@ -81,3 +81,5 @@ _panel-wip/
 
 # licensing restrictions
 sample.h
+
+panels/renders/*
