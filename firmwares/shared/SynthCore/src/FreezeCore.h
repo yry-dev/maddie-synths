@@ -33,6 +33,11 @@
 // AVR, RP2350 and the desktop. Sample-rate independent: process(in, dt) advances
 // the loop by the caller's dt, and reads are in buffer samples so pitch matches
 // on any host.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod2-freeze/mod2-freeze.ino, HAGIWO's CC0
+// 1.0 firmware; CC0 places no conditions on derivative works.
 
 #include <math.h>
 #include <stdint.h>

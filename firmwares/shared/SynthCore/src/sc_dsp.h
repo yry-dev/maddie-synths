@@ -11,6 +11,11 @@
 //
 // The firmware keeps using mod2:: for hardware (PWM/IRQ setup, pins); these
 // sc:: versions are the shareable signal-processing half.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. The blocks lifted out of Mod2Common originate in HAGIWO's CC0 1.0
+// MOD2 firmware; CC0 places no conditions on derivative works.
 
 #include "sc_math.h"
 

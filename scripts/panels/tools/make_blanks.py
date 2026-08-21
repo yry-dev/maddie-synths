@@ -14,6 +14,14 @@ uuids come from uuid5 on a fixed namespace, so re-runs reproduce byte-identical
 files. Non-destructive by default (skip existing); pass --force to overwrite,
 --only 4hp,12hp to restrict. Vendored tiles live in blank-patterns/.
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+# The panel artwork this emits is licensed separately: see panels/LICENSE.md (CC BY-NC-SA 4.0).
+# The pattern.monster tiles this reads from blank-patterns/ are NOT in the repo:
+# they are commercially licensed to Madelyn Yeary and gitignored, because that
+# licence covers using the patterns rather than redistributing the tile files.
+# blank-patterns/index.md lists every tile and its source URL; without the tiles
+# in place this script exits early and generates nothing.
+
 import sys, json, math, pathlib, random, uuid
 import xml.dom.minidom as minidom
 

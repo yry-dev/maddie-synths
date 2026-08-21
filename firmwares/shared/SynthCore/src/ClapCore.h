@@ -17,6 +17,11 @@
 //
 // Pure C++: depends only on sc_dsp.h (which includes sc_math.h).
 // No Arduino.h / rack.hpp / Pico SDK.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod2-clap/mod2-clap.ino, HAGIWO's CC0 1.0
+// firmware; CC0 places no conditions on derivative works.
 
 #include "sc_dsp.h"
 

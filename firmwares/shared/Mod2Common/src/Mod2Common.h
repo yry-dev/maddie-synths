@@ -11,6 +11,12 @@
 // use the ~36.6 kHz dual-slice PWM audio path: the panel pin map, the PWM /
 // IRQ setup, and a handful of DSP and control building blocks. Synthesis
 // engines stay in each sketch; only the shared scaffolding lives here.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Board support for HAGIWO MOD2 hardware (Seeed Xiao RP2350); the pin
+// map and PWM-audio setup follow HAGIWO's CC0 1.0 MOD2 firmware, which places
+// no conditions on derivative works.
 namespace mod2 {
 
 // --------------------------------------------------

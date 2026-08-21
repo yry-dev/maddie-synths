@@ -1,3 +1,12 @@
+// The 1024-entry PROGMEM envelope curve and pot-response remap tables
+// themselves.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Board support for HAGIWO MOD1 hardware; the pin map and table
+// shapes follow HAGIWO's CC0 1.0 MOD1 firmware, which places no conditions on
+// derivative works.
+
 #include "Mod1EnvelopeData.h"
 
 namespace mod1 {

@@ -31,6 +31,11 @@
 	Deviation from hardware: on the Mod2 the CV jack is wired to the character pot;
 	this port routes CV to 1V/Oct pitch, since a pitched voice is far more useful
 	in a rack (CHARACTER stays on its own knob).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-flux/mod2-flux.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works.
 */
 
 struct Flux : Mod2Module {

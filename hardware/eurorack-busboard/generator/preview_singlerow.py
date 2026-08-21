@@ -4,6 +4,8 @@ Not part of the fab output - it exists so the layout can be eyeballed. Numeric
 checks catch clearance and connectivity; they do not catch "the input block
 ended up in a silly place".
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt

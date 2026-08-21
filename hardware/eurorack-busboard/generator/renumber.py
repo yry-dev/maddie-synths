@@ -1,5 +1,7 @@
 """Renumber references to <prefix><number> so KiCad's annotation checker is happy.
 Applied identically to the schematic and the PCB so the two stay linked."""
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import re, sys
 
 def build_map(n_hdr=20):

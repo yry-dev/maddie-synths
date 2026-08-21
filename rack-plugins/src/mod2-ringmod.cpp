@@ -27,6 +27,12 @@
 	second shift layer (hold BUTTON + turn POT2 = AM <-> ring-mod blend) has
 	no spare knob at all, so the AM blend lives in the context menu. The mode
 	persists in the patch (firmware: flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-ringmod/mod2-ringmod.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct RingMod : Mod2Module {

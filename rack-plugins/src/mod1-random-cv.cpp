@@ -25,6 +25,11 @@
 	trigValues[step] < map(pot, 0, 1023, 0, 255). At maximum probability a
 	slot holding value 255 will not fire (1-in-256 chance); this mirrors the
 	firmware exactly.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod1-random-cv/mod1-random-cv.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works.
 */
 
 struct RandomCV : Module {

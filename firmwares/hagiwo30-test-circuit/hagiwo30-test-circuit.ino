@@ -1,3 +1,19 @@
+/* Test Circuit
+
+Description:
+Assembly / bring-up test for the HAGIWO #30 platform. Prints encoder direction,
+encoder-button clicks and clock-input edges to the serial monitor at 115200
+baud, and blinks all six gate outputs together on a 1 s cycle so each one can be
+checked with an LED or a meter. "Hello" on the OLED confirms the I2C display.
+
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
+
+Hardware:
+HAGIWO #30 sequencer platform (Arduino Nano)
+*/
 
 //Encoder setting
 #define  ENCODER_OPTIMIZE_INTERRUPTS //countermeasure of encoder noise

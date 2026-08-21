@@ -26,6 +26,12 @@
 	physically-present-but-dead third knob becomes a proper Mix control, and
 	the button's long-press tap-tempo is dropped (patch a clock into IN1
 	instead). The LFO shape persists in the patch (firmware: flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-tremolo/mod2-tremolo.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct Tremolo : Mod2Module {

@@ -14,6 +14,12 @@
 // time, passing their own dt, so it is sample-rate independent.
 //
 // Pure C++: depends only on sc_math.h / sc_dsp.h. No Arduino / Rack / Pico SDK.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod2-fm-drum/mod2-fm-drum.ino, a CC0 1.0 firmware whose
+// sketch names no upstream author; CC0 places no conditions on derivative
+// works.
 
 #include "sc_math.h"
 #include "sc_dsp.h"

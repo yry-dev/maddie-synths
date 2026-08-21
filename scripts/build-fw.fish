@@ -1,4 +1,11 @@
 #!/usr/bin/env fish
+#
+# build-fw.fish — compile one sketch with arduino-cli, using the repo-local
+# arduino-cli.yaml and the shared Arduino library root firmwares/shared/.
+# The root Makefile calls this; see `make list` for the firmware targets.
+#
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 set -l repo_root (cd (dirname (status -f)); pwd)/..
 set -l config_file "$repo_root/arduino-cli.yaml"
 set -l shared_lib_dir "$repo_root/firmwares/shared"

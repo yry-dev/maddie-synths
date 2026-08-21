@@ -12,6 +12,8 @@
 # The generated DSP + panel are STUBS — fill in the algorithm from the firmware
 # and replace the placeholder panel/coords from the KiCad faceplate pipeline,
 # then run scripts/check-vcv.fish.
+#
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
 
 set -l repo_root (cd (dirname (status -f)); pwd)/..
 

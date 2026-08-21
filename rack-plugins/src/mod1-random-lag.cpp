@@ -20,6 +20,12 @@
 		F2 out     — lagged walk (0..10V)
 		F4 out     — main walk (0..10V)
 		LED        — brightness tracks the main walk value
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod1-random-lag/mod1-random-lag.ino, Rob Heel's CC0 1.0 firmware for the
+	HAGIWO MOD1 (github.com/rob-scape/hgw-mod1-firmwares); CC0 places no
+	conditions on derivative works.
 */
 
 struct RandomLag : Module {

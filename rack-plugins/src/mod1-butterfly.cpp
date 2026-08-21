@@ -27,6 +27,12 @@
 	per-step dt. Rack runs at audio rate, so we emulate the loop with LOOP_HZ and
 	advance simulation time accordingly, sub-stepped at a fixed internal dt so Euler
 	integration stays stable and sample-rate independent.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod1-butterfly/mod1-butterfly.ino, itself MIT-licensed and
+	forked from Rob Scape's https://github.com/rob-scape/hgw-mod1-firmwares/;
+	MIT requires the copyright and permission notice to travel with every copy.
 */
 
 // Emulated Arduino loop rate (the Nano loop is ~a couple kHz with its analogReads).

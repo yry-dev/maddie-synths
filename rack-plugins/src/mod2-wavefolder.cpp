@@ -28,6 +28,12 @@
 	free knob slot on the 3-pot panel, so the Rack port leaves the post-fold
 	tone wide open (the folder's brightest setting); the curve persists in the
 	patch (firmware: flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-wavefolder/mod2-wavefolder.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct Wavefolder : Mod2Module {

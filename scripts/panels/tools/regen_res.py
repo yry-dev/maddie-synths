@@ -10,6 +10,9 @@ Usage:
   regen_res.py                 # regenerate all modules
   regen_res.py Kick Clap       # only the named modules
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+# The panel artwork this emits is licensed separately: see panels/LICENSE.md (CC BY-NC-SA 4.0).
+
 import sys, subprocess, pathlib
 from kicad_to_panel import convert
 

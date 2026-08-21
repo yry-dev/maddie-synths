@@ -1,4 +1,10 @@
 #!/usr/bin/env fish
+#
+# setup-arduino.fish — one-time toolchain setup. Installs the AVR and RP2040
+# board cores plus the Arduino libraries the firmwares need, all against the
+# repo-local arduino-cli.yaml so nothing lands in the user's global config.
+#
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
 
 set -l repo_root (cd (dirname (status -f)); pwd)/..
 set -l config_file "$repo_root/arduino-cli.yaml"

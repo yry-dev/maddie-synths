@@ -24,6 +24,11 @@
 	The noise type is also available in the right-click menu. Deviation from
 	hardware: the firmware's pot/CV slope is inverted (A2 wiring); this port uses
 	the natural non-inverted direction (CW / higher CV = brighter).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-hihat/mod2-hihat.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works.
 */
 
 struct Hihat : Mod2Module {

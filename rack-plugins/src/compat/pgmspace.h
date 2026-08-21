@@ -7,6 +7,9 @@
 // provide an empty header here and neuter the macro. This dir is added to the
 // Rack build's include path (-Isrc/compat) and is NOT on the firmware build's
 // path, so the real pgmspace.h is still used when compiling firmware.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
 #ifndef PROGMEM
 #define PROGMEM
 #endif

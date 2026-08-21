@@ -28,6 +28,11 @@
 	identical at any sample rate. Rack advances it by args.sampleTime; the
 	firmware by millis()/1000. Pulse width is owned here by a dsp::PulseGenerator
 	per output (the firmware uses a 5ms digitalWrite instead).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod1-tap-tempo/mod1-tap-tempo.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works.
 */
 
 struct TapTempo : Module {

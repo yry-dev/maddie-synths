@@ -29,6 +29,12 @@
 	Damping is exposed on the right-click context menu and freeze is the IN2
 	gate. The tank arena is sized for Rack's engine rate. Mode persists in the
 	patch (firmware: flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-reverb/mod2-reverb.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct Reverb : Mod2Module {

@@ -6,6 +6,11 @@
 // <stdint.h> so it compiles unchanged on AVR (MOD1), RP2350 (MOD2) and the
 // desktop (VCV Rack). No Arduino.h, no rack.hpp, no Pico SDK. Everything is
 // `float`, header-only, allocation-free and AVR-friendly.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Original work for this repo; there is no upstream firmware to
+// attribute.
 
 #include <math.h>
 #include <stdint.h>

@@ -1,12 +1,25 @@
-# eurorack
+# Maddie Synths
 
-My open source eurorack experiments.
+- More details on each firmware is on [my site](https://madelyn.sh/synths)
+- More about me at [madelyn.sh](https://madelyn.sh)
+- You can purchase some of my work from my [etsy store](https://www.etsy.com/shop/MaddieSynths/)
+
+## Licensing
+
+The repo-wide default is **MIT** (`LICENSE.md` at the root, © 2026 Madelyn
+Yeary). Every source file carries a `License:` notice in its header saying which
+terms apply to it and where the code came from.
+
+That default is **overridden per directory**: any directory containing its own
+`LICENSE.md` is governed by that file instead, for everything beneath it. The
+overrides exist because the work there either came from somewhere else or is
+deliberately released on different terms
 
 ## Repo layout
 
 ```text
 .
-├── firmwares/                  Arduino sketches — one folder per module
+├── firmwares/                  Arduino sketches — one folder per module based on hardware platform
 │   ├── mod1-*/                 Arduino Nano modules  (mod1-euclidean.ino, …)
 │   ├── mod2-*/                 XIAO RP2350 modules   (mod2-vco.ino, …)
 │   ├── hagiwo30-*/             HAGIWO #30 sequencer variants (Nano)
@@ -19,12 +32,6 @@ My open source eurorack experiments.
 │       └── Hagiwo30Sequencers/ sequencer engines for the #30 platform
 │
 ├── rack-plugins/               VCV Rack 2 plugin (slug: maddie-synths)
-│   ├── src/<firmware-name>.cpp one Rack module per firmware, same kebab name
-│   ├── src/plugin.{hpp,cpp}    model declarations + registration
-│   ├── src/compat/             desktop shims (pgmspace.h, …)
-│   ├── res/                    panel SVGs (one per module)
-│   ├── .Rack-SDK/              vendored Rack SDK 2.6.4
-│   └── PORTING.md              firmware → Rack architecture doc  ← read first
 │
 ├── panels/<module>/            KiCad faceplate projects (+ blank-NHP/ blanks,
 │                               + fm-*/ house-style plates for free-modular kits)
@@ -35,15 +42,8 @@ My open source eurorack experiments.
 │   ├── sequencerv2/            sequencer PCB
 │   └── 2020-adapter/           OpenSCAD 2020-extrusion rail adapter
 │
-├── scripts/                    fish wrappers around Python helpers
-│   ├── check-vcv.fish          verify harness (build + purity + registration)
-│   ├── new-vcv-module.fish     scaffold a core header + Rack module + panel
-│   ├── build-fw.fish / upload-fw.fish / setup-arduino.fish
-│   └── panels/tools/           KiCad → SVG panel generation
-│
 ├── assets/                     shared icons/art used by panels and docs
 ├── dist/                       build output (gitignored)
-├── .github/workflows/          ci.yml, _rack.yml, _firmware.yml, release.yml
 ├── Makefile                    firmware + Rack plugin build entry point
 ├── arduino-cli.yaml            repo-local arduino-cli config (board indexes)
 └── plugin.json                 canonical Rack manifest (rack-plugins/ copy is generated)
@@ -235,48 +235,3 @@ force-move a rolling `latest` tag to the same commit with the same assets, so
 download URLs like `.../releases/download/latest/mod2-vco.uf2` always resolve
 to the newest stable build. A manual `workflow_dispatch` run builds everything
 without publishing, for testing.
-
-## Shared library code
-
-Use `firmwares/shared/` as the repo-local Arduino library root. Each library should use the standard Arduino layout:
-
-- `firmwares/shared/<LibraryName>/library.properties`
-- `firmwares/shared/<LibraryName>/src/<LibraryName>.h`
-- `firmwares/shared/<LibraryName>/src/<LibraryName>.cpp`
-
-This repo includes a starter library at `firmwares/shared/Mod1Common`.
-
-## Hardware
-
-### 2020 rail adapter (`hardware/2020-adapter`)
-
-A 3D-printable slide-in adapter that turns standard **2020 aluminum extrusion**
-into a Eurorack mounting rail. It end-loads into the extrusion's T-slot and
-exposes a captive C-channel along its length that holds a Eurorack threaded
-strip (or a row of M3/M2.5 T-nuts), so you can build a Eurorack case out of
-2020 rails instead of buying dedicated vertical rails.
-
-- One T-profile tab slides into the 2020 slot; the tab matches the generic
-  Misumi-style tapered T-slot (narrow stem flaring to a chamfered head) so it
-  seats without rocking.
-- The top face has a screw-access slot cut through a retaining lip, so the
-  threaded strip stays captive but module screws can still reach it from the
-  front.
-
-Files:
-
-- `2020-adapter.scad` — parametric OpenSCAD source. All slot, tab, body, and
-  strip-channel dimensions are editable parameters at the top of the file.
-- `2020-adapter.stl`, `2020-adapter-40mm.stl`, `2020-adapter-50mm.stl`,
-  `2020-adapter-90.stl`, `2020-adapter-100mm.stl` — pre-exported STLs at a few
-  rail lengths.
-
-Printing / sizing notes:
-
-- The `length` parameter is the rail length in mm. Most printers cap out around
-  100 mm wide; print multiple segments end to end for wider cases (84HP ≈
-  128.5 mm, 104HP ≈ 158.75 mm).
-- Default screw access is sized for M3; set `access_slot_width = 2.9` for M2.5.
-- For best dimensional accuracy on the slot and tab, stand the part on one end
-  (cross-section facing up); laying it on its back face also works since the
-  channel lips bridge as a ~1 mm overhang.

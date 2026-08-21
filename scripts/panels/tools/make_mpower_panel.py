@@ -16,6 +16,9 @@ House conventions followed (see scripts/panels/tools/README.md):
 
 Usage:  python3 make_mpower_panel.py [--force]
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+# The panel artwork this emits is licensed separately: see panels/LICENSE.md (CC BY-NC-SA 4.0).
+
 import json
 import pathlib
 import re

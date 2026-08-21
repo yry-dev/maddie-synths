@@ -30,6 +30,11 @@
 // while pitch stays correct. The Karplus delay buffer is a fixed 4096 samples, so
 // the lowest pitch is bounded by fs/4094 (well below the 32 Hz floor up to ~131
 // kHz; above that the floor rises). These are deliberate, documented convergences.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod2-flux/mod2-flux.ino, HAGIWO's CC0 1.0
+// firmware; CC0 places no conditions on derivative works.
 
 #include "sc_math.h"
 #include "sc_dsp.h"

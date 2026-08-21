@@ -29,6 +29,12 @@
 	context menu. In manual mode (Rate fully CCW) the Resonance knob sweeps
 	by hand and the feedback amount freezes, exactly as on hardware. The
 	stage count persists in the patch (firmware: flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-phaser/mod2-phaser.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct Phaser : Mod2Module {

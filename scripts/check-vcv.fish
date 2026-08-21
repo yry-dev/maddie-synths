@@ -11,6 +11,8 @@
 #
 # Usage: scripts/check-vcv.fish
 # Exit status is non-zero if any check fails.
+#
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
 
 set -l repo_root (cd (dirname (status -f)); pwd)/..
 set -l vcv "$repo_root/rack-plugins"

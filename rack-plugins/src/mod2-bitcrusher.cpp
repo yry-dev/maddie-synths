@@ -27,6 +27,12 @@
 	rate taper tops out at Rack's own sample rate instead of the hardware's
 	fixed ~36.6 kHz, so the knob at zero is fully transparent at any engine
 	rate. The quantizer style persists in the patch (firmware: flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-bitcrusher/mod2-bitcrusher.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct Bitcrusher : Mod2Module {
