@@ -118,6 +118,8 @@ extern Model* modelFMDrum;
 extern Model* modelFlux;
 extern Model* modelSpiral;
 extern Model* modelAcid303;
+// rabid.audio ports
+extern Model* modelRabidClk;
 // mod2-breakbeats and mod2-sample are excluded from the build: they depend on a
 // generated sample.h (PCM data) that is Patreon-gated / license-restricted and
 // deliberately kept out of this public repo (see .gitignore and the firmware

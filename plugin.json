@@ -222,6 +222,18 @@
         "Sequencer",
         "Drum"
       ]
+    },
+    {
+      "slug": "rabid-audio-clk",
+      "name": "The Count",
+      "description": "\"The Count\" 3 HP master clock: 15-400 BPM on a vertical 3-digit 7-segment readout, BEAT:DIV ratio, swing, tap tempo, CV tempo modulation and pause / single-step. Port of the rabid-audio-clk firmware (rabid.audio).",
+      "manualUrl": "https://rabid.audio/projects/synth/clk/",
+      "tags": [
+        "Clock",
+        "Clock modulator",
+        "Sequencer",
+        "Utility"
+      ]
     }
   ],
   "wipNote": "wipModules are Claude-generated maddie synths originals excluded from the build; move an entry back to modules to re-enable it (see rack-plugins/Makefile WIP_SOURCES and plugin.cpp).",

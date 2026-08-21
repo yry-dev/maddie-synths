@@ -5,6 +5,10 @@ SHARED_LIB_DIR := firmwares/shared
 RACK_PLUGIN_DIR := rack-plugins
 PORT ?=
 FW ?=
+# ISP programmer id for the bare-ATmega328P flow (see isp-help). Any id from
+# `arduino-cli board details --fqbn arduino:avr:nano --list-programmers` works:
+# usbtinyisp, atmel_ice, arduinoasisp (that one also needs PORT=), ...
+ISP ?= usbasp
 
 fqbn_for = $(if $(filter mod2%,$1),$(MOD2_FQBN),$(if $(filter mod1% hagiwo30%,$1),$(MOD1_FQBN),$(MOD1_FQBN)))
 
@@ -12,7 +16,7 @@ FIRMWARE_DIRS := $(sort $(patsubst %/,%,$(dir $(wildcard firmwares/*/*.ino))))
 FIRMWARES := $(filter-out shared,$(notdir $(FIRMWARE_DIRS)))
 
 .PHONY: all everything dist clean clean-all list board-list upload upload-help \
-        rack rack-dist rack-install rack-clean $(FIRMWARES)
+        isp-help rack rack-dist rack-install rack-clean $(FIRMWARES)
 
 all: dist
 
@@ -54,6 +58,9 @@ upload-help:
 	@echo "  make upload FW=mod1-euclidean PORT=/dev/ttyACM0"
 	@echo "  make upload-mod1-euclidean PORT=/dev/ttyACM0"
 	@echo ""
+	@echo "This flashes over a serial bootloader. Bare ATmega328P boards"
+	@echo "(rabid-audio-*) have none — see 'make isp-help' for those."
+	@echo ""
 	@echo "Available firmware targets:"
 	@printf '  %s\n' $(FIRMWARES)
 
@@ -94,6 +101,66 @@ upload-%: %
 		--config-file $(CONFIG_FILE) \
 		--fqbn $(call fqbn_for,$*) \
 		-p "$(PORT)" \
+		--input-dir dist/$* \
+		firmwares/$*
+
+# ---- Bare-ATmega328P flashing over ISP ----------------------------------
+# The upload rules above drive a serial bootloader, which assumes a Nano-style
+# board with a USB-serial bridge. The rabid-audio-* ports run on a BARE
+# ATmega328P: no bootloader to talk to, and on the CLK board no serial either —
+# its 7-segment lines occupy the whole of PORTD, D0/D1 (RX/TX) included. So
+# those chips are programmed in-circuit through the ICSP header instead.
+#
+# Two steps, and the first is easy to forget:
+#
+#   make fuses-rabid-audio-clk     # ONCE per chip — sets the clock fuses
+#   make isp-rabid-audio-clk       # build + flash, repeat as often as you like
+#
+# Why fuses first: a factory ATmega328P runs its internal 8 MHz RC divided by 8,
+# so 1 MHz. This firmware hard-assumes 16 MHz — sc::kClkTimerHz (15625) is
+# 16 MHz / 1024 — and at factory fuses every tempo comes out 16x slow, with no
+# other symptom to point at the cause. `burn-bootloader` on the Nano FQBN writes
+# low_fuses=0xFF (full-swing external crystal, no CKDIV8), which is exactly what
+# the CLK's 16 MHz crystal needs. It also writes Optiboot into the boot section;
+# that is dead weight here, not a problem.
+
+isp-help:
+	@echo "Flashing a bare ATmega328P (rabid-audio-*) through an ISP programmer:"
+	@echo "  make fuses-<firmware>          # once per chip: 16 MHz crystal fuses"
+	@echo "  make isp-<firmware>            # build, then flash over ISP"
+	@echo ""
+	@echo "Programmer defaults to ISP=$(ISP); override for other hardware:"
+	@echo "  make isp-rabid-audio-clk ISP=usbtinyisp"
+	@echo "  make isp-rabid-audio-clk ISP=arduinoasisp PORT=/dev/cu.usbmodemXXXX"
+	@echo ""
+	@echo "List valid programmer ids:"
+	@echo "  arduino-cli board details --fqbn $(MOD1_FQBN) --list-programmers"
+	@echo ""
+	@echo "If the programmer cannot see the chip, its SCK is likely too fast for a"
+	@echo "virgin 1 MHz part (ISP clock must stay under a quarter of the target's)."
+	@echo "On a USBasp, close the slow-SCK jumper (JP3) and retry fuses- first."
+
+# Not dependent on the sketch: fuses are a property of the chip, not the build.
+fuses-%:
+	@case "$*" in mod2-*) \
+		echo "Error: $* targets the RP2350, which has no ISP/fuse flow."; \
+		exit 1;; esac
+	arduino-cli burn-bootloader \
+		--config-file $(CONFIG_FILE) \
+		--fqbn $(call fqbn_for,$*) \
+		-P "$(ISP)" \
+		$(if $(PORT),-p "$(PORT)")
+
+isp-%: %
+	@case "$*" in mod2-*) \
+		echo "Error: $* targets the RP2350, which has no ISP flow."; \
+		echo "Flash it over USB instead: make upload-$* PORT=<port>"; \
+		exit 1;; esac
+	arduino-cli upload \
+		--config-file $(CONFIG_FILE) \
+		--fqbn $(call fqbn_for,$*) \
+		-P "$(ISP)" \
+		$(if $(PORT),-p "$(PORT)") \
 		--input-dir dist/$* \
 		firmwares/$*
 

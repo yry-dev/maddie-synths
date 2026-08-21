@@ -91,7 +91,14 @@ def edge_bbox(svg):
                 xs.append(x); ys.append(y)
     return min(xs), min(ys), max(xs), max(ys)
 
-def convert(pcb, name, out_dir, finish=FINISH_GOLD):
+def convert(pcb, name, out_dir, finish=FINISH_GOLD,
+            bg=PANEL_BG, fg=PANEL_FG, edge=PANEL_EDGE):
+    """Plot a faceplate to a Rack-ready SVG.
+
+    bg/fg/edge default to the maddie synths house scheme. Ported panels that are
+    meant to look like SOMEONE ELSE'S plate override them -- e.g. rabid.audio's
+    CLK is black ink on bare aluminium, not light silk on aubergine.
+    """
     out_dir = pathlib.Path(out_dir)
     raw = out_dir / f"_{name}.raw.svg"
     plot(pcb, raw)
@@ -103,9 +110,9 @@ def convert(pcb, name, out_dir, finish=FINISH_GOLD):
     py0 = yc - PANEL_H_MM / 2
     inner = svg[svg.index('>', svg.index('<svg')) + 1: svg.rindex('</svg>')]
     inner = re.sub(r'<title>.*?</title>', '', inner, flags=re.S)
-    inner = (inner.replace(SILK_COLOR, PANEL_FG)
+    inner = (inner.replace(SILK_COLOR, fg)
                   .replace(MASK_COLOR, finish)
-                  .replace(EDGE_COLOR, PANEL_EDGE))
+                  .replace(EDGE_COLOR, edge))
     inner = inner.replace('fill:#000000; fill-opacity:1.0000;stroke:#000000',
                           'fill:none;stroke:none')
     panel = f'''<?xml version="1.0" encoding="UTF-8"?>
@@ -113,7 +120,7 @@ def convert(pcb, name, out_dir, finish=FINISH_GOLD):
   <defs>
     <clipPath id="board"><rect x="{x0:.4f}" y="{py0:.4f}" width="{w:.4f}" height="{PANEL_H_MM}"/></clipPath>
   </defs>
-  <rect x="{x0:.4f}" y="{py0:.4f}" width="{w:.4f}" height="{PANEL_H_MM}" fill="{PANEL_BG}"/>
+  <rect x="{x0:.4f}" y="{py0:.4f}" width="{w:.4f}" height="{PANEL_H_MM}" fill="{bg}"/>
   <g clip-path="url(#board)">
 {inner}
   </g>

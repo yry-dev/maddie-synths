@@ -1,0 +1,107 @@
+{
+ "source": "/Users/madelyn/Documents/code/music/rabid-audio/clock/clock/clock.kicad_pcb",
+ "note": "Panel-local mm (pcb - 60). Diameters are rabid.audio's, not ours.",
+ "width": 15.2,
+ "height": 128.5,
+ "hp": 3,
+ "holes": [
+  {
+   "kind": "jack",
+   "net": "BEAT_OUT",
+   "source": "thonkiconn_hole",
+   "x": 7.25,
+   "y": 14.4,
+   "w": 8.0,
+   "h": 8.0
+  },
+  {
+   "kind": "led",
+   "net": "3mm_led_hole",
+   "source": "3mm_led_hole",
+   "x": 3.875,
+   "y": 42.39,
+   "w": 3.1,
+   "h": 3.1
+  },
+  {
+   "kind": "jack",
+   "net": "DIV_OUT",
+   "source": "thonkiconn_hole",
+   "x": 7.25,
+   "y": 24.5,
+   "w": 8.0,
+   "h": 8.0
+  },
+  {
+   "kind": "button",
+   "net": "toggle_sw_hole",
+   "source": "toggle_sw_hole",
+   "x": 5.565,
+   "y": 104.341,
+   "w": 5.2,
+   "h": 5.2
+  },
+  {
+   "kind": "mount",
+   "net": "SCREW1",
+   "source": "eurorack_screw_hole",
+   "x": 7.5,
+   "y": 3.0,
+   "w": 5.8,
+   "h": 4.2
+  },
+  {
+   "kind": "jack",
+   "net": "CV_IN",
+   "source": "thonkiconn_hole",
+   "x": 7.25,
+   "y": 34.65,
+   "w": 8.0,
+   "h": 8.0
+  },
+  {
+   "kind": "button",
+   "net": "toggle_sw_hole",
+   "source": "toggle_sw_hole",
+   "x": 5.565,
+   "y": 115.136,
+   "w": 5.2,
+   "h": 5.2
+  },
+  {
+   "kind": "knob",
+   "net": "KNOB",
+   "source": "knob_hole",
+   "x": 7.625,
+   "y": 91.6,
+   "w": 9.0,
+   "h": 9.0
+  },
+  {
+   "kind": "led",
+   "net": "3mm_led_hole",
+   "source": "3mm_led_hole",
+   "x": 11.9,
+   "y": 42.39,
+   "w": 3.1,
+   "h": 3.1
+  },
+  {
+   "kind": "mount",
+   "net": "SCREW2",
+   "source": "eurorack_screw_hole",
+   "x": 7.5,
+   "y": 125.5,
+   "w": 5.8,
+   "h": 4.2
+  }
+ ],
+ "window": {
+  "x": 3.875,
+  "y": 45.405,
+  "w": 8.025,
+  "h": 32.09,
+  "digits": 3,
+  "pitch": 10.795
+ }
+}

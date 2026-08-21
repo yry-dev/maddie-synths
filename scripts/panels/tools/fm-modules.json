@@ -1,0 +1,1841 @@
+{
+ "Biodata": {
+  "hp": 6,
+  "width": 30.1,
+  "y_offset": 17,
+  "source_title": "Biodata",
+  "features": [
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     7.43,
+     19.54
+    ],
+    "r": 3.15,
+    "label": "Probe",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     15.05,
+     42.4
+    ],
+    "r": 3.65,
+    "label": "Sensitivity"
+   },
+   {
+    "kind": "SmallPotentiometer",
+    "c": [
+     7.43,
+     67.8
+    ],
+    "r": 3.25,
+    "label": "Density"
+   },
+   {
+    "kind": "SmallPotentiometer",
+    "c": [
+     22.67,
+     67.8
+    ],
+    "r": 3.25,
+    "label": "Spread"
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     5.525,
+     86.85
+    ],
+    "r": 3.15,
+    "label": "Trig",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     24.575,
+     86.85
+    ],
+    "r": 3.15,
+    "label": "Gate",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "LED",
+    "c": [
+     15.05,
+     86.85
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     5.525,
+     103.36
+    ],
+    "r": 3.15,
+    "label": "Pulse",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     24.575,
+     103.36
+    ],
+    "r": 3.15,
+    "label": "V/Oct",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     15.05,
+     103.36
+    ],
+    "r": 3.15,
+    "label": "CV",
+    "is_output": true,
+    "label_above": false
+   }
+  ]
+ },
+ "Boost": {
+  "hp": 4,
+  "width": 20.0,
+  "y_offset": 12,
+  "source_title": "Boost",
+  "features": [
+   {
+    "kind": "Potentiometer",
+    "c": [
+     10.0,
+     24.7
+    ],
+    "r": 3.65,
+    "label": "Drive"
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     10.0,
+     47.56
+    ],
+    "r": 3.65,
+    "label": "Tone"
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     10.0,
+     83.12
+    ],
+    "r": 3.15,
+    "label": "In",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     10.0,
+     100.9
+    ],
+    "r": 3.15,
+    "label": "Out",
+    "is_output": true,
+    "label_above": false
+   }
+  ]
+ },
+ "Clock": {
+  "hp": 8,
+  "width": 40.3,
+  "y_offset": 21.5,
+  "source_title": "Clock",
+  "features": [
+   {
+    "kind": "OLEDSPI",
+    "rect": [
+     8.2451,
+     14.74,
+     23.8097,
+     12.9049
+    ],
+    "holes": [
+     [
+      31.9,
+      35.594,
+      1.1906
+     ],
+     [
+      31.9,
+      11.594,
+      1.1906
+     ],
+     [
+      8.4,
+      35.594,
+      1.1906
+     ],
+     [
+      8.4,
+      11.594,
+      1.1906
+     ]
+    ]
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     30.31,
+     45.63
+    ],
+    "r": 3.65,
+    "label": null
+   },
+   {
+    "kind": "D6R30",
+    "c": [
+     9.99,
+     45.63
+    ],
+    "r": 4.65
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     12.53,
+     64.68
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     16.34,
+     58.33
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     27.77,
+     64.68
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     31.58,
+     58.33
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     12.53,
+     79.92
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     16.34,
+     73.57
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     27.77,
+     79.92
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     31.58,
+     73.57
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     12.53,
+     95.16
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     16.34,
+     88.81
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     27.77,
+     95.16
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     31.58,
+     88.81
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     12.53,
+     110.4
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     16.34,
+     104.05
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     27.77,
+     110.4
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     31.58,
+     104.05
+    ],
+    "r": 1.55
+   }
+  ]
+ },
+ "Drift": {
+  "hp": 4,
+  "width": 20.0,
+  "y_offset": 13,
+  "source_title": "Drift",
+  "features": [
+   {
+    "kind": "Potentiometer",
+    "c": [
+     10.0,
+     20.62
+    ],
+    "r": 3.65,
+    "label": "Speed"
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     10.0,
+     43.48
+    ],
+    "r": 3.65,
+    "label": "Texture"
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     10.0,
+     66.34
+    ],
+    "r": 3.65,
+    "label": "Atten"
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.92,
+     89.2
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     15.08,
+     89.2
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     15.08,
+     104.44
+    ],
+    "r": 3.15,
+    "label": "Out",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "LED",
+    "c": [
+     4.92,
+     104.44
+    ],
+    "r": 2.55
+   }
+  ]
+ },
+ "Envelope": {
+  "hp": 8,
+  "width": 40.3,
+  "y_offset": 12,
+  "source_title": "Envelope",
+  "features": [
+   {
+    "kind": "TL1105SP",
+    "c": [
+     7.45,
+     15.81
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     15.705,
+     15.81
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     21.42,
+     15.81
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     27.135,
+     15.81
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     32.85,
+     15.81
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     7.45,
+     28.51
+    ],
+    "r": 3.15,
+    "label": "A/A/A/A",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     30.31,
+     28.51
+    ],
+    "r": 3.65,
+    "label": null
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     7.45,
+     48.83
+    ],
+    "r": 3.15,
+    "label": "D/C/C/H",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     30.31,
+     48.83
+    ],
+    "r": 3.65,
+    "label": null
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     7.45,
+     69.15
+    ],
+    "r": 3.15,
+    "label": "S/R/R/R",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     30.31,
+     69.15
+    ],
+    "r": 3.65,
+    "label": null
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     7.45,
+     89.47
+    ],
+    "r": 3.15,
+    "label": "R/C/C/D",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     30.31,
+     89.47
+    ],
+    "r": 3.65,
+    "label": null
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.91,
+     106.615
+    ],
+    "r": 3.15,
+    "label": "Gate",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     15.07,
+     106.615
+    ],
+    "r": 3.15,
+    "label": "Trig",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     25.23,
+     106.615
+    ],
+    "r": 3.15,
+    "label": "Out",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     35.39,
+     106.615
+    ],
+    "r": 3.15,
+    "label": "Aux",
+    "is_output": true,
+    "label_above": false
+   }
+  ]
+ },
+ "Lights": {
+  "hp": 2,
+  "width": 9.8,
+  "y_offset": 17.5,
+  "source_title": "",
+  "features": [
+   {
+    "kind": "LED",
+    "c": [
+     4.9,
+     21.31
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     4.9,
+     32.74
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.9,
+     58.14
+    ],
+    "r": 3.15,
+    "label": "A",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.9,
+     73.38
+    ],
+    "r": 3.15,
+    "label": "R",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.9,
+     88.62
+    ],
+    "r": 3.15,
+    "label": "G",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.9,
+     103.86
+    ],
+    "r": 3.15,
+    "label": "B",
+    "is_output": false,
+    "label_above": false
+   }
+  ]
+ },
+ "Logic": {
+  "hp": 4,
+  "width": 20.0,
+  "y_offset": 12,
+  "source_title": "ALU",
+  "features": [
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.92,
+     19.62
+    ],
+    "r": 3.15,
+    "label": "A",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     15.08,
+     19.62
+    ],
+    "r": 3.15,
+    "label": "B",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.92,
+     36.13
+    ],
+    "r": 3.15,
+    "label": "OR",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     15.08,
+     36.13
+    ],
+    "r": 3.15,
+    "label": "AND",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.92,
+     52.64
+    ],
+    "r": 3.15,
+    "label": "NOR",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     15.08,
+     52.64
+    ],
+    "r": 3.15,
+    "label": "XOR",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.92,
+     71.69
+    ],
+    "r": 3.15,
+    "label": "A",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     15.08,
+     71.69
+    ],
+    "r": 3.15,
+    "label": "B",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.92,
+     88.2
+    ],
+    "r": 3.15,
+    "label": "A+B",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     15.08,
+     88.2
+    ],
+    "r": 3.15,
+    "label": "A-B",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.92,
+     104.71
+    ],
+    "r": 3.15,
+    "label": "MAX",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     15.08,
+     104.71
+    ],
+    "r": 3.15,
+    "label": "|A-B|",
+    "is_output": true,
+    "label_above": false
+   }
+  ]
+ },
+ "Mixer": {
+  "hp": 8,
+  "width": 40.3,
+  "y_offset": 16,
+  "source_title": "Mixer",
+  "features": [
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     6.18,
+     21.08
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallSwitch",
+    "c": [
+     16.34,
+     21.08
+    ],
+    "r": 2.4,
+    "label": null,
+    "left_text": null,
+    "right_text": null
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     31.58,
+     21.08
+    ],
+    "r": 3.65,
+    "label": null
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     6.18,
+     41.4
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallSwitch",
+    "c": [
+     16.34,
+     41.4
+    ],
+    "r": 2.4,
+    "label": null,
+    "left_text": null,
+    "right_text": null
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     31.58,
+     41.4
+    ],
+    "r": 3.65,
+    "label": null
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     6.18,
+     61.72
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallSwitch",
+    "c": [
+     16.34,
+     61.72
+    ],
+    "r": 2.4,
+    "label": null,
+    "left_text": null,
+    "right_text": null
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     31.58,
+     61.72
+    ],
+    "r": 3.65,
+    "label": null
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     6.18,
+     82.04
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallSwitch",
+    "c": [
+     16.34,
+     82.04
+    ],
+    "r": 2.4,
+    "label": null,
+    "left_text": null,
+    "right_text": null
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     31.58,
+     82.04
+    ],
+    "r": 3.65,
+    "label": null
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     6.18,
+     102.36
+    ],
+    "r": 3.15,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallSwitch",
+    "c": [
+     16.34,
+     102.36
+    ],
+    "r": 2.4,
+    "label": null,
+    "left_text": null,
+    "right_text": null
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     31.58,
+     102.36
+    ],
+    "r": 3.15,
+    "label": "OUT",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     35.39,
+     94.74
+    ],
+    "r": 1.55
+   }
+  ]
+ },
+ "OffsetAtten": {
+  "hp": 4,
+  "width": 20.0,
+  "y_offset": 15,
+  "source_title": "O/A",
+  "features": [
+   {
+    "kind": "Potentiometer",
+    "c": [
+     12.54,
+     17.54
+    ],
+    "r": 3.65,
+    "label": null
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     7.46,
+     37.86
+    ],
+    "r": 3.65,
+    "label": null
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.92,
+     54.37
+    ],
+    "r": 3.15,
+    "label": "In",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     15.08,
+     54.37
+    ],
+    "r": 3.15,
+    "label": "Out",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     17.62,
+     46.75
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     12.54,
+     72.15
+    ],
+    "r": 3.65,
+    "label": null
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     7.46,
+     92.47
+    ],
+    "r": 3.65,
+    "label": null
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     4.92,
+     108.98
+    ],
+    "r": 3.15,
+    "label": "In",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     15.08,
+     108.98
+    ],
+    "r": 3.15,
+    "label": "Out",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     17.62,
+     101.36
+    ],
+    "r": 1.55
+   }
+  ]
+ },
+ "Output": {
+  "hp": 8,
+  "width": 40.3,
+  "y_offset": 17,
+  "source_title": "Output",
+  "features": [
+   {
+    "kind": "Potentiometer",
+    "c": [
+     29.04,
+     19.54
+    ],
+    "r": 3.65,
+    "label": "Phones"
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     13.8,
+     36.05
+    ],
+    "r": 3.65,
+    "label": "Line out"
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     12.53,
+     56.37
+    ],
+    "r": 3.15,
+    "label": "In L",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     27.77,
+     56.37
+    ],
+    "r": 3.15,
+    "label": "In R",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketQuarterInch",
+    "c": [
+     20.15,
+     75.42
+    ],
+    "r": 4.75,
+    "label": "",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketQuarterInch",
+    "c": [
+     20.15,
+     91.93
+    ],
+    "r": 4.75,
+    "label": "L",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketQuarterInch",
+    "c": [
+     20.15,
+     108.44
+    ],
+    "r": 4.75,
+    "label": "R",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     8.72,
+     79.23
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     8.72,
+     85.58
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     8.72,
+     91.93
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     8.72,
+     98.28
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     8.72,
+     104.63
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     31.58,
+     79.23
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     31.58,
+     85.58
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     31.58,
+     91.93
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     31.58,
+     98.28
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     31.58,
+     104.63
+    ],
+    "r": 1.55
+   }
+  ]
+ },
+ "Quantizer": {
+  "hp": 10,
+  "width": 50.5,
+  "y_offset": 12,
+  "source_title": "Quantizer",
+  "features": [
+   {
+    "kind": "TL1105SP",
+    "c": [
+     44.3,
+     34.86
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     37.95,
+     34.86
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     41.7478,
+     44.385
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     36.2485,
+     41.21
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     34.775,
+     51.3578
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     31.6,
+     45.8585
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     25.25,
+     53.91
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     25.25,
+     47.56
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     15.725,
+     51.3578
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     18.9,
+     45.8585
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     8.7522,
+     44.385
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     14.2515,
+     41.21
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     6.2,
+     34.86
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     12.55,
+     34.86
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     8.7522,
+     25.335
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     14.2515,
+     28.51
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     15.725,
+     18.3622
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     18.9,
+     23.8615
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     25.25,
+     15.81
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     25.25,
+     22.16
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     34.775,
+     18.3622
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     31.6,
+     23.8615
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     41.7478,
+     25.335
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     36.2485,
+     28.51
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     7.47,
+     64.07
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     32.235,
+     64.07
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "TL1105SP",
+    "c": [
+     43.03,
+     64.07
+    ],
+    "r": 2.55
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     7.47,
+     86.93
+    ],
+    "r": 3.15,
+    "label": "V/O In",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     18.265,
+     86.93
+    ],
+    "r": 3.15,
+    "label": "Sample",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     7.47,
+     104.71
+    ],
+    "r": 3.15,
+    "label": "Trig",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     18.265,
+     104.71
+    ],
+    "r": 3.15,
+    "label": "Out",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     12.8675,
+     81.5325
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     12.8675,
+     99.3125
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     32.235,
+     86.93
+    ],
+    "r": 3.15,
+    "label": "V/O In",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     43.03,
+     86.93
+    ],
+    "r": 3.15,
+    "label": "Sample",
+    "is_output": false,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     32.235,
+     104.71
+    ],
+    "r": 3.15,
+    "label": "Trig",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocketCentered",
+    "c": [
+     43.03,
+     104.71
+    ],
+    "r": 3.15,
+    "label": "Out",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     37.6325,
+     81.5325
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     37.6325,
+     99.3125
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "M3Bolt",
+    "c": [
+     4.93,
+     17.08
+    ],
+    "r": 1.725
+   },
+   {
+    "kind": "M3Bolt",
+    "c": [
+     45.57,
+     17.08
+    ],
+    "r": 1.725
+   }
+  ]
+ },
+ "RNG": {
+  "hp": 10,
+  "width": 50.5,
+  "y_offset": 13,
+  "source_title": "RNG",
+  "features": [
+   {
+    "kind": "SmallLED",
+    "c": [
+     6.2,
+     16.81
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     12.55,
+     16.81
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     18.9,
+     16.81
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     25.25,
+     16.81
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     31.6,
+     16.81
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     37.95,
+     16.81
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     44.3,
+     16.81
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     12.55,
+     30.78
+    ],
+    "r": 3.65,
+    "label": "Chance"
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     37.95,
+     30.78
+    ],
+    "r": 3.65,
+    "label": "Time"
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     12.55,
+     56.18
+    ],
+    "r": 3.65,
+    "label": "Spread"
+   },
+   {
+    "kind": "Potentiometer",
+    "c": [
+     37.95,
+     56.18
+    ],
+    "r": 3.65,
+    "label": "Bias"
+   },
+   {
+    "kind": "Switch",
+    "c": [
+     12.55,
+     76.5
+    ],
+    "r": 3.325,
+    "label": null,
+    "left_text": "Uni",
+    "right_text": "Bi"
+   },
+   {
+    "kind": "Switch",
+    "c": [
+     37.95,
+     76.5
+    ],
+    "r": 3.325,
+    "label": null,
+    "left_text": "Trig",
+    "right_text": "Gate"
+   },
+   {
+    "kind": "JackSocket",
+    "c": [
+     7.47,
+     91.1769
+    ],
+    "r": 3.15,
+    "label": "Clock",
+    "is_output": false,
+    "label_above": true
+   },
+   {
+    "kind": "JackSocket",
+    "c": [
+     17.63,
+     91.1769
+    ],
+    "r": 3.15,
+    "label": "Enable",
+    "is_output": false,
+    "label_above": true
+   },
+   {
+    "kind": "JackSocket",
+    "c": [
+     12.55,
+     105.0031
+    ],
+    "r": 3.15,
+    "label": "Out",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     3.66,
+     98.09
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     21.44,
+     98.09
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "JackSocket",
+    "c": [
+     37.95,
+     91.1769
+    ],
+    "r": 3.15,
+    "label": "Bias",
+    "is_output": false,
+    "label_above": true
+   },
+   {
+    "kind": "JackSocket",
+    "c": [
+     32.87,
+     105.0031
+    ],
+    "r": 3.15,
+    "label": "A",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "JackSocket",
+    "c": [
+     43.03,
+     105.0031
+    ],
+    "r": 3.15,
+    "label": "B",
+    "is_output": true,
+    "label_above": false
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     46.84,
+     98.09
+    ],
+    "r": 1.55
+   },
+   {
+    "kind": "SmallLED",
+    "c": [
+     29.06,
+     98.09
+    ],
+    "r": 1.55
+   }
+  ]
+ }
+}
