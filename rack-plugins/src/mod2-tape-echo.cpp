@@ -29,6 +29,12 @@
 	(every press is a tap — no shift layer to dodge). The tape arena is sized
 	for Rack's engine rate, so the full 2 s (+ tape-stop headroom) is
 	available at any sample rate.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-tape-echo/mod2-tape-echo.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct TapeEcho : Mod2Module {

@@ -15,6 +15,11 @@
 // 0..1 so the math is sample-rate independent.
 //
 // Pure C++: depends only on sc_math.h / <math.h>. No Arduino / Rack / Pico SDK.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod2-vco/mod2-vco.ino, HAGIWO's CC0 1.0
+// firmware; CC0 places no conditions on derivative works.
 
 #include "sc_math.h"
 

@@ -7,6 +7,8 @@ geometry differs, so eurorack-busboard.kicad_sch serves both.
 Run this for the .kicad_pcb, then verify_singlerow.py for connectivity and
 plane-continuity. Both must come back clean.
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import uuid, math, os, re as _re
 import libgen
 

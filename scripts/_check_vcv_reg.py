@@ -5,6 +5,8 @@ and an addModel() call. Helper for scripts/check-vcv.fish.
 Usage: _check_vcv_reg.py <rack_plugins_dir>
 Exit non-zero on any mismatch.
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import json
 import os
 import re

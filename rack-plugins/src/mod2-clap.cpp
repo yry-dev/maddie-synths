@@ -27,6 +27,11 @@
 	mutually exclusive; here the knob sets the base frequency and the CV jack
 	modulates on top (0 V = no offset, 5 V = full range), matching the VCV
 	convention of summing knob and CV.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-clap/mod2-clap.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works.
 */
 
 struct Clap : Mod2Module {

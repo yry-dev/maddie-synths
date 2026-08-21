@@ -41,6 +41,11 @@
 // Pure C++: depends only on sc_math.h / sc_dsp.h (<math.h>/<stdint.h>). No
 // Arduino.h, rack.hpp or Pico SDK; float only, no heap, no STL — compiles on
 // AVR, RP2350 and the desktop.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod2-freq-shifter/mod2-freq-shifter.ino,
+// HAGIWO's CC0 1.0 firmware; CC0 places no conditions on derivative works.
 
 #include <math.h>
 #include <stdint.h>

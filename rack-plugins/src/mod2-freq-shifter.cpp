@@ -28,6 +28,12 @@
 	no spare knob at all, so the sideband blend lives in the context menu
 	(0 = up, 0.5 = both/ring-mod, 1 = down). The range persists in the patch
 	(firmware: flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-freq-shifter/mod2-freq-shifter.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct FreqShifter : Mod2Module {

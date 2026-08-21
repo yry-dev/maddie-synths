@@ -27,6 +27,12 @@
 	control, and feedback (the "shimmer-lite" cascades) is a context-menu
 	slider (same pattern as mod2-granular's grain pitch). The delay arena is
 	sized for Rack's engine rate. Mode persists in the patch (firmware: flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-pitch-shifter/mod2-pitch-shifter.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct PitchShifter : Mod2Module {

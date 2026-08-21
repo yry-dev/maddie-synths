@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+#
+# midi-bridge.sh — keep an ALSA sequencer connection alive between a MIDI
+# controller and a CV interface. Polls `aconnect -l` once a second and re-links
+# the two by name, so unplugging either end reconnects on its own. Run under
+# midi-bridge.service on the Pi.
+#
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 set -u
 
 SRC_NAME="MPK mini 3"

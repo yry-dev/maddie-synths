@@ -32,6 +32,8 @@ Two pcbnew landmines this script works around, both of which segfault:
     materialised as PCB_TRACK/PCB_VIA objects once a width has succeeded;
     a failed attempt is simply discarded and never reaches the board.
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import json, math, os, heapq, pcbnew
 
 HERE = os.path.dirname(os.path.abspath(__file__))

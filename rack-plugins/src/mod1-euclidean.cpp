@@ -20,6 +20,11 @@
 		F3 (IN)       -> hits CV (0..5 V adds to HITS knob, clamped to 0..1)
 		F4 (OUT)      -> gate output, 10 V trigger pulse (~10 ms, matches firmware)
 		LED           -> illuminates for the duration of each gate pulse
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod1-euclidean/mod1-euclidean.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works.
 */
 
 struct Euclidean : Module {

@@ -18,6 +18,8 @@ widget hole-centre coordinates from the faceplate.
 
 Usage: _new_vcv_module.py <repo_root> <Slug> "<Display Name>" "<tag1,tag2>" "<description>"
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import json
 import os
 import re
@@ -33,6 +35,12 @@ CORE_TMPL = '''#pragma once
 //
 // Pure C++: include only sc_math.h / sc_dsp.h. NO Arduino.h, rack.hpp, Pico SDK.
 // float only, no heap, no STL — must compile on AVR, RP2350 and desktop.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. TODO: if this core is derived from an existing firmware, name it
+// here and state that firmware's license (most are HAGIWO's CC0 1.0, which
+// places no conditions on derivative works).
 
 #include "sc_math.h"
 // #include "sc_dsp.h"   // uncomment for Biquad / noise / soft-clip / DC-block
@@ -77,6 +85,11 @@ CPP_TMPL = '''#include "plugin.hpp"
 \tthis file owns only the Rack I/O. STUB — fill in params/jacks to match the
 \tfirmware, and replace the placeholder panel + coordinates with the KiCad
 \tfaceplate output (see scripts/panels/tools).
+
+\tLicense:
+\tMIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+\tTODO: name the firmware this ports and state that firmware's license (most
+\tare HAGIWO's CC0 1.0, which places no conditions on derivative works).
 */
 
 struct {slug} : Module {{

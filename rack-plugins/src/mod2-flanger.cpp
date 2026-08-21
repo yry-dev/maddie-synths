@@ -29,6 +29,12 @@
 	fully CCW) the Feedback knob sweeps the comb by hand and the feedback
 	amount freezes, exactly as on hardware. The shape persists in the patch
 	(firmware: flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-flanger/mod2-flanger.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct Flanger : Mod2Module {

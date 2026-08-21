@@ -7,10 +7,10 @@
 
 	Port of firmwares/rabid-audio-clk/rabid-audio-clk.ino, itself a port of
 	rabid.audio's `clock` module (github.com/rabidaudio/synthesizer), used under
-	the MIT License, Copyright 2015-2020 Charles Julian Knight. The upstream
-	notice ships beside the firmware as firmwares/rabid-audio-clk/SOFTWARE_LICENSE
-	and MIT requires it to travel with every copy — unlike the CC0 HAGIWO modules
-	in this plugin, which carry no such condition.
+	the MIT License, Copyright 2015-2020 Julian Knight. The upstream notice ships
+	beside the firmware as firmwares/rabid-audio-clk/LICENSE.md and MIT requires
+	it to travel with every copy — unlike the CC0 HAGIWO modules in this plugin,
+	which carry no such condition.
 
 	The panel is theirs, mechanics AND artwork: every cutout comes out of their
 	`clock.kicad_pcb` at their diameters, and the plate wears their design
@@ -55,6 +55,17 @@
 	    the patch, and "Initialize" is the factory reset.
 	  - The encoder's push is a click rather than a press-and-hold, so the
 	    hold-to-reset gestures layered on it have nowhere to go.
+
+	License:
+	MIT License, Copyright 2015-2020 Julian Knight — this module and its
+	sc::ClkEngine are derived from rabid.audio's `clock`, and MIT permits
+	modification and redistribution (including commercially) only so long as the
+	copyright and permission notice ships with every copy or substantial portion
+	of the software. The full notice is kept verbatim at
+	firmwares/rabid-audio-clk/LICENSE.md; keep it there and ship it.
+	The Rack-side work in this file — the panel widget, the latching encoder and
+	the seven-segment display — is MIT License, Copyright (c) 2026 Madelyn Yeary,
+	see rack-plugins/LICENSE.md.
 */
 
 // The reachable subdivision settings, in encoder order. The engine allows -8..4

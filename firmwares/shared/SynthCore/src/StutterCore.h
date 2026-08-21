@@ -31,6 +31,11 @@
 // Arduino.h, rack.hpp or Pico SDK; float only, no heap, no STL — compiles on
 // AVR, RP2350 and the desktop. Sample-rate independent: process(in, dt)
 // advances the engine by the caller-supplied dt (seconds).
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod2-stutter/mod2-stutter.ino, HAGIWO's CC0
+// 1.0 firmware; CC0 places no conditions on derivative works.
 
 #include "sc_dsp.h"
 #include "sc_math.h"

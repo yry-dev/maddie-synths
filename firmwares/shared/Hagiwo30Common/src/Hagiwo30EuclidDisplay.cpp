@@ -1,3 +1,11 @@
+// OLED rendering for the Euclidean sequencer page — six circular step rings
+// plus the parameter readout.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Refactored out of HAGIWO's #30 sequencer firmware, released under
+// CC0 1.0; CC0 places no conditions on derivative works.
+
 #include "Hagiwo30EuclidDisplay.h"
 
 #include <Adafruit_GFX.h>

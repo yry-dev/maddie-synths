@@ -196,9 +196,14 @@ height 128.5 mm, holes at y=3.0/125.5, widths per the table. The header/layers/s
 and every S-expr shape (`gr_line`, `gr_circle`, `gr_poly`) are copied from `mod2-comb`
 style; the `.kicad_pro` is cloned from `mod2-clap` with `meta.filename` patched.
 
-Patterns come from `blank-patterns/` — vendored [pattern.monster](https://pattern.monster/)
+Patterns come from `blank-patterns/` — [pattern.monster](https://pattern.monster/)
 seamless tiles (normalized to plain-black geometry; see `blank-patterns/index.md`
-for source URLs, tile sizes, and the per-panel assignment table). A stdlib-only
+for source URLs, tile sizes, and the per-panel assignment table). **Those tiles
+are commercially licensed and gitignored, so they are not in a fresh checkout** —
+the licence covers using the patterns, not redistributing the tile files. Supply
+your own `blank-patterns/pattern-*.svg` (the index lists each source URL) or
+`make_blanks.py` exits with `no vendored patterns in …` and generates nothing.
+The already-generated `panels/blank-*hp/` projects are unaffected. A stdlib-only
 minimal SVG parser (paths incl. arcs/beziers, rect/circle/polygon, group/pattern
 transforms) turns each tile into silk; the tiler scales the tile's longest side to
 ~11 mm, replicates it across the face, and clips polylines (Liang–Barsky) and

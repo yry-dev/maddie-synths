@@ -2,6 +2,8 @@
 //
 // Variant of 2020-adapter.scad with captive strip channels on BOTH sides
 // of the rail body (mirrored around Y=0).
+//
+// License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
 
 // ---- parameters ----------------------------------------------------------
 

@@ -1,5 +1,13 @@
 #pragma once
 
+// Plain-data state for the Euclidean sequencer: per-channel hits, offset,
+// mute and step limit, clock-edge tracking, and menu selection.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Refactored out of HAGIWO's #30 sequencer firmware, released under
+// CC0 1.0; CC0 places no conditions on derivative works.
+
 #include <Arduino.h>
 
 namespace hagiwo30 {

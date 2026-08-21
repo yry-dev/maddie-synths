@@ -26,6 +26,12 @@
 	we emulate the loop at LOOP_HZ and run whole loop iterations (accumulating
 	fractional ones), rather than sub-dividing a single iteration as the Lorenz
 	port can. dt is fixed at 1/LOOP_HZ for stability and sample-rate independence.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod1-terrain-lfo/mod1-terrain-lfo.ino, Rob Heel's CC0 1.0 firmware for the
+	HAGIWO MOD1 (github.com/rob-scape/hgw-mod1-firmwares); CC0 places no
+	conditions on derivative works.
 */
 
 // Emulated Arduino loop rate. The Nano loop (3 analogReads + pow + 3 table reads)

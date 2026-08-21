@@ -25,6 +25,12 @@
 	(hold BUTTON + turn POT1) because POT3's pin is the audio input; here the
 	physically-present-but-dead third knob becomes a proper Mix control. The
 	algorithm persists in the patch (firmware: flash).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-distortion/mod2-distortion.ino, a maddie synths
+	original for the HAGIWO Mod2 platform released under CC0 1.0; CC0 places
+	no conditions on derivative works.
 */
 
 struct Distortion : Mod2Module {

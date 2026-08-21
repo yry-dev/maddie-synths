@@ -1,5 +1,14 @@
 #pragma once
 
+// Board support for the HAGIWO MOD1 (ATmega328P): the panel pin map plus the
+// clamped-map, ADC and fast-PWM helpers every MOD1 sketch shares.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Board support for HAGIWO MOD1 hardware; the pin map and table
+// shapes follow HAGIWO's CC0 1.0 MOD1 firmware, which places no conditions on
+// derivative works.
+
 #include <Arduino.h>
 
 namespace mod1 {

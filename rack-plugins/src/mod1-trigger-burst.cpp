@@ -20,6 +20,11 @@
 		F2    IN           — trigger input
 		F3    IN           — burst-number CV (summed with NUM knob, clamped 0..1)
 		F4    OUT          — trigger/gate output
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod1-trigger-burst/mod1-trigger-burst.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works.
 */
 
 // External clock threshold: matches firmware's `potValue < 50` out of 1023.

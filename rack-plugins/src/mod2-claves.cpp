@@ -26,6 +26,11 @@
 	Deviation from hardware: the Nano's pitch CV is inverted (higher V = lower
 	pitch) due to wiring; this port uses standard non-inverted 1V/Oct so it tracks
 	sequencers as expected.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-claves/mod2-claves.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works.
 */
 
 struct Claves : Mod2Module {

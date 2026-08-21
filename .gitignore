@@ -83,3 +83,10 @@ _panel-wip/
 sample.h
 
 panels/renders/*
+
+# pattern.monster silkscreen tiles used by scripts/panels/tools/make_blanks.py.
+# These are COMMERCIALLY LICENSED to Madelyn Yeary — the licence covers using
+# them, not redistributing the tile files themselves, so they must never be
+# committed. Keep your own copies in place locally; blank-patterns/index.md
+# lists every tile and its source URL so the set can be re-obtained.
+scripts/panels/tools/blank-patterns/pattern-*.svg

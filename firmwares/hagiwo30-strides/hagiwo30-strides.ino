@@ -1,3 +1,21 @@
+/* Strides
+
+Description:
+Dual-mode sequencer shell for the HAGIWO #30 platform: it hosts both the
+six-channel step sequencer and the Euclidean sequencer and swaps between them
+when the encoder button is held for 1.5 s. Only the active engine is ever
+constructed — on a Nano the two cannot afford to co-exist in RAM — so switching
+modes tears one down and builds the other. All sequencing lives in the shared
+Hagiwo30Sequencers library; this sketch is the mode switch and nothing else.
+
+License:
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+You can copy, modify, distribute and perform the work, even for commercial
+purposes, all without asking permission.
+
+Hardware:
+HAGIWO #30 sequencer platform (Arduino Nano)
+*/
 #include <FastGPIO.h>
 #include <Hagiwo30Common.h>
 #include <Hagiwo30SequencerMode.h>

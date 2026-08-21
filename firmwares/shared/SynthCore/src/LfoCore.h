@@ -32,6 +32,11 @@
 // so at level=0 the output is 0 (center / 0V DC). On the hardware the output
 // is AC-coupled so the DC offset difference is imperceptible; on VCV Rack the
 // bipolar center is the correct behavior for a ±5V LFO.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod1-lfo/mod1-lfo.ino, HAGIWO's CC0 1.0
+// firmware; CC0 places no conditions on derivative works.
 
 #include "sc_math.h"
 

@@ -19,6 +19,13 @@
 	ratio of source rate to output rate, e.g.
 		step = playbackRate * sourceRateHz / engineRateHz
 	which keeps pitch correct independent of the host sample rate.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+	library. Derived from the mod2-sample and mod2-breakbeats firmwares,
+	HAGIWO's CC0 1.0 firmware; CC0 places no conditions on derivative works.
+	This covers the playback engine only — the PCM sample data those two
+	modules play is Patreon-gated, never committed, and not licensed here.
 */
 namespace sc {
 

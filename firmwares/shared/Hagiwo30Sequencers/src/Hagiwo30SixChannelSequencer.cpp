@@ -1,3 +1,11 @@
+// Implementation of the six-channel drum sequencer — encoder menu, pattern
+// recall, gate output and EEPROM persistence.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Refactored out of HAGIWO's #30 sequencer firmware, released under
+// CC0 1.0; CC0 places no conditions on derivative works.
+
 #include "Hagiwo30SixChannelSequencer.h"
 
 #include <EEPROM.h>

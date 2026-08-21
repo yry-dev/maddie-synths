@@ -3,6 +3,8 @@
 Usage: jlc.py [path/to/board.kicad_pcb] [output-suffix]
 Defaults to the staggered board and unsuffixed filenames.
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import re, csv, subprocess, collections, os, shutil, sys
 import parts
 

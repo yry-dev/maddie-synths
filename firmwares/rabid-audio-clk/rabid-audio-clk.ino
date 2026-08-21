@@ -73,8 +73,8 @@ with it:
 
   Copyright 2015-2020 Julian Knight
 
-The full notice is kept verbatim beside this sketch as SOFTWARE_LICENSE, copied
-from the upstream repository. Keep it there — MIT permits modification and
+The full notice is kept verbatim beside this sketch as LICENSE.md, copied from
+the upstream repository. Keep it there — MIT permits modification and
 redistribution (including commercially) only so long as that notice ships with
 every copy or substantial portion of the software.
 

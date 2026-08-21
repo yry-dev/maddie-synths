@@ -1,3 +1,11 @@
+/*
+	Shared declarations for the maddie synths Rack plugin — the pluginInstance
+	handle, the Reversed<> knob wrapper, the Mod2 generic-panel support, and the
+	extern Model* for every module.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+*/
 #pragma once
 #include <rack.hpp>
 

@@ -24,6 +24,12 @@
 	Convergence note: the firmware's V/Oct uses a 1024-entry lookup table that
 	maps 0–3.3 V across 5 octaves (0.66 V/Oct). This port uses standard
 	1V/Oct (cvMult = 2^volts) so it tracks sequencers as expected.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-square-vco/mod2-square-vco.ino, a CC0 1.0 firmware for the HAGIWO Mod2
+	whose sketch names no upstream author; CC0 places no conditions on
+	derivative works.
 */
 
 struct SquareVCO : Mod2Module {
