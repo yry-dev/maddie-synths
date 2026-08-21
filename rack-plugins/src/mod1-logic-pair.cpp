@@ -23,6 +23,11 @@
 		F3     -> output A (gate 0/10V for boolean modes; analogue for MAX/MIN)
 		F4     -> output B (complement/secondary output)
 		LED    -> tracks output A brightness (matches firmware's OCR2B = outA)
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod1-logic-pair/mod1-logic-pair.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works.
 */
 
 struct LogicPair : Module {

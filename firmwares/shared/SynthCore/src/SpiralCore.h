@@ -30,6 +30,11 @@
 // loop() at ~1 kHz) into the audio-rate process(dt). Both are exact-rate
 // equivalents of the originals; the amplitude smoothing is expressed as a
 // time-constant so it is identical across sample rates.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod2-spiral/mod2-spiral.ino, HAGIWO's CC0
+// 1.0 firmware; CC0 places no conditions on derivative works.
 
 #include "sc_math.h"
 #include "sc_dsp.h"

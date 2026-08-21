@@ -9,6 +9,9 @@ same way fabrication trims silk at the board edge.
 
 Usage: kicad_to_panel.py <board.kicad_pcb> <Name> [out_dir]
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+# The panel artwork this emits is licensed separately: see panels/LICENSE.md (CC BY-NC-SA 4.0).
+
 import re, sys, subprocess, pathlib
 
 KCLI = "/Applications/KiCad/KiCad.app/Contents/MacOS/kicad-cli"

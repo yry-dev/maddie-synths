@@ -31,6 +31,8 @@
 //                    \ /    chamfer (tapers  slot_chamfer_depth
 //                    +-+     to a flat tip,    tip = slot_tip_width
 //                            not a point)
+//
+// License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
 
 // ---- parameters ----------------------------------------------------------
 

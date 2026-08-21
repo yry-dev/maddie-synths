@@ -7,6 +7,8 @@ Unlike jlc-bom.csv this lists every fitted item including the mechanical ones
 order from by hand. Validated by regenerating the staggered board's shipped
 BOM.csv byte-for-byte.
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import re, csv, collections, sys
 import parts
 

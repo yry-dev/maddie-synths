@@ -31,6 +31,12 @@
 	Convergences (see Acid303Voice.h): deterministic xorshift PRNG instead of
 	Arduino random(); the subtle per-odd-step swing is omitted; transpose CV is
 	summed as 1V/Oct semitones.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-acid303/mod2-acid303.ino, a CC0 1.0 firmware for the HAGIWO Mod2
+	whose sketch names no upstream author; CC0 places no conditions on
+	derivative works.
 */
 
 struct Acid303 : Mod2Module {

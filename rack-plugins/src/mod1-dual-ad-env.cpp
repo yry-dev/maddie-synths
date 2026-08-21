@@ -20,6 +20,12 @@
 	  F4 (right-bot)  OUT — Envelope 2 (0..10 V)
 
 	LED tracks Envelope 1 level.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod1-dual-ad-env/mod1-dual-ad-env.ino, itself MIT-licensed and
+	forked from Rob Scape's https://github.com/rob-scape/hgw-mod1-firmwares/;
+	MIT requires the copyright and permission notice to travel with every copy.
 */
 
 struct DualADEnv : Module {

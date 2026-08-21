@@ -5,6 +5,8 @@ where a track goes nowhere. This checks the opposite question: is every net
 actually joined up, and does every plane band survive the obstacles punched
 through it?
 """
+# License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
+
 import sys
 import pcbgen_singlerow as M
 

@@ -1,4 +1,6 @@
 // 2020 adapter with one full-width top cavity.
+//
+// License: MIT, Copyright (c) 2026 Madelyn Yeary. See LICENSE.md at the repo root.
 
 // ---- parameters ----------------------------------------------------------
 

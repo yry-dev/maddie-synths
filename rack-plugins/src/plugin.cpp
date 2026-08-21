@@ -1,5 +1,14 @@
 #include "plugin.hpp"
 
+/*
+	Plugin entry point — init() registers every module Model with Rack. The
+	commented-out entries below are deliberately excluded from the build; see the
+	inline notes and WIP_SOURCES in rack-plugins/Makefile.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+*/
+
 Plugin* pluginInstance;
 
 void init(Plugin* p) {

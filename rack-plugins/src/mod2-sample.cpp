@@ -23,6 +23,13 @@
 		BTN  manual trigger     LED  20 ms trigger pulse
 		IN1  trigger (rising)   IN2  +6 sample select (gate)
 		OUT  audio              CV   index (summed with POT3)
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-sample/mod2-sample.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works. The MIT grant covers this
+	source only — the generated sample.h PCM data included above is separately
+	licensed (Patreon-gated) and is not distributed with this repository.
 */
 
 static const float SP_SRC_RATE = 44100.0f;  // sample.h PCM rate

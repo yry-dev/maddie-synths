@@ -38,6 +38,11 @@
 // reads + 2 one-poles + 2 cheap LFOs, no transcendentals in the hot path — it
 // fits the RP2350 ~4000-cycle budget; the tank is the most expensive planned
 // mod2 FX, so prototype/tune it here in the Rack port first.)
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod2-reverb/mod2-reverb.ino, HAGIWO's CC0
+// 1.0 firmware; CC0 places no conditions on derivative works.
 
 #include "sc_dsp.h"
 #include "sc_math.h"

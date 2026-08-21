@@ -1,5 +1,13 @@
 # Vendored silkscreen tiles (blank eurorack faceplates)
 
+> **The tile files are NOT in this repository.** `pattern-*.svg` is commercially
+> licensed from [pattern.monster](https://pattern.monster/) to Madelyn Yeary and
+> gitignored: the licence covers *using* the patterns, not redistributing the
+> tile files. This index is the manifest — the table below has every tile's
+> source URL, so a licence holder can re-fetch the set and drop the normalized
+> SVGs back into this directory to run `make_blanks.py`. Without them the script
+> exits with `no vendored patterns in …` and generates nothing.
+
 Normalized copies of pattern.monster seamless tiles used by `make_blanks.py`.
 Each file is a standalone `<svg>` wrapping a `<defs><pattern>` tile: colors flattened
 to plain black, full-tile background rect removed, geometry + `stroke-width` + tile

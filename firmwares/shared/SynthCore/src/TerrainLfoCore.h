@@ -15,6 +15,13 @@
 // Pure C++: depends only on sc_math.h. No Arduino / Rack / Pico SDK. All DSP math
 // is float; the terrains are stored as uint16_t to stay AVR-RAM-light (1.5 KB,
 // identical footprint to the original firmware's three global tables).
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod1-terrain-lfo/mod1-terrain-lfo.ino,
+// which the sketch releases under CC0 1.0 and which was forked from Rob
+// Scape's hgw-mod1-firmwares (github.com/rob-scape/hgw-mod1-firmwares); CC0
+// places no conditions on derivative works.
 
 #include "sc_math.h"
 

@@ -33,6 +33,12 @@
 //     loop, which has no sample-accurate equivalent and is barely audible.
 //   - Transpose CV is summed as 1V/Oct semitones (host responsibility); the
 //     firmware shared one ADC pin between POT3 and the CV jack.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod2-acid303/mod2-acid303.ino, a CC0 1.0 firmware whose
+// sketch names no upstream author; CC0 places no conditions on derivative
+// works.
 
 #include "sc_math.h"
 #include "sc_dsp.h"

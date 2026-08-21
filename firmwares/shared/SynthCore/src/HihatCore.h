@@ -20,6 +20,11 @@
 //
 // Pure C++: depends only on sc_dsp.h (-> sc_math.h -> <math.h>/<stdint.h>).
 // No Arduino.h, no rack.hpp, no Pico SDK.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod2-hihat/mod2-hihat.ino, HAGIWO's CC0 1.0
+// firmware; CC0 places no conditions on derivative works.
 
 #include "sc_dsp.h"
 

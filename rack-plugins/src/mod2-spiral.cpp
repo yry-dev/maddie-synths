@@ -28,6 +28,11 @@
 	with POT3). This port routes CV to the window centre as 1V/Oct so the illusion
 	can track a sequencer (the same musical choice the Claves port made). The
 	synthesis itself is the shared core, identical to the firmware.
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-spiral/mod2-spiral.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works.
 */
 
 struct Spiral : Mod2Module {

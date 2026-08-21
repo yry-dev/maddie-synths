@@ -25,6 +25,13 @@
 		OUT  audio              CV   slice select (summed with POT3)
 	Loop on/off and which of the two samples plays are on the right-click menu
 	(the hardware multiplexes them onto button press-duration).
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod2-breakbeats/mod2-breakbeats.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works. The MIT grant covers this
+	source only — the generated sample.h PCM data included above is separately
+	licensed (Patreon-gated) and is not distributed with this repository.
 */
 
 static const float BB_SRC_RATE = 44100.0f;  // sample.h PCM rate

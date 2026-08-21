@@ -1,3 +1,11 @@
+// braids.h — bit-reduction / decimation tables for the Braids DSP engine.
+//
+// License:
+// GPLv3, (c) 2025 blueprint@poetaster.de — see LICENSE.md in this directory.
+// Part of the Mutable Instruments Braids port; the upstream MI sources are MIT.
+// GPLv3 carries conditions the CC0 modules in this repo do not: the notice and
+// source-availability terms travel with every copy.
+
 #pragma once
 
 // braids dsp

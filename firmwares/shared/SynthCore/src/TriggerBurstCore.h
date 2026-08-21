@@ -8,6 +8,11 @@
 //
 // Pure C++: depends only on sc_math.h. No Arduino / Rack / Pico SDK.
 // All timing is dt-driven (seconds) so it is sample-rate independent.
+//
+// License:
+// MIT License, Copyright (c) 2026 Madelyn Yeary — see LICENSE.md in this
+// library. Derived from firmwares/mod1-trigger-burst/mod1-trigger-burst.ino,
+// HAGIWO's CC0 1.0 firmware; CC0 places no conditions on derivative works.
 
 #include "sc_math.h"
 

@@ -29,6 +29,11 @@
 	Frequency ranges (RANGE toggle):
 		1x:  ~0.010 Hz (rate=0) — ~1.508 Hz (rate=1)
 		10x: ~0.010 Hz (rate=0) — ~14.99 Hz (rate=1)
+
+	License:
+	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
+	Port of firmwares/mod1-lfo/mod1-lfo.ino, HAGIWO's CC0 1.0 firmware;
+	CC0 places no conditions on derivative works.
 */
 
 struct LFO : Module {

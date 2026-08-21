@@ -1,3 +1,11 @@
+// utility.h — small random / audio helpers for MOD2 Braids.
+//
+// License:
+// GPLv3, (c) 2025 blueprint@poetaster.de — see LICENSE.md in this directory.
+// Part of the Mutable Instruments Braids port; the upstream MI sources are MIT.
+// GPLv3 carries conditions the CC0 modules in this repo do not: the notice and
+// source-availability terms travel with every copy.
+
 // produce some random numbers in ranges.
 double randomDouble(double minf, double maxf)
 {
