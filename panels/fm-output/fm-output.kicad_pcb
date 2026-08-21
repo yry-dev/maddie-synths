@@ -3495,7 +3495,7 @@
 		(uuid "4bddc5d3-5e93-523b-900d-8c398f670e24")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 2.2 2.2)
 				(thickness 0.5)
 			)
@@ -3744,7 +3744,7 @@
 		(uuid "9ad66394-0236-59d8-b5af-65a6fe235c76")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.4 1.4)
 				(thickness 0.1)
 			)
@@ -4133,7 +4133,7 @@
 		(uuid "5322b0b7-c23e-41d1-8641-138936125490")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.4 1.4)
 				(thickness 0.161)
 			)
@@ -4171,7 +4171,7 @@
 		(uuid "ef5b9d2c-9935-4641-89cf-d5816824f172")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.4 1.4)
 				(thickness 0.161)
 			)
@@ -4224,7 +4224,7 @@
 		(uuid "042b9bb5-fd31-4dcc-b608-9a46b70d80d2")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.4 1.4)
 				(thickness 0.161)
 			)
@@ -4286,7 +4286,7 @@
 		(uuid "5188da73-c60a-4e97-99e9-18f428f1f9e5")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.4 1.4)
 				(thickness 0.161)
 			)
@@ -4334,7 +4334,7 @@
 		(uuid "c060e8dc-d5d6-49f6-9aa2-a0d99b7317b9")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.4 1.4)
 				(thickness 0.161)
 			)
@@ -4403,7 +4403,7 @@
 		(uuid "a5d3e0c2-0aec-5792-9d33-3c87e0434ce5")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.4 1.4)
 				(thickness 0.161)
 			)
@@ -4441,7 +4441,7 @@
 		(uuid "94efb309-cfba-5377-a302-00322990ba10")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.4 1.4)
 				(thickness 0.161)
 			)
@@ -4494,7 +4494,7 @@
 		(uuid "8b116ae3-4896-5b86-a612-19ab74cab2ae")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.4 1.4)
 				(thickness 0.161)
 			)
@@ -4556,7 +4556,7 @@
 		(uuid "dcef93f3-dec8-579f-a2c8-e9343342aa20")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.4 1.4)
 				(thickness 0.161)
 			)
@@ -4604,7 +4604,7 @@
 		(uuid "1a1794da-9d3b-5319-9aa8-219a73ffe8ea")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.4 1.4)
 				(thickness 0.161)
 			)
@@ -4673,7 +4673,7 @@
 		(uuid "82a38443-7dfb-5b58-9e6c-b83c7f7aa3ff")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.6 1.6)
 				(thickness 0.184)
 			)
@@ -4846,7 +4846,7 @@
 		(uuid "837f0419-9b26-57ce-b4ed-a0e8741843d1")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.6 1.6)
 				(thickness 0.184)
 			)
@@ -5014,7 +5014,7 @@
 		(uuid "7e15ee37-1004-590e-b06e-ffbf1af4eb2e")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.6 1.6)
 				(thickness 0.184)
 			)
@@ -5334,7 +5334,7 @@
 		(uuid "c68baa95-aed6-5478-8eab-667eb11e94d5")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.6 1.6)
 				(thickness 0.184)
 			)
@@ -5499,7 +5499,7 @@
 		(uuid "ea122e91-abdf-5410-bd3f-47c213c67f15")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.6 1.6)
 				(thickness 0.184)
 			)
@@ -5714,7 +5714,7 @@
 		(uuid "eab8d7dd-5756-5966-82c3-69679ca43ce9")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 1.6 1.6)
 				(thickness 0.184)
 			)
@@ -5840,7 +5840,7 @@
 		(uuid "1764cd79-3c56-5b7b-9188-96035d52af8e")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 2 2)
 				(thickness 0.23)
 			)
@@ -6005,7 +6005,7 @@
 		(uuid "789c9036-f766-58f4-a7a7-34aaa560e90c")
 		(effects
 			(font
-				(face "Comfortaa")
+				(face "Comfortaa Medium")
 				(size 2 2)
 				(thickness 0.23)
 			)
