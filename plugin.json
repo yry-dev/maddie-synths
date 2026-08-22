@@ -234,6 +234,29 @@
         "Sequencer",
         "Utility"
       ]
+    },
+    {
+      "slug": "mod2-tides",
+      "name": "Tiny Tides",
+      "description": "Mutable Instruments Tides (tides2) tidal wave generator: looping slope / LFO / oscillator with shape, slope and smoothness, four output modes and AD/Looping/AR ramp modes. Port of the mod2-tides firmware; needs the external Mutable Instruments libraries (see README).",
+      "manualUrl": "",
+      "tags": [
+        "Low-frequency oscillator",
+        "Oscillator",
+        "Envelope generator",
+        "Function generator"
+      ]
+    },
+    {
+      "slug": "mod2-braids",
+      "name": "Tiny Braids",
+      "description": "Mutable Instruments Braids macro-oscillator: 48 synthesis engines behind one Timbre / Morph control pair, with 1V/Oct pitch and a trigger input. Port of the mod2-braids firmware; needs the external Mutable Instruments libraries (see README).",
+      "manualUrl": "",
+      "tags": [
+        "Oscillator",
+        "Drum",
+        "Physical modeling"
+      ]
     }
   ],
   "wipNote": "wipModules are Claude-generated maddie synths originals excluded from the build; move an entry back to modules to re-enable it (see rack-plugins/Makefile WIP_SOURCES and plugin.cpp).",

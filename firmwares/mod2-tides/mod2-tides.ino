@@ -61,6 +61,13 @@ bool debug = true;
 #include <hardware/pwm.h>
 #include <PWMAudio.h>
 
+// Optional RP2350 overclock (shared MOD2 helper). PWMAudio derives its timing
+// from the live clock, so the 48 kHz sample rate is preserved and the higher
+// clock buys extra PWM resolution + DSP headroom. Uncomment to enable — see
+// Mod2Common/src/Mod2Overclock.h for details and caveats.
+// #define MOD2_OVERCLOCK_HZ 250000000u
+#include <Mod2Overclock.h>
+
 // Pin definitions for Seeeduino XIAO RP2350 (matching braids.ino)
 #define PWMOUT      D7    // PWM audio output (same as braids)
 #define TRIG_PIN    D5    // Trigger input
@@ -149,6 +156,10 @@ void updateLedBlink() {
 }
 
 void setup() {
+#ifdef MOD2_OVERCLOCK_HZ
+  // Must run before Serial and PWM audio init — see Mod2Overclock.h.
+  mod2Overclock(MOD2_OVERCLOCK_HZ);
+#endif
   if (debug) {
     Serial.begin(57600);
     Serial.println(F("=== MOD2 TIDES FIRMWARE ==="));
@@ -163,7 +174,10 @@ void setup() {
 
   // Pin setup
   pinMode(TRIG_PIN, INPUT_PULLDOWN);
-  pinMode(MOD_PIN, INPUT);
+  // Pulled down so an unpatched jack reads a deterministic LOW (a floating
+  // input here left smoothness stuck/flickering at 0.2 -> permanent low-pass
+  // that masked the Shape and Slope pots).
+  pinMode(MOD_PIN, INPUT_PULLDOWN);
   pinMode(AIN0, INPUT);
   pinMode(AIN1, INPUT);
   pinMode(AIN2, INPUT);
@@ -336,10 +350,12 @@ void loop1() {
     // POT3 (A2): Frequency (20-2000 Hz range)
     freq_in = 20.0f + (potvalue[2] / 4095.0f) * 1980.0f;
 
-    // IN2 (D0) for smoothness modulation
-    // Note: D0 is digital-only (not ADC capable), so use as gate
-    // HIGH = smooth (1.0), LOW = sharp (0.0)
-    smooth_in = digitalRead(MOD_PIN) ? 0.8f : 0.2f;
+    // IN2 for smoothness modulation. Digital-only pin, so it's a gate:
+    // unpatched/LOW = 0.5 (neutral: no low-pass, no folding),
+    // HIGH = 0.8 (into wavefolder territory).
+    // 0.5 is the resting point of the smoothness axis: below it Tides
+    // low-passes the slopes, above it folds them.
+    smooth_in = digitalRead(MOD_PIN) ? 0.8f : 0.5f;
 
     pot_timer = now;
   }

@@ -44,6 +44,29 @@ const float SMOOTH_COEFF = 0.02f;
 // Gate state tracking
 stmlib::GateFlags previous_gate_flags = stmlib::GATE_FLAG_LOW;
 
+// Shift/level value handed to Render() for each output mode. The hardware has
+// a single jack, so each mode "emulates" Tides' four outputs by tapping or
+// mixing the channels (see the conversion loop below); shift is fixed per mode
+// to make that tap/mix sound right. Internally Render() maps shift 0..1 to
+// -1..+1, and each mode uses it differently:
+//   GATES       shift only scales channel 0, which this mode doesn't tap ->
+//               1.0 (harmless).
+//   AMPLITUDES  channels crossfade on an index of |internal shift| * 5.1;
+//               channel 0 peaks when that index is 1.0, i.e. shift ~= 0.598
+//               (0.5 mutes channel 0 entirely!).
+//   PHASES      shift spreads the channel phases by internal/3 each; 0.875
+//               -> quarter-phase offsets (0, ¼, ½, ¾), the widest stack.
+//   FREQUENCIES shift picks the frequency-ratio table row (index =
+//               round(shift * 20)); 0.7 -> row 14, the C-E-G-C chord.
+inline float shiftForOutputMode(int mode) {
+  switch (mode) {
+    case 0:  return 1.0f;    // GATES
+    case 1:  return 0.598f;  // AMPLITUDES
+    case 2:  return 0.875f;  // PHASES
+    default: return 0.7f;    // FREQUENCIES
+  }
+}
+
 // Voice structure
 struct Voice {
   tides::PolySlopeGenerator poly_slope_generator;
@@ -90,11 +113,8 @@ void updateTidesAudio() {
     previous_gate_flags = gate_flags[i];
   }
 
-  // Render the poly slope generator
-  // Note: shift=0.6 gives maximum output on channel 0 (OUT1)
-  // The shift parameter distributes output across 4 channels:
-  //   shift ~0.4 or ~0.6 -> channel 0 (OUT1) active
-  //   shift ~0.5 -> channels crossfaded, near zero on channel 0!
+  // Render the poly slope generator. Shift is fixed per output mode so the
+  // single OUT1 channel stays at full level (see shiftForOutputMode above).
   voices[0].poly_slope_generator.Render(
     static_cast<tides::RampMode>(ramp_mode_in),
     static_cast<tides::OutputMode>(output_mode_in),
@@ -103,26 +123,45 @@ void updateTidesAudio() {
     slope_smooth,        // pw / slope parameter
     shape_smooth,        // shape parameter
     smooth_smooth,       // smoothness parameter
-    0.6f,                // shift - set for channel 0 output
+    shiftForOutputMode(output_mode_in),
     gate_flags,
     nullptr,             // no external ramp input
     out,
     BLOCK_SIZE
   );
 
-  // Convert output to 16-bit signed for PWMAudio
-  // Tides LOOPING mode output is approximately ±5 range
-  // Use higher gain for louder output
-  const float output_scale = 32767.0f / 5.0f;
-
+  // Convert to 16-bit signed for PWMAudio. Channels are normalized floats
+  // (roughly -1..+1 after folding), so full scale is *32768 with a saturating
+  // clip, as in poetaster's TidesEngineScarp reference.
+  //
+  // Single-jack multi-output emulation: real Tides puts these four channels on
+  // four jacks, where the output modes sound completely different. On OUT1
+  // alone channel 0 is nearly identical in every mode, so each mode instead
+  // taps or mixes the channels that make it distinct:
+  //   GATES       channel 1: the un-shaped ramp (bright raw saw when looping
+  //               at audio rate; the gate wave in AD/AR).
+  //   AMPLITUDES  channel 0: the classic shaped slope.
+  //   PHASES      all four quarter-phase copies mixed -> comb/chorus thickening.
+  //   FREQUENCIES all four ratio'd channels mixed -> a C-E-G-C chord stack.
+  // Mix gains keep summed peaks near ±1; rare overshoots hit the clip.
   for (int i = 0; i < BLOCK_SIZE; i++) {
-    // Use channel 0 (main output)
-    float sample = out[i].channel[0] * output_scale;
-
-    // Clamp to int16 range
-    if (sample > 32767.0f) sample = 32767.0f;
-    if (sample < -32768.0f) sample = -32768.0f;
-
-    voices[0].buffer[i] = static_cast<int16_t>(sample);
+    float s;
+    switch (output_mode_in) {
+      case 0:   // GATES: raw ramp
+        s = out[i].channel[1];
+        break;
+      case 2:   // PHASES: 4-phase stack
+        s = 0.4f * (out[i].channel[0] + out[i].channel[1] +
+                    out[i].channel[2] + out[i].channel[3]);
+        break;
+      case 3:   // FREQUENCIES: chord mix
+        s = 0.3f * (out[i].channel[0] + out[i].channel[1] +
+                    out[i].channel[2] + out[i].channel[3]);
+        break;
+      default:  // AMPLITUDES: classic slope
+        s = out[i].channel[0];
+        break;
+    }
+    voices[0].buffer[i] = stmlib::Clip16(static_cast<int32_t>(s * 32768.0f));
   }
 }
