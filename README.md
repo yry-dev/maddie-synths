@@ -121,6 +121,18 @@ your Arduino libraries folder (default `~/Documents/Arduino/libraries`).
 install is needed for it. After this, `make mod2-braids` and `make mod2-tides`
 build cleanly.
 
+The same libraries also power the **Tiny Tides** and **Tiny Braids** VCV Rack
+modules (`rack-plugins/src/mod2-{tides,braids}.cpp`, library bodies compiled
+once in `src/mi-libs.cpp`), which are part of the default Rack build. The Rack
+Makefile finds them via `MI_LIB_DIR` (default
+`~/Documents/Arduino/libraries`); CI fetches them automatically at the commits
+pinned in `.github/mi-libs.env` — to move to newer upstream commits, test
+locally first, then bump the SHAs there. Building without the libraries stops
+with a clear `#error`; to opt out instead, exclude `mi-libs.cpp` and both
+module `.cpp`s the usual three-place way (`WIP_SOURCES` in
+`rack-plugins/Makefile`, the `modelTinyTides` / `modelTinyBraids` lines in
+`plugin.{hpp,cpp}`, and moving their `plugin.json` entries to `wipModules`).
+
 ## Makefile firmware builds
 
 - Build every firmware into `dist/<firmware>/`:

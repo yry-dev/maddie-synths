@@ -45,6 +45,11 @@ void init(Plugin* p) {
 	// are excluded from the build. See plugin.hpp for how to re-enable them.
 	// p->addModel(modelBreakbeats);
 	// p->addModel(modelSample);
+	// mod2-tides (Tiny Tides) and mod2-braids (Tiny Braids) need the external
+	// Mutable Instruments libraries (not vendored — see plugin.hpp and the
+	// root README.md).
+	p->addModel(modelTinyTides);
+	p->addModel(modelTinyBraids);
 	// WIP: the modules below are Claude-generated maddie synths originals (no
 	// upstream Hagiwo/Rob Scape firmware) and are excluded from the build for
 	// now. To re-enable one: uncomment it here and in plugin.hpp, remove its

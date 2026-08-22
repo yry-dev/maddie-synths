@@ -136,6 +136,14 @@ extern Model* modelRabidClk;
 // from "wipModules" back to "modules" in the root plugin.json.
 // extern Model* modelBreakbeats;
 // extern Model* modelSample;
+// mod2-tides (Tiny Tides) and mod2-braids (Tiny Braids) build against the
+// external Mutable Instruments STMLIB/TIDES/BRAIDS libraries
+// (poetaster/arduinoMI), deliberately not vendored: install locally per the
+// root README.md ("MOD2 Braids / Tides"); CI fetches them at the commits
+// pinned in .github/mi-libs.env. Without them the build stops with a clear
+// #error (library bodies are compiled once, in src/mi-libs.cpp).
+extern Model* modelTinyTides;
+extern Model* modelTinyBraids;
 // WIP: Claude-generated maddie synths originals, excluded from the build.
 // See the matching WIP block in plugin.cpp for how to re-enable one.
 // extern Model* modelBitcrusher;

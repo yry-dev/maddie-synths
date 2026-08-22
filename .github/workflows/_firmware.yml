@@ -79,9 +79,9 @@ jobs:
           arduino-cli --config-file arduino-cli.yaml core install ${{ matrix.core }}
 
       # Third-party libraries that live in the Arduino Library Manager (the
-      # repo's own libraries are found via --libraries firmwares/shared). Only
-      # the avr firmwares (hagiwo30-*) pull in external libraries.
-      - name: Install external libraries
+      # repo's own libraries are found via --libraries firmwares/shared). The
+      # avr firmwares (hagiwo30-*) pull in display/encoder libraries.
+      - name: Install external libraries (avr)
         if: steps.select.outputs.has == 'true' && matrix.board == 'avr'
         run: |
           set -euo pipefail
@@ -90,6 +90,34 @@ jobs:
             FastGPIO \
             "Adafruit GFX Library" \
             "Adafruit SSD1306"
+
+      # The Mutable Instruments ports (mod2-tides / mod2-braids) need two
+      # Library Manager libraries plus the poetaster/arduinoMI packaging of the
+      # MI sources, fetched at the commits pinned in .github/mi-libs.env (they
+      # are deliberately not vendored in this repo). TIDES additionally needs
+      # the .cc -> .inc packaging fix documented in README.md ("MOD2 Braids /
+      # Tides"): arduino-cli compiles the .cc sub-sources AND the tides_all.cpp
+      # amalgamation, which fails to link with multiple-definition errors.
+      - name: Install external libraries (rp2040)
+        if: steps.select.outputs.has == 'true' && matrix.board == 'rp2040'
+        run: |
+          set -euo pipefail
+          arduino-cli --config-file arduino-cli.yaml lib install \
+            Bounce2 \
+            RPI_PICO_TimerInterrupt
+          source .github/mi-libs.env
+          libdir="$HOME/Arduino/libraries"
+          mkdir -p "$libdir"
+          for spec in "STMLIB:${MI_STMLIB_SHA}" "BRAIDS:${MI_BRAIDS_SHA}" "TIDES:${MI_TIDES_SHA}"; do
+            name="${spec%%:*}"; sha="${spec##*:}"
+            curl -fsSL "https://github.com/poetaster/${name}/archive/${sha}.tar.gz" | tar xz -C "$libdir"
+            mv "$libdir/${name}-${sha}" "$libdir/${name}"
+          done
+          cd "$libdir/TIDES/src"
+          for f in resources poly_slope_generator ramp_extractor; do
+            mv "tides2/$f.cc" "tides2/$f.inc"
+          done
+          sed -i -E 's#(tides2/[a-z_]+)\.cc#\1.inc#' tides_all.cpp
 
       # Build every requested firmware for this board. Individual compile
       # failures are tolerated and skipped (surfaced as warnings), mirroring the
