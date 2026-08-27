@@ -73,6 +73,20 @@ MAP = {
     "mod2-pitch-shifter": "mod2-pitch-shifter",
     "mod2-spectral-freeze": "mod2-spectral-freeze",
     "mod2-fx": "mod2-fx",
+    # GRAINS ports (Sean Luke, Apache 2.0)
+    "mod1-quant": "mod1-quant",
+    "mod1-arp": "mod1-arp",
+    "mod1-geiger": "mod1-geiger",
+    "mod1-divmult": "mod1-divmult",
+    "mod1-memoir": "mod1-memoir",
+    "mod1-switchblade": "mod1-switchblade",
+    "mod1-motif": "mod1-motif",
+    "mod1-tardy": "mod1-tardy",
+    "mod2-booker": "mod2-booker",
+    "mod2-byte": "mod2-byte",
+    "mod2-crackle": "mod2-crackle",
+    "mod2-droplets": "mod2-droplets",
+    "mod2-chordal": "mod2-chordal",
     # Generic Mod2 hardware faceplate (HAGIWO's general-purpose drum module),
     # shared as an alternate panel by every Mod2 module. Source PCB vendored from
     # the eurorack FrontPanel project; see scripts/panels/tools/README.md.

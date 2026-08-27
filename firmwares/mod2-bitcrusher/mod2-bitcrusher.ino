@@ -6,15 +6,23 @@ validation vehicle for the audio-input path (the CV jack sampled by the RP2350
 ADC at the audio rate, see firmwares/mod2-fx/README.md). A phase-accumulator
 sample-and-hold reduces the effective sample rate (36.6 kHz down to ~200 Hz,
 deliberately unfiltered — aliasing is the point) and quantizes to a continuous
-1..16 bit depth. Three quantizer styles cycled by short button presses:
-truncate / TPDF dither / AND-mask. Hold BUTTON + turn POT1 for wet/dry mix
-(persisted to flash along with the quantizer style). An IN1 clock overrides the
-internal crush rate — patch audio-rate pulses for crush-rate FM.
+1..12 bit depth (12 is the ceiling because the 10-bit ADC and 10-bit PWM make
+anything finer inaudible). Three quantizer styles cycled by short button
+presses: truncate / TPDF dither / AND-mask. Hold BUTTON + turn POT1 for wet/dry
+mix, BUTTON + POT2 for output drive — 0..4x into a hard clip, after the crush,
+so past unity it flattens the quantizer's steps against the rails (all three
+persisted to flash). An IN1 clock overrides the internal crush rate — patch
+audio-rate pulses for crush-rate FM.
 DSP lives in the shared sc::BitcrusherCore (also used by the VCV Rack port).
+
+The drive stage and the 12-bit ceiling follow ideas in GRAINS `bit` by Sean Luke
+(github.com/eclab/grains, Apache 2.0, Copyright 2024 Sean Luke), whose POT 3 is
+a post-crush clipping gain and whose header points out that GRAINS is already
+bitcrushing in its own output. Ideas only — no upstream code is used here.
 
 Key Variables:
   A0 -> Crush rate (36.6 kHz -> ~200 Hz, exponential taper)
-  A1 -> Bit depth (16 -> 1 bits, continuous)
+  A1 -> Bit depth (12 -> 1 bits, continuous)
   A2 -> AUDIO INPUT (POT3 is therefore unavailable)
 
       ╔═══════════╗
@@ -25,14 +33,15 @@ Key Variables:
       ║   (A0)    ║   POT1 (A0) - crush rate (BTN held: wet/dry mix)
       ║   RATE    ║
       ║           ║
-      ║   (A1)    ║   POT2 (A1) - bit depth
+      ║   (A1)    ║   POT2 (A1) - bit depth (BTN held: output drive)
       ║   BITS    ║
       ║           ║
       ║   (A2)    ║   POT3 (A2) - unavailable (pin shared with audio in)
       ║    ---    ║
       ║           ║
       ║    [·]    ║   LED (GPIO5) - crushed output level (blinks style ID)
-      ║   (BTN)   ║   BTN (GPIO6) - short: quantizer style; hold+POT1: wet/dry
+      ║   (BTN)   ║   BTN (GPIO6) - short: style; hold+POT1: wet/dry,
+      ║           ║                 hold+POT2: drive
       ║           ║
       ╠═══════════╣
       ║ I1     I2 ║   IN1 (GPIO7) - external crush clock (overrides POT1 rate)
@@ -45,6 +54,8 @@ Key Variables:
 
 Version History:
   - 1.0 Initial bitcrusher firmware (maddie synths original, shared BitcrusherCore)
+  - 1.1 Bit ceiling 16 -> 12 (10-bit hardware made the top of the knob dead);
+        BTN+POT2 output drive into a hard clip, both after GRAINS `bit`
 
 License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
@@ -74,9 +85,10 @@ constexpr uint32_t EXT_CLOCK_WINDOW = (uint32_t)(0.3f * mod2::AUDIO_FS);
 struct Settings {
   uint32_t magic;
   float wet;
+  float drive;
   uint8_t mode;
 };
-constexpr uint32_t SETTINGS_MAGIC = 0x42435231;  // "BCR1"
+constexpr uint32_t SETTINGS_MAGIC = 0x42435232;  // "BCR2" (BCR1 had no drive)
 
 /* ========================== hardware globals =========================== */
 uint sliceAudio;  // PWM slice for audio out
@@ -89,9 +101,10 @@ sc::DcBlocker dcBlock;  // removes the ADC's unipolar bias from the audio in
 
 /* Volatile shadows: loop() writes, ISR reads (same pattern as mod2-vco). */
 volatile float   g_rateHz   = mod2::AUDIO_FS;
-volatile float   g_bits     = 16.0f;
+volatile float   g_bits     = 12.0f;
 volatile uint8_t g_mode     = sc::BITCRUSH_TRUNCATE;
 volatile float   g_wet      = 1.0f;
+volatile float   g_drive    = 1.0f;  // post-crush gain into the clip
 volatile int16_t g_ledForce = -1;  // >=0: loop-driven blink level, -1: follow audio
 
 /* ISR-only state. */
@@ -124,6 +137,7 @@ void __isr onPwmWrap()
   crusher.rateHz = g_rateHz;
   crusher.bits   = g_bits;
   crusher.mode   = g_mode;
+  crusher.drive  = g_drive;
   crusher.wet    = g_wet;
   float out = crusher.process(in, 1.0f / mod2::AUDIO_FS, useExt, tick);
 
@@ -178,6 +192,7 @@ void setup()
   EEPROM.get(0, s);
   if (s.magic == SETTINGS_MAGIC) {
     g_wet = sc::clampf(s.wet, 0.0f, 1.0f);
+    g_drive = sc::clampf(s.drive, 0.0f, 4.0f);
     g_mode = s.mode < sc::BITCRUSH_MODE_COUNT ? s.mode : sc::BITCRUSH_TRUNCATE;
   }
 
@@ -204,14 +219,16 @@ void loop()
   pot1 += (r1 - pot1) * 0.2f;
   pot2 += (r2 - pot2) * 0.2f;
 
-  g_bits = sc::bitcrusherBits(pot2);
-
-  /* --- button: short press = quantizer style, hold + POT1 = wet/dry -- */
+  /* --- button: short press = quantizer style, hold + POT1 = wet/dry,
+         hold + POT2 = drive ------------------------------------------- */
   static bool lastPressed = false;
   static bool adjustingWet = false;
+  static bool adjustingDrive = false;
   static uint32_t pressStartMs = 0;
   static float potAtPress = 0.0f;
+  static float pot2AtPress = 0.0f;
   static mod2::PickupParam ratePickup;
+  static mod2::PickupParam bitsPickup;
   static bool dirty = false;
   static uint32_t lastChangeMs = 0;
 
@@ -225,12 +242,22 @@ void loop()
   if (pressed && !lastPressed) {  // press edge
     pressStartMs = now;
     potAtPress = pot1;
+    pot2AtPress = pot2;
     adjustingWet = false;
+    adjustingDrive = false;
   }
   if (pressed && !adjustingWet && fabsf(pot1 - potAtPress) > POT_MOVE_THRESHOLD)
     adjustingWet = true;  // shift layer engaged; short-press action suppressed
+  if (pressed && !adjustingDrive &&
+      fabsf(pot2 - pot2AtPress) > POT_MOVE_THRESHOLD)
+    adjustingDrive = true;
   if (pressed && adjustingWet) {
     g_wet = pot1;
+    dirty = true;
+    lastChangeMs = now;
+  }
+  if (pressed && adjustingDrive) {
+    g_drive = sc::bitcrusherDrive(pot2);
     dirty = true;
     lastChangeMs = now;
   }
@@ -241,7 +268,14 @@ void loop()
       ratePickup.targetValue = potAtPress;
       ratePickup.lastPotValue = pot1;
       ratePickup.pickupActive = true;
-    } else if (now - pressStartMs < SHORT_PRESS_MS) {
+    }
+    if (adjustingDrive) {  // same deal for POT2 / bit depth
+      bitsPickup.targetValue = pot2AtPress;
+      bitsPickup.lastPotValue = pot2;
+      bitsPickup.pickupActive = true;
+    }
+    if (!adjustingWet && !adjustingDrive &&
+        now - pressStartMs < SHORT_PRESS_MS) {
       g_mode = (g_mode + 1) % sc::BITCRUSH_MODE_COUNT;
       dirty = true;
       lastChangeMs = now;
@@ -251,11 +285,14 @@ void loop()
   }
   lastPressed = pressed;
 
-  /* --- POT1 -> crush rate (unless shifted / waiting for pickup) ------ */
+  /* --- POT1 -> crush rate, POT2 -> bit depth (unless shifted / pickup) */
   if (!pressed) {
     if (mod2::checkPickup(ratePickup, pot1))
       g_rateHz = sc::bitcrusherRateHz(pot1, mod2::AUDIO_FS);
     ratePickup.lastPotValue = pot1;
+    if (mod2::checkPickup(bitsPickup, pot2))
+      g_bits = sc::bitcrusherBits(pot2);
+    bitsPickup.lastPotValue = pot2;
   }
 
   /* --- LED blink code for the newly selected quantizer style --------- */
@@ -272,7 +309,7 @@ void loop()
   /* --- debounced flash save (commit stalls the audio ISR for a few ms,
          so only save once the panel has settled) ----------------------- */
   if (dirty && !pressed && now - lastChangeMs > SAVE_DELAY_MS) {
-    Settings s = {SETTINGS_MAGIC, g_wet, g_mode};
+    Settings s = {SETTINGS_MAGIC, g_wet, g_drive, g_mode};
     EEPROM.put(0, s);
     EEPROM.commit();
     dirty = false;

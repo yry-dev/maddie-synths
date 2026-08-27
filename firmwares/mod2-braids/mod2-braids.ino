@@ -29,7 +29,10 @@ Key Variables:
       ║   PITCH   ║
       ║           ║
       ║    [·]    ║   LED (13) - follows gate / trigger
-      ║   (BTN)   ║   BTN (D4) - engine select (short=next, long=prev)
+      ║   (BTN)   ║   BTN (D4) - engine select (short=next, long=prev,
+      ║           ║              hold 10 s = reset to the first engine and
+      ║           ║              flash the LED 5 times). The selected engine
+      ║           ║              is saved to flash and restored on power-up.
       ║           ║
       ╠═══════════╣
       ║ I1     I2 ║   IN1 (D5)  - trigger / gate (fires note)
@@ -43,6 +46,10 @@ Key Variables:
 Version History:
   - 1.0 Mutable Instruments Braids port by blueprint@poetaster.de
   - 1.1 Forked and refactored for maddie synths
+  - 1.2 Engine selection persisted to flash (EEPROM emulation, debounced
+        commit); 10 s button hold resets to the first engine with 5 LED
+        flashes. Boot default is now engine 0 (CSAW) on a fresh chip; a saved
+        selection always wins.
 
 License:
 GPLv3. (c) 2025 blueprint@poetaster.de
@@ -113,6 +120,21 @@ float mapping_upper_limit = (max_voltage_of_adc / voltage_division_ratio) * note
 
 #include <Bounce2.h>
 Bounce2::Button button = Bounce2::Button();
+
+// ── Engine persistence (RP2040 core flash-backed EEPROM emulation) ─────────
+// The chosen engine survives a power cycle. Writes are debounced: the save
+// lands only after the engine has been stable for a moment, because
+// EEPROM.commit() is a flash write and stalls both cores for a few ms (the
+// same convention as the other MOD2 firmwares). Layout: 'B','R', version,
+// engine.
+#include <EEPROM.h>
+#define DEFAULT_ENGINE 0          // "first engine" — CSAW; also the 10 s reset target
+#define ENGINE_RESET_MS 10000     // hold this long to reset to DEFAULT_ENGINE
+#define SAVE_DEBOUNCE_MS 1500     // engine must sit still this long before commit
+const uint8_t kSaveMagic0 = 'B', kSaveMagic1 = 'R', kSaveVersion = 1;
+bool engineDirty = false;
+uint32_t engineDirtyMs = 0;
+bool resetHandled = false;        // one reset per hold
 
 PWMAudio DAC(PWMOUT);  // 16 bit PWM audio
 
@@ -242,11 +264,20 @@ void setup() {
     Serial.println(F("=== MOD2 BRAIDS FIRMWARE ==="));
   }
 
-  // Set default engine
-  engineCount = 22;  // PLUCK (default)
+  // Engine: restore the saved selection, or DEFAULT_ENGINE on a fresh chip.
+  // begin() here on core 0, before setup1() launches, so the RAM mirror is
+  // ready before anything on core 1 can touch it.
+  EEPROM.begin(64);
+  engineCount = DEFAULT_ENGINE;
+  if (EEPROM.read(0) == kSaveMagic0 && EEPROM.read(1) == kSaveMagic1 &&
+      EEPROM.read(2) == kSaveVersion) {
+    const uint8_t saved = EEPROM.read(3);
+    if (saved <= 46)
+      engineCount = saved;
+  }
   engine_in = engineCount;
   if (debug) {
-    Serial.print(F("Default engine: "));
+    Serial.print(F("Engine at boot: "));
     Serial.print(engineCount);
     Serial.print(F(" - "));
     Serial.println(engineNames[engineCount]);
@@ -369,14 +400,43 @@ void loop1() {
 
   button.update();
 
-  // Check for long press first (>500ms): decrement engine
-  if (button.isPressed() && button.currentDuration() > 500) {
+  // A 10 s hold resets to the first engine and flashes the LED 5 times.
+  // (The 500 ms "previous engine" step below will have fired once on the way
+  // here; harmless, the reset overwrites it.)
+  if (button.isPressed() && button.currentDuration() >= ENGINE_RESET_MS) {
+    if (!resetHandled) {
+      engineCount = DEFAULT_ENGINE;
+      engine_in = engineCount;
+      engineDirty = true;
+      engineDirtyMs = now;
+      resetHandled = true;
+      longPressHandled = true;  // swallow the release so it doesn't step +1
+
+      if (debug) {
+        Serial.print(F("Engine RESET to: "));
+        Serial.println(engineNames[engineCount]);
+      }
+
+      // Blocking is fine here: this core only does UI, and the audio pump
+      // lives on core 0. The trigger-follow below repaints the LED afterwards.
+      for (int i = 0; i < 5; i++) {
+        digitalWrite(LED, HIGH);
+        delay(100);
+        digitalWrite(LED, LOW);
+        delay(100);
+      }
+    }
+  }
+  // Check for long press (>500ms): decrement engine
+  else if (button.isPressed() && button.currentDuration() > 500) {
     if (!longPressHandled) {
       engineCount--;
       if (engineCount < 0) {
         engineCount = 46;
       }
       engine_in = engineCount;
+      engineDirty = true;
+      engineDirtyMs = now;
       longPressHandled = true;
 
       if (debug) {
@@ -394,6 +454,8 @@ void loop1() {
         engineCount = 0;
       }
       engine_in = engineCount;
+      engineDirty = true;
+      engineDirtyMs = now;
 
       if (debug) {
         Serial.print(F("Engine: "));
@@ -403,6 +465,30 @@ void loop1() {
       }
     }
     longPressHandled = false;  // Reset flag when button is released
+    resetHandled = false;      // next hold may reset again
+  }
+
+  // Debounced save: only after the engine has been still for a moment, and
+  // never while the button is held (a 10 s hold would otherwise commit the
+  // 500 ms "previous engine" step mid-hold). commit() itself parks the other
+  // core (core 0, the audio pump) around the flash erase/program, so it stalls
+  // the audio ISR for the few ms it takes — same audible cost as the other
+  // MOD2 firmwares' saves. Do NOT wrap it in idleOtherCore()/resumeOtherCore():
+  // commit() already idles the other core internally, and a second idle on the
+  // same core re-enters the non-recursive SDK mutex and deadlocks, leaving the
+  // audio core parked forever (silence until a power cycle).
+  if (engineDirty && !button.isPressed() && (now - engineDirtyMs) > SAVE_DEBOUNCE_MS) {
+    EEPROM.write(0, kSaveMagic0);
+    EEPROM.write(1, kSaveMagic1);
+    EEPROM.write(2, kSaveVersion);
+    EEPROM.write(3, (uint8_t)engineCount);
+    EEPROM.commit();
+    engineDirty = false;
+
+    if (debug) {
+      Serial.print(F("Engine saved: "));
+      Serial.println(engineNames[engineCount]);
+    }
   }
 
   // read trigger in

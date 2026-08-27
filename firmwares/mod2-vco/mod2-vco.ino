@@ -98,10 +98,9 @@ void __isr onPwmWrap()
   /* Render one sample (-1..+1) from the shared core. */
   const float s = vco.process(1.0f / sampleRate);
 
-  /* Map -1..+1 → 0..1023 and write to PWM duty cycle (10-bit). */
-  const uint16_t pwmSample =
-      static_cast<uint16_t>((s + 1.0f) * MID_LEVEL + 0.5f);
-  pwm_set_chan_level(sliceAudio, PWM_CHAN_B, pwmSample);
+  /* Write the sample to the active audio backend (PWM here). Swapping this one
+     line to mod2::dacWrite(0, s) is all a firmware needs to migrate to the DAC. */
+  mod2::audioWrite(sliceAudio, s);
 
   /* Clear IRQ flag. */
   pwm_clear_irq(sliceIRQ);

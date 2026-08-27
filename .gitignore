@@ -63,8 +63,8 @@ fp-info-cache
 *.kicad_sch-bak
 *.lck
 *.rpt
-panels/production/
-panels/*/production/
+# Fabrication output — exclude any production/ folder repo-wide
+production/
 
 # Python bytecode cache (panel tool scripts)
 __pycache__/

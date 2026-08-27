@@ -1,18 +1,19 @@
 Ref,Qty,Value,Package,Part pick,LCSC C#,Notes
-D1 D2,2,SBR1045 10A 45V Schottky,DO-201AD axial THT,SBR1045SD1-T (Mouser 621-SBR1045SD1-T),,package verified DO-201AD (datasheet DS31351); mounted VERTICAL (fp Diode_THT:D_DO-201AD_P5.08mm_Vertical_AnodeUp) to save board area in the 6HP strip. Any 10A/45V Schottky works.
-D3,1,LED white 3mm,THT,generic,,+12V rail indicator; panel-mount on a spacer
-D4,1,LED pink 3mm,THT,generic,,-12V rail indicator; panel-mount on a spacer
-D5,1,LED blue 3mm,THT,generic,,+5V rail indicator; panel-mount on a spacer
--,3,LED spacer 9mm,3mm LED,generic nylon LED standoff,,lifts D3/D4/D5 off the PCB to the front panel - measure against the final panel-to-PCB gap before ordering
-R1 R2,2,2.2k 1/4W,axial,generic,,+/-12V rail LED resistors
-R3,1,680R 1/4W,axial,generic,,+5V LED resistor
-C1 C3,2,100uF 50V low-ESR,radial D8-D10,Panasonic EEU-FR1H101B (Mouser),,50V derating for margin; C3 positive leg to GND - mind orientation
-C7,1,47uF 50-100V,radial,"Panasonic EEU-FS2A470L (100V, Mouser)",,+5V bulk; overrated per margin philosophy
-C2 C4 C5,3,100nF 50V X7R,disc/MLCC,generic,,
-C6,1,470nF 50V,disc/MLCC,generic,,OKI output ceramic
-VR1,1,OKI-78SR-5/1.5-W36-C,SIP-3 vertical,Murata OKI-78SR-5,,search LCSC/Mouser by MPN
-F1 F2,2,PTC resettable 3A hold,radial disc 12mm 5.1mm-pitch,Bourns MF-R300,C208487,one per brick input; fp maddie:Fuse_Bourns_MF-R300 (custom, from datasheet mf-r.pdf)
-SW1,1,DPDT sub-mini toggle ON-ON,PCB-mount 1/4-40 bushing,C&K 7201SYCQE,,"Order this EXACT part number. 7201=DPDT ON-NONE-ON / S=.410in actuator / Y=.350in threaded keyway bushing / C=PC thru-hole terminals / Q=silver contacts / E=epoxy seal. The Q is safety-critical: silver is 5A @ 120VAC / 28VDC, while the B (gold) option is rated 0.4VA max and will be destroyed by rail current - one letter apart in the part number. C termination is what makes it PCB-solderable; the Z (solder lug) variant cannot mount to the board. Wired DPST - each pole uses its common (pins 2/5) and ONE throw (pins 3/6); the other throw floats with an explicit no-connect. Bushing + nut is the panel's 4th mechanical anchor. fp maddie:SW_Toggle_DPDT_SubMini_PCMount - grid verified against datasheet p.A-10: 4.70mm along each column, 4.83mm between rows, 1.85mm round holes."
-J1 J2,2,DC barrel jack 2.1mm center-pos,vertical panel-mount PC,Switchcraft PC722A (Mouser 502-PC722A),,center positive both; fp maddie:BarrelJack_Switchcraft_PC722A_Vertical (vendor footprint + STEP); threaded bushings help hold the panel
-J3,1,USB-A receptacle,PCB,generic vertical USB-A,,D+ tied to D-; soldered to the panel - part of the panel-to-PCB mechanical support
-J5 J6,2,Mini-Fit Jr 2x3 header,4.2mm vertical,Molex 5566-06A2,,plus 5557-06R plugs + 5556 crimps for cables
+-,1,PCB FAB NOTE: 2oz outer copper REQUIRED,,,,"The 4HP board's power traces run 1.0-2.0mm; at 2oz copper 1.0mm carries ~4A at 10C rise, above the 3A PTC hold. On standard 1oz the narrow sections are only ~2.4A - do not order 1oz."
+D1 D2,2,SBR1045 10A 45V Schottky,DO-201AD axial THT - VERTICAL on the back face,SBR1045SD1-T (Mouser 621-SBR1045SD1-T),,"rev A3b: back to vertical THT - a standing axial is a ~5mm dot where the SMC SMD version needed a ~67mm2 flat footprint (the Synthrotek density lesson). Pad 1 = cathode. Any 10A/45V axial Schottky works."
+D3,1,LED white 0805,0805 SMD,pick in-stock 0805 white at order time,,+12V rail indicator; shines into a 3mm panel light pipe
+D4,1,LED pink 0805,0805 SMD,pick in-stock 0805 pink/rose at order time,,-12V rail indicator; light pipe. Sits in the J5/J6 gap band just above J6's -12V pin row (see pcb_gen.py FRONT_POS note)
+D5,1,LED blue 0805,0805 SMD,pick in-stock 0805 blue at order time,,+5V rail indicator; light pipe
+-,3,3mm press-fit panel light pipe,~10mm working length,generic PCB light pipe,,"replaces the old THT-LED-on-spacer scheme; measure panel-to-PCB gap (~9-11mm, set by the barrel jacks) before ordering length"
+R1 R2,2,2.2k 0805 1%,0805 SMD,UNI-ROYAL 0805W8F2201T5E,C17520,JLC basic part; +/-12V rail LED resistors (~4mA)
+R3,1,680R 0805 1%,0805 SMD,UNI-ROYAL 0805W8F6800T5E,C17798,JLC basic part; +5V LED resistor
+C1 C3,2,100uF 50V,"radial THT 6.3x11mm, 2.5mm pitch - back face",generic 100uF 50V 6.3x11 radial - verify LCSC pick at order time,,"rev A3b: back to radial THT standing on the back face (density). 50V derating for margin; C3 positive lead to GND - mind orientation (fp CP_Radial_D6.3mm_P2.50mm)"
+C7,1,47uF 63V,"SMD electrolytic, D6.3xL7.7mm - front face",63V 47uF 6.3mm SMD can - verify stock (e.g. jieerrui JVJ63V47M6.3x8),,"+5V bulk - the ONE big discrete still SMD: its radial form has no back-face slot left below the connector stack, and the front gap is too short for an 11mm can. 63V is >12x margin on a 5V rail"
+C2 C4 C5,3,100nF 50V X7R,0805 SMD,YAGEO CC0805KRX7R9BB104,C49678,JLC basic part
+C6,1,470nF 50V X7R,0805 SMD,Samsung CL21B474KBFNNNE,C13967,JLC basic part; OKI output ceramic
+VR1,1,OKI-78SR-5/1.5-W36-C,SIP-3 vertical THT,Murata OKI-78SR-5,,"stays THT deliberately: no SMD module at LCSC does 5V/1.5A. Mounts on the BACK face, standing rearward. Search LCSC/Mouser by MPN."
+F1 F2,2,PTC resettable 3A hold,radial disc 12mm 5.1mm-pitch - ON EDGE on the back face,Bourns MF-R300,C208487,"rev A3b: back to the MF-R300 disc, standing on edge flanking SW1 (3.6mm wide) - denser than the 2920 chip and the proven 6HP part. fp maddie:Fuse_Bourns_MF-R300"
+SW1,1,DPDT sub-mini toggle ON-ON,PCB-mount 1/4-40 bushing THT,C&K 7201SYCQE,,"Order this EXACT part number. 7201=DPDT ON-NONE-ON / S=.410in actuator / Y=.350in threaded keyway bushing / C=PC thru-hole terminals / Q=silver contacts / E=epoxy seal. The Q is safety-critical: silver is 5A @ 120VAC / 28VDC, while the B (gold) option is rated 0.4VA max and will be destroyed by rail current. C termination is what makes it PCB-solderable. Wired DPST - each pole uses its common (pins 2/5) and ONE throw (pins 3/6); the other throw floats with an explicit no-connect. Bushing + nut is one of the panel's three mechanical anchors. fp maddie:SW_Toggle_DPDT_SubMini_PCMount."
+J1 J2,2,DC barrel jack 2.1mm center-pos,vertical panel-mount PC THT,Switchcraft PC722A (Mouser 502-PC722A),,center positive both; fp maddie:BarrelJack_Switchcraft_PC722A_Vertical; the two threaded bushings are the panel's other anchors
+J5,1,Mini-Fit Jr 2x3 header,4.2mm vertical THT (back face),Molex 5566-06A2,,project pin map 1=-12V 2=GND 3=+5V / 4=GND 5=GND 6=+12V; plus 5557-06R plug + 5556 crimps
+J6,1,Eurorack 16-pin bus header,2.54mm 2x8 shrouded IDC THT (back face),generic DC3-16P (or 3M 30316-6002 / Mouser 517-30316-6002),,"Doepfer pin map: 1/2=-12V (red stripe) 3..8=GND 9/10=+12V 11/12=+5V, CV/Gate NC. Keyed; note stripe orientation on silk. Rev A3: replaced the second Mini-Fit - its 9mm shroud is what makes 4HP possible."

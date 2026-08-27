@@ -50,9 +50,18 @@ enum WavefolderMode : uint8_t {
 };
 
 // POT1 -> fold amount = pre-fold gain into the folder: 1x (pot=0) .. 20x
-// (pot=1), exponential taper (each fold "octave" is roughly equal knob travel).
+// (pot=1), LINEAR taper.
+//
+// Linear rather than exponential because the fold count is proportional to the
+// gain, not to its log: an exponential taper spent the bottom half of the knob
+// on the first fold and then piled several folds into the last few degrees.
+// GRAINS `fold` maps its drive pot linearly (0..1023 -> 48..1023) and starts
+// that range at full amplitude so no knob travel is wasted on a sine that has
+// not begun folding yet — gain 1x here is the same "just about to fold" point.
+// GRAINS `fold` is Apache 2.0, Copyright 2024 Sean Luke
+// (github.com/eclab/grains); the taper is its idea, the code is ours.
 inline float wavefolderFoldGain(float pot01) {
-  return powf(20.0f, clampf(pot01, 0.0f, 1.0f));
+  return 1.0f + 19.0f * clampf(pot01, 0.0f, 1.0f);
 }
 
 // POT2 -> symmetry / offset: a pre-gain DC bias in -0.5 .. +0.5 (pot=0.5 is

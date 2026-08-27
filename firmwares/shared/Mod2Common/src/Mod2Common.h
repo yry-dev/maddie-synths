@@ -4,6 +4,8 @@
 #include <math.h>
 #include "hardware/pwm.h"
 #include "hardware/irq.h"
+#include "hardware/spi.h"
+#include "pico/time.h"
 
 // Shared helpers for MOD2 firmwares (Seeed Xiao RP2350).
 //
@@ -37,6 +39,16 @@ constexpr uint8_t BUTTON_PIN = 6;
 // Helper PWM slice pin used only to generate the audio-rate wrap IRQ.
 constexpr uint8_t PWM_TIMER_PIN = 2;
 
+// Optional MCP4822 SPI DAC (a cleaner 12-bit / dual-channel audio output that
+// coexists with the PWM path -- see the audio-output abstraction below). Uses
+// hardware SPI0: GPIO2 = SCK, GPIO3 = SDI/MOSI (SPI0 TX), GPIO4 = CS (manual).
+// LDAC is tied to GND on the board so writes update the output immediately.
+// NOTE GPIO2 doubles as PWM_TIMER_PIN: harmless because a firmware uses exactly
+// one audio backend at a time, and the DAC ignores SCK while CS is deasserted.
+constexpr uint8_t DAC_SCK_PIN = 2;
+constexpr uint8_t DAC_SDI_PIN = 3;
+constexpr uint8_t DAC_CS_PIN  = 4;
+
 // --------------------------------------------------
 // Audio engine constants (dual-slice PWM scheme)
 // --------------------------------------------------
@@ -57,6 +69,46 @@ void initAudioPwm(uint &audioSlice, uint &timerSlice, irq_handler_t handler);
 // Configure `pin` as a 10-bit PWM output (e.g. LED brightness) and return its
 // slice number. The level is driven on PWM_CHAN_B (odd GPIOs such as 5).
 uint initPwmOutput10bit(uint8_t pin);
+
+// --------------------------------------------------
+// Audio-output abstraction (PWM default, MCP4822 DAC opt-in)
+// --------------------------------------------------
+// A firmware's audio ISR renders a bipolar sample (-1..+1) from a shared
+// *Core.h voice and hands it to one output backend. Existing firmwares use the
+// stock 10-bit PWM path; migrate to the 12-bit SPI DAC one sketch at a time by
+// swapping initAudioPwm()->dacBegin()+audioTimerBegin() and audioWrite()->
+// dacWrite(). The bipolar->device scaling lives here so a sketch never hard-codes
+// a resolution.
+
+// PWM backend: centralised bipolar(-1..+1) -> 10-bit duty write. Byte-identical
+// to the inline `(s+1)*PWM_MID + 0.5f` cast that firmwares used before.
+inline void audioWrite(uint audioSlice, float bipolar) {
+  pwm_set_chan_level(audioSlice, PWM_CHAN_B,
+                     (uint16_t)((bipolar + 1.0f) * PWM_MID + 0.5f));
+}
+
+// MCP4822 DAC backend (12-bit). Constants mirror the PWM ones.
+constexpr uint16_t DAC_WRAP = 4095;             // 12-bit full scale
+constexpr float    DAC_FS   = DAC_WRAP;         // full-scale value
+constexpr float    DAC_MID  = DAC_WRAP / 2.0f;  // mid-scale (silence)
+
+// Bring up SPI0 + CS for the MCP4822 (call once in setup(); default 20 MHz).
+void dacBegin(uint32_t spiHz = 20000000);
+// Write a raw 12-bit code to channel `ch` (0 = VoutA, 1 = VoutB), gain = 1x.
+void dacWriteRaw(uint8_t ch, uint16_t value12);
+// Write a bipolar sample (-1..+1) to channel `ch`, clamped to the 12-bit range.
+inline void dacWrite(uint8_t ch, float bipolar) {
+  int v = (int)((bipolar + 1.0f) * DAC_MID + 0.5f);
+  dacWriteRaw(ch, (uint16_t)(v < 0 ? 0 : (v > DAC_WRAP ? DAC_WRAP : v)));
+}
+
+// Sample clock for DAC firmwares: a hardware repeating alarm at `sampleRateHz`
+// (no GPIO, so it never collides with the DAC's use of GPIO2). PWM firmwares
+// keep using the PWM-wrap IRQ from initAudioPwm() instead. Returns false if the
+// alarm could not be scheduled. `cb` fires at the sample rate; return true to
+// keep it running.
+bool audioTimerBegin(repeating_timer_t *timer, float sampleRateHz,
+                     repeating_timer_callback_t cb);
 
 // --------------------------------------------------
 // Envelope / waveshaping helpers

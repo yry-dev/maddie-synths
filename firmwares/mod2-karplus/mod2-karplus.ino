@@ -49,6 +49,9 @@ Key Variables:
 
 Version History:
   - 1.0 Initial karplus firmware (maddie synths original, shared KarplusCore)
+  - 1.1 Pluck noise burst now lasts one string period instead of a fixed 3 ms,
+        so low strings get a full excitation and high ones stop self-cancelling
+        (after GRAINS `pluck` by Sean Luke, Apache 2.0, github.com/eclab/grains)
 
 License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication

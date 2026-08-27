@@ -153,9 +153,11 @@ Two exclusion reasons, don't conflate them:
 - **WIP originals** (no upstream firmware) — excluded until reviewed.
 - **License-gated**: `mod2-breakbeats` and `mod2-sample` need a generated
   `sample.h` (Patreon-gated PCM data) that is gitignored and must never be
-  committed. `mod2-braids`/`mod2-tides` need un-vendored Mutable Instruments
-  libraries (install steps in the root `README.md`). CI tolerates these compile
-  failures on purpose (`_firmware.yml` warns and skips).
+  committed; CI tolerates their compile failures on purpose (`_firmware.yml`
+  warns and skips). `mod2-braids`/`mod2-tides` (and the Tiny Tides Rack
+  module) need un-vendored Mutable Instruments libraries — install steps in
+  the root `README.md`; CI fetches them at the commits pinned in
+  `.github/mi-libs.env` and builds these for real.
 
 ## Testing / verification
 

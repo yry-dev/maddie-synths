@@ -45,6 +45,11 @@ void init(Plugin* p) {
 	// are excluded from the build. See plugin.hpp for how to re-enable them.
 	// p->addModel(modelBreakbeats);
 	// p->addModel(modelSample);
+	// mod2-tides (Tiny Tides) and mod2-braids (Tiny Braids) need the external
+	// Mutable Instruments libraries (not vendored — see plugin.hpp and the
+	// root README.md).
+	p->addModel(modelTinyTides);
+	p->addModel(modelTinyBraids);
 	// WIP: the modules below are Claude-generated maddie synths originals (no
 	// upstream Hagiwo/Rob Scape firmware) and are excluded from the build for
 	// now. To re-enable one: uncomment it here and in plugin.hpp, remove its
@@ -76,6 +81,19 @@ void init(Plugin* p) {
 	// p->addModel(modelPitchShifter);
 	// p->addModel(modelSpectralFreeze);
 	// p->addModel(modelFx);
+	p->addModel(modelQuant);
+	p->addModel(modelArp);
+	p->addModel(modelGeiger);
+	p->addModel(modelDivMult);
+	p->addModel(modelMemoir);
+	p->addModel(modelSwitchblade);
+	p->addModel(modelMotif);
+	p->addModel(modelTardy);
+	p->addModel(modelBooker);
+	p->addModel(modelByte);
+	p->addModel(modelCrackle);
+	p->addModel(modelDroplets);
+	p->addModel(modelChordal);
 	// SCAFFOLD:addModel (new addModel calls inserted above this line)
 
 	// Any other plugin initialization may go here.

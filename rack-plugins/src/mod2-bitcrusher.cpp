@@ -12,7 +12,7 @@
 	Mirrors the Mod2 hardware: 3 pots, 1 push button, 1 PWM LED, and the Mod2
 	jack set (IN1, IN2, CV, OUT). For the Bitcrusher firmware:
 		POT1 (A0) -> Crush rate (full rate -> ~200 Hz, exponential taper)
-		POT2 (A1) -> Bit depth (16 -> 1 bits, continuous)
+		POT2 (A1) -> Bit depth (12 -> 1 bits, continuous)
 		POT3 (A2) -> unavailable on hardware (pin doubles as the audio input)
 		BUTTON    -> quantizer style: truncate / TPDF dither / AND-mask
 		LED       -> crushed output level
@@ -26,7 +26,10 @@
 	physically-present-but-dead third knob becomes a proper Mix control. The
 	rate taper tops out at Rack's own sample rate instead of the hardware's
 	fixed ~36.6 kHz, so the knob at zero is fully transparent at any engine
-	rate. The quantizer style persists in the patch (firmware: flash).
+	rate. The quantizer style persists in the patch (firmware: flash). The
+	firmware's second shift layer (BUTTON + POT2 -> post-crush drive) has no
+	free knob slot on the 3-pot panel, so the Rack port leaves drive at unity;
+	patch a VCA or a distortion module after it for the same effect.
 
 	License:
 	MIT License, Copyright (c) 2026 Madelyn Yeary — see rack-plugins/LICENSE.md.
@@ -67,7 +70,7 @@ struct Bitcrusher : Mod2Module {
 	Bitcrusher() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN, LIGHTS_LEN);
 		configParam(RATE_PARAM, 0.f, 1.f, 0.f, "Crush rate (full rate → 200 Hz)");
-		configParam(BITS_PARAM, 0.f, 1.f, 0.f, "Bit depth (16 → 1 bits)");
+		configParam(BITS_PARAM, 0.f, 1.f, 0.f, "Bit depth (12 → 1 bits)");
 		configParam(MIX_PARAM, 0.f, 1.f, 1.f, "Wet/dry mix", "%", 0.f, 100.f);
 		configButton(MODE_PARAM, "Quantizer style (truncate / dither / AND-mask)");
 

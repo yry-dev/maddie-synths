@@ -48,6 +48,9 @@ Key Variables:
 
 Version History:
   - 1.0 Initial wavefolder firmware (maddie synths original, shared WavefolderCore)
+  - 1.1 POT1 fold taper exponential -> linear, so folds arrive at an even rate
+        across the knob (after GRAINS `fold` by Sean Luke, Apache 2.0,
+        github.com/eclab/grains — its idea, not its code)
 
 License:
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication

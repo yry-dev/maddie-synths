@@ -1,9 +1,26 @@
-# m-power — two-brick Eurorack PSU, 6HP module (rev A1)
+# m-power — two-brick Eurorack PSU, 4HP module (rev A3)
 
-Two isolated 12V wall bricks in; +12V / -12V / +5V out on two keyed Mini-Fit
-Jr 2x3 connectors, plus a USB-A 5V accessory jack. Packaged as a 6HP 3U
-Eurorack module (29.80 x 108.68 mm PCB) with per-input PTC fuses and one
-panel LED per rail.
+Two isolated 12V wall bricks in; +12V / -12V / +5V out on ONE keyed
+Mini-Fit Jr 2x3 plus ONE standard Eurorack 16-pin bus header. Packaged as
+a 4HP 3U Eurorack module (19.80 x 110.0 mm PCB, **assembled on both
+faces**, **2oz outer copper required**) with per-input PTC fuses and one
+light-pipe LED per rail.
+
+Revision history: rev A2 converted everything SMD-able to LCSC-stocked
+SMD at 6HP (snapshot: .history/6hp-smd-revA2/). Rev A3 took it to 4HP by
+(a) replacing the second Mini-Fit with a 9mm-wide 16-pin IDC bus header,
+(b) two-sided assembly (Synthrotek Power UP style), (c) dropping the
+USB-A accessory jack (even two-sided, its full-width through-pad band was
+2-3 part-slots more than 4HP has), and (d) 0805 LEDs + panel light pipes
+(a THT LED column is a through-hole wall the board cannot afford).
+Rev A3b then took the OTHER Synthrotek lesson and put the six big
+discretes BACK to through-hole, standing VERTICAL on the back face
+(SBR1045 axials, MF-R300 discs on edge flanking the toggle, 6.3mm radial
+bulk caps): a standing THT part packs as a dot where its SMD form is a
+slab, and the emptied front face became the routing freeway that finally
+made the board work. C7 alone stays SMD (no back slot left below the
+connectors; the front gap is too short for a standing can). SMD vs THT
+here is decided per-part by geometry, not ideology.
 
 ## How this project is built
 
@@ -34,12 +51,15 @@ never delete the project dir before rerunning; they write into it in place.
 - Wart A (12V isolated brick): tip -> F1 PTC -> SW1 pole A -> D1 SBR1045 -> +12V.
 - Wart B: tip -> F2 -> SW1 pole B -> D2 -> GND; its sleeve becomes -12V
   (works ONLY with isolated Class II bricks - safety-critical assumption).
-- +5V: OKI-78SR-5 from +12V rail; feeds bus + USB-A (D+ tied to D-).
+- +5V: OKI-78SR-5 from +12V rail; feeds both output connectors.
 - C3 electrolytic: POSITIVE leg to GND, negative to -12V.
-- Rail LEDs: D3 white = +12V, D4 pink = -12V, D5 blue = +5V. Panel-mounted
-  on spacers, so their PCB positions must line up with the panel holes.
-- Mini-Fit pinout (both identical, project convention, put on silk):
+- Rail LEDs: D3 white = +12V, D4 pink = -12V, D5 blue = +5V. 0805 SMD
+  under 3mm press-fit light pipes; the pipe holes in the panel must line
+  up with the LED positions in pcb_gen.py's FRONT_POS.
+- Mini-Fit pinout (project convention, put on silk):
   1=-12V 2=GND 3=+5V 4=GND 5=GND 6=+12V.
+- 16-pin bus header: standard Doepfer map, 1/2=-12V (red stripe) 3..8=GND
+  9/10=+12V 11/12=+5V, CV/Gate no-connect.
 - SW1 = one PCB-mount DPDT toggle (C&K 7201SYCQE) wired as DPST: each pole
   uses its common (2/5) and ONE throw (3/6); the unused throws float with an
   explicit no-connect. MUST be Q (silver) contacts, 5A @ 28VDC - the B (gold)
@@ -47,35 +67,35 @@ never delete the project dir before rerunning; they write into it in place.
 
 ## Mechanical
 
-A 6HP *panel* is 30.00 mm (Doepfer's table), and the PCB is **29.80 mm** —
-deliberately narrower. The panel may overhang the board; the board must never
-overhang the panel, or it fouls the neighbouring module. 29.8 is the narrowest
-the board can go: see the WIDTH note in pcb_gen.py, where SIDE >= 2.4 (rail
-routing) and usable >= 24.90 mm (the two Mini-Fit outputs sharing one shelf)
-together set the floor. Below it the outputs wrap and the board jumps to
-131 mm.
+A 4HP *panel* is 20.00 mm (Doepfer's table), and the PCB is **19.80 mm** —
+deliberately narrower. The panel may overhang the board; the board must
+never overhang the panel, or it fouls the neighbouring module. The board
+is a fixed **110.0 mm** tall (HEIGHT in pcb_gen.py — the ~110mm 3U bound,
+open item 1) and is **two-sided**: front face = panel furniture (jacks,
+toggle, LEDs) + the SMD filter chain inside the ~9-11mm panel-to-PCB gap
+(nothing on the front is taller than 7.7mm); back face = the two output
+connectors (rearward), the OKI, and the reg bypasses. Total depth ~31-35mm.
 
-The PCB carries **no mounting holes** — do not add any without rethinking the
-panel attachment.
+The PCB carries **no mounting holes** — do not add any without rethinking
+the panel attachment.
 
-The panel is held by **four** points: the USB jack, the two threaded
-barrel-jack bushings, and the toggle's 1/4-40 bushing nut. SW1 is a PCB-mount
-toggle whose body is only 8.89 mm deep, so it clears the panel-to-PCB gap and
-solders directly to the board — its position on the PCB *is* a panel hole
-position, and the panel generator reads it straight out of the .kicad_pcb.
-(The earlier snap-in rocker could not do this: its body projects 15-20 mm,
-well past the gap, so it had to hang off flying leads and carried no load.)
+The panel is held by **three** points: the two threaded barrel-jack
+bushings and the toggle's 1/4-40 bushing nut (the USB jack was the fourth
+anchor before rev A3 dropped it — check panel rigidity on a real build).
+SW1's body is only 8.89 mm deep, so it clears the panel gap and solders
+directly to the board — its PCB position *is* a panel hole position, and
+the panel generator reads it straight out of the .kicad_pcb.
 
-**Everything the user sees or plugs into is at the TOP of the board**, inside
-the first ~32mm: both barrel jacks, the USB, and the three rail LEDs in an
-aligned row. The Mini-Fit rail outputs sit alone at the BOTTOM, the opposite
-end, because they face the case wiring rather than the player.
+Panel-facing hardware runs down the top half (jacks, toggle, two light
+pipes); the -12V light pipe sits near the board bottom next to J6's -12V
+pins. The outputs face REARWARD from the back face at the bottom.
 
-F1/F2/SW1 are **glued into one cluster** and the two PTC discs are rotated 90
-to make that cluster fit the strip. This is load-bearing, not tidiness: SW1 is
-a hub carrying four power nets, and when the packer was free to scatter its
-neighbours those nets would not route at full width at all. See the ZONES
-comment in pcb_gen.py.
+Placement is corridor-driven: pcb_gen.py reserves explicit ROUTING
+corridors (the back-left channel for -12V, the front-right highway for
++12V/+5V) as packer keep-outs plus router "tolls", and the router runs a
+rip-up-and-retry loop with congestion history (PathFinder-lite). Every
+position note in pcb_gen.py's FRONT_POS/ZONES blocks records a measured
+failure that placement choice fixes — treat them as load-bearing.
 
 Board area is the binding constraint at this width. Every part that was
 dropped to make 6HP close was a deliberate trade, recorded below.
@@ -97,23 +117,28 @@ dropped to make 6HP close was a deliberate trade, recorded below.
 ## Validation conventions
 
 - After regenerating: `kicad-cli sch erc` and `kicad-cli pcb drc`.
-- **Current state: ERC 0 errors, DRC 0 errors of substance.**
-  - Board 29.80 x 108.68 mm. All 14 nets route, 0 unconnected.
-  - ERC's 26 `lib_symbol_issues` warnings are a headless artifact of the
-    embedded `pup` symbol lib and are expected.
-  - Board DRC reports 30 violations: 25 `silk_overlap` + 3 `silk_over_copper`
-    (reference designators and barrel-jack outline circles crowding at 6HP,
-    cosmetic), plus **2 `starved_thermal` on J3's USB shield pads** - see
-    Open items, this one is real but minor.
-  - Panel DRC reports 6 `text_thickness` warnings. These are NOT a defect and
-    NOT specific to this panel: KiCad emits them for every Comfortaa string
-    on every panel in this repo (blank-6hp has 4 of them). Do not chase them,
-    and do not expect a panel to reach literal zero.
-  - Every power-path net routes at >= 1.5mm; see NET_WIDTHS in pcb_gen.py for
-    why that floor exists.
-  - What matters: **0 unconnected items, 0 clearance violations, 0 shorts,
-    0 copper-to-edge violations.**
-- kiutils round-trip parse was used as a pre-KiCad sanity check (see history).
+- **Current state (rev A3b, 4HP vertical-THT): 12 of 13 nets
+  machine-routed and collision-verified; N_SA is the deliberate
+  hand-finish net (SW1.3 -> D1 anode, one ~20mm airwire).**
+  - Board 19.80 x 110.0 mm, two-sided, seed 407 (deterministic).
+  - ERC: 25 `lib_symbol_issues` warnings - the known headless artifact of
+    the embedded `pup` lib. 0 real errors.
+  - DRC: **1 unconnected item** (N_SA's airwire - expected until the
+    hand-finish; see README), **0 shorts, 0 clearance violations, 0 mask
+    bridges, 0 courtyard violations**, 2 `starved_thermal` (J5's and
+    C3's GND pins: one thermal spoke to an orphan island each, but both
+    are THT and reach the opposite pour - minor), 31 silkscreen
+    cosmetics (THT outlines crowding at 4HP).
+  - Power-path widths are CURRENT RATINGS on the REQUIRED 2oz copper:
+    +/-12V and the switch-cluster nets floor at 1.0mm (~4A) with a 0.8mm
+    (~3.2A) last resort on the cluster; +5V runs 0.8/0.6mm because the
+    OKI caps it at 1.5A. Do not lower floors further and do not order 1oz.
+  - The router self-verifies: every attempt's geometry is checked for
+    inter-net collisions and offenders are stripped and re-routed (or
+    reported FAILED) - a rare grid-model leak once let two nets overlap
+    by 0.05mm, and DRC `shorting_items` must stay at 0.
+- What matters: **0 shorts, 0 clearance violations, 0 copper-to-edge, and
+  exactly ONE unconnected item (VIN_B) before the hand-finish.**
 
 ## Known pcbnew scripting landmines
 
@@ -132,41 +157,47 @@ All three of these segfault rather than raising, and cost real debugging time:
    pointer. pcb_gen.py therefore computes routing entirely in Python and only
    materialises tracks once a width has succeeded - never add-then-remove.
 
+## SMD-specific router behaviour (rev A2)
+
+- Pads carry their real copper layers: THT pads block/connect both layers,
+  SMD pads only F.Cu. Treating an SMD pad as two-layer lets the router
+  "connect" from B.Cu where there is no copper - the net is open on the
+  real board while every report says routed.
+- Every SMD GND pad gets a **stitch via at its own centre** (via-in-pad),
+  appended to via_pts BEFORE routing so other nets avoid it. The F.Cu pour
+  drops orphan islands, so without the via an SMD GND pad can sit on
+  removed copper; the via reaches the solid B.Cu plane directly.
+
 ## Open items
 
-1. **Verify the ~110mm rail clearance by measurement.** `pcb_gen.py` warns
-   above 110mm, but that number has no cited source. The board is 108.68mm so
-   it currently passes, with ~1.3mm of headroom - which is thin enough that
-   the real number matters. Measure the case and record it.
-2. Verify footprints against purchased parts: Mini-Fit 5566 variant and the
-   USB-A. J1/J2 (PC722A), F1/F2 (MF-R300) and SW1 are settled - PC722A is the
-   vendor footprint + STEP, MF-R300 is hand-built from the datasheet (inline
-   pads at 5.10 mm, NOT the diagonal MF-RHT pattern), and SW1's grid is from
-   C&K datasheet page A-10 (4.70mm along each column, 4.83mm between rows,
-   1.85mm round holes).
-3. **2 `starved_thermal` on J3's USB shield pads.** Cause is measured, not
-   guessed: N_L3 (the +5V indicator, 4mA) routes in 27 segments and 3 vias,
-   wrapping around the USB on both layers, because +5V is 1.5mm, routes 3rd,
-   and takes the channel D5/R3 need. That detour fences the shield pads onto a
-   copper puddle that cannot reach the main pour. Functionally minor - the
-   pads are THT so they still reach the opposite-layer plane - but the N_L3
-   sprawl is ugly and worth fixing. Measured candidates: flipping R3 gets
-   N_L3 to 5 segments and 0 starved but breaks N_FB/N_SB; routing the LED
-   nets before +5V gets 0 starved but breaks +5V. Neither is free yet.
-4. The PC722A STEP model orientation is wrong in the 3D view (barrel points
-   sideways) - pads are correct; needs a `(rotate)` fix in the .kicad_mod.
-5. The panel is generated (`panels/m-power/`), but three of its numbers are
-   still provisional: the **USB-A cutout 13.6 x 6.4mm** (measure the real
-   shell - it is a routed cutout, not a drill, so undersized cannot be filed
-   out neatly), the 6.6mm toggle hole vs the datasheet's 6.35mm, and whether
-   the barrel jacks at panel y=18.2mm clear the top rail in the real case.
-6. Routing is machine-generated by a grid maze router. It is DRC-clean and
-   the rails are at full netclass width, but it is not hand-tuned: expect
-   staircase corners and no deliberate star-grounding. Rip up and re-route by
-   hand in pcbnew if you want it pretty.
-7. `R3` is 680R, sized for a red LED. With the blue +5V LED (Vf ~3.2V) D5
-   draws ~2.6mA vs ~3.8mA for the other two. 470R would brightness-match.
-   Flagged previously, deliberately not changed.
-8. BOM.csv carries LCSC/Mouser picks; C3 orientation and the 50V/100V
-   ratings are deliberate (margin philosophy) - do not "optimize" them down.
-9. Nothing in this project is committed to git yet.
+1. **Hand-route N_SA in pcbnew after every regeneration** (SW1's pole-A
+   throw -> D1's anode; one ~20mm airwire, ~1 minute with push-and-shove
+   at >=1.0mm). This is the routine finishing step, not a defect - the
+   4HP two-sided board is one net beyond what the grid router can
+   negotiate (~1000 attempts across every configuration tried, always
+   exactly one short of closure; the searcher deliberately strands an
+   easy cluster hop rather than a rail - see HAND_COST in pcb_gen.py).
+2. **Verify the ~110mm rail clearance by measurement.** The board is now
+   exactly 110.0mm - the uncited bound itself. Measure the case; if real
+   clearance is less, HEIGHT must shrink and placement re-fought.
+3. Panel: `panels/m-power/` still reflects the 6HP layout. Regenerate
+   from the new .kicad_pcb - 4HP blank, jack/toggle holes from FRONT_POS,
+   three 3mm light-pipe holes (two mid-right, one in the J5/J6 gap band).
+4. Verify footprints against purchased parts: Mini-Fit 5566, the 16-pin
+   shrouded header (mark the red-stripe end on silk), PC722A (settled,
+   vendor footprint), SW1 (grid from C&K datasheet p.A-10), 3mm light
+   pipes vs the panel-to-PCB gap.
+5. LCSC picks needing verification (parts search was down during the
+   redesign): C7 (47uF 63V 6.3mm SMD can), C1/C3 (100uF 50V 6.3x11
+   radial THT). F1/F2 (MF-R300, C208487) and D1/D2 (SBR1045SD1-T,
+   Mouser) are the proven 6HP parts again.
+6. Same for the 0805 LEDs (white/pink/blue) and light pipes.
+7. D1/D2 dissipate ~1.4W each at the full 3A hold current in SMC
+   packages; 2oz copper + pours are the heatsink. Sanity-check thermally
+   on the first real build at sustained load.
+8. The fab/ directory and m-power-gerbers.zip are STALE 6HP artifacts -
+   regenerate after the VIN_B hand-finish, and only then.
+9. BOM margin philosophy stands: C3 orientation (+ to GND), 50V/63V
+   electrolytic ratings - do not "optimize" down.
+10. Nothing in this project is committed to git; the 6HP design lives
+    only in `.history/6hp-smd-revA2/`.
