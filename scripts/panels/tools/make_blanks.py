@@ -2,12 +2,12 @@
 """Generate blank 3U eurorack faceplate KiCad projects with tiled silkscreen art.
 
 Emits standalone KiCad 9 pure-graphics PCBs (no footprints/nets) for HP sizes
-2,3,4,5,6,7,8,10,12 into panels/blank-<N>hp/. Each panel is a reversible blank:
+2,3,4,5,6,7,8,10,12 into panels/blanks/blank-<N>hp/. Each panel is a reversible blank:
 a decorative seamless pattern (vendored pattern.monster tiles) is tiled onto BOTH
 F.Silkscreen and B.Silkscreen so either face can point outward. Board outline and
 M3-clearance mounting holes follow the researched Doepfer mechanical table in
 .omc/autopilot/spec.md. The header/layers/setup/net structure and every S-expr
-shape (gr_line, gr_circle, gr_poly) are copied from panels/mod2-comb style.
+shape (gr_line, gr_circle, gr_poly) are copied from panels/hagiwo-mod2/mod2-comb style.
 
 Everything is stdlib-only and deterministic: pattern-to-panel assignment is seeded,
 uuids come from uuid5 on a fixed namespace, so re-runs reproduce byte-identical
@@ -24,12 +24,12 @@ files. Non-destructive by default (skip existing); pass --force to overwrite,
 
 import sys, json, math, pathlib, random, uuid
 import xml.dom.minidom as minidom
+from panel_paths import PANELS, panel_pro, dest_dir
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parents[2]
-PANELS = REPO / "panels"
 PATTERNS_DIR = HERE / "blank-patterns"
-PRO_TEMPLATE = PANELS / "mod2-clap" / "mod2-clap.kicad_pro"
+PRO_TEMPLATE = panel_pro("mod2-clap")
 
 # ---------------------------------------------------------------------------
 # Mechanical table (from .omc/autopilot/spec.md -- FINAL, do not tweak).
@@ -788,7 +788,7 @@ def main():
     for hp in hps:
         f_idx, b_idx = assignment[hp]
         name = f"blank-{hp}hp"
-        out_dir = PANELS / name
+        out_dir = dest_dir(name)
         pcb = out_dir / f"{name}.kicad_pcb"
         pro = out_dir / f"{name}.kicad_pro"
         assign_rows.append((hp, tiles[f_idx].name, tiles[b_idx].name))

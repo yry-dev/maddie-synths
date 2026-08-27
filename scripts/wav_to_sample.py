@@ -182,7 +182,7 @@ def convert_wav_to_header(input_wav, output_header="sample.h", target_rate=36600
     
     print(f"\n✓ Successfully created {output_header}")
     print(f"\nNext steps:")
-    print(f"  1. Place {output_header} in the mod2 sketch folder (e.g. firmwares/mod2-radio/)")
+    print(f"  1. Place {output_header} in the mod2 sketch folder (e.g. firmwares/hagiwo-mod2/mod2-radio/)")
     print(f"  2. Compile and upload that sketch to your RP2040")
     print(f"  3. Use POT3 to select start position in the sample")
     print(f"  4. Use POT2 to switch between forward/reverse playback")
@@ -198,7 +198,7 @@ Examples (run from the repo root):
   python scripts/wav_to_sample.py podcast.wav
 
   # Write directly into a mod2 sketch folder
-  python scripts/wav_to_sample.py vocals.wav --output firmwares/mod2-radio/sample.h
+  python scripts/wav_to_sample.py vocals.wav --output firmwares/hagiwo-mod2/mod2-radio/sample.h
 
   # Custom target sample rate
   python scripts/wav_to_sample.py speech.wav --target-rate 32000

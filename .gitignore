@@ -83,10 +83,13 @@ __pycache__/
 _panel-wip/
 .playwright-mcp/
 
+# Generated hardware-gen scripts — kept locally, never committed.
+*gen.py
+
 # licensing restrictions
 sample.h
 
-#panels/renders/*
+panels/renders/*
 
 # pattern.monster silkscreen tiles used by scripts/panels/tools/make_blanks.py.
 # These are COMMERCIALLY LICENSED to Madelyn Yeary — the licence covers using

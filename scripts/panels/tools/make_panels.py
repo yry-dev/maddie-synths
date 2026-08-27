@@ -15,10 +15,7 @@ re-run never clobbers hand-edited KiCad work. Pass --force (-f) to overwrite.
 # The panel artwork this emits is licensed separately: see panels/LICENSE.md (CC BY-NC-SA 4.0).
 
 import re, sys, shutil, pathlib
-
-# Each panel lives in its own folder at repo-root panels/<name>/<name>.kicad_pcb.
-# This script lives in scripts/panels/tools/, so go up to the repo root then into panels/.
-PANELS = pathlib.Path(__file__).resolve().parents[3] / "panels"
+from panel_paths import panel_dir, dest_dir
 
 def find_block_end(t, start):
     d = 0
@@ -52,13 +49,14 @@ def relabel(template, dst_name, slots, force=False):
     """slots: list of (x, y, new_string). Nearest gr_text within 3mm gets it.
 
     Skips (does not write) if the destination panel already exists, unless force."""
-    out_dir = PANELS / dst_name
+    out_dir = dest_dir(dst_name)
     pcb = out_dir / f"{dst_name}.kicad_pcb"
     pro = out_dir / f"{dst_name}.kicad_pro"
     if not force and (pcb.exists() or pro.exists()):
         print(f"  {dst_name:22} SKIP (exists; pass --force to overwrite)")
         return
-    t = (PANELS / template / f"{template}.kicad_pcb").read_text()
+    tdir = panel_dir(template)
+    t = (tdir / f"{template}.kicad_pcb").read_text()
     blocks = gr_texts(t)
     edits = {}  # block_index -> new_string
     for tx, ty, new in slots:
@@ -81,9 +79,9 @@ def relabel(template, dst_name, slots, force=False):
             blk = re.sub(r'\(thickness [\d.]+\)', '(thickness 0.35)', blk)
         blk = strip_render_cache(blk)
         t = t[:s] + blk + t[e:]
-    out_dir.mkdir(exist_ok=True)
+    out_dir.mkdir(parents=True, exist_ok=True)
     pcb.write_text(t)
-    shutil.copy(PANELS / template / f"{template}.kicad_pro", pro)
+    shutil.copy(tdir / f"{template}.kicad_pro", pro)
     print(f"  {dst_name:22} <- {template}")
 
 # Panels are mirror-drawn (B-side), so FRONT-left = high PCB-x, FRONT-right = low
