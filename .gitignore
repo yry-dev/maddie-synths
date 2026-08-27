@@ -42,6 +42,7 @@
 
 # Build output
 dist/
+build/
 
 # arduino-cli per-firmware build output
 firmwares/*/build/
@@ -85,7 +86,7 @@ _panel-wip/
 # licensing restrictions
 sample.h
 
-panels/renders/*
+#panels/renders/*
 
 # pattern.monster silkscreen tiles used by scripts/panels/tools/make_blanks.py.
 # These are COMMERCIALLY LICENSED to Madelyn Yeary — the licence covers using
