@@ -43,6 +43,9 @@
 # Build output
 dist/
 
+# arduino-cli per-firmware build output
+firmwares/*/build/
+
 # VCV Rack plugin: vendored SDK and per-plugin build output
 rack-plugins/.Rack-SDK/
 rack-plugins/build/
