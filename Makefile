@@ -12,8 +12,14 @@ ISP ?= usbasp
 
 fqbn_for = $(if $(filter mod2%,$1),$(MOD2_FQBN),$(if $(filter mod1% hagiwo30%,$1),$(MOD1_FQBN),$(MOD1_FQBN)))
 
-FIRMWARE_DIRS := $(sort $(patsubst %/,%,$(dir $(wildcard firmwares/*/*.ino))))
+# Firmwares are grouped into platform subfolders (hagiwo-mod1/, hagiwo-mod2/,
+# hagiwo-30/), but a few (rabid-audio-*) still sit directly under firmwares/.
+# So discover same-named `<name>/<name>.ino` sketches at either depth. The
+# folder basename is still the flat build-target name; fwdir maps it back to the
+# real (possibly nested) path for arduino-cli.
+FIRMWARE_DIRS := $(sort $(patsubst %/,%,$(dir $(wildcard firmwares/*/*.ino firmwares/*/*/*.ino))))
 FIRMWARES := $(filter-out shared,$(notdir $(FIRMWARE_DIRS)))
+fwdir = $(filter %/$1,$(FIRMWARE_DIRS))
 
 .PHONY: all everything dist clean clean-all list board-list upload upload-help \
         isp-help rack rack-dist rack-install rack-clean $(FIRMWARES)
@@ -89,7 +95,7 @@ $(FIRMWARES):
 		--fqbn $(call fqbn_for,$@) \
 		--libraries $(SHARED_LIB_DIR) \
 		--output-dir dist/$@ \
-		firmwares/$@
+		$(call fwdir,$@)
 
 upload-%: %
 	@if [ -z "$(PORT)" ]; then \
@@ -102,7 +108,7 @@ upload-%: %
 		--fqbn $(call fqbn_for,$*) \
 		-p "$(PORT)" \
 		--input-dir dist/$* \
-		firmwares/$*
+		$(call fwdir,$*)
 
 # ---- Bare-ATmega328P flashing over ISP ----------------------------------
 # The upload rules above drive a serial bootloader, which assumes a Nano-style
@@ -162,7 +168,7 @@ isp-%: %
 		-P "$(ISP)" \
 		$(if $(PORT),-p "$(PORT)") \
 		--input-dir dist/$* \
-		firmwares/$*
+		$(call fwdir,$*)
 
 clean:
 	rm -rf dist

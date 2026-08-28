@@ -1,0 +1,13 @@
+{
+  "board": {"design_settings": {"rules": {"min_clearance": 0.2}}},
+  "boards": [],
+  "libraries": {"pinned_footprint_libs": [], "pinned_symbol_libs": []},
+  "meta": {"filename": "mod2.kicad_pro", "version": 1},
+  "net_settings": {"classes": [{"bus_width": 12, "clearance": 0.2, "line_style": 0, "name": "Default",
+       "pcb_color": "rgba(0, 0, 0, 0.000)", "schematic_color": "rgba(0, 0, 0, 0.000)",
+       "track_width": 0.25, "via_diameter": 0.8, "via_drill": 0.4, "wire_width": 6}],
+    "meta": {"version": 3}, "net_colors": null, "netclass_assignments": null, "netclass_patterns": []},
+  "pcbnew": {"last_paths": {}, "page_layout_descr_file": ""},
+  "schematic": {"legacy_lib_dir": "", "legacy_lib_list": [], "meta": {"version": 1}},
+  "sheets": [["9121487d-ce58-4833-bd10-f36d70810b8a", "Root"]], "text_variables": {}
+}

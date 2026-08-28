@@ -23,6 +23,20 @@ FLAGS += -I../firmwares/shared/SynthCore/src
 # headers such as mod2-sample's sample.h. Not on the firmware build's path.
 FLAGS += -Isrc/compat
 
+# Mutable Instruments libraries for the MI ports — mod2-tides (Tiny Tides) and
+# mod2-braids (Tiny Braids), with the library bodies compiled once in
+# src/mi-libs.cpp (poetaster/arduinoMI packaging; deliberately NOT vendored).
+# Locally: install per the root README.md, "MOD2 Braids / Tides". CI: _rack.yml
+# fetches them at the commits pinned in .github/mi-libs.env and passes
+# MI_LIB_DIR on the command line. Without the libraries the build stops with a
+# clear #error; to build without them instead, exclude mi-libs.cpp and both
+# module .cpps the usual three-place way (WIP_SOURCES below +
+# plugin.{hpp,cpp} + the root plugin.json).
+MI_LIB_DIR ?= $(HOME)/Documents/Arduino/libraries
+ifneq ($(wildcard $(MI_LIB_DIR)/TIDES/src),)
+FLAGS += -I$(MI_LIB_DIR)/STMLIB/src -I$(MI_LIB_DIR)/TIDES/src -I$(MI_LIB_DIR)/BRAIDS/src
+endif
+
 # Careful about linking to shared libraries, since you can't assume much about
 # the user's environment and library search path. Static libraries are fine.
 LDFLAGS +=

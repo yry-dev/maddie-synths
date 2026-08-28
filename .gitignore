@@ -42,6 +42,10 @@
 
 # Build output
 dist/
+build/
+
+# arduino-cli per-firmware build output
+firmwares/*/build/
 
 # VCV Rack plugin: vendored SDK and per-plugin build output
 rack-plugins/.Rack-SDK/
@@ -63,8 +67,8 @@ fp-info-cache
 *.kicad_sch-bak
 *.lck
 *.rpt
-panels/production/
-panels/*/production/
+# Fabrication output — exclude any production/ folder repo-wide
+production/
 
 # Python bytecode cache (panel tool scripts)
 __pycache__/
@@ -78,6 +82,9 @@ __pycache__/
 .omc/
 _panel-wip/
 .playwright-mcp/
+
+# Generated hardware-gen scripts — kept locally, never committed.
+*gen.py
 
 # licensing restrictions
 sample.h

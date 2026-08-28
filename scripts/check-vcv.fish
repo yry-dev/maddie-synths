@@ -57,8 +57,10 @@ end
 echo "== 4. each *Core.h shared by firmware AND vcv =="
 for hdr in "$core_dir"/*Core.h
     set -l base (basename "$hdr" .h)            # e.g. ClavesVoice / LorenzVoice / EgCore
-    # cores are included by name without extension; match in firmware .ino and vcv .cpp
-    set -l in_fw  (grep -rlE "include[ ]*[<\"]$base" "$fw_dir"/*/*.ino 2>/dev/null | wc -l | string trim)
+    # cores are included by name without extension; match in firmware .ino and vcv .cpp.
+    # Firmwares nest by platform (firmwares/hagiwo-mod1/mod1-*/) and some stay flat
+    # (firmwares/rabid-audio-clk/), so search .ino recursively rather than at a fixed depth.
+    set -l in_fw  (grep -rlE --include='*.ino' "include[ ]*[<\"]$base" "$fw_dir" 2>/dev/null | wc -l | string trim)
     set -l in_vcv (grep -rlE "include[ ]*[<\"]$base" "$vcv"/src/*.cpp 2>/dev/null | wc -l | string trim)
     if test "$in_fw" -ge 1 -a "$in_vcv" -ge 1
         _ok "$base shared (fw=$in_fw vcv=$in_vcv)"

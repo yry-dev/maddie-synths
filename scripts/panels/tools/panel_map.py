@@ -14,10 +14,8 @@ Usage: panel_map.py <name|path-to.kicad_pcb>
 # The panel artwork these tools handle is licensed separately: see panels/LICENSE.md (CC BY-NC-SA 4.0).
 
 import re, sys, pathlib
+from panel_paths import panel_pcb
 
-# Each panel lives in its own folder at repo-root panels/<name>/<name>.kicad_pcb.
-# This script lives in scripts/panels/tools/, so go up to the repo root then into panels/.
-PANELS = pathlib.Path(__file__).resolve().parents[3] / "panels"
 RKIND = {4.0: "POT", 3.1: "JACK", 2.25: "BTN", 1.75: "LED"}
 
 def edge_bbox(t):
@@ -71,7 +69,7 @@ def panel_map(pcb):
 
 if __name__ == "__main__":
     arg = sys.argv[1]
-    pcb = arg if arg.endswith('.kicad_pcb') else str(PANELS / arg / f"{arg}.kicad_pcb")
+    pcb = arg if arg.endswith('.kicad_pcb') else str(panel_pcb(arg))
     print(f"# {pathlib.Path(pcb).stem}")
     for kind, lx, ly, r, lab in sorted(panel_map(pcb), key=lambda z: (z[2], z[1])):
         print(f"  {kind:5} ({lx:6.2f},{ly:7.2f})  label={lab!r}")

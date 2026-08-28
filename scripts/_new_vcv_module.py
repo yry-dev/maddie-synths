@@ -33,7 +33,9 @@ CORE_TMPL = '''#pragma once
 //   - firmwares/<firmware>/<firmware>.ino   (TODO: wire this core in)
 //   - rack-plugins/src/{slug}.cpp
 //
-// Pure C++: include only sc_math.h / sc_dsp.h. NO Arduino.h, rack.hpp, Pico SDK.
+// Pure C++: include only sc_math.h (and sc_dsp.h ONLY if no MOD1/AVR sketch
+// will ever include this core — sc_dsp.h's Biquad members collide with AVR
+// macros behind Arduino.h; see PORTING.md). NO Arduino.h, rack.hpp, Pico SDK.
 // float only, no heap, no STL — must compile on AVR, RP2350 and desktop.
 //
 // License:
@@ -44,6 +46,7 @@ CORE_TMPL = '''#pragma once
 
 #include "sc_math.h"
 // #include "sc_dsp.h"   // uncomment for Biquad / noise / soft-clip / DC-block
+//                        // — but NOT if a MOD1/AVR sketch consumes this core
 
 namespace sc {{
 
