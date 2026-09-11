@@ -234,6 +234,156 @@
         "Sequencer",
         "Utility"
       ]
+    },
+    {
+      "slug": "mod1-quant",
+      "name": "Quant",
+      "description": "Note quantizer: pitch CV in, quantized pitch CV out over selectable scales, with trigger-gated sample-and-hold. Port of the GRAINS Quant firmware by Sean Luke.",
+      "manualUrl": "",
+      "tags": [
+        "Quantizer"
+      ]
+    },
+    {
+      "slug": "mod1-arp",
+      "name": "Arp",
+      "description": "Clocked arpeggiator: chord select and up/down/random patterns emitted as pitch CV. Port of the GRAINS Arp firmware by Sean Luke.",
+      "manualUrl": "",
+      "tags": [
+        "Arpeggiator",
+        "Sequencer"
+      ]
+    },
+    {
+      "slug": "mod1-geiger",
+      "name": "Geiger",
+      "description": "Random trigger generator: three related random trigger streams plus Bernoulli-gate behaviour. Port of the GRAINS Geiger firmware by Sean Luke.",
+      "manualUrl": "",
+      "tags": [
+        "Random",
+        "Utility"
+      ]
+    },
+    {
+      "slug": "mod1-divmult",
+      "name": "Div Mult",
+      "description": "External-clock divider / multiplier with two independently ratioed outputs. Port of the GRAINS Divvy and Multiple firmwares by Sean Luke.",
+      "manualUrl": "",
+      "tags": [
+        "Clock modulator"
+      ]
+    },
+    {
+      "slug": "mod1-memoir",
+      "name": "Memoir",
+      "description": "Real-time CV + gate recorder: capture a performance and replay it as a loop. Port of the GRAINS Memoir firmware by Sean Luke.",
+      "manualUrl": "",
+      "tags": [
+        "Recorder",
+        "Utility"
+      ]
+    },
+    {
+      "slug": "mod1-switchblade",
+      "name": "Switchblade",
+      "description": "Fixed-lag slew smoother, summing attenuverter and noise fuzzer in one CV channel. Port of the GRAINS Switchblade firmware by Sean Luke.",
+      "manualUrl": "",
+      "tags": [
+        "Slew limiter",
+        "Attenuator",
+        "Utility"
+      ]
+    },
+    {
+      "slug": "mod1-motif",
+      "name": "Motif",
+      "description": "Clocked 16-note random melody generator with lockable, mutatable patterns, as pitch CV. Port of the GRAINS Motif firmware by Sean Luke.",
+      "manualUrl": "",
+      "tags": [
+        "Sequencer",
+        "Random"
+      ]
+    },
+    {
+      "slug": "mod1-tardy",
+      "name": "Tardy",
+      "description": "Trigger/gate delay: digital signals out, each delayed by a settable amount. Port of the GRAINS Tardy firmware by Sean Luke.",
+      "manualUrl": "",
+      "tags": [
+        "Utility",
+        "Delay"
+      ]
+    },
+    {
+      "slug": "mod2-booker",
+      "name": "Booker",
+      "description": "Hammond organ voice: additive drawbar registrations with a built-in Leslie. Port of the GRAINS Booker firmware by Sean Luke.",
+      "manualUrl": "",
+      "tags": [
+        "Oscillator"
+      ]
+    },
+    {
+      "slug": "mod2-byte",
+      "name": "Byte",
+      "description": "ByteBeat emitter: algorithmic 8-bit music from tiny integer formulas, with selectable expressions. Port of the GRAINS Byte firmware by Sean Luke.",
+      "manualUrl": "",
+      "tags": [
+        "Oscillator",
+        "Digital"
+      ]
+    },
+    {
+      "slug": "mod2-crackle",
+      "name": "Crackle",
+      "description": "Vinyl surface noise: random snaps, crackles and pops like a worn record or old radio. Port of the GRAINS Crackle firmware by Sean Luke.",
+      "manualUrl": "",
+      "tags": [
+        "Noise",
+        "Random"
+      ]
+    },
+    {
+      "slug": "mod2-droplets",
+      "name": "Droplets",
+      "description": "Wind-chime voice: random sine droplets along a selectable chord. Port of the GRAINS Droplets firmware by Sean Luke.",
+      "manualUrl": "",
+      "tags": [
+        "Oscillator",
+        "Random"
+      ]
+    },
+    {
+      "slug": "mod2-chordal",
+      "name": "Chordal",
+      "description": "Chording oscillator: stacked chord voicings cross-faded between sine and a second waveform. Port of the GRAINS Chordal firmware by Sean Luke.",
+      "manualUrl": "",
+      "tags": [
+        "Oscillator"
+      ]
+    },
+    {
+      "slug": "mod2-tides",
+      "name": "Tiny Tides",
+      "description": "Mutable Instruments Tides (tides2) tidal wave generator: looping slope / LFO / oscillator with shape, slope and smoothness, four output modes and AD/Looping/AR ramp modes. Port of the mod2-tides firmware; needs the external Mutable Instruments libraries (see README).",
+      "manualUrl": "",
+      "tags": [
+        "Low-frequency oscillator",
+        "Oscillator",
+        "Envelope generator",
+        "Function generator"
+      ]
+    },
+    {
+      "slug": "mod2-braids",
+      "name": "Tiny Braids",
+      "description": "Mutable Instruments Braids macro-oscillator: 48 synthesis engines behind one Timbre / Morph control pair, with 1V/Oct pitch and a trigger input. Port of the mod2-braids firmware; needs the external Mutable Instruments libraries (see README).",
+      "manualUrl": "",
+      "tags": [
+        "Oscillator",
+        "Drum",
+        "Physical modeling"
+      ]
     }
   ],
   "wipNote": "wipModules are Claude-generated maddie synths originals excluded from the build; move an entry back to modules to re-enable it (see rack-plugins/Makefile WIP_SOURCES and plugin.cpp).",
@@ -241,7 +391,7 @@
     {
       "slug": "mod2-bitcrusher",
       "name": "Bitcrusher",
-      "description": "Bit-depth & sample-rate reduction: unfiltered sample-and-hold downsampling (full rate to ~200 Hz, external-clockable) with continuous 16-to-1-bit quantization in truncate, TPDF-dither or AND-mask styles. Port of the mod2-bitcrusher firmware.",
+      "description": "Bit-depth & sample-rate reduction: unfiltered sample-and-hold downsampling (full rate to ~200 Hz, external-clockable) with continuous 12-to-1-bit quantization in truncate, TPDF-dither or AND-mask styles and a post-crush clipping drive. Port of the mod2-bitcrusher firmware.",
       "manualUrl": "",
       "tags": [
         "Effect",
@@ -423,7 +573,7 @@
     {
       "slug": "mod2-reverse-delay",
       "name": "Reverse Delay",
-      "description": "Classic ambient reverse echo — chunked reverse playback with swelling pre-echo trails, re-reversing feedback, and Reverse/Alternating/Octave-up modes. Port of the mod2-reverse-delay firmware.",
+      "description": "Classic ambient reverse echo \u2014 chunked reverse playback with swelling pre-echo trails, re-reversing feedback, and Reverse/Alternating/Octave-up modes. Port of the mod2-reverse-delay firmware.",
       "manualUrl": "",
       "tags": [
         "Delay",
@@ -445,7 +595,7 @@
     {
       "slug": "mod2-freq-shifter",
       "name": "Freq Shifter",
-      "description": "Bode-style single-sideband frequency shifter — shifts every partial by a fixed Hz amount, from slow barberpole to inharmonic clangor, with feedback spirals. Port of the mod2-freq-shifter firmware.",
+      "description": "Bode-style single-sideband frequency shifter \u2014 shifts every partial by a fixed Hz amount, from slow barberpole to inharmonic clangor, with feedback spirals. Port of the mod2-freq-shifter firmware.",
       "manualUrl": "",
       "tags": [
         "Effect",
@@ -476,7 +626,7 @@
     {
       "slug": "mod2-pitch-shifter",
       "name": "Pitch Shifter",
-      "description": "Octave & granular pitch shifter — two-tap delay-line harmonizer with octave, free (semitone-detented) and detune modes. Port of the mod2-pitch-shifter firmware.",
+      "description": "Octave & granular pitch shifter \u2014 two-tap delay-line harmonizer with octave, free (semitone-detented) and detune modes. Port of the mod2-pitch-shifter firmware.",
       "manualUrl": "",
       "tags": [
         "Effect",
@@ -486,7 +636,7 @@
     {
       "slug": "mod2-spectral-freeze",
       "name": "Spectral Freeze",
-      "description": "FFT-domain infinite sustain — freeze the spectrum for an endless, motionless-yet-alive pad from any instant of sound. Port of the mod2-spectral-freeze firmware.",
+      "description": "FFT-domain infinite sustain \u2014 freeze the spectrum for an endless, motionless-yet-alive pad from any instant of sound. Port of the mod2-spectral-freeze firmware.",
       "manualUrl": "",
       "tags": [
         "Effect",

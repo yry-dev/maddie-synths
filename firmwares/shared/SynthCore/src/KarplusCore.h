@@ -94,9 +94,10 @@ struct KarplusCore {
   // Smoothed parameter shadows (one-pole, anti-zipper).
   float sPitchHz = 220.0f, sDamping = 0.5f, sColour = 0.5f, sWet = 1.0f;
 
-  // Cached per-dt work.
+  // Cached burst-envelope work (recomputed when dt or the pitch moves).
   float lastDt = -1.0f;
-  float exciteCoef = 0.99f;        // per-sample burst decay (~3 ms)
+  float lastCoefPitch = -1.0f;
+  float exciteCoef = 0.99f;        // per-sample burst decay (~one period)
 
   // `buf`/`n`: caller-owned arena (karplusArenaSamples() long).
   void init(int16_t* buf, uint32_t n) {
@@ -116,6 +117,7 @@ struct KarplusCore {
     sColour = colour;
     sWet = wet;
     lastDt = -1.0f;
+    lastCoefPitch = -1.0f;
   }
 
   // Fire the internal exciter (IN1 trigger / button long-press). Adds a fresh
@@ -135,9 +137,20 @@ struct KarplusCore {
     sColour += (colour - sColour) * ps;
     sWet += (wet - sWet) * ps;
 
-    if (dt != lastDt) {
-      exciteCoef = expf(-dt / 0.003f);  // ~3 ms noise-burst envelope
+    // Noise-burst length tracks the string's period rather than a fixed 3 ms.
+    // Karplus-Strong excites exactly one period of noise, and GRAINS `pluck`
+    // does literally that — it fills the whole delay line from a noise table on
+    // each trigger. A fixed burst is wrong at both ends: at A1 (18 ms period) 3
+    // ms barely stirs the string, and at A5 (1.1 ms) the burst spans three laps
+    // and partly cancels itself. Decaying by e^-4 over one period lands the
+    // burst inside a single lap at every pitch. GRAINS `pluck` is Apache 2.0,
+    // Copyright 2023 Sean Luke (github.com/eclab/grains) — the sizing idea is
+    // its (and Karplus & Strong's), the envelope code is ours.
+    if (dt != lastDt || fabsf(sPitchHz - lastCoefPitch) > 0.01f * sPitchHz) {
+      const float burstSec = 0.25f / clampf(sPitchHz, 20.0f, 5000.0f);
+      exciteCoef = expf(-dt / burstSec);
       lastDt = dt;
+      lastCoefPitch = sPitchHz;
     }
 
     const float fs = 1.0f / dt;

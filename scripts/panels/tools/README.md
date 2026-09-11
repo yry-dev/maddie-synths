@@ -1,9 +1,11 @@
 # Panel tools
 
-Scripts for working with the KiCad faceplate PCBs. Each panel lives in its own
-folder at the repo-root `panels/` dir, mirroring `firmwares/<name>/` — e.g.
-`panels/mod2-claves/mod2-claves.kicad_pcb` (these scripts resolve it via the repo
-root, so they work from any cwd).
+Scripts for working with the KiCad faceplate PCBs. Panels are grouped by platform
+under the repo-root `panels/` dir, mirroring `firmwares/` — e.g.
+`panels/hagiwo-mod2/mod2-claves/mod2-claves.kicad_pcb`. The generators still take
+flat panel names ("mod2-claves", "blank-6hp", "fm-boost"); `panel_paths.py` is the
+single place that maps a name to its real (grouped or flat) folder, so they work
+from any cwd.
 
 These panels are **pure 2D graphics** — no footprints, pads, or nets. The front
 art lives on **B.Silkscreen** (mirror-drawn, so it reads correctly from the
@@ -16,7 +18,7 @@ bundles; paths are hardcoded near the top of `kicad_to_panel.py`).
 ## `kicad_to_panel.py` — KiCad faceplate → VCV Rack panel SVG
 
 ```bash
-python3 kicad_to_panel.py ../../../panels/mod2-claves/mod2-claves.kicad_pcb Claves [out_dir]
+python3 kicad_to_panel.py ../../../panels/hagiwo-mod2/mod2-claves/mod2-claves.kicad_pcb Claves [out_dir]
 ```
 
 Plots `B.Silkscreen,B.Mask,Edge.Cuts` (mirrored), then recolors to the house
@@ -41,11 +43,11 @@ offered per-module via right-click → **Panel → Labeled / Generic hardware**
 `appendMod2PanelMenu` helpers in `rack-plugins/src/plugin.hpp`.
 
 The source PCB (HAGIWO's `FrontPanel/mod2.kicad_pcb`) is vendored into the repo
-at `panels/mod2-generic/mod2-generic.kicad_pcb` and registered in
+at `panels/hagiwo-mod2/mod2-generic/mod2-generic.kicad_pcb` and registered in
 `regen_res.py`, so it regenerates like any other panel:
 
 ```bash
-python3 kicad_to_panel.py ../../../panels/mod2-generic/mod2-generic.kicad_pcb mod2-generic ../../../rack-plugins/res
+python3 kicad_to_panel.py ../../../panels/hagiwo-mod2/mod2-generic/mod2-generic.kicad_pcb mod2-generic ../../../rack-plugins/res
 # or, with the PNG preview step: python3 regen_res.py mod2-generic
 ```
 
@@ -56,7 +58,7 @@ every module's hole coordinates line up under either faceplate.
 ## `make_panels.py` — generate new panel projects from firmware specs
 
 ```bash
-python3 make_panels.py           # writes the 13 modules in MOD1/MOD2 into repo-root panels/<name>/ folders
+python3 make_panels.py           # writes the MOD1/MOD2 modules into panels/hagiwo-mod{1,2}/<name>/ folders
 python3 make_panels.py --force   # also overwrite panels that already exist (default: skip existing)
 ```
 
@@ -64,7 +66,7 @@ Clones the cleanest same-form-factor template (`mod2-clap` for mod2,
 `mod1-dual-ad-env` for mod1 — both expose every slot: title, 3 pots, button, LED, 4
 jacks) and relabels each text slot by nearest position, stripping the stale font
 `render_cache` so KiCad regenerates it. Labels come from each firmware's ASCII
-panel diagram (in the `.ino` header — `awk '/╔|║|╚/' firmwares/<m>/*.ino`).
+panel diagram (in the `.ino` header — `awk '/╔|║|╚/' firmwares/*/<m>/*.ino`).
 
 **Key gotcha:** the silk is mirror-drawn, so **front-left = high PCB-x,
 front-right = low PCB-x**. Diagram pairs (e.g. `I1 I2`, `F1 F2`) list front-left
@@ -77,7 +79,7 @@ To add a module: append a `M1(...)`/`M2(...)` entry keyed by `mod1-<name>` /
 ## `make_fm_panels.py` — house-style faceplates for the free-modular kits
 
 ```bash
-python3 make_fm_panels.py                    # writes panels/fm-<slug>/ (skips existing)
+python3 make_fm_panels.py                    # writes panels/freemodular/fm-<slug>/ (skips existing)
 python3 make_fm_panels.py --force            # overwrite
 python3 make_fm_panels.py --only Boost,RNG   # restrict to some modules
 python3 make_fm_panels.py --list             # feature table + source coords per module
@@ -124,7 +126,7 @@ re-renders.
 
 **These are ordinary KiCad projects.** Pure graphics (`gr_text`, `gr_line`,
 `gr_circle`, `gr_arc`, `gr_poly`) on `B.SilkS` / `B.Mask` / `Edge.Cuts` — open
-`panels/fm-<slug>/fm-<slug>.kicad_pcb` in pcbnew and move, retype or delete
+`panels/freemodular/fm-<slug>/fm-<slug>.kicad_pcb` in pcbnew and move, retype or delete
 anything. Re-runs **skip** panels that already exist, so hand edits survive;
 pass `--force` only when you want the generated version back.
 
@@ -182,7 +184,7 @@ loader, nothing more.
 ## `make_blanks.py` — generate blank faceplates with tiled silkscreen art
 
 ```bash
-python3 make_blanks.py                    # writes panels/blank-<N>hp/ for N=1,2,3,4,5,6,7,8,10,11,12 (skips existing)
+python3 make_blanks.py                    # writes panels/blanks/blank-<N>hp/ for N=1,2,3,4,5,6,7,8,10,11,12 (skips existing)
 python3 make_blanks.py --force            # overwrite existing
 python3 make_blanks.py --only 4hp,12hp    # restrict to some sizes
 ```
@@ -193,8 +195,9 @@ Emits standalone KiCad 9 pure-graphics PCBs for **blank** 3U eurorack faceplates
 and B.Silkscreen, so either face can point outward. Outline + M3-clearance round
 mounting holes follow the researched Doepfer mechanical table (`.omc/autopilot/spec.md`):
 height 128.5 mm, holes at y=3.0/125.5, widths per the table. The header/layers/setup
-and every S-expr shape (`gr_line`, `gr_circle`, `gr_poly`) are copied from `mod2-comb`
-style; the `.kicad_pro` is cloned from `mod2-clap` with `meta.filename` patched.
+and every S-expr shape (`gr_line`, `gr_circle`, `gr_poly`) are copied from
+`hagiwo-mod2/mod2-comb` style; the `.kicad_pro` is cloned from `mod2-clap` with
+`meta.filename` patched.
 
 Patterns come from `blank-patterns/` — [pattern.monster](https://pattern.monster/)
 seamless tiles (normalized to plain-black geometry; see `blank-patterns/index.md`
@@ -203,7 +206,7 @@ are commercially licensed and gitignored, so they are not in a fresh checkout** 
 the licence covers using the patterns, not redistributing the tile files. Supply
 your own `blank-patterns/pattern-*.svg` (the index lists each source URL) or
 `make_blanks.py` exits with `no vendored patterns in …` and generates nothing.
-The already-generated `panels/blank-*hp/` projects are unaffected. A stdlib-only
+The already-generated `panels/blanks/blank-*hp/` projects are unaffected. A stdlib-only
 minimal SVG parser (paths incl. arcs/beziers, rect/circle/polygon, group/pattern
 transforms) turns each tile into silk; the tiler scales the tile's longest side to
 ~11 mm, replicates it across the face, and clips polylines (Liang–Barsky) and

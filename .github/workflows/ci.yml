@@ -60,7 +60,7 @@ jobs:
           # Rack plugin: rack sources, the manifest, the shared class folder the
           # plugin includes, or the rack build workflows.
           rack=false
-          if echo "$changed" | grep -qE '^(rack-plugins/|plugin\.json$|firmwares/shared/SynthCore/|\.github/workflows/(_rack|ci)\.yml$)'; then
+          if echo "$changed" | grep -qE '^(rack-plugins/|plugin\.json$|firmwares/shared/SynthCore/|\.github/(workflows/(_rack|ci)\.yml|mi-libs\.env)$)'; then
             rack=true
           fi
           echo "rack=$rack" >> "$GITHUB_OUTPUT"
@@ -69,7 +69,7 @@ jobs:
           all="$(make list | jq -R . | jq -cs .)"
 
           if echo "$changed" | grep -qE '^firmwares/shared/' \
-             || echo "$changed" | grep -qE '^\.github/workflows/(_firmware|ci)\.yml$'; then
+             || echo "$changed" | grep -qE '^\.github/(workflows/(_firmware|ci)\.yml|mi-libs\.env)$'; then
             # A shared library (or the firmware build itself) changed: rebuild all.
             firmwares="$all"
           else

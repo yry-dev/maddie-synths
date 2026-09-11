@@ -198,8 +198,13 @@ Known minor deviations (documented, not fixed — low impact):
 - **VcoCore** output low-pass is a fixed coefficient → mild sample-rate-dependent
   brightness (see above).
 - A few cores re-declare small helpers (`xorshift32`, `select6`) locally rather
-  than from `sc_math.h`/`sc_dsp.h`. Safe today (no translation unit includes two
-  such cores); a candidate consolidation if that ever changes.
+  than from `sc_math.h`/`sc_dsp.h`. This is not just style: **`sc_dsp.h` cannot
+  be included from any AVR (MOD1) sketch** — its Biquad members `B0..B2`/`A1..A2`
+  are macros behind Arduino.h on AVR (binary.h and the analog-pin defines), so
+  the header fails to compile there. Cores consumed by MOD1 firmwares must
+  inline what they need; write PRNG steps inside a member function (see
+  `GeigerCore.h::nextUniform()`) rather than as a free `sc::xorshift32`, which
+  would collide if a translation unit ever included two such cores.
 
 Everything else is numerically equivalent to the originals within float
 precision (verified by build on all three targets plus host-side numeric tests

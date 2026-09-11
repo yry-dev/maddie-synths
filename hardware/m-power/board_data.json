@@ -42,7 +42,7 @@
   },
   {
    "ref": "C1",
-   "fp": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+   "fp": "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm",
    "value": "100uF 50V",
    "nets": {
     "1": "+12V",
@@ -51,7 +51,7 @@
   },
   {
    "ref": "C2",
-   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm",
+   "fp": "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
    "value": "100nF 50V",
    "nets": {
     "1": "+12V",
@@ -60,7 +60,7 @@
   },
   {
    "ref": "R1",
-   "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
+   "fp": "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
    "value": "2.2k",
    "nets": {
     "1": "+12V",
@@ -69,8 +69,8 @@
   },
   {
    "ref": "D3",
-   "fp": "LED_THT:LED_D3.0mm",
-   "value": "LED white +12V",
+   "fp": "LED_SMD:LED_0805_2012Metric",
+   "value": "LED white 0805 +12V",
    "nets": {
     "2": "N_L1",
     "1": "GND"
@@ -105,7 +105,7 @@
   },
   {
    "ref": "C3",
-   "fp": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
+   "fp": "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm",
    "value": "100uF 50V (+ to GND)",
    "nets": {
     "1": "GND",
@@ -114,7 +114,7 @@
   },
   {
    "ref": "C4",
-   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm",
+   "fp": "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
    "value": "100nF 50V",
    "nets": {
     "1": "GND",
@@ -123,7 +123,7 @@
   },
   {
    "ref": "R2",
-   "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
+   "fp": "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
    "value": "2.2k",
    "nets": {
     "1": "GND",
@@ -132,8 +132,8 @@
   },
   {
    "ref": "D4",
-   "fp": "LED_THT:LED_D3.0mm",
-   "value": "LED pink -12V",
+   "fp": "LED_SMD:LED_0805_2012Metric",
+   "value": "LED pink 0805 -12V",
    "nets": {
     "2": "N_L2",
     "1": "-12V"
@@ -151,7 +151,7 @@
   },
   {
    "ref": "C5",
-   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm",
+   "fp": "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
    "value": "100nF 50V",
    "nets": {
     "1": "+12V",
@@ -160,7 +160,7 @@
   },
   {
    "ref": "C6",
-   "fp": "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm",
+   "fp": "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
    "value": "470nF 50V",
    "nets": {
     "1": "+5V",
@@ -169,8 +169,8 @@
   },
   {
    "ref": "C7",
-   "fp": "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm",
-   "value": "47uF 100V",
+   "fp": "Capacitor_SMD:CP_Elec_6.3x7.7",
+   "value": "47uF 63V",
    "nets": {
     "1": "+5V",
     "2": "GND"
@@ -178,7 +178,7 @@
   },
   {
    "ref": "R3",
-   "fp": "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical",
+   "fp": "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
    "value": "680",
    "nets": {
     "1": "+5V",
@@ -187,23 +187,11 @@
   },
   {
    "ref": "D5",
-   "fp": "LED_THT:LED_D3.0mm",
-   "value": "LED blue +5V",
+   "fp": "LED_SMD:LED_0805_2012Metric",
+   "value": "LED blue 0805 +5V",
    "nets": {
     "2": "N_L3",
     "1": "GND"
-   }
-  },
-  {
-   "ref": "J3",
-   "fp": "Connector_USB:USB_A_Molex_105057_Vertical",
-   "value": "USB-A 5V out",
-   "nets": {
-    "1": "+5V",
-    "2": "USB_DP",
-    "3": "USB_DP",
-    "4": "GND",
-    "5": "GND"
    }
   },
   {
@@ -221,15 +209,25 @@
   },
   {
    "ref": "J6",
-   "fp": "Connector_Molex:Molex_Mini-Fit_Jr_5566-06A2_2x03_P4.20mm_Vertical",
-   "value": "Mini-Fit out",
+   "fp": "Connector_IDC:IDC-Header_2x08_P2.54mm_Vertical",
+   "value": "Eurorack 16-pin out",
    "nets": {
     "1": "-12V",
-    "2": "GND",
-    "3": "+5V",
+    "2": "-12V",
+    "3": "GND",
     "4": "GND",
     "5": "GND",
-    "6": "+12V"
+    "6": "GND",
+    "7": "GND",
+    "8": "GND",
+    "9": "+12V",
+    "10": "+12V",
+    "11": "+5V",
+    "12": "+5V",
+    "13": null,
+    "14": null,
+    "15": null,
+    "16": null
    }
   }
  ]

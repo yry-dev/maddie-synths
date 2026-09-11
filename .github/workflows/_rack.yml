@@ -116,8 +116,25 @@ jobs:
           unzip -q rack-sdk.zip
           test -d Rack-SDK
 
+      # mod2-tides (Tiny Tides) wraps the Mutable Instruments tides2 DSP, which
+      # is deliberately not vendored in this repo. Fetch the poetaster/arduinoMI
+      # packaging at the commits pinned in .github/mi-libs.env; the Makefile
+      # picks the paths up via MI_LIB_DIR. No packaging fix is needed here —
+      # the Rack module compiles the libraries as a single translation unit.
+      - name: Install Mutable Instruments libraries (mod2-tides)
+        run: |
+          set -euo pipefail
+          source .github/mi-libs.env
+          mkdir -p mi-libs
+          curl -fsSL "https://github.com/poetaster/STMLIB/archive/${MI_STMLIB_SHA}.tar.gz" | tar xz -C mi-libs
+          curl -fsSL "https://github.com/poetaster/TIDES/archive/${MI_TIDES_SHA}.tar.gz" | tar xz -C mi-libs
+          curl -fsSL "https://github.com/poetaster/BRAIDS/archive/${MI_BRAIDS_SHA}.tar.gz" | tar xz -C mi-libs
+          mv "mi-libs/STMLIB-${MI_STMLIB_SHA}" mi-libs/STMLIB
+          mv "mi-libs/TIDES-${MI_TIDES_SHA}" mi-libs/TIDES
+          mv "mi-libs/BRAIDS-${MI_BRAIDS_SHA}" mi-libs/BRAIDS
+
       - name: Build plugin
-        run: make rack-dist RACK_DIR="$PWD/Rack-SDK"
+        run: make rack-dist RACK_DIR="$PWD/Rack-SDK" MI_LIB_DIR="$PWD/mi-libs"
 
       - name: Upload plugin artifact
         uses: actions/upload-artifact@v4
@@ -170,8 +187,21 @@ jobs:
           unzip -q rack-sdk.zip
           test -d Rack-SDK
 
+      # Same Mutable Instruments fetch as the unix jobs — see the comment there.
+      - name: Install Mutable Instruments libraries (mod2-tides)
+        run: |
+          set -euo pipefail
+          source .github/mi-libs.env
+          mkdir -p mi-libs
+          curl -fsSL "https://github.com/poetaster/STMLIB/archive/${MI_STMLIB_SHA}.tar.gz" | tar xz -C mi-libs
+          curl -fsSL "https://github.com/poetaster/TIDES/archive/${MI_TIDES_SHA}.tar.gz" | tar xz -C mi-libs
+          curl -fsSL "https://github.com/poetaster/BRAIDS/archive/${MI_BRAIDS_SHA}.tar.gz" | tar xz -C mi-libs
+          mv "mi-libs/STMLIB-${MI_STMLIB_SHA}" mi-libs/STMLIB
+          mv "mi-libs/TIDES-${MI_TIDES_SHA}" mi-libs/TIDES
+          mv "mi-libs/BRAIDS-${MI_BRAIDS_SHA}" mi-libs/BRAIDS
+
       - name: Build plugin
-        run: make rack-dist RACK_DIR="$PWD/Rack-SDK"
+        run: make rack-dist RACK_DIR="$PWD/Rack-SDK" MI_LIB_DIR="$PWD/mi-libs"
 
       - name: Upload plugin artifact
         uses: actions/upload-artifact@v4

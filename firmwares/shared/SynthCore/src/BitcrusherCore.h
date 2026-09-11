@@ -10,8 +10,9 @@
 // effective sample rate (deliberately with NO anti-alias filtering — the
 // aliasing is the point), and the held sample is quantized to a reduced bit
 // depth. Three quantizer styles: truncate (floor), TPDF dither, and bitwise
-// AND-mask ("broken ROM"). Bit depth is continuous 16..1: truncate/mask
+// AND-mask ("broken ROM"). Bit depth is continuous 12..1: truncate/mask
 // crossfade between adjacent integer depths; dither is naturally continuous.
+// A post-crush drive stage gains the held step into a hard clip.
 //
 // Pure C++: depends only on sc_math.h / sc_dsp.h (<math.h>/<stdint.h>). No
 // Arduino.h, rack.hpp or Pico SDK; float only, no heap, no STL — compiles on
@@ -35,6 +36,14 @@ enum BitcrusherMode : uint8_t {
   BITCRUSH_MODE_COUNT = 3
 };
 
+// NOTE: MASK and TRUNCATE currently produce bit-identical output. Clearing the
+// low bits of a two's-complement word IS a floor onto the same 2^(1-n) grid, so
+// the two paths only differ in how they get there. GRAINS `bit` (its only
+// quantizer) is the same AND-mask and lands in the same place. Keeping the two
+// modes separate is a placeholder for giving MASK a genuinely different
+// transfer (overflow-wrap rather than clip is the usual choice); see
+// .omc/research/grains-compare-bit.md before picking one.
+
 // POT1 -> sample-and-hold rate in Hz: exponential taper from the platform's
 // full rate (pot=0, i.e. no reduction) down to ~200 Hz (pot=1). `fsHz` is the
 // native rate (~36.6 kHz firmware / args.sampleRate in Rack).
@@ -42,9 +51,29 @@ inline float bitcrusherRateHz(float pot01, float fsHz) {
   return fsHz * powf(200.0f / fsHz, clampf(pot01, 0.0f, 1.0f));
 }
 
-// POT2 -> continuous bit depth: 16 bits (pot=0) down to 1 bit (pot=1).
+// POT2 -> continuous bit depth: 12 bits (pot=0) down to 1 bit (pot=1).
+//
+// The ceiling is 12 rather than 16 on purpose. MOD2 feeds this a 10-bit ADC
+// reading and plays it back through a 10-bit PWM, so every depth above ~10 is
+// inaudible and the top third of the knob used to do nothing. The idea is
+// GRAINS `bit`'s, which notes that "Grains inputs at a resolution of 1024, but
+// outputs at most at a resolution of 488 — thus we're already bitcrushing in
+// the output to begin with", and which spends its whole knob on 8 useful
+// depths. GRAINS `bit` is Apache 2.0, Copyright 2024 Sean Luke
+// (github.com/eclab/grains); only the observation is borrowed, not code.
 inline float bitcrusherBits(float pot01) {
-  return 16.0f - 15.0f * clampf(pot01, 0.0f, 1.0f);
+  return 12.0f - 11.0f * clampf(pot01, 0.0f, 1.0f);
+}
+
+// BUTTON+POT2 (shift) -> output drive: 0x (silence) .. 4x, applied *after* the
+// crush and hard-clipped, so pushing it past 1x flattens the quantizer's coarse
+// steps against the rails. The placement is GRAINS `bit`'s idea (the code is
+// ours): its POT 3 is a gain stage
+// in exactly that position ("Then it changes the gain, likely clipping") —
+// clipping crushed steps is a different, dirtier sound than clipping first and
+// crushing the result. Apache 2.0, Copyright 2024 Sean Luke.
+inline float bitcrusherDrive(float pot01) {
+  return 4.0f * clampf(pot01, 0.0f, 1.0f);
 }
 
 // Floor-quantize x in -1..+1 to n integer bits (n in 1..16).
@@ -65,8 +94,9 @@ inline float bitcrushQuantMaskN(float x, int n) {
 struct BitcrusherCore {
   // Parameters (write directly; see the mappers above).
   float rateHz = 36600.0f;            // sample-and-hold rate
-  float bits = 16.0f;                 // continuous bit depth, 1..16
+  float bits = 12.0f;                 // continuous bit depth, 1..12
   uint8_t mode = BITCRUSH_TRUNCATE;   // BitcrusherMode
+  float drive = 1.0f;                 // post-crush gain into a hard clip
   float wet = 1.0f;                   // 0 dry .. 1 fully crushed
 
   // State.
@@ -118,7 +148,10 @@ struct BitcrusherCore {
         capture = true;
       }
     }
-    if (capture) held = quantize(in);
+    // Crush, then gain, then clip — GRAINS `bit`'s ordering. The drive lives
+    // inside the hold so the held step keeps its clipped shape until the next
+    // capture, instead of the gain re-shaping a frozen sample.
+    if (capture) held = clampf(quantize(in) * drive, -1.0f, 1.0f);
     return in + (held - in) * wet;
   }
 };

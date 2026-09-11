@@ -15,10 +15,7 @@ re-run never clobbers hand-edited KiCad work. Pass --force (-f) to overwrite.
 # The panel artwork this emits is licensed separately: see panels/LICENSE.md (CC BY-NC-SA 4.0).
 
 import re, sys, shutil, pathlib
-
-# Each panel lives in its own folder at repo-root panels/<name>/<name>.kicad_pcb.
-# This script lives in scripts/panels/tools/, so go up to the repo root then into panels/.
-PANELS = pathlib.Path(__file__).resolve().parents[3] / "panels"
+from panel_paths import panel_dir, dest_dir
 
 def find_block_end(t, start):
     d = 0
@@ -52,13 +49,14 @@ def relabel(template, dst_name, slots, force=False):
     """slots: list of (x, y, new_string). Nearest gr_text within 3mm gets it.
 
     Skips (does not write) if the destination panel already exists, unless force."""
-    out_dir = PANELS / dst_name
+    out_dir = dest_dir(dst_name)
     pcb = out_dir / f"{dst_name}.kicad_pcb"
     pro = out_dir / f"{dst_name}.kicad_pro"
     if not force and (pcb.exists() or pro.exists()):
         print(f"  {dst_name:22} SKIP (exists; pass --force to overwrite)")
         return
-    t = (PANELS / template / f"{template}.kicad_pcb").read_text()
+    tdir = panel_dir(template)
+    t = (tdir / f"{template}.kicad_pcb").read_text()
     blocks = gr_texts(t)
     edits = {}  # block_index -> new_string
     for tx, ty, new in slots:
@@ -81,9 +79,9 @@ def relabel(template, dst_name, slots, force=False):
             blk = re.sub(r'\(thickness [\d.]+\)', '(thickness 0.35)', blk)
         blk = strip_render_cache(blk)
         t = t[:s] + blk + t[e:]
-    out_dir.mkdir(exist_ok=True)
+    out_dir.mkdir(parents=True, exist_ok=True)
     pcb.write_text(t)
-    shutil.copy(PANELS / template / f"{template}.kicad_pro", pro)
+    shutil.copy(tdir / f"{template}.kicad_pro", pro)
     print(f"  {dst_name:22} <- {template}")
 
 # Panels are mirror-drawn (B-side), so FRONT-left = high PCB-x, FRONT-right = low
@@ -142,12 +140,27 @@ MOD2 = {
  "mod2-pitch-shifter": M2("PITCH","Pitch","Grain",B,"mode","shift",B,"Oct-","In","Out"),
  "mod2-spectral-freeze":M2("SPECTRAL","Shimmer","Tilt",B,"mode","froze","Grab","Freeze","In","Out"),
  "mod2-fx":        M2("FX","Main","Char",B,"algo","id","Clock","Act","In","Out"),
+ # GRAINS ports (Sean Luke, Apache 2.0) — labels from each firmware's header diagram.
+ "mod2-booker":    M2("BOOKER","Organ","Volume","Pitch","leslie","rotor","Gate","Fast","CV","Out"),
+ "mod2-byte":      M2("BYTE","Pitch","Level","Formula","rate","out","Reset","X","CV","Out"),
+ "mod2-crackle":   M2("CRACKLE","Density","Gain","Length","mode","pop","Trig","Accent","CV","Out"),
+ "mod2-droplets":  M2("DROPLETS","Chord","Range","Root","oct","drop","Trig","Accent","CV","Out"),
+ "mod2-chordal":   M2("CHORDAL","Chord","Mix","Root","wave","wave","Inv",B,"CV","Out"),
 }
 MOD1 = {
  "mod1-butterfly":    M1("BUTTERFLY","Sigma","Rho","Beta","slow","step","Reset","X","Y","Z"),
  "mod1-random-cv":    M1("RANDOM CV","Steps","Level","Prob","update","cv","Clock","Update","CV","Trig"),
  "mod1-tap-tempo":    M1("TAP TEMPO","Mult","Div","Div","tap","1x","4x","Var","Div","Div"),
  "mod1-trigger-burst":M1("BURST","Num","Div","Clock","trig","trig","Clock","Trig","NumCV","Trig"),
+ # GRAINS ports (Sean Luke, Apache 2.0) — labels from each firmware's header diagram.
+ "mod1-quant":      M1("QUANT","Tune","Bank","Scale",B,"note","Pitch",B,"Out","Trig"),
+ "mod1-arp":        M1("ARP","Pitch","Chord","Style","inv","cv","Clock","Pitch","Out","Gate"),
+ "mod1-geiger":     M1("GEIGER","Prob1","Prob2","Prob3","clock","trig","Clock","Trig1","Trig2","Trig3"),
+ "mod1-divmult":    M1("DIV MULT","Ratio A","Ratio B","Width","reset","act","Clock","Out A","Out B","Thru"),
+ "mod1-memoir":     M1("MEMOIR","CV","Gate","Length","rec","rec","CV","Gate","CV","Gate"),
+ "mod1-switchblade":M1("SWITCHBLADE","Level","Atten","Shape","src","out","In A","In B","Out","Inv"),
+ "mod1-motif":      M1("MOTIF","Vary","Rand","Pattern","reset","pitch","Clock","Reset","Pitch","Trig"),
+ "mod1-tardy":      M1("TARDY","Delay A","Delay B","Range","link","act","In A","In B","Out A","Out B"),
 }
 
 if __name__ == "__main__":

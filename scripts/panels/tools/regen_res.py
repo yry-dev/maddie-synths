@@ -15,6 +15,7 @@ Usage:
 
 import sys, subprocess, pathlib
 from kicad_to_panel import convert
+from panel_paths import panel_pcb
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 PANELS = ROOT / "panels"
@@ -23,7 +24,9 @@ RENDERS = ROOT / "panels" / "renders"
 INKSCAPE = "/Applications/Inkscape.app/Contents/MacOS/inkscape"
 PNG_DPI = 200  # ~156 x 1012 px for a 19.8 x 128.5 mm panel
 
-# Rack module name (res/<Name>.svg) -> panel folder (panels/<folder>/<folder>.kicad_pcb)
+# Rack module name (res/<Name>.svg) -> panel folder name. The folder is resolved
+# to its real (grouped) location by panel_paths.panel_pcb, e.g. mod2-vco lives at
+# panels/hagiwo-mod2/mod2-vco/mod2-vco.kicad_pcb.
 MAP = {
     "mod1-butterfly": "mod1-butterfly",
     "mod2-claves": "mod2-claves",
@@ -73,6 +76,20 @@ MAP = {
     "mod2-pitch-shifter": "mod2-pitch-shifter",
     "mod2-spectral-freeze": "mod2-spectral-freeze",
     "mod2-fx": "mod2-fx",
+    # GRAINS ports (Sean Luke, Apache 2.0)
+    "mod1-quant": "mod1-quant",
+    "mod1-arp": "mod1-arp",
+    "mod1-geiger": "mod1-geiger",
+    "mod1-divmult": "mod1-divmult",
+    "mod1-memoir": "mod1-memoir",
+    "mod1-switchblade": "mod1-switchblade",
+    "mod1-motif": "mod1-motif",
+    "mod1-tardy": "mod1-tardy",
+    "mod2-booker": "mod2-booker",
+    "mod2-byte": "mod2-byte",
+    "mod2-crackle": "mod2-crackle",
+    "mod2-droplets": "mod2-droplets",
+    "mod2-chordal": "mod2-chordal",
     # Generic Mod2 hardware faceplate (HAGIWO's general-purpose drum module),
     # shared as an alternate panel by every Mod2 module. Source PCB vendored from
     # the eurorack FrontPanel project; see scripts/panels/tools/README.md.
@@ -98,7 +115,7 @@ def main():
         sys.exit(f"unknown module(s): {bad}\nknown: {sorted(MAP)}")
     RENDERS.mkdir(exist_ok=True)
     for name in names:
-        pcb = PANELS / MAP[name] / f"{MAP[name]}.kicad_pcb"
+        pcb = panel_pcb(MAP[name])                  # panels/<group>/<folder>/<folder>.kicad_pcb
         svg = convert(str(pcb), name, RES)          # -> rack-plugins/res/<Name>.svg
         to_png(pathlib.Path(svg), RENDERS / f"{MAP[name]}.png")  # -> panels/renders/<folder>.png
     print(f"done: {len(names)} panel(s) -> res SVG + panels/renders PNG")

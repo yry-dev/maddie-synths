@@ -1,6208 +1,1144 @@
-(kicad_sch
-	(version 20260306)
-	(generator "eeschema")
-	(generator_version "10.0")
-	(uuid "a880e6bc-b00b-4dd3-a033-11da907c7ed1")
-	(paper "A3")
-	(title_block
-		(title "m-power: two-brick Eurorack PSU  +12V / -12V / +5V, 6HP, 2x Mini-Fit out")
-		(date "2026-07-28")
-		(rev "A")
-		(comment 1 "Both bricks MUST be isolated Class II regulated 12V supplies, center positive")
-		(comment 2 "SW1 = one PCB-mount DPDT toggle wired DPST; bushing+nut anchors the panel")
-	)
-	(lib_symbols
-		(symbol "pup:BarrelJack"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "J"
-				(at 0 7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "BarrelJack"
-				(at 0 -7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "BarrelJack_0_1"
-				(rectangle
-					(start -5.08 5.08)
-					(end 2.54 -5.08)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "BarrelJack_1_1"
-				(pin passive line
-					(at 5.08 2.54 180)
-					(length 2.54)
-					(name "TIP"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 -2.54 180)
-					(length 2.54)
-					(name "SLV"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "pup:C"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "C"
-				(at 0 3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "C"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "C_0_1"
-				(polyline
-					(pts
-						(xy -0.762 2.032) (xy -0.762 -2.032)
-					)
-					(stroke
-						(width 0.3048)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 2.032) (xy 0.762 -2.032)
-					)
-					(stroke
-						(width 0.3048)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "C_1_1"
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "pup:CP"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "C"
-				(at 0 3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "CP"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "CP_0_1"
-				(polyline
-					(pts
-						(xy -2.286 1.778) (xy -1.27 1.778)
-					)
-					(stroke
-						(width 0.2)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.778 2.286) (xy -1.778 1.27)
-					)
-					(stroke
-						(width 0.2)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.762 2.032) (xy -0.762 -2.032)
-					)
-					(stroke
-						(width 0.3048)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 2.032) (xy 0.762 -2.032)
-					)
-					(stroke
-						(width 0.3048)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "CP_1_1"
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "pup:D_Schottky"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "D"
-				(at 0 3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "D_Schottky"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "D_Schottky_0_1"
-				(polyline
-					(pts
-						(xy 1.27 1.27) (xy 1.27 -1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 0) (xy -1.27 1.27) (xy -1.27 -1.27) (xy 1.27 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "D_Schottky_1_1"
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "K"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "pup:D_TVS"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "D"
-				(at 0 3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "D_TVS"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "D_TVS_0_1"
-				(polyline
-					(pts
-						(xy 1.27 1.27) (xy 1.27 -1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 0) (xy -1.27 1.27) (xy -1.27 -1.27) (xy 1.27 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "D_TVS_1_1"
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "K"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "pup:F"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "F"
-				(at 0 3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "F"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "F_0_1"
-				(rectangle
-					(start -2.54 1.016)
-					(end 2.54 -1.016)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "F_1_1"
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "pup:LED"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "L"
-				(at 0 3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "LED"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "LED_0_1"
-				(polyline
-					(pts
-						(xy 1.27 1.27) (xy 1.27 -1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 0) (xy -1.27 1.27) (xy -1.27 -1.27) (xy 1.27 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "LED_1_1"
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "K"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "pup:MiniFit_2x03"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "J"
-				(at 0 7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "MiniFit_2x03"
-				(at 0 -7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "MiniFit_2x03_0_1"
-				(rectangle
-					(start -5.08 5.08)
-					(end 5.08 -5.08)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "MiniFit_2x03_1_1"
-				(pin passive line
-					(at -7.62 2.54 0)
-					(length 2.54)
-					(name "P1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -7.62 0 0)
-					(length 2.54)
-					(name "P2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -7.62 -2.54 0)
-					(length 2.54)
-					(name "P3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 2.54 180)
-					(length 2.54)
-					(name "P4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 0 180)
-					(length 2.54)
-					(name "P5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -2.54 180)
-					(length 2.54)
-					(name "P6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "pup:OKI78SR5"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "U"
-				(at 0 7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "OKI78SR5"
-				(at 0 -7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "OKI78SR5_0_1"
-				(rectangle
-					(start -7.62 5.08)
-					(end 7.62 -5.08)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "OKI78SR5_1_1"
-				(pin power_in line
-					(at -10.16 2.54 0)
-					(length 2.54)
-					(name "VIN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -10.16 -2.54 0)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at 10.16 2.54 180)
-					(length 2.54)
-					(name "VOUT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "pup:PWR_FLAG"
-			(power global)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim yes)
-			(in_bom no)
-			(on_board no)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "#FLG"
-				(at 0 3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "PWR_FLAG"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "flag power"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "PWR_FLAG_0_1"
-				(polyline
-					(pts
-						(xy -2.54 0) (xy -1.905 1.016) (xy -0.635 1.016) (xy 0 0) (xy -0.635 -1.016) (xy -1.905 -1.016)
-						(xy -2.54 0)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "PWR_FLAG_1_1"
-				(pin power_out line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "pwr"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "pup:R"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "R"
-				(at 0 3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "R"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "R_0_1"
-				(rectangle
-					(start -2.54 1.016)
-					(end 2.54 -1.016)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "R_1_1"
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "pup:SW"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "S"
-				(at 0 3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "SW"
-				(at 0 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "SW_0_1"
-				(circle
-					(center -2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.524 0.254) (xy 1.778 1.778)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "SW_1_1"
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "pup:SW_DPDT"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "SW"
-				(at 0 7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "SW_DPDT"
-				(at 0 -7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "SW_DPDT_0_1"
-				(rectangle
-					(start -5.08 5.08)
-					(end 5.08 -5.08)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "SW_DPDT_1_1"
-				(pin passive line
-					(at -7.62 2.54 0)
-					(length 2.54)
-					(name "A_NC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -7.62 0 0)
-					(length 2.54)
-					(name "A_C"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -7.62 -2.54 0)
-					(length 2.54)
-					(name "A_NO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 2.54 180)
-					(length 2.54)
-					(name "B_NC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 0 180)
-					(length 2.54)
-					(name "B_C"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -2.54 180)
-					(length 2.54)
-					(name "B_NO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "pup:USB_A"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "J"
-				(at 0 10.16 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "USB_A"
-				(at 0 -10.16 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "USB_A_0_1"
-				(rectangle
-					(start -5.08 7.62)
-					(end 5.08 -7.62)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "USB_A_1_1"
-				(pin passive line
-					(at -7.62 5.08 0)
-					(length 2.54)
-					(name "VBUS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -7.62 2.54 0)
-					(length 2.54)
-					(name "D-"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -7.62 0 0)
-					(length 2.54)
-					(name "D+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -7.62 -2.54 0)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -7.62 -5.08 0)
-					(length 2.54)
-					(name "SH"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-	)
-	(text "OUTPUTS: 2x Mini-Fit Jr 2x3.  Pin map (both identical): 1=-12V 2=GND 3=+5V / 4=GND 5=GND 6=+12V"
-		(exclude_from_sim no)
-		(at 25.4 138.43 0)
-		(effects
-			(font
-				(size 1.7 1.7)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "4323d5de-6934-4e1a-912e-ba2abed82664")
-	)
-	(text "WART A: 12V isolated brick -> PTC -> SW1 pole A -> Schottky -> +12V rail"
-		(exclude_from_sim no)
-		(at 25.4 22.86 0)
-		(effects
-			(font
-				(size 1.7 1.7)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "45483d39-8a5d-4acf-a59a-3e54ab1527ec")
-	)
-	(text "+5V: OKI-78SR-5 buck from +12V rail, feeds rail LED, USB-A accessory jack"
-		(exclude_from_sim no)
-		(at 25.4 100.33 0)
-		(effects
-			(font
-				(size 1.7 1.7)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "99d45f89-7909-4496-9d10-23ccfea7dd31")
-	)
-	(text "WART B: 12V isolated brick, positive tied to GND through SW1 pole B + Schottky; sleeve becomes -12V"
-		(exclude_from_sim no)
-		(at 25.4 67.564 0)
-		(effects
-			(font
-				(size 1.7 1.7)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "dd3ff0db-ba57-4538-a8dc-49302b5ec34e")
-	)
-	(no_connect
-		(at 107.95 50.8)
-		(uuid "c74a6ef2-fc57-4444-9a23-44a756c92bd8")
-	)
-	(no_connect
-		(at 92.71 50.8)
-		(uuid "ff104fab-12b0-49f0-a96a-a4a104132ca9")
-	)
-	(wire
-		(pts
-			(xy 195.58 76.2) (xy 198.12 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "05c9d183-ede7-4b14-bad9-e9d43157d924")
-	)
-	(wire
-		(pts
-			(xy 63.5 38.1) (xy 60.96 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1419b5f3-9a43-4257-a18d-dacf35630e83")
-	)
-	(wire
-		(pts
-			(xy 226.06 38.1) (xy 228.6 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "191c9e65-1908-40d2-b587-c9d48a6c1eb9")
-	)
-	(wire
-		(pts
-			(xy 152.4 154.94) (xy 154.94 154.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1cf6b900-8820-4028-a347-0437b67869ce")
-	)
-	(wire
-		(pts
-			(xy 241.3 114.3) (xy 243.84 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "265115bb-966a-45fd-ab14-c2f946f98055")
-	)
-	(wire
-		(pts
-			(xy 274.32 116.84) (xy 271.78 116.84)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "27a7c354-608b-47e2-a0af-e1cc6375be12")
-	)
-	(wire
-		(pts
-			(xy 60.96 154.94) (xy 58.42 154.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2d57db93-b73e-4e8e-bbdc-34c14e976a9b")
-	)
-	(wire
-		(pts
-			(xy 109.22 195.58) (xy 106.68 195.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "34880cd0-1eab-49b3-8b86-e61f90e6a2b6")
-	)
-	(wire
-		(pts
-			(xy 124.46 76.2) (xy 121.92 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "36813c45-0f55-4add-b4bf-fef5d8292918")
-	)
-	(wire
-		(pts
-			(xy 210.82 114.3) (xy 213.36 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3d4ab9dd-977a-45e9-a9a8-cd02aa3de685")
-	)
-	(wire
-		(pts
-			(xy 92.71 53.34) (xy 90.17 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3da34ce0-5ea7-4795-9163-a6c2fb72775d")
-	)
-	(wire
-		(pts
-			(xy 149.86 114.3) (xy 152.4 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "47cd2ca9-0b80-4f25-9cc1-4ffc61db1ed2")
-	)
-	(wire
-		(pts
-			(xy 43.18 40.64) (xy 45.72 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4b69eb4d-7334-420c-befa-e05922088c9e")
-	)
-	(wire
-		(pts
-			(xy 231.14 114.3) (xy 228.6 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4c0b4c70-a414-45f8-a1bc-c9799eb5b118")
-	)
-	(wire
-		(pts
-			(xy 124.46 38.1) (xy 121.92 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4c5e5da9-c50a-45fa-9b8f-a15e66d64617")
-	)
-	(wire
-		(pts
-			(xy 58.42 116.84) (xy 55.88 116.84)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4d243f51-43bb-432f-94df-0fba0d179c86")
-	)
-	(wire
-		(pts
-			(xy 43.18 35.56) (xy 45.72 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4e298c2e-be19-40f1-af10-2c07eda906dd")
-	)
-	(wire
-		(pts
-			(xy 200.66 114.3) (xy 198.12 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "525f4a80-8574-4b66-843e-10da7d2df696")
-	)
-	(wire
-		(pts
-			(xy 107.95 55.88) (xy 110.49 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "542c7b5f-d0a1-44f9-9ccc-53e835993f6c")
-	)
-	(wire
-		(pts
-			(xy 63.5 195.58) (xy 60.96 195.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "60a952e5-1d88-4553-83fc-7b97b379094d")
-	)
-	(wire
-		(pts
-			(xy 215.9 38.1) (xy 213.36 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "652ea4f4-694c-4bd9-99ed-a9e5b7b112e8")
-	)
-	(wire
-		(pts
-			(xy 170.18 114.3) (xy 167.64 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6b01d0e9-02c4-4289-83ef-ab21a32583a2")
-	)
-	(wire
-		(pts
-			(xy 185.42 76.2) (xy 182.88 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "76060af4-06cb-4135-b1ee-361235c58356")
-	)
-	(wire
-		(pts
-			(xy 63.5 76.2) (xy 60.96 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7a4cb2fd-6059-44cd-853d-e9bf206856b6")
-	)
-	(wire
-		(pts
-			(xy 134.62 76.2) (xy 137.16 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7da86f14-4189-4ad2-b4bc-04ea98bfb2ab")
-	)
-	(wire
-		(pts
-			(xy 139.7 114.3) (xy 137.16 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7f3108ed-0114-4353-b391-527af7ca24cd")
-	)
-	(wire
-		(pts
-			(xy 246.38 76.2) (xy 243.84 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8377ac17-a57f-4232-8fe1-2fe384dcb13e")
-	)
-	(wire
-		(pts
-			(xy 134.62 38.1) (xy 137.16 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "87dd2595-3fc0-43c1-8bdd-8f70f4e9a1f9")
-	)
-	(wire
-		(pts
-			(xy 274.32 111.76) (xy 271.78 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8dd6db9c-b7d1-406f-bb66-24b1bec7c7d1")
-	)
-	(wire
-		(pts
-			(xy 154.94 76.2) (xy 152.4 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8e69cc1c-ff80-4272-8fc5-5fc8cf8e4781")
-	)
-	(wire
-		(pts
-			(xy 185.42 38.1) (xy 182.88 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "98872e3d-8110-4556-b041-70bc68239c0b")
-	)
-	(wire
-		(pts
-			(xy 78.74 111.76) (xy 81.28 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9990c54c-c23f-435d-9ccd-c344ece4a5d5")
-	)
-	(wire
-		(pts
-			(xy 43.18 73.66) (xy 45.72 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9bd194f0-8ba0-4fc1-891d-17ef3e2eff97")
-	)
-	(wire
-		(pts
-			(xy 165.1 38.1) (xy 167.64 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9ce1fdbe-1841-437f-87bd-e96bfdafa6e9")
-	)
-	(wire
-		(pts
-			(xy 119.38 114.3) (xy 121.92 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a090052d-4f99-49b2-8b1f-d99ba9b9ec32")
-	)
-	(wire
-		(pts
-			(xy 137.16 152.4) (xy 134.62 152.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a615e45e-10fd-4858-8edf-1a4f0629f1bd")
-	)
-	(wire
-		(pts
-			(xy 92.71 55.88) (xy 90.17 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "aaeb28dc-f389-48c3-98fd-1b21150623ab")
-	)
-	(wire
-		(pts
-			(xy 76.2 149.86) (xy 78.74 149.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ac33b464-bcd1-4526-b665-d3c7a2fe046c")
-	)
-	(wire
-		(pts
-			(xy 274.32 119.38) (xy 271.78 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b049b6e5-e60b-4f89-a5a6-fff295f4ce9f")
-	)
-	(wire
-		(pts
-			(xy 154.94 38.1) (xy 152.4 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b077e4aa-80ef-4e60-9ebc-d59a0390e791")
-	)
-	(wire
-		(pts
-			(xy 76.2 154.94) (xy 78.74 154.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b1604f9d-7e0c-4526-a9aa-e76202a3671b")
-	)
-	(wire
-		(pts
-			(xy 109.22 114.3) (xy 106.68 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "be33c1db-72be-4ef8-8643-878c916d7260")
-	)
-	(wire
-		(pts
-			(xy 195.58 38.1) (xy 198.12 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c042bf8b-c6fa-458c-8abe-05d5d51fa0d6")
-	)
-	(wire
-		(pts
-			(xy 152.4 152.4) (xy 154.94 152.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c2a0550b-f908-4852-92b1-9e5a4d7a82ad")
-	)
-	(wire
-		(pts
-			(xy 274.32 109.22) (xy 271.78 109.22)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c2af8914-2c2b-4e24-a75c-1cc70b842b8b")
-	)
-	(wire
-		(pts
-			(xy 180.34 114.3) (xy 182.88 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c4553689-e330-44cb-8a72-157f639da38c")
-	)
-	(wire
-		(pts
-			(xy 137.16 149.86) (xy 134.62 149.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c7be881a-f6c5-44d4-b2a7-7b91abf24520")
-	)
-	(wire
-		(pts
-			(xy 107.95 53.34) (xy 110.49 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c867d5c5-b5a3-4d64-a3a3-9f5cc9b81d7c")
-	)
-	(wire
-		(pts
-			(xy 137.16 154.94) (xy 134.62 154.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d58e4af5-ffae-440c-b701-640402367f63")
-	)
-	(wire
-		(pts
-			(xy 60.96 149.86) (xy 58.42 149.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d59fad6f-26f1-41ab-aef4-9e36d2882119")
-	)
-	(wire
-		(pts
-			(xy 165.1 76.2) (xy 167.64 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dadaeab9-4600-49a3-ac30-9ffa81805a08")
-	)
-	(wire
-		(pts
-			(xy 226.06 76.2) (xy 228.6 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dc751c65-25c1-4cf6-a743-08e3c2c2a837")
-	)
-	(wire
-		(pts
-			(xy 58.42 111.76) (xy 55.88 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "decceafe-4f43-4c2e-93fd-5d0c9521195e")
-	)
-	(wire
-		(pts
-			(xy 60.96 152.4) (xy 58.42 152.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "df6889a5-d6d4-4e28-bf4d-bbd4b0d92fe0")
-	)
-	(wire
-		(pts
-			(xy 246.38 38.1) (xy 243.84 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e1dc9761-2778-4b81-a38c-93d0b3b5916f")
-	)
-	(wire
-		(pts
-			(xy 256.54 76.2) (xy 259.08 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e49ddbe1-e376-47fc-ae66-fc3339af7968")
-	)
-	(wire
-		(pts
-			(xy 73.66 38.1) (xy 76.2 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e57a5067-9574-4f93-8882-bba1cee3923a")
-	)
-	(wire
-		(pts
-			(xy 76.2 152.4) (xy 78.74 152.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e673cdaf-9e99-4b1e-8f40-8294f790f1b7")
-	)
-	(wire
-		(pts
-			(xy 152.4 149.86) (xy 154.94 149.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e943ee17-8136-4b94-b1c3-276d44706382")
-	)
-	(wire
-		(pts
-			(xy 43.18 78.74) (xy 45.72 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "eb53267f-d038-49e8-b7e8-bec3d67fba63")
-	)
-	(wire
-		(pts
-			(xy 256.54 38.1) (xy 259.08 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f1a1476e-7e66-4d88-8b47-9bde7f91ed22")
-	)
-	(wire
-		(pts
-			(xy 274.32 114.3) (xy 271.78 114.3)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fd41435c-7df4-45cf-a2df-7f0b04fbfaaa")
-	)
-	(wire
-		(pts
-			(xy 215.9 76.2) (xy 213.36 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fe42d770-69a0-4dd5-8930-5a0f4f1369f3")
-	)
-	(wire
-		(pts
-			(xy 73.66 76.2) (xy 76.2 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "feba1f2d-0022-46ef-b5c8-7691bcce1f82")
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 213.36 76.2 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "06509eb4-887c-4eff-ae23-697a93052a47")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 213.36 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+5V"
-		(shape passive)
-		(at 81.28 111.76 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "06fb762a-b744-4c65-9cd4-efc4d6b4dd4b")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 81.28 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 167.64 38.1 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "0fda2346-d980-4949-aaa1-d5598b5a5414")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 167.64 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_SA"
-		(shape passive)
-		(at 137.16 38.1 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "1c7f84f5-de61-4e33-8e5a-0bb20cb87781")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 137.16 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+12V"
-		(shape passive)
-		(at 55.88 111.76 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "20bbb7e5-e1a8-4ea8-ba1e-47d941c53deb")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 55.88 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+5V"
-		(shape passive)
-		(at 198.12 114.3 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "20dd1261-ba83-4f32-a0b6-8b64fbcd5844")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 198.12 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 121.92 76.2 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "294fca70-69b3-4799-b917-b629c2860c21")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 121.92 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_SB"
-		(shape passive)
-		(at 110.49 55.88 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "2be91989-6a7a-400c-93b8-958917adab3a")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 110.49 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "-12V"
-		(shape passive)
-		(at 167.64 76.2 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "3061e548-e03c-4882-a302-8421e598c370")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 167.64 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_SB"
-		(shape passive)
-		(at 137.16 76.2 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "36d94c3a-ec84-4df4-bd23-c454806c5ba8")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 137.16 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 45.72 40.64 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "3fe9db1a-4478-4828-96f6-df13acc29314")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 45.72 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 78.74 149.86 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "431151fc-26df-4d4c-82ae-861b74802a67")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 78.74 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_L2"
-		(shape passive)
-		(at 228.6 76.2 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "44f0e85f-b203-48f5-a76c-9b3f503770c4")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 228.6 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_SA"
-		(shape passive)
-		(at 90.17 55.88 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "4d941cb3-3cb4-494d-873e-e01dd61f2aea")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 90.17 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 228.6 114.3 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "4f639c9a-fa32-45f3-99cf-6d03d966f751")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 228.6 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 134.62 152.4 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "506b7f92-e5b3-4ed9-9fed-7d2e9d27c2ed")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 134.62 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 55.88 116.84 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "519088df-47bb-401a-8856-ea8971082d27")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 55.88 116.84 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_FB"
-		(shape passive)
-		(at 110.49 53.34 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "53185023-5fc8-4cdd-bf92-6a8a6800242d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 110.49 53.34 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_L3"
-		(shape passive)
-		(at 213.36 114.3 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "57c1393d-769c-4a3f-bf52-20e5e1f24879")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 213.36 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+5V"
-		(shape passive)
-		(at 134.62 154.94 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "6019eb3f-d1b8-48d0-9d9d-673866084cfa")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 134.62 154.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "-12V"
-		(shape passive)
-		(at 58.42 149.86 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "66fc9429-019a-4601-99c0-7120db31545c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 58.42 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 121.92 114.3 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "6a19d669-67b1-4da3-b9cd-1147f945e514")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 121.92 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "VIN_B"
-		(shape passive)
-		(at 60.96 76.2 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "6fd7c298-6ca8-4f3b-b79d-c544cfe9347a")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 60.96 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+5V"
-		(shape passive)
-		(at 58.42 154.94 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "73f06f2a-a911-44a8-b867-0c0e722af795")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 58.42 154.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "-12V"
-		(shape passive)
-		(at 45.72 78.74 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "746d5af8-ef1d-4fe7-800e-a4cac65b134d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 45.72 78.74 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_FA"
-		(shape passive)
-		(at 90.17 53.34 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "7eebd191-2724-435f-8dfd-f7850088a53c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 90.17 53.34 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+5V"
-		(shape passive)
-		(at 137.16 114.3 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "88b4a765-9953-455a-b826-df20bd3593b0")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 137.16 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_FB"
-		(shape passive)
-		(at 76.2 76.2 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "8c505419-f3fc-4209-aacb-69852b0de4d0")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 76.2 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_L2"
-		(shape passive)
-		(at 259.08 76.2 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "9284d143-7bb8-4642-991d-ee15fd354c7a")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 259.08 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 154.94 149.86 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "9342430d-30e7-485d-9bc8-c5b0bda2a435")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 154.94 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+12V"
-		(shape passive)
-		(at 78.74 154.94 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "972153d8-2084-464e-9bbf-ae2ef3b59e6c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 78.74 154.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+12V"
-		(shape passive)
-		(at 121.92 38.1 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "9b90c551-b8f5-4684-87b3-5ff0028e823f")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 121.92 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 154.94 152.4 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "a34e7fa3-73b7-465c-9c18-5dcd5a1b366b")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 154.94 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+5V"
-		(shape passive)
-		(at 167.64 114.3 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "a3fc636d-e43d-4765-a80d-1f9e95a5468f")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 167.64 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 106.68 195.58 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "a5da9e56-636d-41d4-b788-3cbb113b93bf")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 106.68 195.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 182.88 114.3 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "a8f22000-3471-4c94-bee1-c48246cf3722")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 182.88 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 152.4 114.3 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "a9f8639f-da41-4174-9815-1f5d74020ea3")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 152.4 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 58.42 152.4 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "aa1bd505-8180-45b0-b3b2-ffac974a147f")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 58.42 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_L3"
-		(shape passive)
-		(at 243.84 114.3 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "aafde573-0d81-4bb0-8fef-1911cb88620d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 243.84 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "-12V"
-		(shape passive)
-		(at 243.84 76.2 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "acbdbd9a-7011-4723-9299-cd58247f10a7")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 243.84 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 198.12 38.1 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "afc32de3-139b-445d-a7d8-6eada476d195")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 198.12 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+12V"
-		(shape passive)
-		(at 152.4 38.1 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "b6cb38ac-41a5-453f-af32-b8d24de635cf")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 152.4 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "VIN_B"
-		(shape passive)
-		(at 45.72 73.66 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "bbc59e18-3204-4005-b8aa-351907c06214")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 45.72 73.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_L1"
-		(shape passive)
-		(at 259.08 38.1 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "bd47bd12-1329-48db-908c-e4d344eba275")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 259.08 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 152.4 76.2 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "bfd686de-5e70-409a-8ab0-2c9a881cda05")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 152.4 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+12V"
-		(shape passive)
-		(at 154.94 154.94 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "c3936e69-f571-4aee-ae3a-bf165e9f2f66")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 154.94 154.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+5V"
-		(shape passive)
-		(at 271.78 109.22 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "c7e76ca8-0c87-4e33-bb99-74d09058f6d9")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 271.78 109.22 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+12V"
-		(shape passive)
-		(at 213.36 38.1 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "cd2b2337-c361-476d-9d09-73840481877b")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 213.36 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 271.78 116.84 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "d58163ab-2979-4e56-a83c-26648f0ad3e3")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 271.78 116.84 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_FA"
-		(shape passive)
-		(at 76.2 38.1 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "d6500e35-fa32-4b6d-aea6-d98d8e17155d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 76.2 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 271.78 119.38 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "d7431efc-65c2-43dd-a698-7be841d2e979")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 271.78 119.38 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "-12V"
-		(shape passive)
-		(at 198.12 76.2 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "da356319-9afa-4802-8891-24f09f336484")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 198.12 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+12V"
-		(shape passive)
-		(at 182.88 38.1 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "de4a989d-0266-4f00-8075-63c62bd924f9")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 182.88 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "VIN_A"
-		(shape passive)
-		(at 45.72 35.56 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "dea903fd-f70a-4b3f-b77c-5c93ba4b712f")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 45.72 35.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 182.88 76.2 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "def84278-25fa-4cb9-b7d8-3284cd9bdf3c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 182.88 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "VIN_A"
-		(shape passive)
-		(at 60.96 38.1 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "e4cda7c7-811f-4daf-a57f-a52ed76763b9")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 60.96 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "USB_DP"
-		(shape passive)
-		(at 271.78 114.3 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "e61af468-ba8e-4f88-8399-d06ed4a327a7")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 271.78 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "USB_DP"
-		(shape passive)
-		(at 271.78 111.76 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "e6b70854-33da-4b07-8cfb-30e50dcec5db")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 271.78 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "N_L1"
-		(shape passive)
-		(at 228.6 38.1 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "e8e2d989-1054-4650-82a2-1e5ac8c90c3f")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 228.6 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "-12V"
-		(shape passive)
-		(at 134.62 149.86 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "e932d756-a17b-4967-83a4-b2af633a0057")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 134.62 149.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 78.74 152.4 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "efaa29e5-3def-402f-a3e5-a9c665429f56")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 78.74 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "GND"
-		(shape passive)
-		(at 243.84 38.1 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "f113b6d4-48b8-4942-9320-169b22cd6f0c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 243.84 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+12V"
-		(shape passive)
-		(at 60.96 195.58 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "f4b231ff-bbb7-401f-9e4a-50df67bff7ec")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 60.96 195.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(global_label "+12V"
-		(shape passive)
-		(at 106.68 114.3 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "fa24a74e-1f3d-4eb5-923a-ccd8f51068f0")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 106.68 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:OKI78SR5")
-		(at 68.58 114.3 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "0d62a46b-dc8f-4625-96f7-1a820ae829b7")
-		(property "Reference" "VR1"
-			(at 68.58 105.41 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "OKI-78SR-5/1.5-W36-C"
-			(at 68.58 123.19 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Converter_DCDC:Converter_DCDC_Murata_OKI-78SR_Vertical"
-			(at 68.58 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 68.58 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 68.58 114.3 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "4646beeb-929d-4173-8a9d-9d6a5d2fe06c")
-		)
-		(pin "2"
-			(uuid "9fca69f8-370d-4628-b014-5ff1fd8f7643")
-		)
-		(pin "3"
-			(uuid "76dc99b9-e059-4d49-9404-3d21b55c040c")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "VR1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:C")
-		(at 190.5 38.1 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "1c32ddd4-9d30-4543-966d-9fe2fd69dabb")
-		(property "Reference" "C2"
-			(at 190.5 33.02 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100nF 50V"
-			(at 190.5 43.18 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm"
-			(at 190.5 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 190.5 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 190.5 38.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "bb3b3f1e-b41e-4bb8-80e2-ee39e711eb03")
-		)
-		(pin "2"
-			(uuid "941db93e-05a7-4964-aab2-b3f87784f213")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "C2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:C")
-		(at 190.5 76.2 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "26d77fc4-0e71-4089-8211-43e1972894b4")
-		(property "Reference" "C4"
-			(at 190.5 71.12 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100nF 50V"
-			(at 190.5 81.28 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm"
-			(at 190.5 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 190.5 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 190.5 76.2 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "800d1428-81cd-44aa-a856-2853d08cdfc4")
-		)
-		(pin "2"
-			(uuid "76f026e9-d184-4c6b-8a4a-7c8043359cb6")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "C4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:F")
-		(at 68.58 76.2 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "366e6612-4b6f-43f8-84e3-3963f27cc704")
-		(property "Reference" "F2"
-			(at 68.58 71.12 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "MF-R300 3A"
-			(at 68.58 81.28 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "maddie:Fuse_Bourns_MF-R300"
-			(at 68.58 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 68.58 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 68.58 76.2 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "3f7fdaa3-9ee3-4523-b456-8938adbfe66e")
-		)
-		(pin "2"
-			(uuid "698f3c6e-7e90-42c5-83da-c9bd0389c614")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "F2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:LED")
-		(at 251.46 38.1 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "37047c36-267b-4ece-bb98-3683c4a7921d")
-		(property "Reference" "D3"
-			(at 251.46 33.02 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "LED white +12V"
-			(at 251.46 43.18 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "LED_THT:LED_D3.0mm"
-			(at 251.46 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 251.46 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 251.46 38.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "255048a5-3ebd-482d-a835-e818e691dff7")
-		)
-		(pin "2"
-			(uuid "72b61932-7dcf-49e3-9120-9c4610621dcc")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "D3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:C")
-		(at 114.3 114.3 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "3f1547dc-d048-42ce-b4a0-51459a9cac02")
-		(property "Reference" "C5"
-			(at 114.3 109.22 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100nF 50V"
-			(at 114.3 119.38 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm"
-			(at 114.3 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 114.3 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 114.3 114.3 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "7749b1e1-7386-4ff1-b868-cb217185b4bd")
-		)
-		(pin "2"
-			(uuid "c6e93ce9-df01-4c80-954e-761bd362faf5")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "C5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:MiniFit_2x03")
-		(at 144.78 152.4 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "699f40e1-e7e5-4827-b1b5-4fbfb266aaa8")
-		(property "Reference" "J6"
-			(at 144.78 143.51 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Mini-Fit out"
-			(at 144.78 161.29 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_Molex:Molex_Mini-Fit_Jr_5566-06A2_2x03_P4.20mm_Vertical"
-			(at 144.78 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 144.78 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 144.78 152.4 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "b80a9419-95a6-463c-8ac8-121a100d5904")
-		)
-		(pin "2"
-			(uuid "fdcfd6a1-f855-40ce-ae3a-e94af3939a03")
-		)
-		(pin "3"
-			(uuid "e96fa89f-36fb-42f6-9ef1-90c1ff17fc01")
-		)
-		(pin "4"
-			(uuid "28c659db-854a-49c7-9896-42f9fb489573")
-		)
-		(pin "5"
-			(uuid "e0bf1254-c0ba-4f16-96d8-856edf1ca8f5")
-		)
-		(pin "6"
-			(uuid "2fde1a3f-7d1e-4f16-88e7-0cee01d4a956")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "J6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:CP")
-		(at 175.26 114.3 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "6e70a8e8-2eed-4144-8d2f-370366dbe05e")
-		(property "Reference" "C7"
-			(at 175.26 109.22 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "47uF 100V"
-			(at 175.26 119.38 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm"
-			(at 175.26 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 175.26 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 175.26 114.3 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "c5e88bce-a65f-4538-9c24-973338ca14dc")
-		)
-		(pin "2"
-			(uuid "657f79dc-54c5-4832-9165-d389513cbe89")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "C7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:CP")
-		(at 160.02 76.2 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "72baf217-b6ef-4f85-8b0d-40d735f2e5c0")
-		(property "Reference" "C3"
-			(at 160.02 71.12 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100uF 50V (+ to GND)"
-			(at 160.02 81.28 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm"
-			(at 160.02 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 160.02 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 160.02 76.2 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "90737a36-a432-433e-801f-481048ff78c0")
-		)
-		(pin "2"
-			(uuid "be76f2ad-0341-4bda-a5bb-3f38c7a8ff24")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "C3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:MiniFit_2x03")
-		(at 68.58 152.4 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "96bb16bd-5fe7-4492-be8f-3f973cb5e5bf")
-		(property "Reference" "J5"
-			(at 68.58 143.51 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Mini-Fit out"
-			(at 68.58 161.29 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_Molex:Molex_Mini-Fit_Jr_5566-06A2_2x03_P4.20mm_Vertical"
-			(at 68.58 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 68.58 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 68.58 152.4 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "404ed713-5083-4702-b387-0139f4cf4172")
-		)
-		(pin "2"
-			(uuid "1ddf8c67-200c-4b9f-bcaa-ef5d1223ddcd")
-		)
-		(pin "3"
-			(uuid "0f0521b7-c2c3-45fc-99f7-8671baebf5ea")
-		)
-		(pin "4"
-			(uuid "dd2451a9-a604-4597-a444-a319161caff4")
-		)
-		(pin "5"
-			(uuid "76e92eae-add6-4d93-b3a2-e0bc43017536")
-		)
-		(pin "6"
-			(uuid "d1e69b69-775b-4bb7-9f17-002535c25818")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "J5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:R")
-		(at 205.74 114.3 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "a1f25372-356b-4905-81f9-9ee758d0b9d2")
-		(property "Reference" "R3"
-			(at 205.74 109.22 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "680"
-			(at 205.74 119.38 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
-			(at 205.74 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 205.74 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 205.74 114.3 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "7c393727-e5ac-4a0f-adb5-b0cc61c81047")
-		)
-		(pin "2"
-			(uuid "034f98f2-f3c1-4590-9c0d-198b2ccc36b3")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "R3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:USB_A")
-		(at 281.94 114.3 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "a34cc199-a497-4633-bd4f-9a55d166b367")
-		(property "Reference" "J3"
-			(at 281.94 102.87 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "USB-A 5V out"
-			(at 281.94 125.73 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_USB:USB_A_Molex_105057_Vertical"
-			(at 281.94 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 281.94 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 281.94 114.3 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "df4a810e-93d9-4bbe-8582-ea1c108aa4df")
-		)
-		(pin "2"
-			(uuid "25026f82-b226-4c57-b73a-920249365315")
-		)
-		(pin "3"
-			(uuid "45995139-d612-4425-8a44-b09952436d34")
-		)
-		(pin "4"
-			(uuid "7ab8fc1c-9bcc-41a7-8c2e-14f69a382ad2")
-		)
-		(pin "5"
-			(uuid "ac20e430-52c1-4354-a6c5-49f44c4d3a7f")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "J3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:R")
-		(at 220.98 38.1 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "ac1df69a-de86-4ebe-8b2f-2f32a4e6ff10")
-		(property "Reference" "R1"
-			(at 220.98 33.02 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "2.2k"
-			(at 220.98 43.18 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
-			(at 220.98 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 220.98 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 220.98 38.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "e2aa0c56-5313-4475-aaef-0328c699d4e4")
-		)
-		(pin "2"
-			(uuid "aaa98275-1b76-4061-b83e-ad6e3d4553ae")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "R1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:BarrelJack")
-		(at 38.1 38.1 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "b6c83145-dc3f-4add-ae2c-10e4695b8483")
-		(property "Reference" "J1"
-			(at 38.1 29.21 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "12V wart A"
-			(at 38.1 46.99 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "maddie:BarrelJack_Switchcraft_PC722A_Vertical"
-			(at 38.1 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 38.1 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 38.1 38.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "c004b44e-739a-48c5-8438-041f52f62384")
-		)
-		(pin "2"
-			(uuid "8b2474ec-ccba-453d-a73a-c95eda7bc1d8")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "J1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:LED")
-		(at 251.46 76.2 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "c26ad8ee-f570-48a3-be67-d06ca49a7673")
-		(property "Reference" "D4"
-			(at 251.46 71.12 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "LED pink -12V"
-			(at 251.46 81.28 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "LED_THT:LED_D3.0mm"
-			(at 251.46 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 251.46 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 251.46 76.2 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "a0ede775-d5e5-4352-a7d4-9a5996c7e32f")
-		)
-		(pin "2"
-			(uuid "9f7f5b92-4424-49bf-a6ce-b6f5fcd31dce")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "D4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:PWR_FLAG")
-		(at 114.3 195.58 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "c6d46b2b-ee48-4ae0-b3fe-4b0b48463058")
-		(property "Reference" "#FLG02"
-			(at 114.3 190.5 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 114.3 200.66 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 114.3 195.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 114.3 195.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 114.3 195.58 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d80ae8dd-3156-47e8-885c-4c1088829aad")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "#FLG02")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:LED")
-		(at 236.22 114.3 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "c767d998-ed71-40b0-8046-aacb631b2921")
-		(property "Reference" "D5"
-			(at 236.22 109.22 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "LED blue +5V"
-			(at 236.22 119.38 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "LED_THT:LED_D3.0mm"
-			(at 236.22 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 236.22 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 236.22 114.3 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "1fd0785f-7bff-417f-8257-bdc6834a3cb0")
-		)
-		(pin "2"
-			(uuid "2941182c-d443-48c8-aa35-4286da1402b1")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "D5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:CP")
-		(at 160.02 38.1 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "d23cbe32-0051-4c99-a78f-de57b7f43776")
-		(property "Reference" "C1"
-			(at 160.02 33.02 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "100uF 50V"
-			(at 160.02 43.18 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm"
-			(at 160.02 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 160.02 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 160.02 38.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "871ad57e-baf6-433f-a903-ceef4a33e291")
-		)
-		(pin "2"
-			(uuid "02e4200e-5cc5-47df-b526-c7f194f8097f")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "C1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:BarrelJack")
-		(at 38.1 76.2 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "d79189c6-091e-431e-9930-802cb5aac6a5")
-		(property "Reference" "J2"
-			(at 38.1 67.31 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "12V wart B"
-			(at 38.1 85.09 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "maddie:BarrelJack_Switchcraft_PC722A_Vertical"
-			(at 38.1 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 38.1 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 38.1 76.2 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "0d96afa7-8342-431c-82b2-500289031696")
-		)
-		(pin "2"
-			(uuid "cd8908ac-86c9-47c5-9a63-f52b8a993a34")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "J2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:F")
-		(at 68.58 38.1 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "def225a1-0bc2-4ae5-9d32-94a95fbf4127")
-		(property "Reference" "F1"
-			(at 68.58 33.02 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "MF-R300 3A"
-			(at 68.58 43.18 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "maddie:Fuse_Bourns_MF-R300"
-			(at 68.58 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 68.58 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 68.58 38.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "865d3e4f-49da-4986-a8bb-c114a7913d54")
-		)
-		(pin "2"
-			(uuid "8d5a589e-1065-4d04-a7ec-7fb30e6d7049")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "F1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:D_Schottky")
-		(at 129.54 38.1 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "e35caece-28a9-4e9e-87b5-9da380e5144a")
-		(property "Reference" "D1"
-			(at 129.54 33.02 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SBR1045"
-			(at 129.54 43.18 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Diode_THT:D_DO-201AD_P5.08mm_Vertical_AnodeUp"
-			(at 129.54 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 129.54 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 129.54 38.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "f8c0202a-0748-498d-93dc-51b24e85b64f")
-		)
-		(pin "2"
-			(uuid "851c470f-db44-4eb6-9803-fa7b0d7ea1f7")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "D1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:D_Schottky")
-		(at 129.54 76.2 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "e53036b2-2b86-4479-a33e-8d6b57b23038")
-		(property "Reference" "D2"
-			(at 129.54 71.12 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SBR1045"
-			(at 129.54 81.28 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Diode_THT:D_DO-201AD_P5.08mm_Vertical_AnodeUp"
-			(at 129.54 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 129.54 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 129.54 76.2 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "baca100f-533e-4db3-8c90-2ee115b70028")
-		)
-		(pin "2"
-			(uuid "02898836-0787-4c10-99d5-a7c98e89fd53")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "D2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:SW_DPDT")
-		(at 100.33 53.34 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "e57b36c8-21c7-4762-a3a6-d0bc83817ce1")
-		(property "Reference" "SW1"
-			(at 100.33 44.45 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "DPDT toggle (wired DPST)"
-			(at 100.33 62.23 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "maddie:SW_Toggle_DPDT_SubMini_PCMount"
-			(at 100.33 53.34 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 100.33 53.34 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 100.33 53.34 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d5d321f9-3c9c-4af0-8b45-6a170a97115c")
-		)
-		(pin "2"
-			(uuid "81d37cee-7386-4ab1-a30e-92f6c606fbda")
-		)
-		(pin "3"
-			(uuid "29f5dde0-0960-4a48-b317-5ed656706960")
-		)
-		(pin "4"
-			(uuid "f314619f-b5e8-4b9f-9daa-c2fef4b65ddf")
-		)
-		(pin "5"
-			(uuid "28cdbe48-8a12-4366-87d3-8d164b20242b")
-		)
-		(pin "6"
-			(uuid "ae5e64bd-363c-4505-8231-1a12cde13520")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "SW1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:C")
-		(at 144.78 114.3 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "e9a39fd9-3220-4d37-98ab-140ea2ca31b3")
-		(property "Reference" "C6"
-			(at 144.78 109.22 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "470nF 50V"
-			(at 144.78 119.38 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm"
-			(at 144.78 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 144.78 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 144.78 114.3 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "38516de6-9529-44f0-b1f9-42e99314eddb")
-		)
-		(pin "2"
-			(uuid "340431c3-3942-49c4-9cc5-a9924839a6ee")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "C6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:PWR_FLAG")
-		(at 68.58 195.58 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "efbb538d-15f9-40bf-87e2-291957e901a6")
-		(property "Reference" "#FLG01"
-			(at 68.58 190.5 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 68.58 200.66 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 68.58 195.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 68.58 195.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 68.58 195.58 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "c8d52f6e-9683-4cd0-a588-92b2953112fd")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "#FLG01")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "pup:R")
-		(at 220.98 76.2 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "fc2e6a65-1669-4d60-9c7a-851740ecd9b4")
-		(property "Reference" "R2"
-			(at 220.98 71.12 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "2.2k"
-			(at 220.98 81.28 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
-			(at 220.98 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 220.98 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 220.98 76.2 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "20bc1742-74ce-4df5-a6a1-ea55efc9cc71")
-		)
-		(pin "2"
-			(uuid "c643ac2d-d485-42f5-92fa-9f2a141f5dc9")
-		)
-		(instances
-			(project "eurorack-psu-twobrick"
-				(path "/a880e6bc-b00b-4dd3-a033-11da907c7ed1"
-					(reference "R2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(sheet_instances
-		(path "/"
-			(page "1")
-		)
-	)
-	(embedded_fonts no)
+(kicad_sch (version 20231120) (generator "eeschema") (generator_version "8.0")
+  (uuid "0618fc8a-627f-4669-bbae-a2ff963cb7ef")
+  (paper "A3")
+  (title_block (title "m-power: two-brick Eurorack PSU  +12V / -12V / +5V, 4HP, Mini-Fit + 16-pin bus out") (date "2026-07-28") (rev "A")
+    (comment 1 "Both bricks MUST be isolated Class II regulated 12V supplies, center positive")
+    (comment 2 "SW1 = one PCB-mount DPDT toggle wired DPST; bushing+nut anchors the panel")
+  )
+  (lib_symbols
+    (symbol "pup:R" (pin_numbers hide) (pin_names (offset 0.254)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "R" (at 0 3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "R" (at 0 -3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "R_0_1"
+        (rectangle (start -2.54 1.016) (end 2.54 -1.016) (stroke (width 0.254) (type default)) (fill (type none)))
+      )
+      (symbol "R_1_1"
+        (pin passive line (at -5.08 0 0) (length 2.54) (name "~" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 5.08 0 180) (length 2.54) (name "~" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:C" (pin_numbers hide) (pin_names (offset 0.254)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "C" (at 0 3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "C" (at 0 -3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "C_0_1"
+        (polyline (pts (xy -0.762 2.032) (xy -0.762 -2.032)) (stroke (width 0.3048) (type default)) (fill (type none)))
+        (polyline (pts (xy 0.762 2.032) (xy 0.762 -2.032)) (stroke (width 0.3048) (type default)) (fill (type none)))
+      )
+      (symbol "C_1_1"
+        (pin passive line (at -5.08 0 0) (length 2.54) (name "~" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 5.08 0 180) (length 2.54) (name "~" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:CP" (pin_numbers hide) (pin_names (offset 0.254)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "C" (at 0 3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "CP" (at 0 -3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "CP_0_1"
+        (polyline (pts (xy -0.762 2.032) (xy -0.762 -2.032)) (stroke (width 0.3048) (type default)) (fill (type none)))
+        (polyline (pts (xy 0.762 2.032) (xy 0.762 -2.032)) (stroke (width 0.3048) (type default)) (fill (type none)))
+        (polyline (pts (xy -2.286 1.778) (xy -1.27 1.778)) (stroke (width 0.2) (type default)) (fill (type none)))
+        (polyline (pts (xy -1.778 2.286) (xy -1.778 1.27)) (stroke (width 0.2) (type default)) (fill (type none)))
+      )
+      (symbol "CP_1_1"
+        (pin passive line (at -5.08 0 0) (length 2.54) (name "+" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 5.08 0 180) (length 2.54) (name "~" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:F" (pin_numbers hide) (pin_names (offset 0.254)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "F" (at 0 3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "F" (at 0 -3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "F_0_1"
+        (rectangle (start -2.54 1.016) (end 2.54 -1.016) (stroke (width 0.254) (type default)) (fill (type none)))
+      )
+      (symbol "F_1_1"
+        (pin passive line (at -5.08 0 0) (length 2.54) (name "~" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 5.08 0 180) (length 2.54) (name "~" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:SW" (pin_numbers hide) (pin_names (offset 0.254)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "S" (at 0 3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "SW" (at 0 -3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "SW_0_1"
+        (circle (center -2.032 0) (radius 0.508) (stroke (width 0.254) (type default)) (fill (type none)))
+        (circle (center 2.032 0) (radius 0.508) (stroke (width 0.254) (type default)) (fill (type none)))
+        (polyline (pts (xy -1.524 0.254) (xy 1.778 1.778)) (stroke (width 0.254) (type default)) (fill (type none)))
+      )
+      (symbol "SW_1_1"
+        (pin passive line (at -5.08 0 0) (length 2.54) (name "~" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 5.08 0 180) (length 2.54) (name "~" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:D_Schottky" (pin_numbers hide) (pin_names (offset 0.254)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "D" (at 0 3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "D_Schottky" (at 0 -3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "D_Schottky_0_1"
+        (polyline (pts (xy 1.27 0) (xy -1.27 1.27) (xy -1.27 -1.27) (xy 1.27 0)) (stroke (width 0.254) (type default)) (fill (type none)))
+        (polyline (pts (xy 1.27 1.27) (xy 1.27 -1.27)) (stroke (width 0.254) (type default)) (fill (type none)))
+      )
+      (symbol "D_Schottky_1_1"
+        (pin passive line (at -5.08 0 0) (length 2.54) (name "K" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 5.08 0 180) (length 2.54) (name "A" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:D_TVS" (pin_numbers hide) (pin_names (offset 0.254)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "D" (at 0 3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "D_TVS" (at 0 -3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "D_TVS_0_1"
+        (polyline (pts (xy 1.27 0) (xy -1.27 1.27) (xy -1.27 -1.27) (xy 1.27 0)) (stroke (width 0.254) (type default)) (fill (type none)))
+        (polyline (pts (xy 1.27 1.27) (xy 1.27 -1.27)) (stroke (width 0.254) (type default)) (fill (type none)))
+      )
+      (symbol "D_TVS_1_1"
+        (pin passive line (at -5.08 0 0) (length 2.54) (name "K" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 5.08 0 180) (length 2.54) (name "A" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:LED" (pin_numbers hide) (pin_names (offset 0.254)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "L" (at 0 3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "LED" (at 0 -3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "LED_0_1"
+        (polyline (pts (xy 1.27 0) (xy -1.27 1.27) (xy -1.27 -1.27) (xy 1.27 0)) (stroke (width 0.254) (type default)) (fill (type none)))
+        (polyline (pts (xy 1.27 1.27) (xy 1.27 -1.27)) (stroke (width 0.254) (type default)) (fill (type none)))
+      )
+      (symbol "LED_1_1"
+        (pin passive line (at -5.08 0 0) (length 2.54) (name "K" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 5.08 0 180) (length 2.54) (name "A" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:OKI78SR5" (pin_names (offset 0.508)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "U" (at 0 7.62 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "OKI78SR5" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "OKI78SR5_0_1"
+        (rectangle (start -7.62 5.08) (end 7.62 -5.08) (stroke (width 0.254) (type default)) (fill (type background)))
+      )
+      (symbol "OKI78SR5_1_1"
+        (pin power_in line (at -10.16 2.54 0) (length 2.54) (name "VIN" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin power_in line (at -10.16 -2.54 0) (length 2.54) (name "GND" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+        (pin power_out line (at 10.16 2.54 180) (length 2.54) (name "VOUT" (effects (font (size 1.27 1.27)))) (number "3" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:BarrelJack" (pin_names (offset 0.508)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "J" (at 0 7.62 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "BarrelJack" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "BarrelJack_0_1"
+        (rectangle (start -5.08 5.08) (end 2.54 -5.08) (stroke (width 0.254) (type default)) (fill (type background)))
+      )
+      (symbol "BarrelJack_1_1"
+        (pin passive line (at 5.08 2.54 180) (length 2.54) (name "TIP" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 5.08 -2.54 180) (length 2.54) (name "SLV" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:USB_A" (pin_names (offset 0.508)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "J" (at 0 10.16 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "USB_A" (at 0 -10.16 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "USB_A_0_1"
+        (rectangle (start -5.08 7.62) (end 5.08 -7.62) (stroke (width 0.254) (type default)) (fill (type background)))
+      )
+      (symbol "USB_A_1_1"
+        (pin passive line (at -7.62 5.08 0) (length 2.54) (name "VBUS" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 2.54 0) (length 2.54) (name "D-" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 0 0) (length 2.54) (name "D+" (effects (font (size 1.27 1.27)))) (number "3" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 -2.54 0) (length 2.54) (name "GND" (effects (font (size 1.27 1.27)))) (number "4" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 -5.08 0) (length 2.54) (name "SH" (effects (font (size 1.27 1.27)))) (number "5" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:IDC_2x08" (pin_names (offset 0.508)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "J" (at 0 13.969999999999999 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "IDC_2x08" (at 0 -13.969999999999999 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "IDC_2x08_0_1"
+        (rectangle (start -5.08 11.43) (end 5.08 -11.43) (stroke (width 0.254) (type default)) (fill (type background)))
+      )
+      (symbol "IDC_2x08_1_1"
+        (pin passive line (at -7.62 8.89 0) (length 2.54) (name "-12V" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 8.89 180) (length 2.54) (name "-12V" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 6.35 0) (length 2.54) (name "GND" (effects (font (size 1.27 1.27)))) (number "3" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 6.35 180) (length 2.54) (name "GND" (effects (font (size 1.27 1.27)))) (number "4" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 3.81 0) (length 2.54) (name "GND" (effects (font (size 1.27 1.27)))) (number "5" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 3.81 180) (length 2.54) (name "GND" (effects (font (size 1.27 1.27)))) (number "6" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 1.27 0) (length 2.54) (name "GND" (effects (font (size 1.27 1.27)))) (number "7" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 1.27 180) (length 2.54) (name "GND" (effects (font (size 1.27 1.27)))) (number "8" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 -1.27 0) (length 2.54) (name "+12V" (effects (font (size 1.27 1.27)))) (number "9" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 -1.27 180) (length 2.54) (name "+12V" (effects (font (size 1.27 1.27)))) (number "10" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 -3.81 0) (length 2.54) (name "+5V" (effects (font (size 1.27 1.27)))) (number "11" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 -3.81 180) (length 2.54) (name "+5V" (effects (font (size 1.27 1.27)))) (number "12" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 -6.35 0) (length 2.54) (name "CV" (effects (font (size 1.27 1.27)))) (number "13" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 -6.35 180) (length 2.54) (name "CV" (effects (font (size 1.27 1.27)))) (number "14" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 -8.89 0) (length 2.54) (name "GATE" (effects (font (size 1.27 1.27)))) (number "15" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 -8.89 180) (length 2.54) (name "GATE" (effects (font (size 1.27 1.27)))) (number "16" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:MiniFit_2x03" (pin_names (offset 0.508)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "J" (at 0 7.62 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "MiniFit_2x03" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "MiniFit_2x03_0_1"
+        (rectangle (start -5.08 5.08) (end 5.08 -5.08) (stroke (width 0.254) (type default)) (fill (type background)))
+      )
+      (symbol "MiniFit_2x03_1_1"
+        (pin passive line (at -7.62 2.54 0) (length 2.54) (name "P1" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 0 0) (length 2.54) (name "P2" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 -2.54 0) (length 2.54) (name "P3" (effects (font (size 1.27 1.27)))) (number "3" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 2.54 180) (length 2.54) (name "P4" (effects (font (size 1.27 1.27)))) (number "4" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 0 180) (length 2.54) (name "P5" (effects (font (size 1.27 1.27)))) (number "5" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 -2.54 180) (length 2.54) (name "P6" (effects (font (size 1.27 1.27)))) (number "6" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:SW_DPDT" (pin_names (offset 0.508)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+      (property "Reference" "SW" (at 0 7.62 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "SW_DPDT" (at 0 -7.62 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "SW_DPDT_0_1"
+        (rectangle (start -5.08 5.08) (end 5.08 -5.08) (stroke (width 0.254) (type default)) (fill (type background)))
+      )
+      (symbol "SW_DPDT_1_1"
+        (pin passive line (at -7.62 2.54 0) (length 2.54) (name "A_NC" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 0 0) (length 2.54) (name "A_C" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at -7.62 -2.54 0) (length 2.54) (name "A_NO" (effects (font (size 1.27 1.27)))) (number "3" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 2.54 180) (length 2.54) (name "B_NC" (effects (font (size 1.27 1.27)))) (number "4" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 0 180) (length 2.54) (name "B_C" (effects (font (size 1.27 1.27)))) (number "5" (effects (font (size 1.27 1.27)))))
+        (pin passive line (at 7.62 -2.54 180) (length 2.54) (name "B_NO" (effects (font (size 1.27 1.27)))) (number "6" (effects (font (size 1.27 1.27)))))
+      )
+    )
+    (symbol "pup:PWR_FLAG" (power) (pin_numbers hide) (pin_names (offset 0) hide) (exclude_from_sim yes) (in_bom no) (on_board no)
+      (property "Reference" "#FLG" (at 0 3.81 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Value" "PWR_FLAG" (at 0 -3.81 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (property "ki_keywords" "flag power" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+      (symbol "PWR_FLAG_0_1"
+        (polyline (pts (xy -2.54 0) (xy -1.905 1.016) (xy -0.635 1.016) (xy 0 0) (xy -0.635 -1.016) (xy -1.905 -1.016) (xy -2.54 0)) (stroke (width 0.254) (type default)) (fill (type none)))
+      )
+      (symbol "PWR_FLAG_1_1"
+        (pin power_out line (at -5.08 0 0) (length 2.54) (name "pwr" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+      )
+    )
+  )
+  (symbol (lib_id "pup:BarrelJack") (at 38.1 38.1 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "603915e8-9170-4596-a2ea-c654a1b4ec05")
+    (property "Reference" "J1" (at 38.1 29.21 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "12V wart A" (at 38.1 46.99 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "maddie:BarrelJack_Switchcraft_PC722A_Vertical" (at 38.1 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 38.1 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "d4bccf93-b1f8-4fbd-a39d-6ae707ceb065"))
+    (pin "2" (uuid "24ab5ff5-bbf7-4ef9-8213-2def86e0e5bb"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "J1") (unit 1))))
+  )
+  (wire (pts (xy 43.18 35.56) (xy 45.72 35.56))
+    (stroke (width 0) (type default))
+    (uuid "efe906f3-339c-42d9-8b19-db11dd2565d4")
+  )
+  (global_label "VIN_A" (shape passive) (at 45.72 35.56 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "31bcc451-558d-474f-aed2-05e870edf684")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 35.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 43.18 40.64) (xy 45.72 40.64))
+    (stroke (width 0) (type default))
+    (uuid "8e55118f-68f2-4532-8963-bbbebef11741")
+  )
+  (global_label "GND" (shape passive) (at 45.72 40.64 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "dc9d8c73-a0aa-4226-a54c-5f2dab12b6cb")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 40.64 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:F") (at 68.58 38.1 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "86f352f4-931a-4fbb-824d-bde2f90d0171")
+    (property "Reference" "F1" (at 68.58 33.02 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "MF-R300 3A" (at 68.58 43.18 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "maddie:Fuse_Bourns_MF-R300" (at 68.58 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 68.58 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "50c11ca7-8895-4ea4-b21e-f1d1bbb9e500"))
+    (pin "2" (uuid "52fad22f-c703-4249-b222-1fabdc9ce86f"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "F1") (unit 1))))
+  )
+  (wire (pts (xy 63.5 38.1) (xy 60.96 38.1))
+    (stroke (width 0) (type default))
+    (uuid "079140b6-328f-430d-b812-43bf3e5af8dd")
+  )
+  (global_label "VIN_A" (shape passive) (at 60.96 38.1 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "5525bef7-5e95-4d27-ac50-fdfed2fee1d3")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 60.96 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 73.66 38.1) (xy 76.2 38.1))
+    (stroke (width 0) (type default))
+    (uuid "c69d5e76-15f3-4306-97b7-7275b5da78f9")
+  )
+  (global_label "N_FA" (shape passive) (at 76.2 38.1 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "262d413e-5e63-4e10-a17e-b48ab7caa060")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 76.2 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:SW_DPDT") (at 99.06 57.15 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "18d63e6c-d9e8-4943-bc7a-0c2c55dce0db")
+    (property "Reference" "SW1" (at 99.06 48.26 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "DPDT toggle (wired DPST)" (at 99.06 66.04 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "maddie:SW_Toggle_DPDT_SubMini_PCMount" (at 99.06 57.15 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 99.06 57.15 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "d3c91630-7565-4c8d-aa32-15957e303c57"))
+    (pin "2" (uuid "6ef0cbbf-f620-427e-be1f-6632d26694d5"))
+    (pin "3" (uuid "1611232a-8e8b-49be-adb9-98fcd3cd5dc5"))
+    (pin "4" (uuid "a1a1e7e7-d90b-4e78-a3de-a1457202957e"))
+    (pin "5" (uuid "841ab09c-1a3c-4347-94a3-87fbbce6771e"))
+    (pin "6" (uuid "bcb11e5f-7156-44ec-b4a1-49cdc3abd719"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "SW1") (unit 1))))
+  )
+  (wire (pts (xy 91.44 57.15) (xy 88.9 57.15))
+    (stroke (width 0) (type default))
+    (uuid "a84defdf-1114-41d0-9958-1686ef525fe9")
+  )
+  (global_label "N_FA" (shape passive) (at 88.9 57.15 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "adc9e3ed-7f63-4f24-8df4-fc90d708cc15")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 88.9 57.15 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 91.44 59.69) (xy 88.9 59.69))
+    (stroke (width 0) (type default))
+    (uuid "ed02fdc7-861f-4306-a289-436d895852dc")
+  )
+  (global_label "N_SA" (shape passive) (at 88.9 59.69 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "e6ef355c-897a-4667-90fc-e124dab5608d")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 88.9 59.69 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (no_connect (at 91.44 54.61) (uuid "dfa27f7a-2ba3-4bb5-b725-aebfd50c6f98"))
+  (wire (pts (xy 106.68 57.15) (xy 109.22 57.15))
+    (stroke (width 0) (type default))
+    (uuid "80a3f101-2870-4e3f-98fe-d257e75717b7")
+  )
+  (global_label "N_FB" (shape passive) (at 109.22 57.15 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "12469c38-1e45-43dd-9af0-15c94231920e")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 109.22 57.15 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 106.68 59.69) (xy 109.22 59.69))
+    (stroke (width 0) (type default))
+    (uuid "ac8cd25b-6f0c-4bfa-9cdd-215bf0bfc182")
+  )
+  (global_label "N_SB" (shape passive) (at 109.22 59.69 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "d6d4d4e2-a426-4333-aa06-47456e2a04e6")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 109.22 59.69 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (no_connect (at 106.68 54.61) (uuid "e60871ab-ae60-4ec9-a8ee-3eb493eaa36e"))
+  (symbol (lib_id "pup:D_Schottky") (at 129.54 38.1 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "11e4950f-e71f-4eda-aff1-bbb6b7c96659")
+    (property "Reference" "D1" (at 129.54 33.02 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "SBR1045" (at 129.54 43.18 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Diode_THT:D_DO-201AD_P5.08mm_Vertical_AnodeUp" (at 129.54 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 129.54 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "37812325-451a-4637-b88c-325ca40fb2fc"))
+    (pin "2" (uuid "570a2e8e-f49f-4d88-9e64-a7fa1f74b4d5"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "D1") (unit 1))))
+  )
+  (wire (pts (xy 134.62 38.1) (xy 137.16 38.1))
+    (stroke (width 0) (type default))
+    (uuid "0b817f26-37c5-4cd9-8c5d-b37b7bf57c59")
+  )
+  (global_label "N_SA" (shape passive) (at 137.16 38.1 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "d23fb8f4-561d-4e06-b4f9-f52d57b0d929")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 137.16 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 124.46 38.1) (xy 121.92 38.1))
+    (stroke (width 0) (type default))
+    (uuid "6d305955-c739-48eb-ae4e-6bfa68c84054")
+  )
+  (global_label "+12V" (shape passive) (at 121.92 38.1 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "ca45d235-8cf5-4d93-9018-78630fd72572")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 121.92 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:CP") (at 160.02 38.1 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "dfd5a020-04f5-4244-b46c-7e4496338a41")
+    (property "Reference" "C1" (at 160.02 33.02 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "100uF 50V" (at 160.02 43.18 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" (at 160.02 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 160.02 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "a29a22f1-44ce-4d89-812c-5e8fcb8a64ba"))
+    (pin "2" (uuid "06daebbf-24bb-40f1-b988-24fff2e5827a"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "C1") (unit 1))))
+  )
+  (wire (pts (xy 154.94 38.1) (xy 152.4 38.1))
+    (stroke (width 0) (type default))
+    (uuid "f3604952-b275-4eef-91f2-983aff50c77f")
+  )
+  (global_label "+12V" (shape passive) (at 152.4 38.1 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "b074f5e7-50df-49f0-854d-6842fada3b6f")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 152.4 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 165.1 38.1) (xy 167.64 38.1))
+    (stroke (width 0) (type default))
+    (uuid "6cf699e2-dd2a-4e20-adde-58de04bdefc2")
+  )
+  (global_label "GND" (shape passive) (at 167.64 38.1 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "854d12e9-db81-422d-9b8e-10bee7a6af18")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 167.64 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:C") (at 190.5 38.1 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "efd31e4b-6b4c-4d31-a90e-3aa7e4e55de0")
+    (property "Reference" "C2" (at 190.5 33.02 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "100nF 50V" (at 190.5 43.18 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (at 190.5 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 190.5 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "b92fa1fc-f1f9-4e56-b0dc-be3848fea19c"))
+    (pin "2" (uuid "364fd5cd-8fe8-4238-b131-2c0b9c079189"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "C2") (unit 1))))
+  )
+  (wire (pts (xy 185.42 38.1) (xy 182.88 38.1))
+    (stroke (width 0) (type default))
+    (uuid "5969f9e8-d20d-4815-bd01-e45c29ff8a84")
+  )
+  (global_label "+12V" (shape passive) (at 182.88 38.1 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "4ba60e55-01d3-436a-869a-0890fceb01a6")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 182.88 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 195.58 38.1) (xy 198.12 38.1))
+    (stroke (width 0) (type default))
+    (uuid "8971c908-eeb9-48e7-ada1-22fcd22cc8b1")
+  )
+  (global_label "GND" (shape passive) (at 198.12 38.1 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "3568c213-db28-4d7a-bbe3-d47908bdc13a")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 198.12 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:R") (at 220.98 38.1 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "477cbb1b-2ca7-4237-bddc-4ee11aeff77d")
+    (property "Reference" "R1" (at 220.98 33.02 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "2.2k" (at 220.98 43.18 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (at 220.98 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 220.98 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "a1f25a67-5435-4f8f-8e9a-824bd1d73750"))
+    (pin "2" (uuid "85c3a926-e103-48e8-bff5-629221f9c2b4"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "R1") (unit 1))))
+  )
+  (wire (pts (xy 215.9 38.1) (xy 213.36 38.1))
+    (stroke (width 0) (type default))
+    (uuid "eb6bd0f3-dab5-4b29-8585-aa29a0fb751f")
+  )
+  (global_label "+12V" (shape passive) (at 213.36 38.1 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "d8ee2cfa-fbe6-4279-9a2a-81c1e522432c")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 213.36 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 226.06 38.1) (xy 228.6 38.1))
+    (stroke (width 0) (type default))
+    (uuid "a1bc7337-4ebe-4eeb-819b-8926d0d0fa36")
+  )
+  (global_label "N_L1" (shape passive) (at 228.6 38.1 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "8aaf673e-22f0-4445-8712-c49a0bb1c608")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 228.6 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:LED") (at 251.46 38.1 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "401b0f99-5ef0-4c9f-805a-4d6c83cabceb")
+    (property "Reference" "D3" (at 251.46 33.02 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "LED white 0805 +12V" (at 251.46 43.18 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "LED_SMD:LED_0805_2012Metric" (at 251.46 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 251.46 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "92558b36-e6a7-4dad-a4f4-0259150f139b"))
+    (pin "2" (uuid "ab0124d6-5083-4b4d-adef-6070d3182100"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "D3") (unit 1))))
+  )
+  (wire (pts (xy 256.54 38.1) (xy 259.08 38.1))
+    (stroke (width 0) (type default))
+    (uuid "cc941b0f-e823-449b-9f4b-6d447b4f22e7")
+  )
+  (global_label "N_L1" (shape passive) (at 259.08 38.1 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "743b9bf7-503b-4542-95b2-19af1376da00")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 259.08 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 246.38 38.1) (xy 243.84 38.1))
+    (stroke (width 0) (type default))
+    (uuid "0c0b7b3d-06d6-4aca-bce3-01570104c92e")
+  )
+  (global_label "GND" (shape passive) (at 243.84 38.1 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "4e6453d5-cc32-468d-8599-34b84a74b7a3")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 243.84 38.1 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:BarrelJack") (at 38.1 76.2 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "d28c3158-073e-4998-9dca-ff2e003712c1")
+    (property "Reference" "J2" (at 38.1 67.31 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "12V wart B" (at 38.1 85.09 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "maddie:BarrelJack_Switchcraft_PC722A_Vertical" (at 38.1 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 38.1 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "f22e2ab2-e3c9-41e6-ac0d-f3b679096e0f"))
+    (pin "2" (uuid "cee3dc34-18df-492b-a132-271b10dd8801"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "J2") (unit 1))))
+  )
+  (wire (pts (xy 43.18 73.66) (xy 45.72 73.66))
+    (stroke (width 0) (type default))
+    (uuid "1c95b0a0-3c83-4148-a9b1-16362beccde0")
+  )
+  (global_label "VIN_B" (shape passive) (at 45.72 73.66 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "a4fad901-5b61-4360-a69a-f3bfdfd106c7")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 73.66 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 43.18 78.74) (xy 45.72 78.74))
+    (stroke (width 0) (type default))
+    (uuid "b8804aca-9678-4e94-b32c-1ea612e183a1")
+  )
+  (global_label "-12V" (shape passive) (at 45.72 78.74 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "feb20787-14dd-46a0-abea-01eeee47cb7e")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 45.72 78.74 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:F") (at 68.58 76.2 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "3b6686cc-9491-4831-8560-2d7ca6416b25")
+    (property "Reference" "F2" (at 68.58 71.12 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "MF-R300 3A" (at 68.58 81.28 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "maddie:Fuse_Bourns_MF-R300" (at 68.58 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 68.58 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "54cec523-3306-4c54-ade9-6963571d462d"))
+    (pin "2" (uuid "fbfbe949-64f9-4e56-b525-f89c60991aae"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "F2") (unit 1))))
+  )
+  (wire (pts (xy 63.5 76.2) (xy 60.96 76.2))
+    (stroke (width 0) (type default))
+    (uuid "7ba7b22e-d3b0-4db0-a0d3-299f3d6594d4")
+  )
+  (global_label "VIN_B" (shape passive) (at 60.96 76.2 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "e2215ce3-b087-443a-82ee-4d8047622c07")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 60.96 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 73.66 76.2) (xy 76.2 76.2))
+    (stroke (width 0) (type default))
+    (uuid "44335f57-5ae3-46e2-819f-cf67a57c9b57")
+  )
+  (global_label "N_FB" (shape passive) (at 76.2 76.2 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "6caf0e7e-c389-4fc9-9801-919dda826163")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 76.2 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:D_Schottky") (at 129.54 76.2 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "e1d115a2-0803-4df0-9579-ca5e8f697580")
+    (property "Reference" "D2" (at 129.54 71.12 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "SBR1045" (at 129.54 81.28 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Diode_THT:D_DO-201AD_P5.08mm_Vertical_AnodeUp" (at 129.54 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 129.54 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "8ca2175f-1d8a-4369-9e33-2e1e8547ae49"))
+    (pin "2" (uuid "24df8665-e94a-4886-a53f-217c22647e8a"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "D2") (unit 1))))
+  )
+  (wire (pts (xy 134.62 76.2) (xy 137.16 76.2))
+    (stroke (width 0) (type default))
+    (uuid "4590643b-0393-4927-8c5e-1c00aeb54086")
+  )
+  (global_label "N_SB" (shape passive) (at 137.16 76.2 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "38cc3c23-97b4-41b6-8c2c-5c5db075a33e")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 137.16 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 124.46 76.2) (xy 121.92 76.2))
+    (stroke (width 0) (type default))
+    (uuid "e7aadda8-bae8-4ec9-b25d-42a4ceef1639")
+  )
+  (global_label "GND" (shape passive) (at 121.92 76.2 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "cffcf368-203c-4ab8-9569-f471771081cf")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 121.92 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:CP") (at 160.02 76.2 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "87602ed8-4fd0-48ce-b1c2-ac28e7dd4d7d")
+    (property "Reference" "C3" (at 160.02 71.12 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "100uF 50V (+ to GND)" (at 160.02 81.28 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" (at 160.02 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 160.02 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "8cffddb3-6125-4695-ba23-9b48f2b9b569"))
+    (pin "2" (uuid "099967ee-64af-4b2f-abb0-aa4ae52357f2"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "C3") (unit 1))))
+  )
+  (wire (pts (xy 154.94 76.2) (xy 152.4 76.2))
+    (stroke (width 0) (type default))
+    (uuid "a5405563-2941-4705-ae46-b956cab4902b")
+  )
+  (global_label "GND" (shape passive) (at 152.4 76.2 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "96922f06-eb99-4d51-b999-d4358c94f744")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 152.4 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 165.1 76.2) (xy 167.64 76.2))
+    (stroke (width 0) (type default))
+    (uuid "efa340c9-fe73-4e54-847f-816590f95481")
+  )
+  (global_label "-12V" (shape passive) (at 167.64 76.2 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "c188bfd6-db4d-4b65-859e-e2b1fbba1c53")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 167.64 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:C") (at 190.5 76.2 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "6799a64b-e9ea-4a7b-900f-c5b48776f04e")
+    (property "Reference" "C4" (at 190.5 71.12 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "100nF 50V" (at 190.5 81.28 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (at 190.5 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 190.5 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "a4a9b063-74cb-4386-8c47-6b12c06b4b23"))
+    (pin "2" (uuid "15bd9cb8-e770-4c2b-b575-13d116939ffc"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "C4") (unit 1))))
+  )
+  (wire (pts (xy 185.42 76.2) (xy 182.88 76.2))
+    (stroke (width 0) (type default))
+    (uuid "d5e2917d-2665-45de-9c89-5ab79c2cc771")
+  )
+  (global_label "GND" (shape passive) (at 182.88 76.2 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "76cc5179-72f2-4efd-badf-aaaa13bacbb1")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 182.88 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 195.58 76.2) (xy 198.12 76.2))
+    (stroke (width 0) (type default))
+    (uuid "f45544bf-55f4-44fe-9a61-edb2cf6af1d4")
+  )
+  (global_label "-12V" (shape passive) (at 198.12 76.2 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "5bb75503-25f7-4696-af18-bdbccb868507")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 198.12 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:R") (at 220.98 76.2 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "b04b6ffe-140c-4722-8ac5-e388c5e92640")
+    (property "Reference" "R2" (at 220.98 71.12 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "2.2k" (at 220.98 81.28 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (at 220.98 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 220.98 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "3b2e8492-b5e1-4dee-9e1f-89f399563a5c"))
+    (pin "2" (uuid "c12f0822-6f44-4e04-aa5d-6c3f38298874"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "R2") (unit 1))))
+  )
+  (wire (pts (xy 215.9 76.2) (xy 213.36 76.2))
+    (stroke (width 0) (type default))
+    (uuid "88ac5b32-346e-4393-80cc-e147e797923f")
+  )
+  (global_label "GND" (shape passive) (at 213.36 76.2 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "a7b9cac5-1aa6-4b09-96f0-739a5897afba")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 213.36 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 226.06 76.2) (xy 228.6 76.2))
+    (stroke (width 0) (type default))
+    (uuid "9eb379e0-e9a6-4ec3-a759-9072da3b9fa4")
+  )
+  (global_label "N_L2" (shape passive) (at 228.6 76.2 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "e34b5d90-2c71-4248-a343-907ef1d7a43b")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 228.6 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:LED") (at 251.46 76.2 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "a4a1dc66-9e7c-4d46-959d-ef488c90e80c")
+    (property "Reference" "D4" (at 251.46 71.12 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "LED pink 0805 -12V" (at 251.46 81.28 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "LED_SMD:LED_0805_2012Metric" (at 251.46 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 251.46 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "b60f8f97-6e07-4956-8d8e-38adaf46da12"))
+    (pin "2" (uuid "18bbf53e-dc9a-455f-95d2-a5810c6a596b"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "D4") (unit 1))))
+  )
+  (wire (pts (xy 256.54 76.2) (xy 259.08 76.2))
+    (stroke (width 0) (type default))
+    (uuid "52df45ec-2239-4cda-b82e-01a12bf48df9")
+  )
+  (global_label "N_L2" (shape passive) (at 259.08 76.2 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "09420999-992a-4a22-bd32-7e9b7a3342b2")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 259.08 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 246.38 76.2) (xy 243.84 76.2))
+    (stroke (width 0) (type default))
+    (uuid "cfadce9e-b6cd-4bdd-9b7e-6f64d3cbbdc4")
+  )
+  (global_label "-12V" (shape passive) (at 243.84 76.2 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "002eff2b-70e0-463d-a965-694bdd8395fe")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 243.84 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:OKI78SR5") (at 68.58 114.3 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "ac789e1c-db52-4dc7-bdf5-5508790838ef")
+    (property "Reference" "VR1" (at 68.58 105.41 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "OKI-78SR-5/1.5-W36-C" (at 68.58 123.19 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Converter_DCDC:Converter_DCDC_Murata_OKI-78SR_Vertical" (at 68.58 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 68.58 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "eefddafd-2299-4ab9-b6e3-8bf8399308c0"))
+    (pin "2" (uuid "f4e11c25-dfb8-4859-beab-233e0c728788"))
+    (pin "3" (uuid "5835c420-f97b-4945-99f4-66bff95901a8"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "VR1") (unit 1))))
+  )
+  (wire (pts (xy 58.42 111.76) (xy 55.88 111.76))
+    (stroke (width 0) (type default))
+    (uuid "9a0bf21d-6e2b-4cf2-acc3-15a78c1a23dd")
+  )
+  (global_label "+12V" (shape passive) (at 55.88 111.76 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "c00e18ae-d6c6-472a-a7df-60ebab4edf3a")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 55.88 111.76 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 58.42 116.84) (xy 55.88 116.84))
+    (stroke (width 0) (type default))
+    (uuid "1489d59a-e791-44b3-9d75-cc03918302f6")
+  )
+  (global_label "GND" (shape passive) (at 55.88 116.84 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "5194011e-9957-4291-bd23-7561af8c2074")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 55.88 116.84 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 78.74 111.76) (xy 81.28 111.76))
+    (stroke (width 0) (type default))
+    (uuid "047c2de4-78e5-4baa-8a5d-f1cd8ca0a148")
+  )
+  (global_label "+5V" (shape passive) (at 81.28 111.76 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "615e31fa-9f3b-4c1f-bd54-bdcd8783df98")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 81.28 111.76 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:C") (at 114.3 114.3 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "54353a0b-9e99-473d-8436-aaa0f8b6852c")
+    (property "Reference" "C5" (at 114.3 109.22 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "100nF 50V" (at 114.3 119.38 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (at 114.3 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 114.3 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "e5b2d169-c241-4ab4-bf0c-5c918a337a5c"))
+    (pin "2" (uuid "68cde665-6476-49ff-b3da-aa3cfe3e65f4"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "C5") (unit 1))))
+  )
+  (wire (pts (xy 109.22 114.3) (xy 106.68 114.3))
+    (stroke (width 0) (type default))
+    (uuid "285197e4-7bc4-48c0-b50f-6d5be628a127")
+  )
+  (global_label "+12V" (shape passive) (at 106.68 114.3 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "8a2aec27-0de6-43da-a1d1-2b2d3118c686")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 106.68 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 119.38 114.3) (xy 121.92 114.3))
+    (stroke (width 0) (type default))
+    (uuid "1f6f2224-bef4-4aef-a3e8-7b188aa98a08")
+  )
+  (global_label "GND" (shape passive) (at 121.92 114.3 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "c1f8d22b-2319-4cd9-acfb-a535f5c4816a")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 121.92 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:C") (at 144.78 114.3 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "e46394f3-b3e2-47fc-8f94-80ed7c1357b0")
+    (property "Reference" "C6" (at 144.78 109.22 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "470nF 50V" (at 144.78 119.38 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (at 144.78 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 144.78 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "c1238316-2607-463f-a699-b21268541505"))
+    (pin "2" (uuid "470bd675-b375-4dc0-ad4e-a0e43fbc2656"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "C6") (unit 1))))
+  )
+  (wire (pts (xy 139.7 114.3) (xy 137.16 114.3))
+    (stroke (width 0) (type default))
+    (uuid "7b3f2f5a-c4bb-4c8f-aeb3-134d5e7ec45d")
+  )
+  (global_label "+5V" (shape passive) (at 137.16 114.3 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "2ec14326-7f35-40d9-95f0-fad3dbe351b3")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 137.16 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 149.86 114.3) (xy 152.4 114.3))
+    (stroke (width 0) (type default))
+    (uuid "b5038102-073c-470f-ac92-25b2faa15938")
+  )
+  (global_label "GND" (shape passive) (at 152.4 114.3 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "d9798a7e-bde0-4b5c-8d64-fb38714bd71b")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 152.4 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:CP") (at 175.26 114.3 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "cd55036b-43f7-4afb-a279-97708d23a4ce")
+    (property "Reference" "C7" (at 175.26 109.22 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "47uF 63V" (at 175.26 119.38 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Capacitor_SMD:CP_Elec_6.3x7.7" (at 175.26 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 175.26 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "a34fafd1-25b3-41fe-a64e-66e6c2250a76"))
+    (pin "2" (uuid "ba6c987b-c5bb-4f23-8469-6d26eae168bc"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "C7") (unit 1))))
+  )
+  (wire (pts (xy 170.18 114.3) (xy 167.64 114.3))
+    (stroke (width 0) (type default))
+    (uuid "67a8fff3-bef9-4000-a200-2d1cc7dde24d")
+  )
+  (global_label "+5V" (shape passive) (at 167.64 114.3 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "c05c10d6-0c11-4d75-8c94-e07b5b4b5a91")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 167.64 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 180.34 114.3) (xy 182.88 114.3))
+    (stroke (width 0) (type default))
+    (uuid "fa572858-0ec3-4170-9de1-6e257c271f35")
+  )
+  (global_label "GND" (shape passive) (at 182.88 114.3 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "2c6662ef-49fd-4649-9bec-05874199b4ec")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 182.88 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:R") (at 205.74 114.3 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "fda5032d-a46d-4cf7-85b0-37515af8543f")
+    (property "Reference" "R3" (at 205.74 109.22 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "680" (at 205.74 119.38 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (at 205.74 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 205.74 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "5043b55b-6775-417f-ae91-f88983f0cc1b"))
+    (pin "2" (uuid "65a52936-1694-4f0f-be29-6553cf91a258"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "R3") (unit 1))))
+  )
+  (wire (pts (xy 200.66 114.3) (xy 198.12 114.3))
+    (stroke (width 0) (type default))
+    (uuid "5c3e085f-e55f-431d-a413-e175a759873d")
+  )
+  (global_label "+5V" (shape passive) (at 198.12 114.3 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "3d461281-0731-4001-b4a2-9586c8d3a839")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 198.12 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 210.82 114.3) (xy 213.36 114.3))
+    (stroke (width 0) (type default))
+    (uuid "96575efa-c316-41e0-902b-42828ff6630e")
+  )
+  (global_label "N_L3" (shape passive) (at 213.36 114.3 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "6c3cfcc7-1363-4649-b3db-9fbbf34d988b")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 213.36 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:LED") (at 236.22 114.3 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "e9639ac1-ca99-47a5-b52b-cdb38670173d")
+    (property "Reference" "D5" (at 236.22 109.22 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "LED blue 0805 +5V" (at 236.22 119.38 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "LED_SMD:LED_0805_2012Metric" (at 236.22 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 236.22 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "cd70e361-6509-4fb2-b8ea-8e786f10424c"))
+    (pin "2" (uuid "d7311685-3ff8-4d03-b09c-0fd90bdb131f"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "D5") (unit 1))))
+  )
+  (wire (pts (xy 241.3 114.3) (xy 243.84 114.3))
+    (stroke (width 0) (type default))
+    (uuid "6e0a9669-db24-4679-b756-b2f263c1a9ea")
+  )
+  (global_label "N_L3" (shape passive) (at 243.84 114.3 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "a9454682-6ae8-4773-be43-28b29f5552a7")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 243.84 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 231.14 114.3) (xy 228.6 114.3))
+    (stroke (width 0) (type default))
+    (uuid "8323ab9f-a317-4724-8ecc-b595051f32f0")
+  )
+  (global_label "GND" (shape passive) (at 228.6 114.3 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "8608fa3d-776f-4af8-a173-b9d9e582d88c")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 228.6 114.3 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:MiniFit_2x03") (at 68.58 152.4 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "2f2459a5-bf05-4835-bc3c-5257633b6428")
+    (property "Reference" "J5" (at 68.58 143.51 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "Mini-Fit out" (at 68.58 161.29 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Connector_Molex:Molex_Mini-Fit_Jr_5566-06A2_2x03_P4.20mm_Vertical" (at 68.58 152.4 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 68.58 152.4 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "d36909c7-5baa-463b-aa1a-fb82d3963a34"))
+    (pin "2" (uuid "793f3890-6e9b-4013-81f3-1a8a44e513b9"))
+    (pin "3" (uuid "1f5466bf-a6f3-4097-93af-0cd1a7884ac1"))
+    (pin "4" (uuid "ac34f845-93fa-46e8-800d-9d6c2223d7cb"))
+    (pin "5" (uuid "30d8fd7d-75b4-4f7d-96d9-1aaaaea829d5"))
+    (pin "6" (uuid "d0338799-7bea-4a8b-abb8-19505f10853d"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "J5") (unit 1))))
+  )
+  (wire (pts (xy 60.96 149.86) (xy 58.42 149.86))
+    (stroke (width 0) (type default))
+    (uuid "0ea0e983-9209-4929-a6ff-a4256b22cc86")
+  )
+  (global_label "-12V" (shape passive) (at 58.42 149.86 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "195030e9-8dc6-436a-a5cc-5a173ea75850")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 58.42 149.86 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 60.96 152.4) (xy 58.42 152.4))
+    (stroke (width 0) (type default))
+    (uuid "ab3c8f9b-2378-419e-908d-41bc1e2f993e")
+  )
+  (global_label "GND" (shape passive) (at 58.42 152.4 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "1e5da1fe-f367-49b7-a6a7-3ab7251c30a3")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 58.42 152.4 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 60.96 154.94) (xy 58.42 154.94))
+    (stroke (width 0) (type default))
+    (uuid "c9d3320b-9f7e-414b-9eee-8fb8e0143dc5")
+  )
+  (global_label "+5V" (shape passive) (at 58.42 154.94 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "d6e8ec61-5778-49b5-930e-8bfbbb8b4809")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 58.42 154.94 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 76.2 149.86) (xy 78.74 149.86))
+    (stroke (width 0) (type default))
+    (uuid "1fef8b25-f9c4-4568-a571-f7157eb861b5")
+  )
+  (global_label "GND" (shape passive) (at 78.74 149.86 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "142e677d-62db-41b0-a259-bdce004f1ada")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 78.74 149.86 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 76.2 152.4) (xy 78.74 152.4))
+    (stroke (width 0) (type default))
+    (uuid "766572e4-43db-4e12-8c6a-c110d191fb9f")
+  )
+  (global_label "GND" (shape passive) (at 78.74 152.4 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "6a67cf02-d95b-4165-95d2-0592be90eb3c")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 78.74 152.4 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 76.2 154.94) (xy 78.74 154.94))
+    (stroke (width 0) (type default))
+    (uuid "29db44d7-f964-4d8c-93c7-32b26a438b5c")
+  )
+  (global_label "+12V" (shape passive) (at 78.74 154.94 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "041a677d-b9bd-45cb-82f3-1c947a5f5283")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 78.74 154.94 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:IDC_2x08") (at 144.78 152.4 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "953a7eb0-62d6-4255-b921-b1c46c413b78")
+    (property "Reference" "J6" (at 144.78 137.16 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "Eurorack 16-pin out" (at 144.78 167.64 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "Connector_IDC:IDC-Header_2x08_P2.54mm_Vertical" (at 144.78 152.4 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 144.78 152.4 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "24d48edf-291a-445f-92b2-979365bebfec"))
+    (pin "2" (uuid "0c9321d1-5fcc-42c7-928d-7dc1fc3de8c4"))
+    (pin "3" (uuid "02d4859f-4b97-4a7c-8ecc-1daf0e69cfc0"))
+    (pin "4" (uuid "f9e4dd03-b572-4682-b892-f316cf3f2ecf"))
+    (pin "5" (uuid "11a357cc-bbae-4bf1-9ef9-887d701e22d5"))
+    (pin "6" (uuid "d0c02003-5adc-4583-bbb2-151b168352b1"))
+    (pin "7" (uuid "f3b329b5-5fda-43fa-998c-1bd699e56672"))
+    (pin "8" (uuid "c6682710-3b6f-4995-901e-22e4ab3c5ccf"))
+    (pin "9" (uuid "fceec449-9489-46dd-892e-08f83639c137"))
+    (pin "10" (uuid "6b85a311-7a5b-4233-a3f6-7d69ae44aa5b"))
+    (pin "11" (uuid "0c605a04-9c6f-4e4f-ace1-1a34e805ced6"))
+    (pin "12" (uuid "dc424b5d-2820-41f5-bbe8-1a40b57c6d4f"))
+    (pin "13" (uuid "f931798d-5c8c-4852-81ec-d2982e9d117d"))
+    (pin "14" (uuid "be66c21e-66a0-4993-b4a9-f25a94ee7e22"))
+    (pin "15" (uuid "674453bc-2ab0-4deb-a102-925494f233a3"))
+    (pin "16" (uuid "3a0b487a-a929-4e46-9d3d-34d73510f95d"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "J6") (unit 1))))
+  )
+  (wire (pts (xy 137.16 143.51) (xy 134.62 143.51))
+    (stroke (width 0) (type default))
+    (uuid "03fc3aaf-0731-41c8-8fcd-51e59475d3ee")
+  )
+  (global_label "-12V" (shape passive) (at 134.62 143.51 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "7fbfd0a0-d5ba-4c90-bb72-eb9347109030")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 134.62 143.51 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 152.4 143.51) (xy 154.94 143.51))
+    (stroke (width 0) (type default))
+    (uuid "09003569-e9e7-4eb3-9af5-ad41cb8dde04")
+  )
+  (global_label "-12V" (shape passive) (at 154.94 143.51 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "d47976c3-ae55-41e2-b2d7-34aed1baaa79")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 154.94 143.51 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 137.16 146.05) (xy 134.62 146.05))
+    (stroke (width 0) (type default))
+    (uuid "4dcbdb73-668f-4fdb-9776-17d909388633")
+  )
+  (global_label "GND" (shape passive) (at 134.62 146.05 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "0a113875-2396-4d46-ab7f-359f51f7daa6")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 134.62 146.05 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 152.4 146.05) (xy 154.94 146.05))
+    (stroke (width 0) (type default))
+    (uuid "20f03a3c-39a8-434e-a12f-e3ecfd3edc40")
+  )
+  (global_label "GND" (shape passive) (at 154.94 146.05 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "681707c5-e0f4-4adc-8c93-9cc8becc949b")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 154.94 146.05 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 137.16 148.59) (xy 134.62 148.59))
+    (stroke (width 0) (type default))
+    (uuid "25802275-9a8f-4748-9e80-9514d606c8f1")
+  )
+  (global_label "GND" (shape passive) (at 134.62 148.59 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "34e4f579-a4e2-40df-a0ac-cd18af438f26")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 134.62 148.59 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 152.4 148.59) (xy 154.94 148.59))
+    (stroke (width 0) (type default))
+    (uuid "ec0f82b8-c866-470c-8d21-840ebcb89448")
+  )
+  (global_label "GND" (shape passive) (at 154.94 148.59 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "9a657b06-5dc9-4dd2-8e60-1ba25e64aafd")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 154.94 148.59 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 137.16 151.13) (xy 134.62 151.13))
+    (stroke (width 0) (type default))
+    (uuid "6af31ff4-f2ba-4685-8abc-a206b7cf72f9")
+  )
+  (global_label "GND" (shape passive) (at 134.62 151.13 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "f3e5cba7-03a9-4f82-8984-4b395e047fca")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 134.62 151.13 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 152.4 151.13) (xy 154.94 151.13))
+    (stroke (width 0) (type default))
+    (uuid "360331b3-e5a3-47c6-bfdc-ff1426d8e699")
+  )
+  (global_label "GND" (shape passive) (at 154.94 151.13 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "46098932-88b9-4125-869e-d72773263049")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 154.94 151.13 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 137.16 153.67) (xy 134.62 153.67))
+    (stroke (width 0) (type default))
+    (uuid "2890fd96-a0e1-4ed6-82eb-946197fe160a")
+  )
+  (global_label "+12V" (shape passive) (at 134.62 153.67 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "e96818e5-376a-4aad-b6fe-32eb22503bf4")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 134.62 153.67 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 152.4 153.67) (xy 154.94 153.67))
+    (stroke (width 0) (type default))
+    (uuid "853b65fe-2392-4f8a-8cfb-67fe1c19304e")
+  )
+  (global_label "+12V" (shape passive) (at 154.94 153.67 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "96621ed0-9991-4322-b96c-18b781155cea")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 154.94 153.67 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 137.16 156.21) (xy 134.62 156.21))
+    (stroke (width 0) (type default))
+    (uuid "c25ee5aa-a738-4fec-b71f-a5885498a4a7")
+  )
+  (global_label "+5V" (shape passive) (at 134.62 156.21 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "4a8bdda3-ba9a-47f5-b6dd-36f325f6a9ab")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 134.62 156.21 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (wire (pts (xy 152.4 156.21) (xy 154.94 156.21))
+    (stroke (width 0) (type default))
+    (uuid "a5f1e1ca-ce08-4090-bfdf-b29ce87df87f")
+  )
+  (global_label "+5V" (shape passive) (at 154.94 156.21 0) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid "63f5ffa5-ecc3-4576-8d09-e05f1e4fd4c8")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 154.94 156.21 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (no_connect (at 137.16 158.75) (uuid "acaa5cb5-4bbc-492d-81dd-5585821dc7d3"))
+  (no_connect (at 152.4 158.75) (uuid "fc1c56ce-7970-4620-b8e5-485c06c91d34"))
+  (no_connect (at 137.16 161.29) (uuid "40e9f227-e660-493b-96b9-4679d91c45d9"))
+  (no_connect (at 152.4 161.29) (uuid "1ed42cfa-864b-4518-9a0d-e590f0da8dfc"))
+  (symbol (lib_id "pup:PWR_FLAG") (at 68.58 195.58 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "3b8edc2f-be78-41b3-a2c7-adc95c44de78")
+    (property "Reference" "#FLG01" (at 68.58 190.5 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "PWR_FLAG" (at 68.58 200.66 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "" (at 68.58 195.58 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 68.58 195.58 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "72fa0a74-bb1c-443a-804a-c718a88da3bb"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "#FLG01") (unit 1))))
+  )
+  (wire (pts (xy 63.5 195.58) (xy 60.96 195.58))
+    (stroke (width 0) (type default))
+    (uuid "9e4dcb26-e552-4bb1-82c0-c51f679e90d1")
+  )
+  (global_label "+12V" (shape passive) (at 60.96 195.58 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "0fa61ee2-e95f-4482-900f-802fb8fb0185")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 60.96 195.58 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (symbol (lib_id "pup:PWR_FLAG") (at 114.3 195.58 0) (unit 1)
+    (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no)
+    (uuid "0347c0cf-c510-466a-8d46-e0a8a4a48a12")
+    (property "Reference" "#FLG02" (at 114.3 190.5 0) (effects (font (size 1.27 1.27))))
+    (property "Value" "PWR_FLAG" (at 114.3 200.66 0) (effects (font (size 1.27 1.27))))
+    (property "Footprint" "" (at 114.3 195.58 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Datasheet" "" (at 114.3 195.58 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (pin "1" (uuid "dfbbba30-be88-4ea6-bb5c-a65e176edbc9"))
+    (instances (project "eurorack-psu-twobrick" (path "/0618fc8a-627f-4669-bbae-a2ff963cb7ef" (reference "#FLG02") (unit 1))))
+  )
+  (wire (pts (xy 109.22 195.58) (xy 106.68 195.58))
+    (stroke (width 0) (type default))
+    (uuid "e032765b-3595-4e94-9247-51169aae5277")
+  )
+  (global_label "GND" (shape passive) (at 106.68 195.58 180) (fields_autoplaced yes)
+    (effects (font (size 1.27 1.27)) (justify right))
+    (uuid "daffe1c0-6711-458b-b261-c80f713f8ac8")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 106.68 195.58 0) (effects (font (size 1.27 1.27)) (hide yes)))
+  )
+  (text "WART A: 12V isolated brick -> PTC -> SW1 pole A -> Schottky -> +12V rail" (exclude_from_sim no) (at 25.4 22.86 0)
+    (effects (font (size 1.7 1.7) (bold yes)) (justify left))
+    (uuid "faa1b447-de90-4167-b3c4-5f4667c3bf00")
+  )
+  (text "WART B: 12V isolated brick, positive tied to GND through SW1 pole B + Schottky; sleeve becomes -12V" (exclude_from_sim no) (at 25.4 60.96 0)
+    (effects (font (size 1.7 1.7) (bold yes)) (justify left))
+    (uuid "efd627b4-5dca-4fb2-b255-e0c700d63c8c")
+  )
+  (text "+5V: OKI-78SR-5 buck from +12V rail, feeds rail LED + both output connectors" (exclude_from_sim no) (at 25.4 100.33 0)
+    (effects (font (size 1.7 1.7) (bold yes)) (justify left))
+    (uuid "d33eced8-7041-45f1-b58f-04d5cea9dcde")
+  )
+  (text "OUTPUTS: Mini-Fit Jr 2x3 (1=-12V 2=GND 3=+5V / 4=GND 5=GND 6=+12V) + Eurorack 16-pin bus header (Doepfer map, CV/Gate NC)" (exclude_from_sim no) (at 25.4 134.62 0)
+    (effects (font (size 1.7 1.7) (bold yes)) (justify left))
+    (uuid "79eb7883-7f9a-49b2-9b34-3dac445aedd6")
+  )
+  (sheet_instances (path "/" (page "1")))
 )

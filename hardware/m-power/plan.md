@@ -1,6 +1,10 @@
 # plan: get m-power back to a buildable 6HP
 
-Updated 2026-08-04. **The board now builds.** 29.80 x 108.68 mm, all 14 nets
+Updated 2026-08-25 (rev A3: 4HP two-sided). **The board builds.** 19.80 x
+110.0 mm, two-sided, 2oz copper, 13 nets (USB and its USB_DP net are gone;
+J6 is now a 16-pin bus header). Historical notes below describe the 6HP
+revisions - see .history/6hp-smd-revA2/ for that design. Rev A2 text: all 14
+nets
 routed, every power-path net at >= 1.5mm, and a matching generated panel.
 
 This file started as a plan against a board that was 113.0mm with 4 unrouted
@@ -13,7 +17,7 @@ Everything here is measured, not estimated, unless explicitly marked.
 
 ## 1. Where it landed
 
-    board        29.80 x 108.68 mm      (was 30.48 x 113.03)
+    board        19.80 x 110.0 mm 4HP   (was 29.80x101.5 6HP-SMD, 108.68 THT)
     routing      14/14 nets, 0 unrouted (was 4 unrouted)
     widths       all power nets >= 1.5mm
     board DRC    0 unconnected, 0 clearance, 0 shorts, 0 copper-to-edge
@@ -115,9 +119,10 @@ saying "Failed to load board" with no line number. `label()` escapes them now.
 ## 3. Still open
 
 1. **Measure the rail clearance.** `pcb_gen.py:~640` warns above 110mm with no
-   cited source. At 108.68mm the board passes with ~1.3mm to spare - thin
-   enough that the real number matters. This is a tape measure.
-2. **2 `starved_thermal` on J3's USB shield pads.** Cause is measured: N_L3
+   cited source. At 101.5mm the board passes with ~8.5mm to spare, so this
+   is no longer tight. Still worth a tape measure to close it out.
+2. (rev A2) The J3 starved_thermal is gone; DRC now shows 2 on D5's GND
+   pad (1 spoke/layer, still connected - minor). Old note: N_L3
    (the +5V indicator, 4mA) routes in 27 segments and 3 vias, wrapping around
    the USB on both layers, because +5V is 1.5mm, routes 3rd, and takes the
    channel D5/R3 need. That fences the shield pads onto a copper puddle that

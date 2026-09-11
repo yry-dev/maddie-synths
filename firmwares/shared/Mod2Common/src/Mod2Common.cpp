@@ -45,6 +45,33 @@ uint initPwmOutput10bit(uint8_t pin) {
   return slice;
 }
 
+// ---- MCP4822 SPI DAC backend ----------------------------------------------
+void dacBegin(uint32_t spiHz) {
+  spi_init(spi0, spiHz);
+  spi_set_format(spi0, 16, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
+  gpio_set_function(DAC_SCK_PIN, GPIO_FUNC_SPI);
+  gpio_set_function(DAC_SDI_PIN, GPIO_FUNC_SPI);  // SPI0 TX -> MCP4822 SDI
+  pinMode(DAC_CS_PIN, OUTPUT);
+  digitalWrite(DAC_CS_PIN, HIGH);                 // idle deselected
+}
+
+void dacWriteRaw(uint8_t ch, uint16_t value12) {
+  // MCP4822 16-bit command word:
+  //   bit15 = A/B (0=VoutA, 1=VoutB), bit13 = GA (1 = gain 1x),
+  //   bit12 = SHDN (1 = output active), bits 11..0 = data.
+  uint16_t cmd = (uint16_t)((ch ? 0x8000 : 0x0000) | 0x3000 | (value12 & 0x0FFF));
+  digitalWrite(DAC_CS_PIN, LOW);
+  spi_write16_blocking(spi0, &cmd, 1);
+  digitalWrite(DAC_CS_PIN, HIGH);                 // CS rising + LDAC(GND) -> latch
+}
+
+bool audioTimerBegin(repeating_timer_t *timer, float sampleRateHz,
+                     repeating_timer_callback_t cb) {
+  int64_t periodUs = (int64_t)(1000000.0f / sampleRateHz + 0.5f);
+  // Negative period => fire every |periodUs| from the scheduled time (no drift).
+  return add_repeating_timer_us(-periodUs, cb, nullptr, timer);
+}
+
 void Biquad::setBandpass(float fc, float q, float fs) {
   float w0 = 2.0f * PI * fc / fs;
   float sw = sinf(w0), cw = cosf(w0);

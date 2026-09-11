@@ -11,8 +11,8 @@ set -l config_file "$repo_root/arduino-cli.yaml"
 
 if test (count $argv) -lt 3
     echo "Usage: scripts/upload-fw.fish <firmware_name_or_sketch_dir> <fqbn> <port>"
-    echo "Example: scripts/upload-fw.fish mod1-triple-wave-lfo arduino:avr:nano /dev/cu.usbserial-XXXX"
-    echo "Example: scripts/upload-fw.fish firmwares/mod1-triple-wave-lfo arduino:avr:nano /dev/cu.usbserial-XXXX"
+    echo "Example: scripts/upload-fw.fish mod1-euclidean arduino:avr:nano /dev/cu.usbserial-XXXX"
+    echo "Example: scripts/upload-fw.fish firmwares/hagiwo-mod1/mod1-euclidean arduino:avr:nano /dev/cu.usbserial-XXXX"
     exit 1
 end
 

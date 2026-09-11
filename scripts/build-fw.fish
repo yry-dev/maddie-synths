@@ -12,7 +12,7 @@ set -l shared_lib_dir "$repo_root/firmwares/shared"
 
 if test (count $argv) -lt 2
     echo "Usage: scripts/build-fw.fish <sketch_dir> <fqbn>"
-    echo "Example: scripts/build-fw.fish firmwares/mod1 arduino:avr:nano"
+    echo "Example: scripts/build-fw.fish firmwares/hagiwo-mod1/mod1-euclidean arduino:avr:nano"
     exit 1
 end
 

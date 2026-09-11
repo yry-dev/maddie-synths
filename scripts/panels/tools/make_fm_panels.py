@@ -12,7 +12,7 @@ of panels/DESIGN-RULES.md.
 Two modes:
 
     make_fm_panels.py --extract [--fm-repo PATH]   # refresh fm-modules.json
-    make_fm_panels.py [--force] [--only boost,rng] # write panels/fm-<slug>/
+    make_fm_panels.py [--force] [--only boost,rng] # write panels/freemodular/fm-<slug>/
 
 --extract imports free-modular's `faceplate_maker`, neuters save()/inkscape and
 records every component that each faceplate script adds, resolving the hole
@@ -38,12 +38,12 @@ lower-right on the finished panel.
 # (QuinnFreedman/modular) and stays theirs — only the artwork here is ours.
 
 import argparse, json, math, pathlib, re, sys, uuid
+from panel_paths import PANELS, panel_dir, panel_pcb, panel_pro, dest_dir
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parents[2]
-PANELS = REPO / "panels"
 GEOM = HERE / "fm-modules.json"
-PRO_TEMPLATE = PANELS / "mod2-clap" / "mod2-clap.kicad_pro"
+PRO_TEMPLATE = panel_pro("mod2-clap")
 DEFAULT_FM_REPO = REPO.parent / "free-modular"
 
 # --------------------------------------------------------------------------
@@ -290,7 +290,7 @@ def _blocks(text, tag):
     return out
 
 def _silk_polys(panel):
-    t = (PANELS / panel / f"{panel}.kicad_pcb").read_text()
+    t = panel_pcb(panel).read_text()
     out = []
     for b in _blocks(t, "gr_poly"):
         if '(layer "B.SilkS")' not in b:
@@ -928,7 +928,7 @@ def write_pro(dst, name):
 
 # Fabrication Toolkit settings, copied from the mod panels so a gerber export
 # from one of these behaves like an export from any other panel in the repo.
-FAB_OPTIONS = (PANELS / "mod2-clap" / "fabrication-toolkit-options.json")
+FAB_OPTIONS = (panel_dir("mod2-clap") / "fabrication-toolkit-options.json")
 
 # ==========================================================================
 def main():
@@ -953,7 +953,7 @@ def main():
         bad = 0
         for name, spec in MODULES.items():
             data, slug = geom[name], spec["slug"]
-            pcb = PANELS / slug / f"{slug}.kicad_pcb"
+            pcb = dest_dir(slug) / f"{slug}.kicad_pcb"
             if not pcb.exists():
                 print(f"  {slug:18} MISSING")
                 bad += 1
@@ -1011,14 +1011,14 @@ def main():
             continue
         data = geom[name]
         slug = spec["slug"]
-        out_dir = PANELS / slug
+        out_dir = dest_dir(slug)
         pcb = out_dir / f"{slug}.kicad_pcb"
         if pcb.exists() and not args.force:
             print(f"  {slug:18} SKIP (exists; pass --force)")
             continue
         warn = Warn(slug)
         text = build(name, data, spec, glyphs, warn)
-        out_dir.mkdir(exist_ok=True)
+        out_dir.mkdir(parents=True, exist_ok=True)
         pcb.write_text(text)
         write_pro(out_dir / f"{slug}.kicad_pro", slug)
         (out_dir / "fabrication-toolkit-options.json").write_text(FAB_OPTIONS.read_text())
