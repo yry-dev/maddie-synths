@@ -1,0 +1,4 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "maddie")(type "KiCad")(uri "${KIPRJMOD}/../lib/maddie.kicad_sym")(options "")(descr "Shared maddie-synths symbols"))
+)
