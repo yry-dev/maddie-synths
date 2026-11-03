@@ -31,4 +31,5 @@ it governs that subtree:
 - `hardware/2020-adapter/LICENSE.md`
 - `hardware/eurorack-busboard/LICENSE.md`
 - `hardware/m-power/LICENSE.md`
+- `hardware/picotracker/LICENSE.md`
 - `hardware/sequencerv2/LICENSE.md`
