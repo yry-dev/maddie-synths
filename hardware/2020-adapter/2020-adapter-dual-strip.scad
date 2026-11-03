@@ -23,7 +23,7 @@ use_t_tab           = true;   // true = full T-profile matching the tapered slot
 tab_clearance       = 0.3;    // shrink applied to head dimensions
 
 // Main body sitting on the extrusion's outer face
-body_width          = 33.0;   // Y extent of the shelf
+body_width          = 32.0;   // Y extent of the shelf
 body_thickness      = 6.0;    // Z thickness below the strip channel
 
 // Eurorack threaded-strip channel (captive C-channel, opens toward +Z).
@@ -34,6 +34,14 @@ strip_y_offset      = 12;    // cavity center offset from body center (mirrored 
 
 // Screw-access slot cut through the top face above each strip
 access_slot_width   = 3.4;    // clearance for M3 (use 2.9 for M2.5)
+
+// Side walls that hang down past the extrusion's two side faces, so the
+// adapter wraps the rail instead of hanging off the slot tab alone.
+use_side_walls      = true;
+rail_size           = 25.6;   // extrusion face width and depth (2020)
+wall_clearance      = 0.2;    // gap between each wall and the extrusion side
+wall_thickness      = 3.0;    // Y thickness of each side wall
+wall_depth          = 20.0;   // Z length below the shelf; 20 covers the full side
 
 // Corner rounding (applied to shelf and strip cavities)
 fillet              = 0.3;
@@ -47,6 +55,10 @@ tab_head_w    = slot_inner_width - 2*tab_clearance;
 tab_tip_w     = slot_tip_width - 2*tab_clearance;
 tab_chamfer_h = slot_chamfer_depth;
 total_h       = body_thickness + strip_height + strip_lip;
+
+assert(!use_side_walls
+       || body_width/2 >= rail_size/2 + wall_clearance + wall_thickness,
+       "body_width is too narrow to carry the side walls");
 
 // ---- 2D cross-section (in the Y-Z plane) --------------------------------
 
@@ -81,6 +93,15 @@ module tab_profile_2d() {
     }
 }
 
+module side_walls_2d() {
+    // Overlap the shelf by `fillet` so the walls fuse with the body.
+    wall_inner_y = rail_size/2 + wall_clearance;
+    for (side = [1, -1])
+        translate([side > 0 ? wall_inner_y : -wall_inner_y - wall_thickness,
+                   -wall_depth])
+            rounded_rect_2d([wall_thickness, wall_depth + fillet*2], fillet);
+}
+
 module rail_profile_2d() {
     // Cut mirrored cavities and access slots at +/- strip_y_offset.
     difference() {
@@ -88,6 +109,7 @@ module rail_profile_2d() {
             translate([-body_width/2, 0])
                 rounded_rect_2d([body_width, total_h], fillet);
             tab_profile_2d();
+            if (use_side_walls) side_walls_2d();
         }
 
         for (yoff = [strip_y_offset, -strip_y_offset]) {
