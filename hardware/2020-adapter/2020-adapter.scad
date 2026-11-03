@@ -73,8 +73,8 @@ use_t_tab           = true;   // true = full T-profile matching the tapered slot
 tab_clearance       = 0.3;    // shrink applied to head dimensions
 
 // Main body sitting on the extrusion's outer face
-body_width          = 33.0;   // Y extent of the shelf
-body_thickness      = 3.0;    // Z thickness below the strip channel
+body_width          = 32.0;   // Y extent of the shelf
+body_thickness      = 6.0;    // Z thickness below the strip channel
 
 // Eurorack threaded-strip channel (captive C-channel, opens toward +Z).
 //
@@ -92,14 +92,24 @@ body_thickness      = 3.0;    // Z thickness below the strip channel
 //
 // The retaining shoulder in Y on each side is (strip_width - access_slot_width)/2.
 strip_width         = 5.6;    // Y width of the strip slot
-strip_height        = 3.6;    // Z height of the strip slot (was 2.6)
+strip_height        = 3.0;    // Z height of the strip slot (was 2.6)
 strip_lip           = 0.8;    // Z thickness of the top retaining lip.
                               // The access slot is cut through this lip; the
                               // lip overhang in Y is (strip_width-access_slot_width)/2.
 strip_y_offset      = 12;    // Y center of the channel relative to body center
 
 // Screw-access slot cut through the top face above the strip
-access_slot_width   = 3.4;    // clearance for M3 (use 2.9 for M2.5)
+access_slot_width   = 3.2;    // clearance for M3 (use 2.9 for M2.5)
+
+// Side walls that hang down past the extrusion's two side faces, so the
+// adapter wraps the rail instead of hanging off the slot tab alone. Each
+// wall sits wall_clearance outside the extrusion side and runs wall_depth
+// down from the underside of the shelf (z = 0).
+use_side_walls      = true;
+rail_size           = 25.6;   // extrusion face width and depth (2020)
+wall_clearance      = 0.2;    // gap between each wall and the extrusion side
+wall_thickness      = 3.0;    // Y thickness of each side wall
+wall_depth          = 20.0;   // Z length below the shelf; 20 covers the full side
 
 // Corner rounding (applied to the shelf and the strip cavity; not to the tab,
 // which must keep sharp corners to match the slot). Reduces stress at the
@@ -116,6 +126,11 @@ tab_tip_w     = slot_tip_width - 2*tab_clearance;           // flat tip at botto
 tab_chamfer_h = slot_chamfer_depth;                         // no clearance: chamfer matches slot angle
 total_h       = body_thickness + strip_height + strip_lip;  // shelf top above extrusion face
                                                             // (lip sits above the strip cavity)
+
+// The walls hang from the shelf, so the shelf must reach past them.
+assert(!use_side_walls
+       || body_width/2 >= rail_size/2 + wall_clearance + wall_thickness,
+       "body_width is too narrow to carry the side walls");
 
 // ---- 2D cross-section (in the Y-Z plane) ---------------------------------
 
@@ -171,6 +186,17 @@ module tab_profile_2d() {
     }
 }
 
+module side_walls_2d() {
+    // One wall on each side of the extrusion. Each wall overlaps the shelf
+    // by `fillet` so the rounded corners do not leave a gap and the walls
+    // fuse with the body.
+    wall_inner_y = rail_size/2 + wall_clearance;
+    for (side = [1, -1])
+        translate([side > 0 ? wall_inner_y : -wall_inner_y - wall_thickness,
+                   -wall_depth])
+            rounded_rect_2d([wall_thickness, wall_depth + fillet*2], fillet);
+}
+
 module rail_profile_2d() {
     // Carve the strip cavity (full width, stops below the lip) and the access
     // slot (narrower, cut through the lip down to the cavity). What remains
@@ -181,6 +207,7 @@ module rail_profile_2d() {
             translate([-body_width/2, 0])
                 rounded_rect_2d([body_width, total_h], fillet);
             tab_profile_2d();
+            if (use_side_walls) side_walls_2d();
         }
         // Strip cavity: rounded so the inside corners (especially where the
         // lip meets the side wall) don't stress-concentrate, and so the strip
