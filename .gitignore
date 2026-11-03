@@ -81,6 +81,9 @@ __pycache__/
 # VS Code Local History extension (each folder is its own git repo)
 .history/
 
+# Editor config holds machine-specific include paths
+.vscode/
+
 # Claude Code local config
 .claude/
 .omc/
