@@ -62,13 +62,17 @@ rack-plugins/plugin.json
 fp-info-cache
 *.kicad_prl
 *-bak
-*.bak
+# Hand-made snapshots too: .bak2, .bak_zones, .bak_m5, ...
+*.bak*
 *.kicad_pcb-bak
 *.kicad_sch-bak
 *.lck
 *.rpt
 # Fabrication output — exclude any production/ folder repo-wide
 production/
+# ...and the gerber/BOM plot folders some imported projects use instead
+gerber_*/
+bom/
 
 # Python bytecode cache (panel tool scripts)
 __pycache__/
