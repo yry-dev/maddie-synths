@@ -89,9 +89,9 @@ Solder J2 on the **bottom** face. Everything else goes on the top.
 
 Every part has an `LCSC Part #` field, plus `Manufacturer` and `MPN` fields copied from its JLCPCB part page. JLCPCB lists the JST header and both sockets as Extended parts, so each adds JLCPCB's Extended-part fee. The SS34 page did not give its class. Check stock before you order: the part pages did not show stock levels.
 
-The rev B files for both panels are in `panel/production/`, one folder for
-each panel: the Gerber zip, `bom.csv` and `positions.csv`. The rev A Gerbers
-are kept in `panel/fab/`.
+The toolkit writes the files for each panel to its own folder in
+`panel/production/`: the Gerber zip, `bom.csv` and `positions.csv`. Git
+ignores `production/`, so make the files again before you order.
 
 To make the files, use the KiCad JLCPCB fabrication toolkit (Bouni). Each project folder has a `fabrication-toolkit-options.json` with the same settings as `eurorack-v2`. The toolkit writes the Gerbers, BOM and placement (CPL) files from these fields.
 
