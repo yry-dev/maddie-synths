@@ -1,0 +1,202 @@
+(footprint "ER_LED_1206_HandSolder"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "1206 (3216 metric) LED, hand-solder pads; pad 1 = cathode (silk bar)")
+	(property "Reference" "REF**"
+		(at 0 -2.1 0)
+		(layer "F.SilkS")
+		(uuid "bdd3459a-570f-4841-94fd-8aa5129ff028")
+		(effects
+			(font
+				(size 1.0 1.0)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "ER_LED_1206_HandSolder"
+		(at 0 2.1 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6d63b526-cab8-4ba2-b62c-556c5396e219")
+		(effects
+			(font
+				(size 1.0 1.0)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "bbc06e90-af68-4d6e-a054-30c44f5f88f6")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "d9035a18-f34f-41ad-b7b4-e5ac49af978d")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -3.3 -1.0)
+		(end -3.3 1.0)
+		(stroke
+			(width 0.3)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "9108d0fc-2394-4343-baf4-7db6f766ff65")
+	)
+	(fp_line
+		(start -0.6 -1.1)
+		(end 0.6 -1.1)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "e2627f92-2af7-4b35-b3e5-3a212b19523e")
+	)
+	(fp_line
+		(start -0.6 1.1)
+		(end 0.6 1.1)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "fc4cf36a-c361-42e4-a282-3034f7384ca2")
+	)
+	(fp_line
+		(start -1.6 -0.8)
+		(end 1.6 -0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "8970bab6-7d78-4980-8f40-f2b81b354719")
+	)
+	(fp_line
+		(start 1.6 -0.8)
+		(end 1.6 0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "be4c7b9a-a7bd-4082-a694-af2035498edc")
+	)
+	(fp_line
+		(start 1.6 0.8)
+		(end -1.6 0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "90bca52c-0e0d-43fa-923f-0dcea444540d")
+	)
+	(fp_line
+		(start -1.6 0.8)
+		(end -1.6 -0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ebf9ad44-c022-4fb0-9ea1-04ca1dd6b02c")
+	)
+	(fp_line
+		(start -1.1 -0.8)
+		(end -1.1 0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "c6969774-a187-4626-875c-0623418b6fa4")
+	)
+	(fp_line
+		(start -3.6 -1.0)
+		(end 3.0 -1.0)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "6239f0fb-632e-47a3-a1e0-d4a7b1fc84d8")
+	)
+	(fp_line
+		(start 3.0 -1.0)
+		(end 3.0 1.0)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "6a044a83-62b7-4f1e-a452-022d7b9a178c")
+	)
+	(fp_line
+		(start 3.0 1.0)
+		(end -3.6 1.0)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "79a6f5de-1650-4676-905d-3232459885eb")
+	)
+	(fp_line
+		(start -3.6 1.0)
+		(end -3.6 -1.0)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "0febac49-a6a5-4c83-b475-55f003eabadc")
+	)
+	(pad "1" smd roundrect
+		(at -1.7 0)
+		(size 1.8 1.8)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "52ca4058-f5a2-4870-94a9-a55eecd63655")
+	)
+	(pad "2" smd roundrect
+		(at 1.7 0)
+		(size 1.8 1.8)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "ec35150b-d63e-4731-b016-431442fab984")
+	)
+	(model "${KICAD10_3DMODEL_DIR}/LED_SMD.3dshapes/LED_1206_3216Metric.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+	(embedded_fonts no)
+)

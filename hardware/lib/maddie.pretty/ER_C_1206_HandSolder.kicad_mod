@@ -1,0 +1,222 @@
+(footprint "ER_C_1206_HandSolder"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "1206 (3216 metric) capacitor, hand-solder pads: 1.8x1.8mm, 1.0mm past the body. Silk: capacitor symbol")
+	(property "Reference" "REF**"
+		(at 0 -2.1 0)
+		(layer "F.SilkS")
+		(uuid "1260bf55-f93b-4183-80d0-7bdf06318827")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "ER_C_1206_HandSolder"
+		(at 0 2.1 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "10431b44-569a-4359-aa45-d16f332f5131")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c6975bb7-0e31-4f7a-913a-1a276e2962a7")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "b55ad6ac-6469-4e69-bbc9-d1b6ba4c0b51")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -0.6 -1.1)
+		(end 0.6 -1.1)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "56cd5bdf-04dd-455f-ab20-a0ba6df17f29")
+	)
+	(fp_line
+		(start -0.6 1.1)
+		(end 0.6 1.1)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "486db07d-0a78-440e-8b36-a74adaa6ce12")
+	)
+	(fp_line
+		(start -0.55 0)
+		(end -0.2 0)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "cb8eea4b-696b-4395-844d-8dc2a0cccb02")
+	)
+	(fp_line
+		(start -0.2 -0.6)
+		(end -0.2 0.6)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "5788b672-1791-42e4-a53a-faee44f5a2fa")
+	)
+	(fp_line
+		(start 0.2 -0.6)
+		(end 0.2 0.6)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "1c86749b-fe6d-4bb1-9954-744e4f21a305")
+	)
+	(fp_line
+		(start 0.2 0)
+		(end 0.55 0)
+		(stroke
+			(width 0.15)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "56d9d7a5-85d7-4a7f-a24e-85869a7d30ef")
+	)
+	(fp_line
+		(start -3 -1)
+		(end 3 -1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "ce58e03a-88a3-491a-95d7-4b3a10e3c56f")
+	)
+	(fp_line
+		(start -3 1)
+		(end -3 -1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "e984a580-ea11-4421-9570-831a61fe598f")
+	)
+	(fp_line
+		(start 3 -1)
+		(end 3 1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "4234f420-c15f-4c27-a05d-aa51b1737f8c")
+	)
+	(fp_line
+		(start 3 1)
+		(end -3 1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "40a7f052-c906-405f-89c9-d883533de0cf")
+	)
+	(fp_line
+		(start -1.6 -0.8)
+		(end 1.6 -0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "a8480f0d-d578-4b45-ab4c-0e0d16863492")
+	)
+	(fp_line
+		(start -1.6 0.8)
+		(end -1.6 -0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ceef6f9c-e870-42a5-a5ec-ed4cae0d6622")
+	)
+	(fp_line
+		(start 1.6 -0.8)
+		(end 1.6 0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "1a58c5a7-89e0-425a-8fc2-766904ea60ba")
+	)
+	(fp_line
+		(start 1.6 0.8)
+		(end -1.6 0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "5d3b0a02-bde4-425d-91c3-a64d57caedc7")
+	)
+	(pad "1" smd roundrect
+		(at -1.7 0)
+		(size 1.8 1.8)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "9769f94f-e4a3-4359-85e9-28adde285057")
+	)
+	(pad "2" smd roundrect
+		(at 1.7 0)
+		(size 1.8 1.8)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "ff26496f-8b8c-485f-8a8c-d0f5f72b2849")
+	)
+	(embedded_fonts no)
+	(model "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_1206_3216Metric.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

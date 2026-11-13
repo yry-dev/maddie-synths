@@ -1,0 +1,146 @@
+(footprint "ER_SOT23"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 2.65 -1.2 0)
+		(layer "F.SilkS")
+		(uuid "399ffcaa-963b-42a4-b34e-0303344c66d3")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "ER_SOT23"
+		(at 0 2.8 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "2f32b2e8-0283-479a-967c-787c7a08db75")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "d7898662-2c48-46b5-8267-6ced72d81273")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "52fcf1b4-7fd1-4cc4-a844-f976467da9b9")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -1.6 -1.9)
+		(end 1.6 -1.9)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "757ebe79-64eb-490b-9a81-79c477a81139")
+	)
+	(fp_line
+		(start -1.6 1.9)
+		(end 1.6 1.9)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "19642ad0-fc41-4ed5-bfad-95baa9b65f1b")
+	)
+	(fp_line
+		(start -0.7 -0.75)
+		(end 0.7 -0.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "1a45ba7b-594c-46e6-9c53-315e95b41776")
+	)
+	(fp_line
+		(start -0.7 0.75)
+		(end -0.7 -0.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "f5feba95-87e1-4353-8ecd-43073174bcda")
+	)
+	(fp_line
+		(start 0.7 -0.75)
+		(end 0.7 0.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "cbc13797-bddf-4242-a2f7-ae71a6ef506a")
+	)
+	(fp_line
+		(start 0.7 0.75)
+		(end -0.7 0.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "910203c6-26f7-4b6d-bf6d-c27c324ba252")
+	)
+	(pad "1" smd roundrect
+		(at -0.95 1.15)
+		(size 0.9 1.2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "3aae467e-53ba-4a04-baa9-41dcb09d4657")
+	)
+	(pad "2" smd roundrect
+		(at 0.95 1.15)
+		(size 0.9 1.2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "6be6640b-6be0-4e44-9f85-f35fab6a2e18")
+	)
+	(pad "3" smd roundrect
+		(at 0 -1.15)
+		(size 0.9 1.2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "7aa7a304-d135-4379-a35d-5e783378ca53")
+	)
+	(model "${KICAD10_3DMODEL_DIR}/Package_TO_SOT_SMD.3dshapes/SOT-23.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 90)
+		)
+	)
+	(embedded_fonts no)
+)
