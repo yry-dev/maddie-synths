@@ -1,0 +1,129 @@
+(footprint "ER_Diode_SMC"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 0 -3.5 0)
+		(layer "F.SilkS")
+		(uuid "2a0b3853-6a3c-454f-8005-b54fd3beaea6")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "ER_Diode_SMC"
+		(at 0 3.5 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "993a01f2-bbc9-4d58-91c0-be052cabef36")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "4d18c76e-62f1-4d48-b7de-b473771cdbc5")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "713dab6e-f23e-4377-8e2c-2d2d83cc721b")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -5 -2.6)
+		(end -5 2.6)
+		(stroke
+			(width 0.3)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "31fd67eb-a1a7-4918-b528-f6842fb2300d")
+	)
+	(fp_line
+		(start -2.8 -2.3)
+		(end 2.8 -2.3)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "a2f5c6d0-d1fe-45c9-be5a-558b93e8e6c6")
+	)
+	(fp_line
+		(start -2.8 2.3)
+		(end -2.8 -2.3)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "0cc69564-ec90-4ffe-a245-dc64f6ef4b44")
+	)
+	(fp_line
+		(start 2.8 -2.3)
+		(end 2.8 2.3)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "4538db55-83f4-4a84-aa25-7c8571a218e9")
+	)
+	(fp_line
+		(start 2.8 2.3)
+		(end -2.8 2.3)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "5c8b9eac-449c-471b-b211-e04a1ce094ad")
+	)
+	(pad "1" smd roundrect
+		(at -3.1 0)
+		(size 2.6 3.6)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "20274d87-2837-4cf2-b20f-5ebe4e7f70b2")
+	)
+	(pad "2" smd roundrect
+		(at 3.1 0)
+		(size 2.6 3.6)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "d302b590-190b-49b9-87ae-de0ada619378")
+	)
+	(model "${KICAD10_3DMODEL_DIR}/Diode_SMD.3dshapes/D_SMC.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+	(embedded_fonts no)
+)

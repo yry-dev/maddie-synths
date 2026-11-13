@@ -39,7 +39,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+			(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -407,7 +407,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_Chip_0805"
+			(property "Footprint" "maddie:ER_Chip_0805"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -536,7 +536,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_CP_Radial_D8_P3.5"
+			(property "Footprint" "maddie:ER_CP_Radial_D8_P3.5"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -687,7 +687,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_PinHeader_1x02_2.54"
+			(property "Footprint" "maddie:ER_PinHeader_1x02_2.54"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -802,7 +802,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_TerminalBlock_4P_5.08"
+			(property "Footprint" "maddie:ER_TerminalBlock_4P_5.08"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -953,7 +953,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_MiniFitJr_2x03_RA"
+			(property "Footprint" "maddie:ER_MiniFitJr_2x03_RA"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1141,7 +1141,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_Diode_SMC"
+			(property "Footprint" "maddie:ER_Diode_SMC"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1270,7 +1270,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_Fuseholder_5x20_Clips"
+			(property "Footprint" "maddie:ER_Fuseholder_5x20_Clips"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1398,7 +1398,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_LED_0805"
+			(property "Footprint" "maddie:ER_LED_0805"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1563,7 +1563,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_MountingHole_M3"
+			(property "Footprint" "maddie:ER_MountingHole_M3"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1640,7 +1640,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_SOT23"
+			(property "Footprint" "maddie:ER_SOT23"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1871,7 +1871,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_PTC_1812"
+			(property "Footprint" "maddie:ER_PTC_1812"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1999,7 +1999,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_Chip_0805"
+			(property "Footprint" "maddie:ER_Chip_0805"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2115,7 +2115,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_Diode_SMB"
+			(property "Footprint" "maddie:ER_Diode_SMB"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2256,7 +2256,7 @@
 					)
 				)
 			)
-			(property "Footprint" "eurorack_bus:ER_WirePad_2.2mm"
+			(property "Footprint" "maddie:ER_WirePad_2.2mm"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -13922,7 +13922,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 209.55 88.9 0)
+		(at 209.55 88.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13951,7 +13951,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 209.55 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -13974,6 +13974,17 @@
 		)
 		(property "Description" ""
 			(at 209.55 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 209.55 88.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14028,7 +14039,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 590.55 546.1 0)
 			(hide yes)
 			(show_name no)
@@ -14051,6 +14062,17 @@
 		)
 		(property "Description" ""
 			(at 590.55 546.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 590.55 546.1 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14105,7 +14127,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 209.55 444.5 0)
 			(hide yes)
 			(show_name no)
@@ -14136,6 +14158,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C883125"
+			(at 209.55 444.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "eacc4f5d-0e4b-4224-90df-0a400bf6619f")
 		)
@@ -14157,9 +14190,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "068308b8-6b76-478c-89ed-a74773677d12")
 		(property "Reference" "J19"
@@ -14182,7 +14215,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 463.55 571.5 0)
 			(hide yes)
 			(show_name no)
@@ -14272,7 +14305,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 615.95 88.9 0)
+		(at 615.95 88.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14301,7 +14334,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 615.95 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -14324,6 +14357,17 @@
 		)
 		(property "Description" ""
 			(at 615.95 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 615.95 88.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14378,7 +14422,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 234.95 596.9 0)
 			(hide yes)
 			(show_name no)
@@ -14409,6 +14453,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 234.95 596.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "66bbafa3-afcf-411a-8823-3013671e5119")
 		)
@@ -14426,7 +14481,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 400.05 444.5 0)
+		(at 400.05 444.5 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14455,7 +14510,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 400.05 444.5 0)
 			(hide yes)
 			(show_name no)
@@ -14478,6 +14533,17 @@
 		)
 		(property "Description" ""
 			(at 400.05 444.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C883125"
+			(at 400.05 444.5 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14532,7 +14598,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 590.55 419.1 0)
 			(hide yes)
 			(show_name no)
@@ -14563,6 +14629,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 590.55 419.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "f33372bb-7101-4fc0-acd3-a28f6ec6af34")
 		)
@@ -14580,7 +14657,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 19.05 546.1 0)
+		(at 19.05 546.1 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14609,7 +14686,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 19.05 546.1 0)
 			(hide yes)
 			(show_name no)
@@ -14632,6 +14709,17 @@
 		)
 		(property "Description" ""
 			(at 19.05 546.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 19.05 546.1 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14686,7 +14774,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 615.95 342.9 0)
 			(hide yes)
 			(show_name no)
@@ -14709,6 +14797,17 @@
 		)
 		(property "Description" ""
 			(at 615.95 342.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 615.95 342.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14763,7 +14862,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_SOT23"
+		(property "Footprint" "maddie:ER_SOT23"
 			(at 1130.3 177.8 0)
 			(hide yes)
 			(show_name no)
@@ -14786,6 +14885,28 @@
 		)
 		(property "Description" ""
 			(at 1130.3 177.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C15127"
+			(at 1130.3 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "FT Rotation Offset" "270"
+			(at 1130.3 177.8 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14814,7 +14935,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 400.05 469.9 0)
+		(at 400.05 469.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14843,7 +14964,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 400.05 469.9 0)
 			(hide yes)
 			(show_name no)
@@ -14866,6 +14987,17 @@
 		)
 		(property "Description" ""
 			(at 400.05 469.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 400.05 469.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14920,7 +15052,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_LED_0805"
+		(property "Footprint" "maddie:ER_LED_0805"
 			(at 952.5 314.96 0)
 			(hide yes)
 			(show_name no)
@@ -14951,6 +15083,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C2296"
+			(at 952.5 314.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "41a67021-f7cf-497f-85c4-3dd99fd27d65")
 		)
@@ -14972,9 +15115,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "11d426b9-9c14-45cf-8265-cfdd0405619a")
 		(property "Reference" "J15"
@@ -14997,7 +15140,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 463.55 444.5 0)
 			(hide yes)
 			(show_name no)
@@ -15091,9 +15234,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "11ecc9bd-e0f8-4035-b59e-103a044ac77a")
 		(property "Reference" "H2"
@@ -15116,7 +15259,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_MountingHole_M3"
+		(property "Footprint" "maddie:ER_MountingHole_M3"
 			(at 1181.1 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -15187,7 +15330,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 400.05 177.8 0)
 			(hide yes)
 			(show_name no)
@@ -15218,6 +15361,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 400.05 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "b9dafa26-c38b-48ef-8330-f1731f501241")
 		)
@@ -15235,7 +15389,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 400.05 431.8 0)
+		(at 400.05 431.8 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15264,7 +15418,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 400.05 431.8 0)
 			(hide yes)
 			(show_name no)
@@ -15287,6 +15441,17 @@
 		)
 		(property "Description" ""
 			(at 400.05 431.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 400.05 431.8 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15341,7 +15506,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 590.55 469.9 0)
 			(hide yes)
 			(show_name no)
@@ -15364,6 +15529,17 @@
 		)
 		(property "Description" ""
 			(at 590.55 469.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 590.55 469.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15418,7 +15594,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 19.05 304.8 0)
 			(hide yes)
 			(show_name no)
@@ -15449,6 +15625,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 19.05 304.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "e8f8e741-1ef8-4901-900d-d4b1917d4772")
 		)
@@ -15470,9 +15657,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "16b27c2b-537b-4f14-bac1-bb03dff3da52")
 		(property "Reference" "C41"
@@ -15495,7 +15682,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_CP_Radial_D8_P3.5"
+		(property "Footprint" "maddie:ER_CP_Radial_D8_P3.5"
 			(at 1104.9 213.36 0)
 			(hide yes)
 			(show_name no)
@@ -15543,7 +15730,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 425.45 469.9 0)
+		(at 425.45 469.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15572,7 +15759,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 425.45 469.9 0)
 			(hide yes)
 			(show_name no)
@@ -15603,6 +15790,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 425.45 469.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "5e0620ef-ab29-4983-9927-1f43025a14cd")
 		)
@@ -15620,7 +15818,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 19.05 558.8 0)
+		(at 19.05 558.8 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15649,7 +15847,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 19.05 558.8 0)
 			(hide yes)
 			(show_name no)
@@ -15672,6 +15870,17 @@
 		)
 		(property "Description" ""
 			(at 19.05 558.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 19.05 558.8 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15726,7 +15935,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 19.05 292.1 0)
 			(hide yes)
 			(show_name no)
@@ -15749,6 +15958,17 @@
 		)
 		(property "Description" ""
 			(at 19.05 292.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 19.05 292.1 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15803,7 +16023,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 615.95 596.9 0)
 			(hide yes)
 			(show_name no)
@@ -15834,6 +16054,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 615.95 596.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "9d089da0-926f-42cf-bbf7-f217db055859")
 		)
@@ -15851,7 +16082,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 19.05 431.8 0)
+		(at 19.05 431.8 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15880,7 +16111,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 19.05 431.8 0)
 			(hide yes)
 			(show_name no)
@@ -15903,6 +16134,17 @@
 		)
 		(property "Description" ""
 			(at 19.05 431.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 19.05 431.8 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15957,7 +16199,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 400.05 165.1 0)
 			(hide yes)
 			(show_name no)
@@ -15988,6 +16230,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 400.05 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "a63fc2cc-5237-4430-af68-6c69b10d60fd")
 		)
@@ -16005,7 +16258,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 615.95 215.9 0)
+		(at 615.95 215.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16034,7 +16287,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 615.95 215.9 0)
 			(hide yes)
 			(show_name no)
@@ -16057,6 +16310,17 @@
 		)
 		(property "Description" ""
 			(at 615.95 215.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 615.95 215.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16111,7 +16375,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 19.05 38.1 0)
 			(hide yes)
 			(show_name no)
@@ -16142,6 +16406,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 19.05 38.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "57c2e143-dc2d-489d-a049-5ab943528253")
 		)
@@ -16159,7 +16434,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 19.05 596.9 0)
+		(at 19.05 596.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16188,7 +16463,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 19.05 596.9 0)
 			(hide yes)
 			(show_name no)
@@ -16219,6 +16494,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 19.05 596.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "605b9507-b418-4e3e-9488-c812295515a0")
 		)
@@ -16236,7 +16522,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 19.05 444.5 0)
+		(at 19.05 444.5 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16265,7 +16551,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 19.05 444.5 0)
 			(hide yes)
 			(show_name no)
@@ -16288,6 +16574,17 @@
 		)
 		(property "Description" ""
 			(at 19.05 444.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C883125"
+			(at 19.05 444.5 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16342,7 +16639,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 209.55 419.1 0)
 			(hide yes)
 			(show_name no)
@@ -16365,6 +16662,17 @@
 		)
 		(property "Description" ""
 			(at 209.55 419.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 209.55 419.1 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16419,7 +16727,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 19.05 177.8 0)
 			(hide yes)
 			(show_name no)
@@ -16442,6 +16750,17 @@
 		)
 		(property "Description" ""
 			(at 19.05 177.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 19.05 177.8 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16496,7 +16815,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 1003.3 284.48 0)
 			(hide yes)
 			(show_name no)
@@ -16527,6 +16846,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C17614"
+			(at 1003.3 284.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "2a098bd0-c02e-4e78-8458-7df93791f420")
 		)
@@ -16544,7 +16874,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 400.05 419.1 0)
+		(at 400.05 419.1 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16573,7 +16903,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 400.05 419.1 0)
 			(hide yes)
 			(show_name no)
@@ -16604,6 +16934,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 400.05 419.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "d6f4e49a-d151-455e-ba20-e1fc337a32f5")
 		)
@@ -16621,7 +16962,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 44.45 596.9 0)
+		(at 44.45 596.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16650,7 +16991,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 44.45 596.9 0)
 			(hide yes)
 			(show_name no)
@@ -16673,6 +17014,17 @@
 		)
 		(property "Description" ""
 			(at 44.45 596.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 44.45 596.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16702,9 +17054,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "3102597d-96d7-422d-9634-0185a96f555f")
 		(property "Reference" "H1"
@@ -16727,7 +17079,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_MountingHole_M3"
+		(property "Footprint" "maddie:ER_MountingHole_M3"
 			(at 1181.1 127 0)
 			(hide yes)
 			(show_name no)
@@ -16798,7 +17150,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 1130.3 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -16821,6 +17173,17 @@
 		)
 		(property "Description" ""
 			(at 1130.3 139.7 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C70129"
+			(at 1130.3 139.7 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16875,7 +17238,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 19.05 317.5 0)
 			(hide yes)
 			(show_name no)
@@ -16898,6 +17261,17 @@
 		)
 		(property "Description" ""
 			(at 19.05 317.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C883125"
+			(at 19.05 317.5 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16952,7 +17326,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Diode_SMB"
+		(property "Footprint" "maddie:ER_Diode_SMB"
 			(at 1028.7 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -16983,6 +17357,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C19077567"
+			(at 1028.7 203.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "76da376a-3a7f-43a1-9d40-fa46c0db5e9d")
 		)
@@ -17000,7 +17385,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 234.95 88.9 0)
+		(at 234.95 88.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17029,7 +17414,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 234.95 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -17060,6 +17445,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 234.95 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "a5cec248-c590-4d17-a6a4-2f786e8eda2b")
 		)
@@ -17077,7 +17473,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 400.05 546.1 0)
+		(at 400.05 546.1 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17106,7 +17502,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 400.05 546.1 0)
 			(hide yes)
 			(show_name no)
@@ -17129,6 +17525,17 @@
 		)
 		(property "Description" ""
 			(at 400.05 546.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 400.05 546.1 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17158,9 +17565,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "3ab11185-08c2-4717-9a5f-d45c5ae7b60f")
 		(property "Reference" "H6"
@@ -17183,7 +17590,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_MountingHole_M3"
+		(property "Footprint" "maddie:ER_MountingHole_M3"
 			(at 1181.1 177.8 0)
 			(hide yes)
 			(show_name no)
@@ -17254,7 +17661,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Diode_SMB"
+		(property "Footprint" "maddie:ER_Diode_SMB"
 			(at 1028.7 215.9 0)
 			(hide yes)
 			(show_name no)
@@ -17285,6 +17692,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C19077567"
+			(at 1028.7 215.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "c89eed70-e6e6-4e2d-91c6-a99d2ec64204")
 		)
@@ -17302,7 +17720,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 590.55 165.1 0)
+		(at 590.55 165.1 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17331,7 +17749,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 590.55 165.1 0)
 			(hide yes)
 			(show_name no)
@@ -17362,6 +17780,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 590.55 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "047360c3-4f42-4968-91d3-476e89bdc00e")
 		)
@@ -17379,7 +17808,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 209.55 342.9 0)
+		(at 209.55 342.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17408,7 +17837,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 209.55 342.9 0)
 			(hide yes)
 			(show_name no)
@@ -17431,6 +17860,17 @@
 		)
 		(property "Description" ""
 			(at 209.55 342.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 209.55 342.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17485,7 +17925,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 1003.3 254 0)
 			(hide yes)
 			(show_name no)
@@ -17516,6 +17956,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C17614"
+			(at 1003.3 254 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "477d9a8e-4d2c-465d-bf03-efd07e079dc5")
 		)
@@ -17537,9 +17988,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "3fbc9b93-e70d-4930-aaf1-be116b3c7829")
 		(property "Reference" "J20"
@@ -17562,7 +18013,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 654.05 571.5 0)
 			(hide yes)
 			(show_name no)
@@ -17681,7 +18132,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 590.55 304.8 0)
 			(hide yes)
 			(show_name no)
@@ -17704,6 +18155,17 @@
 		)
 		(property "Description" ""
 			(at 590.55 304.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 590.55 304.8 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17758,7 +18220,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 234.95 469.9 0)
 			(hide yes)
 			(show_name no)
@@ -17789,6 +18251,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 234.95 469.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "f64907b3-7f5a-40be-abce-fb126fa67f76")
 		)
@@ -17810,9 +18283,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "489160fa-bba6-4a08-824d-b2f3e29b4852")
 		(property "Reference" "H3"
@@ -17835,7 +18308,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_MountingHole_M3"
+		(property "Footprint" "maddie:ER_MountingHole_M3"
 			(at 1181.1 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -17877,7 +18350,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 590.55 190.5 0)
+		(at 590.55 190.5 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17906,7 +18379,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 590.55 190.5 0)
 			(hide yes)
 			(show_name no)
@@ -17937,6 +18410,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C883125"
+			(at 590.55 190.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "6c70eb44-13e3-4ddb-a8d8-ef8da0fd5a21")
 		)
@@ -17954,7 +18438,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 425.45 342.9 0)
+		(at 425.45 342.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17983,7 +18467,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 425.45 342.9 0)
 			(hide yes)
 			(show_name no)
@@ -18006,6 +18490,17 @@
 		)
 		(property "Description" ""
 			(at 425.45 342.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 425.45 342.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18035,9 +18530,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "4aaf9f2c-ea87-4d2c-a1b8-de432023006c")
 		(property "Reference" "J6"
@@ -18060,7 +18555,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 273.05 190.5 0)
 			(hide yes)
 			(show_name no)
@@ -18179,7 +18674,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 590.55 558.8 0)
 			(hide yes)
 			(show_name no)
@@ -18202,6 +18697,17 @@
 		)
 		(property "Description" ""
 			(at 590.55 558.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 590.55 558.8 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18256,7 +18762,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 44.45 342.9 0)
 			(hide yes)
 			(show_name no)
@@ -18287,6 +18793,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 44.45 342.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "5fe40747-229c-4583-9ffd-fddd6689b4da")
 		)
@@ -18304,7 +18821,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 209.55 165.1 0)
+		(at 209.55 165.1 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18333,7 +18850,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 209.55 165.1 0)
 			(hide yes)
 			(show_name no)
@@ -18364,6 +18881,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 209.55 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "d2d13e95-bd54-4480-85ee-6142823e791c")
 		)
@@ -18381,7 +18909,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 400.05 596.9 0)
+		(at 400.05 596.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18410,7 +18938,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 400.05 596.9 0)
 			(hide yes)
 			(show_name no)
@@ -18433,6 +18961,17 @@
 		)
 		(property "Description" ""
 			(at 400.05 596.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 400.05 596.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18487,7 +19026,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Diode_SMC"
+		(property "Footprint" "maddie:ER_Diode_SMC"
 			(at 952.5 215.9 0)
 			(hide yes)
 			(show_name no)
@@ -18510,6 +19049,17 @@
 		)
 		(property "Description" ""
 			(at 952.5 215.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C2988634"
+			(at 952.5 215.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18564,7 +19114,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 209.55 571.5 0)
 			(hide yes)
 			(show_name no)
@@ -18587,6 +19137,17 @@
 		)
 		(property "Description" ""
 			(at 209.55 571.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C883125"
+			(at 209.55 571.5 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18641,7 +19202,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 19.05 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -18664,6 +19225,17 @@
 		)
 		(property "Description" ""
 			(at 19.05 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 19.05 88.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18718,7 +19290,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 400.05 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -18749,6 +19321,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 400.05 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "201faac1-f295-4096-98ff-e570c63da2e3")
 		)
@@ -18766,7 +19349,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 400.05 342.9 0)
+		(at 400.05 342.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18795,7 +19378,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 400.05 342.9 0)
 			(hide yes)
 			(show_name no)
@@ -18826,6 +19409,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 400.05 342.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "be6f7c87-c359-412d-9327-ba07458f055c")
 		)
@@ -18843,7 +19437,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 19.05 469.9 0)
+		(at 19.05 469.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18872,7 +19466,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 19.05 469.9 0)
 			(hide yes)
 			(show_name no)
@@ -18895,6 +19489,17 @@
 		)
 		(property "Description" ""
 			(at 19.05 469.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 19.05 469.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18924,9 +19529,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "56d648bd-6faf-4c94-b8e9-7dc7b28b69f1")
 		(property "Reference" "J4"
@@ -18949,7 +19554,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 654.05 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -19039,7 +19644,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 209.55 50.8 0)
+		(at 209.55 50.8 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19068,7 +19673,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 209.55 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -19099,6 +19704,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 209.55 50.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "9225454f-b19e-4a95-a281-bde07e261bea")
 		)
@@ -19116,7 +19732,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 44.45 469.9 0)
+		(at 44.45 469.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19145,7 +19761,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 44.45 469.9 0)
 			(hide yes)
 			(show_name no)
@@ -19168,6 +19784,17 @@
 		)
 		(property "Description" ""
 			(at 44.45 469.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 44.45 469.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19222,7 +19849,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 590.55 596.9 0)
 			(hide yes)
 			(show_name no)
@@ -19253,6 +19880,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 590.55 596.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "a569c5d5-222b-4f6f-aa09-87b8c99b348f")
 		)
@@ -19274,9 +19912,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "5e8ded3b-3b9e-4fd4-a23a-b51347b6e44a")
 		(property "Reference" "J14"
@@ -19299,7 +19937,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 273.05 444.5 0)
 			(hide yes)
 			(show_name no)
@@ -19389,7 +20027,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 400.05 304.8 0)
+		(at 400.05 304.8 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19418,7 +20056,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 400.05 304.8 0)
 			(hide yes)
 			(show_name no)
@@ -19449,6 +20087,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 400.05 304.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "f2a580ae-7c24-4f42-a9aa-abfb6b2be071")
 		)
@@ -19470,9 +20119,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "60540bba-7565-4ee3-b197-2e092de31caf")
 		(property "Reference" "J5"
@@ -19495,7 +20144,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 82.55 190.5 0)
 			(hide yes)
 			(show_name no)
@@ -19589,9 +20238,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "648bb386-b37f-43ee-b747-4e652b9ade35")
 		(property "Reference" "J3"
@@ -19614,7 +20263,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 463.55 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -19708,9 +20357,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "658a4036-4987-42ce-947b-61d19afee143")
 		(property "Reference" "J9"
@@ -19733,7 +20382,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 82.55 317.5 0)
 			(hide yes)
 			(show_name no)
@@ -19827,9 +20476,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "7134c707-0ea6-4d33-a13e-18236d8a877d")
 		(property "Reference" "H5"
@@ -19852,7 +20501,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_MountingHole_M3"
+		(property "Footprint" "maddie:ER_MountingHole_M3"
 			(at 1181.1 167.64 0)
 			(hide yes)
 			(show_name no)
@@ -19894,7 +20543,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 234.95 215.9 0)
+		(at 234.95 215.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19923,7 +20572,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 234.95 215.9 0)
 			(hide yes)
 			(show_name no)
@@ -19946,6 +20595,17 @@
 		)
 		(property "Description" ""
 			(at 234.95 215.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 234.95 215.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -20000,7 +20660,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Diode_SMC"
+		(property "Footprint" "maddie:ER_Diode_SMC"
 			(at 952.5 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -20023,6 +20683,17 @@
 		)
 		(property "Description" ""
 			(at 952.5 203.2 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C2988634"
+			(at 952.5 203.2 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -20077,7 +20748,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 1130.3 152.4 0)
 			(hide yes)
 			(show_name no)
@@ -20108,6 +20779,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 1130.3 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "84f0dff5-3386-4296-ab4c-b33ec5984285")
 		)
@@ -20129,9 +20811,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "7eb57b39-4af7-4ebb-a5b7-fa187d3649a1")
 		(property "Reference" "C42"
@@ -20154,7 +20836,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_CP_Radial_D8_P3.5"
+		(property "Footprint" "maddie:ER_CP_Radial_D8_P3.5"
 			(at 1130.3 213.36 0)
 			(hide yes)
 			(show_name no)
@@ -20231,7 +20913,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 590.55 571.5 0)
 			(hide yes)
 			(show_name no)
@@ -20262,6 +20944,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C883125"
+			(at 590.55 571.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "ebf33c94-a463-4522-be21-e9647cc4d30e")
 		)
@@ -20279,7 +20972,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 400.05 571.5 0)
+		(at 400.05 571.5 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -20308,7 +21001,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 400.05 571.5 0)
 			(hide yes)
 			(show_name no)
@@ -20331,6 +21024,17 @@
 		)
 		(property "Description" ""
 			(at 400.05 571.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C883125"
+			(at 400.05 571.5 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -20360,9 +21064,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "85345716-7819-430a-bdeb-46d416625c7c")
 		(property "Reference" "J8"
@@ -20385,7 +21089,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 654.05 190.5 0)
 			(hide yes)
 			(show_name no)
@@ -20479,9 +21183,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "85931db9-f00a-4390-8b54-4adec536f896")
 		(property "Reference" "J10"
@@ -20504,7 +21208,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 273.05 317.5 0)
 			(hide yes)
 			(show_name no)
@@ -20594,7 +21298,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 209.55 292.1 0)
+		(at 209.55 292.1 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -20623,7 +21327,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 209.55 292.1 0)
 			(hide yes)
 			(show_name no)
@@ -20646,6 +21350,17 @@
 		)
 		(property "Description" ""
 			(at 209.55 292.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 209.55 292.1 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -20700,7 +21415,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 400.05 215.9 0)
 			(hide yes)
 			(show_name no)
@@ -20723,6 +21438,17 @@
 		)
 		(property "Description" ""
 			(at 400.05 215.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 400.05 215.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -20777,7 +21503,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 209.55 558.8 0)
 			(hide yes)
 			(show_name no)
@@ -20808,6 +21534,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 209.55 558.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "e2b126e9-6d63-4336-a72b-13b6dbcc845d")
 		)
@@ -20825,7 +21562,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 209.55 317.5 0)
+		(at 209.55 317.5 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -20854,7 +21591,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 209.55 317.5 0)
 			(hide yes)
 			(show_name no)
@@ -20877,6 +21614,17 @@
 		)
 		(property "Description" ""
 			(at 209.55 317.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C883125"
+			(at 209.55 317.5 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -20906,9 +21654,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "8ad7d85c-da41-484d-9bab-a056ff543bcd")
 		(property "Reference" "J11"
@@ -20931,7 +21679,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 463.55 317.5 0)
 			(hide yes)
 			(show_name no)
@@ -21050,7 +21798,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Diode_SMC"
+		(property "Footprint" "maddie:ER_Diode_SMC"
 			(at 952.5 228.6 0)
 			(hide yes)
 			(show_name no)
@@ -21081,6 +21829,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C2988634"
+			(at 952.5 228.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "1749ba23-4ad0-43fb-8d90-b233c60e8a96")
 		)
@@ -21102,9 +21861,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "8fd2bb27-7ca7-40ae-930f-356baa92491b")
 		(property "Reference" "J25"
@@ -21127,7 +21886,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_WirePad_2.2mm"
+		(property "Footprint" "maddie:ER_WirePad_2.2mm"
 			(at 1066.8 157.48 0)
 			(hide yes)
 			(show_name no)
@@ -21176,9 +21935,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "914d1dc0-5a20-43cb-9b96-d49aef619447")
 		(property "Reference" "J17"
@@ -21201,7 +21960,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 82.55 571.5 0)
 			(hide yes)
 			(show_name no)
@@ -21320,7 +22079,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 590.55 342.9 0)
 			(hide yes)
 			(show_name no)
@@ -21351,6 +22110,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 590.55 342.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "30731ff6-a264-4fdf-a185-861b1e11b0e4")
 		)
@@ -21368,7 +22138,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 209.55 63.5 0)
+		(at 209.55 63.5 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -21397,7 +22167,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 209.55 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -21420,6 +22190,17 @@
 		)
 		(property "Description" ""
 			(at 209.55 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C883125"
+			(at 209.55 63.5 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21474,7 +22255,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 400.05 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -21497,6 +22278,17 @@
 		)
 		(property "Description" ""
 			(at 400.05 63.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C883125"
+			(at 400.05 63.5 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21551,7 +22343,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_LED_0805"
+		(property "Footprint" "maddie:ER_LED_0805"
 			(at 952.5 254 0)
 			(hide yes)
 			(show_name no)
@@ -21582,6 +22374,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C84256"
+			(at 952.5 254 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "9dc911a6-613a-4672-8062-f838c2c6c88e")
 		)
@@ -21599,7 +22402,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 400.05 317.5 0)
+		(at 400.05 317.5 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -21628,7 +22431,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 400.05 317.5 0)
 			(hide yes)
 			(show_name no)
@@ -21651,6 +22454,17 @@
 		)
 		(property "Description" ""
 			(at 400.05 317.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C883125"
+			(at 400.05 317.5 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21680,9 +22494,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "950f5104-b46b-4aed-80ae-9b4ae608e30d")
 		(property "Reference" "J18"
@@ -21705,7 +22519,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 273.05 571.5 0)
 			(hide yes)
 			(show_name no)
@@ -21824,7 +22638,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 44.45 215.9 0)
 			(hide yes)
 			(show_name no)
@@ -21847,6 +22661,17 @@
 		)
 		(property "Description" ""
 			(at 44.45 215.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 44.45 215.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21901,7 +22726,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 19.05 342.9 0)
 			(hide yes)
 			(show_name no)
@@ -21924,6 +22749,17 @@
 		)
 		(property "Description" ""
 			(at 19.05 342.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 19.05 342.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -21978,7 +22814,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 590.55 444.5 0)
 			(hide yes)
 			(show_name no)
@@ -22009,6 +22845,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C883125"
+			(at 590.55 444.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "07196fd8-e9bb-4310-bfa6-d402cc161982")
 		)
@@ -22030,9 +22877,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "987384c1-3600-4de5-a1d9-900139e3db24")
 		(property "Reference" "J22"
@@ -22055,7 +22902,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_MiniFitJr_2x03_RA"
+		(property "Footprint" "maddie:ER_MiniFitJr_2x03_RA"
 			(at 1003.3 152.4 0)
 			(hide yes)
 			(show_name no)
@@ -22119,9 +22966,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "9e3757d6-020e-45bc-aac6-f499a25a45c2")
 		(property "Reference" "J1"
@@ -22144,7 +22991,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 82.55 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -22238,9 +23085,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "a1c3ba1c-ce41-446b-8cc4-c8ffc2b78f77")
 		(property "Reference" "J26"
@@ -22263,7 +23110,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_WirePad_2.2mm"
+		(property "Footprint" "maddie:ER_WirePad_2.2mm"
 			(at 1066.8 167.64 0)
 			(hide yes)
 			(show_name no)
@@ -22337,7 +23184,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 615.95 469.9 0)
 			(hide yes)
 			(show_name no)
@@ -22368,6 +23215,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 615.95 469.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "79182000-0311-4ffd-b479-1d88ad8b42d6")
 		)
@@ -22389,9 +23247,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "a5eec01c-af27-41b9-9f30-f6513167a3fe")
 		(property "Reference" "H7"
@@ -22414,7 +23272,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_MountingHole_M3"
+		(property "Footprint" "maddie:ER_MountingHole_M3"
 			(at 1181.1 187.96 0)
 			(hide yes)
 			(show_name no)
@@ -22460,9 +23318,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "a6763690-2dc2-4a4c-8d6f-2b5644755b4f")
 		(property "Reference" "J23"
@@ -22485,7 +23343,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_WirePad_2.2mm"
+		(property "Footprint" "maddie:ER_WirePad_2.2mm"
 			(at 1066.8 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -22530,7 +23388,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 19.05 571.5 0)
+		(at 19.05 571.5 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -22559,7 +23417,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 19.05 571.5 0)
 			(hide yes)
 			(show_name no)
@@ -22582,6 +23440,17 @@
 		)
 		(property "Description" ""
 			(at 19.05 571.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C883125"
+			(at 19.05 571.5 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22636,7 +23505,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 209.55 469.9 0)
 			(hide yes)
 			(show_name no)
@@ -22667,6 +23536,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 209.55 469.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "a0d3fa1f-f875-4b60-8784-ec7c83b980f7")
 		)
@@ -22684,7 +23564,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 425.45 596.9 0)
+		(at 425.45 596.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -22713,7 +23593,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 425.45 596.9 0)
 			(hide yes)
 			(show_name no)
@@ -22744,6 +23624,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 425.45 596.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "1048e2d1-0149-4ddd-9d75-373204c5cbd9")
 		)
@@ -22761,7 +23652,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 209.55 190.5 0)
+		(at 209.55 190.5 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -22790,7 +23681,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 209.55 190.5 0)
 			(hide yes)
 			(show_name no)
@@ -22813,6 +23704,17 @@
 		)
 		(property "Description" ""
 			(at 209.55 190.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C883125"
+			(at 209.55 190.5 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22867,7 +23769,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_LED_0805"
+		(property "Footprint" "maddie:ER_LED_0805"
 			(at 952.5 284.48 0)
 			(hide yes)
 			(show_name no)
@@ -22890,6 +23792,17 @@
 		)
 		(property "Description" ""
 			(at 952.5 284.48 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C2297"
+			(at 952.5 284.48 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -22944,7 +23857,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 19.05 190.5 0)
 			(hide yes)
 			(show_name no)
@@ -22975,6 +23888,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C883125"
+			(at 19.05 190.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "c19b7e06-1b97-45af-b681-16b6f4054260")
 		)
@@ -22992,7 +23916,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 209.55 215.9 0)
+		(at 209.55 215.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -23021,7 +23945,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 209.55 215.9 0)
 			(hide yes)
 			(show_name no)
@@ -23052,6 +23976,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 209.55 215.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "fd4c6d79-2a8e-461a-961f-0a899a97a741")
 		)
@@ -23069,7 +24004,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 590.55 215.9 0)
+		(at 590.55 215.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -23098,7 +24033,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 590.55 215.9 0)
 			(hide yes)
 			(show_name no)
@@ -23121,6 +24056,17 @@
 		)
 		(property "Description" ""
 			(at 590.55 215.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 590.55 215.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -23175,7 +24121,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 19.05 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -23198,6 +24144,17 @@
 		)
 		(property "Description" ""
 			(at 19.05 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 19.05 50.8 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -23252,7 +24209,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 400.05 38.1 0)
 			(hide yes)
 			(show_name no)
@@ -23275,6 +24232,17 @@
 		)
 		(property "Description" ""
 			(at 400.05 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 400.05 38.1 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -23329,7 +24297,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 1130.3 127 0)
 			(hide yes)
 			(show_name no)
@@ -23352,6 +24320,17 @@
 		)
 		(property "Description" ""
 			(at 1130.3 127 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C70129"
+			(at 1130.3 127 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -23406,7 +24385,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 590.55 292.1 0)
 			(hide yes)
 			(show_name no)
@@ -23429,6 +24408,17 @@
 		)
 		(property "Description" ""
 			(at 590.55 292.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 590.55 292.1 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -23483,7 +24473,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 590.55 431.8 0)
 			(hide yes)
 			(show_name no)
@@ -23506,6 +24496,17 @@
 		)
 		(property "Description" ""
 			(at 590.55 431.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 590.55 431.8 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -23560,7 +24561,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 209.55 431.8 0)
 			(hide yes)
 			(show_name no)
@@ -23591,6 +24592,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 209.55 431.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "cbff6890-7f8d-4ab2-a3f0-adde98398065")
 		)
@@ -23612,9 +24624,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "bd77ad9d-018f-4638-af14-ca0d1ee978c1")
 		(property "Reference" "J13"
@@ -23637,7 +24649,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 82.55 444.5 0)
 			(hide yes)
 			(show_name no)
@@ -23756,7 +24768,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 425.45 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -23787,6 +24799,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 425.45 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "d27e5546-f099-4af9-93db-8e541cb6f14c")
 		)
@@ -23808,9 +24831,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "bebe94a4-8174-4156-b9e6-cc3074714b87")
 		(property "Reference" "J24"
@@ -23833,7 +24856,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_WirePad_2.2mm"
+		(property "Footprint" "maddie:ER_WirePad_2.2mm"
 			(at 1066.8 147.32 0)
 			(hide yes)
 			(show_name no)
@@ -23907,7 +24930,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 1104.9 177.8 0)
 			(hide yes)
 			(show_name no)
@@ -23938,6 +24961,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C149504"
+			(at 1104.9 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "edd9979d-065c-4bc3-a402-d5c8c3c74b6c")
 		)
@@ -23955,7 +24989,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 400.05 292.1 0)
+		(at 400.05 292.1 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -23984,7 +25018,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 400.05 292.1 0)
 			(hide yes)
 			(show_name no)
@@ -24015,6 +25049,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 400.05 292.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "d096b002-2ead-4965-a929-31b9ceac40fb")
 		)
@@ -24032,7 +25077,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 590.55 88.9 0)
+		(at 590.55 88.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -24061,7 +25106,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 590.55 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -24084,6 +25129,17 @@
 		)
 		(property "Description" ""
 			(at 590.55 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 590.55 88.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -24113,9 +25169,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "c69b0721-9799-48fa-8453-d5d66df5c3cf")
 		(property "Reference" "H4"
@@ -24138,7 +25194,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_MountingHole_M3"
+		(property "Footprint" "maddie:ER_MountingHole_M3"
 			(at 1181.1 157.48 0)
 			(hide yes)
 			(show_name no)
@@ -24180,7 +25236,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_C")
-		(at 234.95 342.9 0)
+		(at 234.95 342.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -24209,7 +25265,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 234.95 342.9 0)
 			(hide yes)
 			(show_name no)
@@ -24232,6 +25288,17 @@
 		)
 		(property "Description" ""
 			(at 234.95 342.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 234.95 342.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -24286,7 +25353,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 590.55 317.5 0)
 			(hide yes)
 			(show_name no)
@@ -24309,6 +25376,17 @@
 		)
 		(property "Description" ""
 			(at 590.55 317.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C883125"
+			(at 590.55 317.5 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -24363,7 +25441,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 209.55 596.9 0)
 			(hide yes)
 			(show_name no)
@@ -24394,6 +25472,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 209.55 596.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "ec86224e-7704-414f-ac33-68a91a02b242")
 		)
@@ -24411,7 +25500,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 209.55 177.8 0)
+		(at 209.55 177.8 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -24440,7 +25529,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 209.55 177.8 0)
 			(hide yes)
 			(show_name no)
@@ -24463,6 +25552,17 @@
 		)
 		(property "Description" ""
 			(at 209.55 177.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 209.55 177.8 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -24517,7 +25617,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 209.55 546.1 0)
 			(hide yes)
 			(show_name no)
@@ -24548,6 +25648,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 209.55 546.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "c21020c9-37e0-4047-830f-2abadda50750")
 		)
@@ -24565,7 +25676,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 590.55 177.8 0)
+		(at 590.55 177.8 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -24594,7 +25705,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 590.55 177.8 0)
 			(hide yes)
 			(show_name no)
@@ -24625,6 +25736,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 590.55 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "2972b446-83d6-4371-8279-2d240a1f74d3")
 		)
@@ -24642,7 +25764,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 209.55 38.1 0)
+		(at 209.55 38.1 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -24671,7 +25793,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 209.55 38.1 0)
 			(hide yes)
 			(show_name no)
@@ -24694,6 +25816,17 @@
 		)
 		(property "Description" ""
 			(at 209.55 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 209.55 38.1 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -24723,9 +25856,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "d7e73147-4767-4c45-a452-afda3cd993b1")
 		(property "Reference" "C43"
@@ -24748,7 +25881,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_CP_Radial_D8_P3.5"
+		(property "Footprint" "maddie:ER_CP_Radial_D8_P3.5"
 			(at 1155.7 213.36 0)
 			(hide yes)
 			(show_name no)
@@ -24800,9 +25933,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "d87702f5-5cdc-4960-97b9-2f4390d86923")
 		(property "Reference" "J21"
@@ -24825,7 +25958,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_MiniFitJr_2x03_RA"
+		(property "Footprint" "maddie:ER_MiniFitJr_2x03_RA"
 			(at 952.5 152.4 0)
 			(hide yes)
 			(show_name no)
@@ -24914,7 +26047,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 400.05 190.5 0)
 			(hide yes)
 			(show_name no)
@@ -24945,6 +26078,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C883125"
+			(at 400.05 190.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "38e86da5-620c-4119-8682-a11d93356e28")
 		)
@@ -24966,9 +26110,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "db9221ff-8593-4062-bd14-193696018a1b")
 		(property "Reference" "J16"
@@ -24991,7 +26135,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 654.05 444.5 0)
 			(hide yes)
 			(show_name no)
@@ -25110,7 +26254,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 425.45 215.9 0)
 			(hide yes)
 			(show_name no)
@@ -25141,6 +26285,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 425.45 215.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "7726f3ac-c160-4c04-bb93-756e78e19af0")
 		)
@@ -25158,7 +26313,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 590.55 63.5 0)
+		(at 590.55 63.5 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -25187,7 +26342,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 590.55 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -25218,6 +26373,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C883125"
+			(at 590.55 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "32f377d2-838e-4fba-ba71-a7719e297e8d")
 		)
@@ -25235,7 +26401,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 590.55 38.1 0)
+		(at 590.55 38.1 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -25264,7 +26430,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 590.55 38.1 0)
 			(hide yes)
 			(show_name no)
@@ -25287,6 +26453,17 @@
 		)
 		(property "Description" ""
 			(at 590.55 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 590.55 38.1 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -25316,9 +26493,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "e2ddbfc7-d933-4d3b-a76f-9e57363ca449")
 		(property "Reference" "J2"
@@ -25341,7 +26518,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 273.05 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -25460,7 +26637,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 1003.3 314.96 0)
 			(hide yes)
 			(show_name no)
@@ -25483,6 +26660,17 @@
 		)
 		(property "Description" ""
 			(at 1003.3 314.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C17513"
+			(at 1003.3 314.96 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -25537,7 +26725,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 19.05 165.1 0)
 			(hide yes)
 			(show_name no)
@@ -25568,6 +26756,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 19.05 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "c56aaa9a-9daf-4f47-bc6a-9d2e4b6361bc")
 		)
@@ -25589,9 +26788,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "e71bbe98-ede3-4c10-bd96-643bf73cc63b")
 		(property "Reference" "J12"
@@ -25614,7 +26813,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 654.05 317.5 0)
 			(hide yes)
 			(show_name no)
@@ -25733,7 +26932,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 400.05 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -25756,6 +26955,17 @@
 		)
 		(property "Description" ""
 			(at 400.05 88.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 400.05 88.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -25810,7 +27020,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 44.45 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -25841,6 +27051,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C49678"
+			(at 44.45 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "2307b610-17a3-408d-8545-b145ed2895e3")
 		)
@@ -25858,7 +27079,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 209.55 304.8 0)
+		(at 209.55 304.8 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -25887,7 +27108,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 209.55 304.8 0)
 			(hide yes)
 			(show_name no)
@@ -25910,6 +27131,17 @@
 		)
 		(property "Description" ""
 			(at 209.55 304.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 209.55 304.8 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -25964,7 +27196,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_0805"
+		(property "Footprint" "maddie:ER_Chip_0805"
 			(at 19.05 215.9 0)
 			(hide yes)
 			(show_name no)
@@ -25987,6 +27219,17 @@
 		)
 		(property "Description" ""
 			(at 19.05 215.9 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C49678"
+			(at 19.05 215.9 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -26041,7 +27284,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Diode_SMB"
+		(property "Footprint" "maddie:ER_Diode_SMB"
 			(at 1028.7 228.6 0)
 			(hide yes)
 			(show_name no)
@@ -26064,6 +27307,17 @@
 		)
 		(property "Description" ""
 			(at 1028.7 228.6 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C19077560"
+			(at 1028.7 228.6 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -26118,7 +27372,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_Chip_1206"
+		(property "Footprint" "maddie:ER_Chip_1206"
 			(at 19.05 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -26149,6 +27403,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C883125"
+			(at 19.05 63.5 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "f2fa8d59-df14-4c93-927d-4f8b9d0a7180")
 		)
@@ -26166,7 +27431,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 19.05 419.1 0)
+		(at 19.05 419.1 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -26195,7 +27460,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 19.05 419.1 0)
 			(hide yes)
 			(show_name no)
@@ -26226,6 +27491,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 19.05 419.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "6ff30eb7-0a4d-4421-92c6-f3fd5d856bef")
 		)
@@ -26243,7 +27519,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 400.05 558.8 0)
+		(at 400.05 558.8 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -26272,7 +27548,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 400.05 558.8 0)
 			(hide yes)
 			(show_name no)
@@ -26303,6 +27579,17 @@
 				)
 			)
 		)
+		(property "LCSC Part #" "C7542972"
+			(at 400.05 558.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "d4160047-1acf-4d78-bdae-48bfd7669c6a")
 		)
@@ -26320,7 +27607,7 @@
 	)
 	(symbol
 		(lib_id "eurorack_bus:ER_PTC")
-		(at 590.55 50.8 0)
+		(at 590.55 50.8 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -26349,7 +27636,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_PTC_1812"
+		(property "Footprint" "maddie:ER_PTC_1812"
 			(at 590.55 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -26372,6 +27659,17 @@
 		)
 		(property "Description" ""
 			(at 590.55 50.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC Part #" "C7542972"
+			(at 590.55 50.8 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -26401,9 +27699,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "fe43ece0-c585-46ba-a0e6-7f60c685a223")
 		(property "Reference" "J7"
@@ -26426,7 +27724,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_BusHeader_2x08_Shrouded"
+		(property "Footprint" "maddie:ER_BusHeader_2x08_Shrouded"
 			(at 463.55 190.5 0)
 			(hide yes)
 			(show_name no)
@@ -26520,9 +27818,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "ff94b5f9-463f-4261-b5c4-1a8f77b41974")
 		(property "Reference" "H8"
@@ -26545,7 +27843,7 @@
 				)
 			)
 		)
-		(property "Footprint" "eurorack_bus:ER_MountingHole_M3"
+		(property "Footprint" "maddie:ER_MountingHole_M3"
 			(at 1181.1 198.12 0)
 			(hide yes)
 			(show_name no)
@@ -26580,6 +27878,77 @@
 			(project "eurorack-busboard-singlerow"
 				(path "/86f37290-de93-4b7e-88f2-6a901bc48f2b"
 					(reference "H8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "eurorack_bus:ER_MountingHole")
+		(at 1181.1 208.28 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files no)
+		(dnp no)
+		(uuid "1fcd0fb8-4974-4191-a366-913a1848150b")
+		(property "Reference" "H9"
+			(at 1181.1 195.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "M3"
+			(at 1181.1 220.98 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "maddie:ER_MountingHole_M3"
+			(at 1181.1 208.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 1181.1 208.28 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 1181.1 208.28 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "eurorack-busboard-singlerow"
+				(path "/86f37290-de93-4b7e-88f2-6a901bc48f2b"
+					(reference "H9")
 					(unit 1)
 				)
 			)

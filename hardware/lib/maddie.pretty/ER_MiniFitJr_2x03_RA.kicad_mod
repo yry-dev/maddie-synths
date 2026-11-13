@@ -1,0 +1,237 @@
+(footprint "ER_MiniFitJr_2x03_RA"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 12.7 -5.95 0)
+		(layer "F.SilkS")
+		(uuid "4c2573c8-1546-4a9b-b217-8378b19ab94d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "ER_MiniFitJr_2x03_RA"
+		(at 0 8.6 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "e877a361-1f74-4591-b7be-b749901c4219")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "778fde97-0081-434d-a97d-336cefad7a80")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "a30e9f7d-7e6b-41ec-94f3-c62318d30ac4")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -3.2 0)
+		(end -2 -0.6)
+		(stroke
+			(width 0.3)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "1a5bca79-ffc0-4680-a765-6c967e5db04d")
+	)
+	(fp_line
+		(start -2.81 -13.75)
+		(end 11.21 -13.75)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "961c273a-b7b8-4537-a699-8f2d7c618831")
+	)
+	(fp_line
+		(start -2.81 -0.99)
+		(end -2.81 -13.75)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "87c070f5-c84c-4bce-9464-ab969a1d055d")
+	)
+	(fp_line
+		(start -2.81 -0.99)
+		(end -2 -0.99)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "42c7553d-b217-446f-b7cc-2801a61f6a38")
+	)
+	(fp_line
+		(start -2 0.6)
+		(end -3.2 0)
+		(stroke
+			(width 0.3)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "85eb5e2d-463f-425c-ac24-4a7b037c7597")
+	)
+	(fp_line
+		(start 10.4 -0.99)
+		(end 11.21 -0.99)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "0f5f9b68-fcd7-41ac-a371-7c2aeabf6023")
+	)
+	(fp_line
+		(start 11.21 -13.75)
+		(end 11.21 -0.99)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "d789d7fc-c973-4ad6-880a-24562dfa2949")
+	)
+	(fp_line
+		(start -2.7 -13.9)
+		(end 11.1 -13.9)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ad151d8c-b14e-4704-b009-0cbf29bce561")
+	)
+	(fp_line
+		(start -2.7 -1.1)
+		(end -2.7 -13.9)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "2943cb51-620e-4e26-84df-a73f3fb5783e")
+	)
+	(fp_line
+		(start 11.1 -13.9)
+		(end 11.1 -1.1)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "201b47e8-8588-4b17-85a5-b35898b8bc40")
+	)
+	(fp_line
+		(start 11.1 -1.1)
+		(end -2.7 -1.1)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "1dac73cf-c7a2-4cbf-90ea-3a6e1614439c")
+	)
+	(pad "" np_thru_hole circle
+		(at 0 -7.3)
+		(size 3 3)
+		(drill 3)
+		(layers "*.Cu" "*.Mask")
+		(uuid "88ecbfc9-76e8-46d0-aab9-e40806f324ae")
+	)
+	(pad "" np_thru_hole circle
+		(at 8.4 -7.3)
+		(size 3 3)
+		(drill 3)
+		(layers "*.Cu" "*.Mask")
+		(uuid "754778c4-8c42-404d-b764-818c3cfc6d02")
+	)
+	(pad "1" thru_hole rect
+		(at 0 0)
+		(size 2.7 3.7)
+		(drill 1.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "1beb74a3-da25-4980-8511-f7b8fd75555f")
+	)
+	(pad "2" thru_hole oval
+		(at 4.2 0)
+		(size 2.7 3.7)
+		(drill 1.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "933867bd-b7e4-4baf-a45e-ef9a403b19a4")
+	)
+	(pad "3" thru_hole oval
+		(at 8.4 0)
+		(size 2.7 3.7)
+		(drill 1.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "d3a51132-1d93-4152-8b4a-68c19394c726")
+	)
+	(pad "4" thru_hole oval
+		(at 0 5.5)
+		(size 2.7 3.7)
+		(drill 1.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "88eaed77-3d69-4800-b351-438082a5ac1d")
+	)
+	(pad "5" thru_hole oval
+		(at 4.2 5.5)
+		(size 2.7 3.7)
+		(drill 1.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "5862d096-3b45-485b-a00f-f2990e3ef2a8")
+	)
+	(pad "6" thru_hole oval
+		(at 8.4 5.5)
+		(size 2.7 3.7)
+		(drill 1.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "dee6ef27-6c58-492b-9d8c-10e13caa5a86")
+	)
+	(model "${KIPRJMOD}/../lib/maddie.3dshapes/Molex_MiniFitJr_39301060.step"
+		(offset
+			(xyz 4.2 -2.75 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 180)
+		)
+	)
+	(embedded_fonts no)
+)
