@@ -1,0 +1,82 @@
+{
+ "project": "jst-adapter-10",
+ "pins": 10,
+ "components": [
+  {
+   "ref": "J1",
+   "uuid": "6550c8a2-6cf5-43a2-908c-8b55ec0538e6",
+   "fp": "maddie:CONN-TH_B5B-PH-K-S-LF-SN",
+   "value": "B5B-PH-K-S",
+   "fields": {
+    "LCSC Part #": "C157993",
+    "Manufacturer": "JST",
+    "MPN": "B5B-PH-K-S(LF)(SN)"
+   },
+   "nets": {
+    "1": "-12V_IN",
+    "2": "GND",
+    "3": "+12V_IN",
+    "4": "GND"
+   },
+   "nc_nets": {
+    "5": "unconnected-(J1-Pad5)"
+   }
+  },
+  {
+   "ref": "D1",
+   "uuid": "70ba14df-8402-4148-994b-e29b9f971f18",
+   "fp": "Diode_SMD:D_SMA_Handsoldering",
+   "value": "SS34",
+   "fields": {
+    "LCSC Part #": "C8678",
+    "Manufacturer": "MDD",
+    "MPN": "SS34"
+   },
+   "nets": {
+    "2": "+12V_IN",
+    "1": "+12V"
+   },
+   "nc_nets": {}
+  },
+  {
+   "ref": "D2",
+   "uuid": "a123398a-744a-4358-b73d-5c169d3462a2",
+   "fp": "Diode_SMD:D_SMA_Handsoldering",
+   "value": "SS34",
+   "fields": {
+    "LCSC Part #": "C8678",
+    "Manufacturer": "MDD",
+    "MPN": "SS34"
+   },
+   "nets": {
+    "2": "-12V",
+    "1": "-12V_IN"
+   },
+   "nc_nets": {}
+  },
+  {
+   "ref": "J2",
+   "uuid": "bb342ff2-9315-4a42-af4d-b8d4faa42560",
+   "fp": "Connector_PinSocket_2.54mm:PinSocket_2x05_P2.54mm_Vertical",
+   "value": "Socket 2x05 2.54mm",
+   "fields": {
+    "LCSC Part #": "C2977587",
+    "Manufacturer": "ZHOURI",
+    "MPN": "2.54-2*5"
+   },
+   "nets": {
+    "1": "-12V",
+    "2": "-12V",
+    "3": "GND",
+    "4": "GND",
+    "5": "GND",
+    "6": "GND",
+    "7": "GND",
+    "8": "GND",
+    "9": "+12V",
+    "10": "+12V"
+   },
+   "nc_nets": {}
+  }
+ ]
+}

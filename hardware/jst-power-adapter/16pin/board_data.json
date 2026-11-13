@@ -1,0 +1,104 @@
+{
+ "project": "jst-adapter-16",
+ "pins": 16,
+ "components": [
+  {
+   "ref": "J1",
+   "uuid": "3eea502a-3ca0-4292-a96f-b3b28aa216eb",
+   "fp": "maddie:CONN-TH_B5B-PH-K-S-LF-SN",
+   "value": "B5B-PH-K-S",
+   "fields": {
+    "LCSC Part #": "C157993",
+    "Manufacturer": "JST",
+    "MPN": "B5B-PH-K-S(LF)(SN)"
+   },
+   "nets": {
+    "1": "-12V_IN",
+    "2": "GND",
+    "3": "+12V_IN",
+    "4": "GND",
+    "5": "+5V_IN"
+   },
+   "nc_nets": {}
+  },
+  {
+   "ref": "D1",
+   "uuid": "ca70aaae-7bb0-4bc7-a383-b47b98f90cf9",
+   "fp": "Diode_SMD:D_SMA_Handsoldering",
+   "value": "SS34",
+   "fields": {
+    "LCSC Part #": "C8678",
+    "Manufacturer": "MDD",
+    "MPN": "SS34"
+   },
+   "nets": {
+    "2": "+12V_IN",
+    "1": "+12V"
+   },
+   "nc_nets": {}
+  },
+  {
+   "ref": "D2",
+   "uuid": "600552ed-30d5-4b3d-9dac-231befb3c26b",
+   "fp": "Diode_SMD:D_SMA_Handsoldering",
+   "value": "SS34",
+   "fields": {
+    "LCSC Part #": "C8678",
+    "Manufacturer": "MDD",
+    "MPN": "SS34"
+   },
+   "nets": {
+    "2": "-12V",
+    "1": "-12V_IN"
+   },
+   "nc_nets": {}
+  },
+  {
+   "ref": "D3",
+   "uuid": "a95a8f41-401e-4f94-af62-1a3245029f90",
+   "fp": "Diode_SMD:D_SMA_Handsoldering",
+   "value": "SS34",
+   "fields": {
+    "LCSC Part #": "C8678",
+    "Manufacturer": "MDD",
+    "MPN": "SS34"
+   },
+   "nets": {
+    "2": "+5V_IN",
+    "1": "+5V"
+   },
+   "nc_nets": {}
+  },
+  {
+   "ref": "J2",
+   "uuid": "cb3e3f38-550e-474a-baaa-2acd89531cbb",
+   "fp": "Connector_PinSocket_2.54mm:PinSocket_2x08_P2.54mm_Vertical",
+   "value": "Socket 2x08 2.54mm",
+   "fields": {
+    "LCSC Part #": "C30734",
+    "Manufacturer": "BOOMELE",
+    "MPN": "2.54-2*8PFemale"
+   },
+   "nets": {
+    "1": "-12V",
+    "2": "-12V",
+    "3": "GND",
+    "4": "GND",
+    "9": "+12V",
+    "10": "+12V",
+    "11": "+5V",
+    "12": "+5V"
+   },
+   "nc_nets": {
+    "5": "unconnected-(J2-Pin_5-Pad5)",
+    "6": "unconnected-(J2-Pin_6-Pad6)",
+    "7": "unconnected-(J2-Pin_7-Pad7)",
+    "8": "unconnected-(J2-Pin_8-Pad8)",
+    "13": "unconnected-(J2-Pin_13-Pad13)",
+    "14": "unconnected-(J2-Pin_14-Pad14)",
+    "15": "unconnected-(J2-Pin_15-Pad15)",
+    "16": "unconnected-(J2-Pin_16-Pad16)"
+   }
+  }
+ ]
+}
