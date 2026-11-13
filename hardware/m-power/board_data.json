@@ -199,10 +199,10 @@
    "fp": "Connector_Molex:Molex_Mini-Fit_Jr_5566-06A2_2x03_P4.20mm_Vertical",
    "value": "Mini-Fit out",
    "nets": {
-    "1": "-12V",
-    "2": "GND",
-    "3": "+5V",
-    "4": "GND",
+    "1": "GND",
+    "2": "-12V",
+    "3": "GND",
+    "4": "+5V",
     "5": "GND",
     "6": "+12V"
    }

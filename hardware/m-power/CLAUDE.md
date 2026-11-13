@@ -56,8 +56,9 @@ never delete the project dir before rerunning; they write into it in place.
 - Rail LEDs: D3 white = +12V, D4 pink = -12V, D5 blue = +5V. 0805 SMD
   under 3mm press-fit light pipes; the pipe holes in the panel must line
   up with the LED positions in pcb_gen.py's FRONT_POS.
-- Mini-Fit pinout (project convention, put on silk):
-  1=-12V 2=GND 3=+5V 4=GND 5=GND 6=+12V.
+- Mini-Fit pinout (same map as the bus board hardware/eurorack-v2 J21/J22,
+  so cables are pin n to pin n; put on silk):
+  1=GND 2=-12V 3=GND 4=+5V 5=GND 6=+12V.
 - 16-pin bus header: standard Doepfer map, 1/2=-12V (red stripe) 3..8=GND
   9/10=+12V 11/12=+5V, CV/Gate no-connect.
 - SW1 = one PCB-mount DPDT toggle (C&K 7201SYCQE) wired as DPST: each pole
@@ -125,9 +126,8 @@ dropped to make 6HP close was a deliberate trade, recorded below.
     the embedded `pup` lib. 0 real errors.
   - DRC: **1 unconnected item** (N_SA's airwire - expected until the
     hand-finish; see README), **0 shorts, 0 clearance violations, 0 mask
-    bridges, 0 courtyard violations**, 2 `starved_thermal` (J5's and
-    C3's GND pins: one thermal spoke to an orphan island each, but both
-    are THT and reach the opposite pour - minor), 31 silkscreen
+    bridges, 0 courtyard violations**, 0 `starved_thermal` (there were 2
+    before the 2026-11-11 Mini-Fit pin-map change), 31 silkscreen
     cosmetics (THT outlines crowding at 4HP).
   - Power-path widths are CURRENT RATINGS on the REQUIRED 2oz copper:
     +/-12V and the switch-cluster nets floor at 1.0mm (~4A) with a 0.8mm

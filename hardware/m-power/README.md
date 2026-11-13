@@ -30,12 +30,15 @@ did not fit 4HP (the 6HP design is snapshotted in .history/6hp-smd-revA2).
 
 ## Outputs
 
-Mini-Fit Jr 2x3 (J5), this project's own convention — wire the receiving
-end of every cable to the SAME map and silk it next to the connector:
+Mini-Fit Jr 2x3 (J5). The map is the same as the bus board's inputs
+(`hardware/eurorack-v2`, J21/J22), so wire the cable pin n to pin n:
 
-    pin 1 = -12V    pin 4 = GND
-    pin 2 = GND     pin 5 = GND
-    pin 3 = +5V     pin 6 = +12V
+    pin 1 = GND     pin 4 = +5V
+    pin 2 = -12V    pin 5 = GND
+    pin 3 = GND     pin 6 = +12V
+
+Seen into the mating face of the bus board's right-angle header, the top
+row is +12V, GND, +5V and the bottom row is GND, -12V, GND.
 
 Eurorack 16-pin bus header (J6), standard Doepfer map: pins 1/2 = -12V
 (red stripe), 3–8 = GND, 9/10 = +12V, 11/12 = +5V, CV/Gate not connected.
@@ -130,7 +133,7 @@ report exactly ONE airwire before the hand-finish, and zero after.
 
 ## Smoke test
 
-1. Wart A only, switch on: white +12 LED lights, +11.4 to +11.7V on pin 6 vs pin 2.
-2. Add wart B: pink -12 LED, -11.4 to -11.7V on pin 1.
-3. Blue +5 LED, 5.0V on Mini-Fit pin 3 and bus header pins 11/12.
+1. Wart A only, switch on: white +12 LED lights, +11.4 to +11.7V on pin 6 vs pin 5.
+2. Add wart B: pink -12 LED, -11.4 to -11.7V on pin 2.
+3. Blue +5 LED, 5.0V on Mini-Fit pin 4 and bus header pins 11/12.
 4. Load test one output with a small module before wiring the whole case.
